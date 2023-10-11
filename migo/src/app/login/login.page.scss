@@ -1,0 +1,16 @@
+@import '../../theme/variables.scss';
+
+ion-card, form{
+    --ion-background-color: transparent;
+    box-shadow: none !important;
+}
+
+ion-button{
+    --ion-font-weight:bold;
+    --color: black;
+    --color-activated: white;
+}
+
+*{
+    --color: white;
+}
