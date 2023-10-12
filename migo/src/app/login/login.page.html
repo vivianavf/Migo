@@ -1,21 +1,58 @@
 <ion-content color="secondary">
-  <ion-card class="ion-no-border">
-    <img alt="migo logo" src="../../assets/migo_logo.png" />
+  <ion-card class="ion-no-border login-form">
     <ion-card-content>
+      <img alt="migo logo" src="../../assets/images/migo_logo.png" />
       <form class="ion-no-border"[formGroup]="formularioLogin">
-        <ion-item>
+        <ion-item >
           <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input formControlName="email"></ion-input>
+          <ion-input  formControlName="email" type="email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input formControlName="contraseña" type="password"></ion-input>
+          <ion-input formControlName="password" [type]="inputType" [(ngModel)]="inputValue"></ion-input>
+          <ion-button slot="end" fill="clear" (click)="inputType = (inputType == 'password') ? 'text' : 'password';" >
+            <ion-icon class="ion-align-self-end"  [name]="(inputType == 'password') ? 'eye' : 'eye-off'" aria-hidden="true" ></ion-icon>
+          </ion-button>  
         </ion-item>
       </form>
       <br>
-      <ion-button (click)="ingresar()">
+      <ion-button color="primary" (click)="ingresar()">
         INICIAR SESIÓN
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-card class="ion-no-border">
+    <ion-card-content>
+      <ion-text>
+        Crear Cuenta <br>
+      </ion-text>
+      <ion-text class="invitado">
+        Accede como invitado<br>
+      </ion-text>
+      <ion-text>
+        o iniciar sesión con:<br>
+      </ion-text>
+      <a>
+        <img class="img-google" alt="google" src="../../assets/images/google-icon-2.png" />
+      </a>
+    </ion-card-content>
+  </ion-card>
+
+<ion-footer class="ion-no-border size-smaller">
+  <ion-text>
+    Al utilizar nuestra aplicación, usted acepta los:  y 
+  </ion-text>
+  <ion-text class="terms">
+    <a href="#">Términos y Condiciones</a>
+  </ion-text>
+  <ion-text>
+    y
+  </ion-text>
+  <ion-text class="terms">
+    <a href="#">Política en Privacidad</a>
+  </ion-text>
+</ion-footer>
+
 </ion-content>
+

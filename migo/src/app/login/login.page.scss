@@ -5,12 +5,48 @@ ion-card, form{
     box-shadow: none !important;
 }
 
+.ion-align-self-end{
+    color: white;
+}
+
+.login-form{
+    padding-top: 15%;
+}
+
+form{
+    padding-top: 13%;
+}
+
+ion-card-content{
+    text-align: center;
+}
+
 ion-button{
     --ion-font-weight:bold;
     --color: black;
     --color-activated: white;
+    --background-activated: black;
+    padding-top: 10%;
 }
 
 *{
     --color: white;
+}
+
+.img-google{
+    padding-top: 4%;
+    width: 15%;
+    height: 15%;
+}
+
+.size-smaller {
+    font-size: 10px;
+}
+
+ion-footer{
+    padding-top: 15%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    text-align: center;
 }
