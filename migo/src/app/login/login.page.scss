@@ -1,8 +1,7 @@
 @import '../../theme/variables.scss';
 
-ion-card, form{
-    --ion-background-color: transparent;
-    box-shadow: none !important;
+.datosincorrectos{
+    color: var(--ion-color-danger);
 }
 
 .ion-align-self-end{
@@ -10,11 +9,11 @@ ion-card, form{
 }
 
 .login-form{
-    padding-top: 15%;
+    padding-top: 12%;
 }
 
 form{
-    padding-top: 13%;
+    padding-top: 10%;
 }
 
 ion-card-content{
@@ -29,24 +28,25 @@ ion-button{
     padding-top: 10%;
 }
 
-*{
-    --color: white;
-}
-
 .img-google{
     padding-top: 4%;
     width: 15%;
     height: 15%;
 }
 
-.size-smaller {
-    font-size: 10px;
-}
 
 ion-footer{
-    padding-top: 15%;
+    padding-top:25%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 0px;
     text-align: center;
+}
+
+.invitado{
+    text-decoration: none;
+    color: white;
 }

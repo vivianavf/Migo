@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginPage } from './login.page';
 import { HomePage } from '../home/home.page';
+import { InvitadoPage } from '../invitado/invitado.page';
+import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
+
 
 const routes: Routes = [
   {
@@ -12,7 +15,16 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePage
-  }
+  },
+  {
+    path: 'invitado',
+    component: InvitadoPage
+  },
+  {
+    path: 'recuperar-password',
+    component: RecuperarPasswordPage
+  },
+
 ];
 
 @NgModule({

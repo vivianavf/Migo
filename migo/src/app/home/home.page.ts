@@ -15,7 +15,6 @@ export class HomePage {
 
   cerrarSesion(){
     this.router.navigate(['/login'])
-
   }
 
 }

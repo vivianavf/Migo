@@ -35,6 +35,13 @@ ion-card-title, ion-label, ion-button{
 
 /** Ionic CSS Variables **/
 :root {
+
+  --ion-background-color:  rgba(0, 0, 0, 0.60);
+  --ion-text-color: white;
+  --ion-toolbar-background:  rgba(0, 0, 0, 0.60);
+  --ion-toolbar-color: white;
+
+
   /** Font para textos **/
   --ion-font-family: 'Source Code';
 

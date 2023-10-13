@@ -1,4 +1,4 @@
-<ion-content color="secondary">
+<ion-content>
   <ion-card class="ion-no-border login-form">
     <ion-card-content>
       <img alt="migo logo" src="../../assets/images/migo_logo.png" />
@@ -11,10 +11,16 @@
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="password" [type]="inputType" [(ngModel)]="inputValue"></ion-input>
           <ion-button slot="end" fill="clear" (click)="inputType = (inputType == 'password') ? 'text' : 'password';" >
-            <ion-icon class="ion-align-self-end"  [name]="(inputType == 'password') ? 'eye' : 'eye-off'" aria-hidden="true" ></ion-icon>
+            <ion-icon class="ion-align-self-end"  [name]="(inputType == 'password') ? 'eye' : 'eye-off'"></ion-icon>
           </ion-button>  
         </ion-item>
       </form>
+      <ion-text class="datosincorrectos"*ngIf="mostrarMensaje" color="danger">
+        Datos incorrectos<br>
+      </ion-text>
+      <!-- <ion-text>
+        <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br>
+      </ion-text> -->
       <br>
       <ion-button color="primary" (click)="ingresar()">
         INICIAR SESIÓN
@@ -27,8 +33,8 @@
       <ion-text>
         Crear Cuenta <br>
       </ion-text>
-      <ion-text class="invitado">
-        Accede como invitado<br>
+      <ion-text >
+        <a (click)="ingresarInvitado()" class="invitado">Accede como invitado</a><br>
       </ion-text>
       <ion-text>
         o iniciar sesión con:<br>
@@ -39,20 +45,23 @@
     </ion-card-content>
   </ion-card>
 
-<ion-footer class="ion-no-border size-smaller">
-  <ion-text>
-    Al utilizar nuestra aplicación, usted acepta los:  y 
-  </ion-text>
-  <ion-text class="terms">
-    <a href="#">Términos y Condiciones</a>
-  </ion-text>
-  <ion-text>
-    y
-  </ion-text>
-  <ion-text class="terms">
-    <a href="#">Política en Privacidad</a>
-  </ion-text>
-</ion-footer>
+  <ion-footer>
+    <ion-card class="size-smaller">
+      <ion-text>
+        Al utilizar nuestra aplicación, usted acepta los:  y 
+      </ion-text>
+      <ion-text class="terms">
+        <a href="#">Términos y Condiciones</a>
+      </ion-text>
+      <ion-text>
+        y
+      </ion-text>
+      <ion-text class="terms">
+        <a href="#">Política en Privacidad</a>
+      </ion-text>
+    </ion-card>
+
+  </ion-footer>
 
 </ion-content>
 

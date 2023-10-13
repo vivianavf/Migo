@@ -24,3 +24,42 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-card, ion-footer{
+    --ion-background-color: transparent;
+    box-shadow: none !important;
+}
+
+ion-text{
+    color: white;
+}
+
+a{
+    color: white;
+}
+
+ion-toolbar{
+    padding-top: 10%;
+    padding-left: 5%;
+}
+
+ion-toolbar > ion-title {
+    width: fit-content;
+    padding-left: 20%;
+}
+
+.msg-icon{
+    width: 30%;
+    height: 30%;
+}
+
+
+/** Tamaños de fuente **/
+
+.size-small{
+    font-size: 15px;
+}
+
+.size-smaller {
+    font-size: 10px;
+}
