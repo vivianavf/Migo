@@ -1,4 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Injectable, OnInit} from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -7,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { User } from 'src/app/interfaces/user';
+import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
   selector: 'app-login',
@@ -20,11 +23,14 @@ export class LoginPage implements OnInit {
   inputValue:string = '';
   inputType: string = '';
   mostrarMensaje:boolean=false;
+  users: User[] = [];
     
   constructor(
     private router: Router,
     public fb: FormBuilder,
     private alertController: AlertController,
+    private userService:UsersService,
+    private http:HttpClient,
     ) { 
 
     this.formularioLogin = this.fb.group({
@@ -36,13 +42,13 @@ export class LoginPage implements OnInit {
 
 ingresar(){
     var f = this.formularioLogin.value;
-    console.log(f.email, f.password)
+    var inputEmail = f.email;
+    var inputPassword = f.password;
 
-    // Obtener los usuarios de la base de datos
-    var usuario = {email: "viviana@gmail.com", password:"1234"}
+    var admin = {email: "admin", password:"1234"}
+    var usuarioCorrecto = this.validarLogin(inputEmail, inputPassword);
 
-    if(usuario.email == f.email && usuario.password == f.password){
-      console.log(f.email, f.password)
+    if(usuarioCorrecto){
       this.router.navigate(['/home'])
       this.formularioLogin.reset();
       this.mostrarMensaje = false;
@@ -53,6 +59,13 @@ ingresar(){
     }
   }
 
+validarLogin(inputEmail: string, inputPassword:string){
+  var usuarios = this.users;
+  const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
+  const busquedaPassword = usuarios.find(({ contrasena }) => contrasena === inputPassword);
+  return busquedaEmail&&busquedaPassword?true:false
+}
+
   ingresarInvitado(){
     this.router.navigate(['/invitado'])
   }
@@ -62,10 +75,9 @@ ingresar(){
 
   }
 
-
-
   ngOnInit() {
-    
+    this.userService.getUsers().subscribe((data) =>{
+      this.users = data;
+    })
   }
-
 }

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './login.page';
 import { HomePage } from '../home/home.page';
 import { InvitadoPage } from '../invitado/invitado.page';
-import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
+import { RecuperarPasswordPage } from '../../recuperar-password/recuperar-password.page';
 
 
 const routes: Routes = [
