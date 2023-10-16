@@ -63,3 +63,7 @@ ion-toolbar > ion-title {
 .size-smaller {
     font-size: 10px;
 }
+
+ion-item.input-item{
+    --border-color: 1px solid white;
+}

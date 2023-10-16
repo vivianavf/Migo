@@ -3,14 +3,14 @@
     <ion-card-content>
       <img alt="migo logo" src="../../assets/images/migo_logo.png" />
       <form class="ion-no-border"[formGroup]="formularioLogin">
-        <ion-item >
+        <ion-item class="input-item" >
           <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input  formControlName="email" type="email"></ion-input>
+          <ion-input formControlName="email" type="email"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item class="input-item">
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input formControlName="password" [type]="inputType" [(ngModel)]="inputValue"></ion-input>
-          <ion-button slot="end" fill="clear" (click)="inputType = (inputType == 'password') ? 'text' : 'password';" >
+          <ion-button class="eye" slot="end" fill="clear" (click)="inputType = (inputType == 'password') ? 'text' : 'password';" >
             <ion-icon class="ion-align-self-end"  [name]="(inputType == 'password') ? 'eye' : 'eye-off'"></ion-icon>
           </ion-button>  
         </ion-item>
@@ -18,9 +18,12 @@
       <ion-text class="datosincorrectos"*ngIf="mostrarMensaje" color="danger">
         Datos incorrectos<br>
       </ion-text>
-      <!-- <ion-text>
+      <ion-text class="datosincorrectos"*ngIf="emailInvalido" color="danger">
+        Email no válido<br>
+      </ion-text>
+      <ion-text>
         <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br>
-      </ion-text> -->
+      </ion-text>
       <br>
       <ion-button color="primary" (click)="ingresar()">
         INICIAR SESIÓN

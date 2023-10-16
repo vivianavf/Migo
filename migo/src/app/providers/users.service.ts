@@ -13,7 +13,7 @@ import { User } from '../interfaces/user';
 
 export class UsersService {
 
-  private URLproxy = 'https://cors-anywhere.herokuapp.com/'
+  // private URLproxy = 'https://cors-anywhere.herokuapp.com/'
 
   private baseURL = 'http://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
   private formato = '?format=json'
@@ -22,10 +22,10 @@ export class UsersService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.URLproxy+this.baseURL+this.formato);
+    return this.http.get<User[]>(this.baseURL+this.formato);
   }
 
   getUserById(id: number): Observable<User[]> {
-    return this.http.get<User[]>(this.URLproxy+this.baseURL+id+"/"+this.formato);
+    return this.http.get<User[]>(this.baseURL+id+"/"+this.formato);
   }
 }

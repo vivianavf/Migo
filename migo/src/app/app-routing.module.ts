@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'recuperar-password',
-    loadChildren: () => import('./recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
+    loadChildren: () => import('./pages/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
   },
 ];
 
