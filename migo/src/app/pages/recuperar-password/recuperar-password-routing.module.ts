@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RecuperarPasswordPage } from './recuperar-password.page';
 import { LoginPage } from '../login/login.page';
+import { RecuperarPasswordPage } from './recuperar-password.page';
+import { CodigoPasswordPage } from '../codigo-password/codigo-password.page';
 
 
 const routes: Routes = [
@@ -14,6 +15,11 @@ const routes: Routes = [
     path:'login',
     component: LoginPage
   },
+  {
+    path:'codigo-password',
+    component: CodigoPasswordPage
+  },
+
 ];
 
 @NgModule({

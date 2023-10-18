@@ -25,9 +25,14 @@
         <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br>
       </ion-text>
       <br>
-      <ion-button color="primary" (click)="ingresar()">
-        INICIAR SESIÓN
-      </ion-button>
+      <div>
+        <ion-button color="primary" (click)="ingresar()">
+          INICIAR SESIÓN
+        </ion-button><br>
+        <ion-text>
+          <a (click)="registro()">¿No tienes una cuenta?</a><br>
+        </ion-text>
+      </div>
     </ion-card-content>
   </ion-card>
 

@@ -1,0 +1,100 @@
+img.migo-logo{
+  padding-top: 0;
+  height: 120px;
+}
+
+div.img-logo{
+  text-align: center;
+}
+
+div.title{
+  border-bottom: 1px solid white;
+  margin-bottom: 30px;
+  margin-top: 7px;
+}
+
+ion-label.title{
+  color: white;
+  font-size: medium;
+}
+
+ion-input.custom {
+    --background: white;
+    --border-radius: 30px;
+    --border-color: transparent;
+    --color: black;
+    --highlight-color-focused: transparent;
+    --padding-start: 7%;
+    --padding-end: 7%;
+  }
+
+  div.input-container{
+    display: flex;
+    height: 20px;
+    // width: ;
+    // width: 100%;
+    // margin-top: 50px;
+    margin-bottom: 5%;
+  }
+
+
+  div.input-container > ion-label{
+    width: 70%;
+    min-height:auto;
+    color: white;
+    font-size: 13px;
+    align-items: center;
+
+    // size: var(--smaller);
+  }
+
+  div.input-container > ion-input{
+    // max-width: fit-content;
+    min-height: auto;
+
+    // height: 5px;
+  }
+
+  div.input-container > ion-select{
+    min-height: auto;
+  }
+
+  div.checkbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
+  ion-checkbox{
+    --size: 20px;
+    --border-color: #ffffff;
+  }
+
+ion-text.terms > p{
+  padding-left: 5%;
+  font-size: smaller;
+}
+
+  ion-button.button{
+    width: 50%;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    // padding-top: 10%;
+}
+
+ion-button.eye{
+  color: #ffffff;
+  // position:inherit;
+  // position: relative;
+  // min-height: auto;
+  // width: auto;
+}
+
+div.buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

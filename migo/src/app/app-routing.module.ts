@@ -23,6 +23,18 @@ const routes: Routes = [
     path: 'recuperar-password',
     loadChildren: () => import('./pages/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'codigo-password',
+    loadChildren: () => import('./pages/codigo-password/codigo-password.module').then( m => m.CodigoPasswordPageModule)
+  },
+  {
+    path: 'reestablecer-password',
+    loadChildren: () => import('./pages/reestablecer-password/reestablecer-password.module').then( m => m.ReestablecerPasswordPageModule)
+  },
 ];
 
 @NgModule({

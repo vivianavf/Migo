@@ -67,3 +67,11 @@ ion-toolbar > ion-title {
 ion-item.input-item{
     --border-color: 1px solid white;
 }
+
+ion-button{
+    --ion-font-weight:bold;
+    --color: black;
+    --color-activated: white;
+    --background-activated: black;
+    --border-radius:10px;
+}

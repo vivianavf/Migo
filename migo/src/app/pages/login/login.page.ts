@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/providers/users.service';
+
 
 @Component({
   selector: 'app-login',
@@ -75,6 +76,10 @@ export class LoginPage implements OnInit {
 
   recuperarPassword() {
     this.router.navigate(['/recuperar-password']);
+  }
+
+  registro() {
+    this.router.navigate(['/registro']);
   }
 
   ngOnInit() {

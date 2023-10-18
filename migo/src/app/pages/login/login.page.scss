@@ -20,20 +20,14 @@ ion-card-content{
     text-align: center;
 }
 
-ion-button{
-    --ion-font-weight:bold;
-    --color: black;
-    --color-activated: white;
-    --background-activated: black;
-    padding-top: 10%;
-}
-
 .img-google{
     padding-top: 4%;
     width: 15%;
     height: 15%;
 }
-
+ion-button{
+    padding-top: 10%;
+}
 
 ion-footer{
     padding-top:25%;
