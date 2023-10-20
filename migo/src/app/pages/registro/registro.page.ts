@@ -50,6 +50,7 @@ export class RegistroPage implements OnInit {
     if(this.termsAccepted){
       console.log("me puedo registrar")
       console.log(this.fb)
+      this.router.navigate(['/home'])
     }
 
   }

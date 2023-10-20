@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-codigo-password',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodigoPasswordPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
+
+  siguiente(){
+    this.router.navigate(['/reestablecer-password']);
+  }
 
   ngOnInit() {
   }

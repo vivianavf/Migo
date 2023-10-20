@@ -57,17 +57,21 @@ export class RecuperarPasswordPage implements OnInit {
       ? (this.emailInvalido = true)
       : (this.emailInvalido = false);
 
-    if (!this.emailInvalido) {
-      //validar que el email exista en la base de datos
-      const busquedaEmail = this.users.find(
-        ({ email }) => email === inputEmail
-      );
-      if (busquedaEmail) {
-        this.enviarCorreo(inputEmail);
-      } else {
-        this.emailNoExiste = true;
-      }
-    }
+      this.enviarCorreo(inputEmail);
+
+      //validar que el email esta registrado en la base de datos
+    // if (!this.emailInvalido) {
+    //   const busquedaEmail = this.users.find(
+    //     ({ email }) => email === inputEmail
+    //   );
+    //   if (busquedaEmail) {
+    //     this.enviarCorreo(inputEmail);
+    //   } else {
+    //     this.emailNoExiste = true;
+    //   }
+    // }
+
+
   }
 
   enviarCorreo(inputEmail:string){
@@ -75,15 +79,13 @@ export class RecuperarPasswordPage implements OnInit {
     var message = "El código para recuperar su contraseña es "+code
     var subject = "Migo Ads - Recuperación de contraseña"
 
-    var payload: Email = {
-      code: code,
-      message: message,
-      subject: subject,
-      toEmail: inputEmail
+    var email: Email = {
+      subject : subject,
+      message : message, 
+      from_email : 'migoadstesting_@outlook.com',
+      recipient_list : [inputEmail]
     }
-
-    // this._http.requestCall(payload)
-
+    this._http.requestCall(email)
     this.router.navigate(['/codigo-password']);
   }
 

@@ -50,9 +50,10 @@ ion-input.custom {
 
   div.input-container > ion-input{
     // max-width: fit-content;
-    min-height: auto;
+    min-height: fit-content;
+    height: fit-content;
 
-    // height: 5px;
+    // height: 20px;
   }
 
   div.input-container > ion-select{
@@ -85,12 +86,42 @@ ion-text.terms > p{
     // padding-top: 10%;
 }
 
+ion-item{
+  display: flex;
+    height: 20px;
+    width: 70%;
+    // width: ;
+    // width: 100%;
+    // margin-top: 50px;
+    margin-bottom: 5%;
+  background-color: white;
+  border-radius: 30px;
+  // width: 50%;
+  // justify-content: center;
+  
+}
+
+ion-label.contrasena{
+  width: 50%;
+  color: white;
+}
+
+div.container{
+  display: flex;
+}
+
 ion-button.eye{
-  color: #ffffff;
+  // color: #ffffff;
   // position:inherit;
   // position: relative;
   // min-height: auto;
-  // width: auto;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  
+  
+  // height: ;
+  
 }
 
 div.buttons{

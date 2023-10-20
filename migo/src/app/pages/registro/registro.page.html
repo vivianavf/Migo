@@ -85,59 +85,65 @@
             inputmode="text"
           ></ion-input>
         </div>
-        <div class="input-container">
-          <ion-label>Contraseña:</ion-label>
-          
-            <ion-input
-            name="password"
-            [type]="inputType"
-            [(ngModel)]="inputValue"
-            shape="round"
-            required="true"
-            class="custom"
-            name=""
-            inputmode="text"
-            [ngModelOptions]="{ standalone: true }"
-          ></ion-input>
-          <ion-button
-            class="eye"
-            slot="end"
-            fill="clear"
-            (click)="inputType = (inputType == 'password') ? 'text' : 'password';"
-          >
-            <ion-icon
-              class="ion-align-self-end"
-              [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
-            ></ion-icon>
-          </ion-button>
-          
-        </div>
-        <div class="input-container">
-          <ion-label>Confirmar Contraseña:</ion-label>
+        
+        <div class="container">
+          <ion-label class="contrasena">Contraseña</ion-label>
+        <ion-item class="input-item">
           <ion-input
-            name="password2"
-            [type]="inputType2"
-            [(ngModel)]="inputValue2"
-            shape="round"
-            
-            required="true"
-            class="custom"
-            name=""
-            inputmode="text"
-            [ngModelOptions]="{ standalone: true }"
-          ></ion-input>
-          <ion-button
-            class="eye"
-            slot="end"
-            fill="clear"
-            (click)="inputType2 = (inputType2 == 'password') ? 'text' : 'password';"
-          >
-            <ion-icon
-              class="ion-align-self-end"
-              [name]="(inputType2 == 'password') ? 'eye' : 'eye-off'"
-            ></ion-icon>
-          </ion-button>
+              name="password"
+              [type]="inputType"
+              [(ngModel)]="inputValue"
+              shape="round"
+              required="true"
+              class="custom"
+              name=""
+              inputmode="text"
+              [ngModelOptions]="{ standalone: true }"
+            ></ion-input>
+            <ion-button
+            size="small"
+              class="eye"
+              slot="end"
+              fill="clear"
+              (click)="inputType = (inputType == 'password') ? 'text' : 'password';"
+            >
+              <ion-icon
+                class="ion-align-self-end"
+                [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
+              ></ion-icon>
+            </ion-button>
+        </ion-item>
         </div>
+  
+        <div class="container">
+          <ion-label class="contrasena">Confirmar Contraseña</ion-label>
+        <ion-item class="input-item">
+          <ion-input
+              name="password2"
+              [type]="inputType2"
+              [(ngModel)]="inputValue2"
+              shape="round"
+              required="true"
+              class="custom"
+              name=""
+              inputmode="text"
+              [ngModelOptions]="{ standalone: true }"
+            ></ion-input>
+            <ion-button
+            size="small"
+              class="eye"
+              slot="end"
+              fill="clear"
+              (click)="inputType2 = (inputType2 == 'password') ? 'text' : 'password';"
+            >
+              <ion-icon
+                class="ion-align-self-end"
+                [name]="(inputType2 == 'password') ? 'eye' : 'eye-off'"
+              ></ion-icon>
+            </ion-button>
+        </ion-item>
+        </div>
+        
         <div class="input-container">
           <ion-label class="small-form">Teléfono:</ion-label>
           <ion-input
@@ -161,14 +167,9 @@
             name=""
             inputmode="text"
           ></ion-input>
-
-          <!-- <ion-select [interfaceOptions]="customAlertOptions" interface="alert" placeholder="Select">
-  <ion-select-option value="bacon">Bacon</ion-select-option>
-  <ion-select-option value="onions">Onions</ion-select-option>
-  <ion-select-option value="pepperoni">Pepperoni</ion-select-option>
-</ion-select> -->
         </div>
-      </form>
+      </form>      
+      
       <div class="checkbox">
         <ion-checkbox [(ngModel)]="termsAccepted"
           ></ion-checkbox

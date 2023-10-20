@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReestablecerPasswordPage implements OnInit {
 
+  inputType: any;
+  inputValue: any;
+
+  inputType2: any;
+  inputValue2: any;
+
   constructor() { }
 
   ngOnInit() {

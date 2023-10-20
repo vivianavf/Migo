@@ -1,6 +1,6 @@
 export interface Email {
-    toEmail: string,
     subject: string,
     message: string,
-    code: string,
+    from_email: string,
+    recipient_list: [string],
 }
