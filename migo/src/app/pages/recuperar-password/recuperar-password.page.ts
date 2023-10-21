@@ -82,7 +82,7 @@ export class RecuperarPasswordPage implements OnInit {
     var email: Email = {
       subject : subject,
       message : message, 
-      from_email : 'migoadstesting_@outlook.com',
+      from_email : 'migoadvstesting@gmail.com',
       recipient_list : [inputEmail]
     }
     this._http.requestCall(email)

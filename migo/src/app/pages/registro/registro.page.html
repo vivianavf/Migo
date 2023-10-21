@@ -28,7 +28,7 @@
         <div class="input-container">
           <ion-label class="small-form">C.I.:</ion-label>
           <ion-input
-            type="number"
+            type="text"
             shape="round"
             
             required="true"
@@ -147,7 +147,7 @@
         <div class="input-container">
           <ion-label class="small-form">Teléfono:</ion-label>
           <ion-input
-            type="number"
+            type="text"
             shape="round"
             
             required="true"
@@ -157,6 +157,7 @@
           ></ion-input>
         </div>
         <div class="input-container">
+          <!--
           <ion-label class="small-form">Sexo:</ion-label>
           <ion-input
             type="text"
@@ -167,6 +168,16 @@
             name=""
             inputmode="text"
           ></ion-input>
+          -->
+          <ion-label class="small-form">Sexo:</ion-label>
+            <ion-item>
+              <ion-select placeholder="Select a Fruit">
+                <div slot="label">Favorite Fruit <ion-text color="danger">(Required)</ion-text></div>
+                <ion-select-option value="apple">Apple</ion-select-option>
+                <ion-select-option value="banana">Banana</ion-select-option>
+                <ion-select-option value="orange">Orange</ion-select-option>
+            </ion-select>
+          </ion-item>  
         </div>
       </form>      
       

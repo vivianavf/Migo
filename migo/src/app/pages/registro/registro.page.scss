@@ -78,6 +78,10 @@ ion-text.terms > p{
   font-size: smaller;
 }
 
+ion-select {
+  z-index: 1;
+}
+
   ion-button.button{
     width: 50%;
     padding-top: 5%;
