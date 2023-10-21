@@ -85,7 +85,9 @@ export class RecuperarPasswordPage implements OnInit {
       from_email : 'migoadvstesting@gmail.com',
       recipient_list : [inputEmail]
     }
-    this._http.requestCall(email)
+    this._http.requestCall(email).subscribe((res) => {
+      console.log(res);
+    });
     this.router.navigate(['/codigo-password']);
   }
 
