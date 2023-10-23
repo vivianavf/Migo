@@ -10,6 +10,7 @@ import { User } from 'src/app/interfaces/user';
 import { Email } from 'src/app/interfaces/email';
 import { UsersService } from 'src/app/providers/users.service';
 import { HttpserviceService } from 'src/app/providers/httpservice.service';
+import { ComunicationService } from 'src/app/providers/comunication.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class RecuperarPasswordPage implements OnInit {
     public fb: FormBuilder,
     private userService: UsersService,
     private _http: HttpserviceService,
+    private communicationService : ComunicationService,
   ) {
     this.formularioCorreo = this.fb.group({
       email: new FormControl(
@@ -57,19 +59,19 @@ export class RecuperarPasswordPage implements OnInit {
       ? (this.emailInvalido = true)
       : (this.emailInvalido = false);
 
-      this.enviarCorreo(inputEmail);
+      // this.enviarCorreo(inputEmail);
 
       //validar que el email esta registrado en la base de datos
-    // if (!this.emailInvalido) {
-    //   const busquedaEmail = this.users.find(
-    //     ({ email }) => email === inputEmail
-    //   );
-    //   if (busquedaEmail) {
-    //     this.enviarCorreo(inputEmail);
-    //   } else {
-    //     this.emailNoExiste = true;
-    //   }
-    // }
+    if (!this.emailInvalido) {
+      const busquedaEmail = this.users.find(
+        ({ email }) => email === inputEmail
+      );
+      if (busquedaEmail) {
+        this.enviarCorreo(inputEmail);
+      } else {
+        this.emailNoExiste = true;
+      }
+    }
 
 
   }
@@ -85,6 +87,9 @@ export class RecuperarPasswordPage implements OnInit {
       from_email : 'migoadvstesting@gmail.com',
       recipient_list : [inputEmail]
     }
+
+    
+    this.communicationService.sendVariable([inputEmail, code]);
     this._http.requestCall(email).subscribe((res) => {
       console.log(res);
     });

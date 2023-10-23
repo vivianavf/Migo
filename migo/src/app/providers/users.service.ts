@@ -15,7 +15,7 @@ export class UsersService {
 
   // private URLproxy = 'https://cors-anywhere.herokuapp.com/'
 
-  private baseURL = 'http://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
+  private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
   private formato = '?format=json'
 
   constructor(private http: HttpClient) {
@@ -28,4 +28,9 @@ export class UsersService {
   getUserById(id: number): Observable<User[]> {
     return this.http.get<User[]>(this.baseURL+id+"/"+this.formato);
   }
+
+  actualizarPassword(id: number, password: any): Observable<any>{
+    return this.http.patch(this.baseURL+id, password);
+  }
+
 }
