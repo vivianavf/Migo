@@ -28,7 +28,7 @@
         <div class="input-container">
           <ion-label class="small-form">C.I.:</ion-label>
           <ion-input
-            type="number"
+            type="text"
             shape="round"
             name="cedula"
             [(ngModel)]="cedulaInput"
@@ -148,7 +148,7 @@
         <div class="input-container">
           <ion-label class="small-form">Teléfono:</ion-label>
           <ion-input
-            type="number"
+            type="text"
             shape="round"
             name="telefono"
             [(ngModel)]="telefonoInput"
@@ -163,10 +163,10 @@
           name="sexoInput"
           [(ngModel)]="sexoInput"
           class="never-flip"
-      toggleIcon="caret-down-sharp"
-      interface="popover"
-      aria-label="sexo"
-      placeholder="Seleccionar">
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          aria-label="sexo"
+          placeholder="Seleccionar">
             <ion-select-option value="1">Masculino</ion-select-option>
             <ion-select-option value="2">Femenino</ion-select-option>
             <ion-select-option value="3">Prefiero No Decir</ion-select-option>
