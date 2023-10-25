@@ -66,11 +66,13 @@ ion-input.custom {
     align-items: center;
     padding-top: 5%;
     padding-bottom: 5%;
+    // padding-right: 5%;
   }
 
   ion-checkbox{
     --size: 20px;
     --border-color: #ffffff;
+    padding-right: 5%;
   }
 
 ion-text.terms > p{
@@ -130,5 +132,10 @@ ion-select{
 
 ion-select::part(text) {
   color: black;
+}
+
+.terms a {
+  text-decoration: underline; /* Subrayado */
+  font-weight: bold; /* Negrita */
 }
 

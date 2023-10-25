@@ -28,6 +28,7 @@
         <div class="input-container">
           <ion-label class="small-form">C.I.:</ion-label>
           <ion-input
+           maxlength="10"
             type="text"
             shape="round"
             name="cedula"
@@ -46,7 +47,7 @@
             [(ngModel)]="nombresInput"
             required="true"
             class="custom"
-            
+            maxlength="25"
             inputmode="text"
           ></ion-input>
         </div>
@@ -59,7 +60,7 @@
             [(ngModel)]="apellidosInput"
             required="true"
             class="custom"
-            
+            maxlength="25"
             inputmode="text"
           ></ion-input>
         </div>
@@ -84,7 +85,7 @@
             [(ngModel)]="correoInput"
             required="true"
             class="custom"
-            
+            maxlength="70"
             inputmode="text"
           ></ion-input>
         </div>
@@ -100,6 +101,7 @@
               required="true"
               class="custom"
               inputmode="text"
+              maxlength="10"
               [ngModelOptions]="{ standalone: true }"
             ></ion-input>
             <ion-button
@@ -128,6 +130,7 @@
               required="true"
               class="custom"
               inputmode="text"
+              maxlength="10"
               [ngModelOptions]="{ standalone: true }"
             ></ion-input>
             <ion-button
@@ -154,6 +157,8 @@
             [(ngModel)]="telefonoInput"
             required="true"
             class="custom"
+            inputmode="numeric"
+            maxlength="10"
           ></ion-input>
         </div>
         <div class="input-container">
@@ -173,17 +178,39 @@
           </ion-select>
         </div>
       </form>
+      <ion-text class="datosincorrectos"*ngIf="cedulaNoValida" color="danger">
+        Cédula no válida<br>
+      </ion-text> 
+      <ion-text class="datosincorrectos"*ngIf="fechaInvalida" color="danger">
+        Debe ser mayor a 18 años<br>
+      </ion-text>
+      <ion-text class="datosincorrectos"*ngIf="camposVacios" color="danger">
+        No debe dejar campos vacios<br>
+      </ion-text>
+      <ion-text class="datosincorrectos"*ngIf="contrasenasIguales" color="danger">
+        Las contraseñas no coinciden<br>
+      </ion-text>
+      <ion-text class="datosincorrectos"*ngIf="usuarioExistente" color="danger">
+        El correo electrónico ya se encuentra registado<br>
+      </ion-text>
+      <ion-text class="datosincorrectos"*ngIf="emailInvalido" color="danger">
+        El correo electrónico no es válido<br>
+      </ion-text>
       <div class="checkbox">
         <ion-checkbox [(ngModel)]="termsAccepted"
           ></ion-checkbox
         >
         <ion-text class="terms">
-          <p>Al utilizar nuestra aplicación, usted acepta los: Términos y
-            Condiciones y Política en Privacidad</p>
+          Al utilizar nuestra aplicación, usted acepta los:  y 
+          <a (click)="mostrarTerminos()">Términos y Condiciones</a> y  <a (click)="mostrarPoliticas()">Política en Privacidad</a>
         </ion-text>
-      </div>      
+      </div>
+
+      <ion-text class="datosincorrectos"*ngIf="terminosNoAceptados" color="danger">
+        Debe aceptar los Términos y Condiciones<br>
+      </ion-text>
+           
       <div class="buttons">
-        <ion-button class="button" (click)="cancelar()"> Cancelar </ion-button>
         <ion-button class="button" (click)="registrarse()"> Registrarse </ion-button>
       </div>
     </ion-card-content>

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Datos Ingresados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="corregirDatos()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Cédula</ion-label>
+          <ion-input type="text" [value]="cedula" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Nombres</ion-label>
+          <ion-input type="text" [value]="nombres" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Apellidos</ion-label>
+          <ion-input type="text" [value]="apellidos" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Fecha de Nacimiento</ion-label>
+          <ion-input type="text" [value]="fechaNacimiento" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Correo Electrónico</ion-label>
+          <ion-input type="text" [value]="correo" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="text" [value]="password" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input type="text" [value]="telefono" readonly="true"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Sexo</ion-label>
+          <ion-input type="text" [value]="sexo" readonly="true"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text>
+    Son correctos los datos? <br>
+  </ion-text>
+  
+  <ion-button (click)="aceptar()">Aceptar</ion-button>
+  <ion-button (click)="corregirDatos()">Corregir Datos</ion-button>
+</ion-content>

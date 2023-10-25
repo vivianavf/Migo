@@ -11,6 +11,7 @@ import { Email } from 'src/app/interfaces/email';
 import { UsersService } from 'src/app/providers/users.service';
 import { HttpserviceService } from 'src/app/providers/httpservice.service';
 import { ComunicationService } from 'src/app/providers/comunication.service';
+import { ModalController } from '@ionic/angular';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class RecuperarPasswordPage implements OnInit {
     private userService: UsersService,
     private _http: HttpserviceService,
     private communicationService : ComunicationService,
+    private modalController: ModalController,
   ) {
     this.formularioCorreo = this.fb.group({
       email: new FormControl(

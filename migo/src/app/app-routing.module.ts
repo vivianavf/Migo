@@ -35,6 +35,19 @@ const routes: Routes = [
     path: 'reestablecer-password',
     loadChildren: () => import('./pages/reestablecer-password/reestablecer-password.module').then( m => m.ReestablecerPasswordPageModule)
   },
+  {
+    path: 'terminos-condiciones',
+    loadChildren: () => import('./pages/modals/terminos-condiciones/terminos-condiciones.module').then( m => m.TerminosCondicionesPageModule)
+  },
+  {
+    path: 'privacidad',
+    loadChildren: () => import('./pages/modals/privacidad/privacidad.module').then( m => m.PrivacidadPageModule)
+  },
+  {
+    path: 'datos-registro',
+    loadChildren: () => import('./pages/modals/datos-registro/datos-registro.module').then( m => m.DatosRegistroPageModule)
+  },
+  
 ];
 
 @NgModule({

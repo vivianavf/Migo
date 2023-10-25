@@ -29,9 +29,9 @@
         <ion-button color="primary" (click)="ingresar()">
           INICIAR SESIÓN
         </ion-button><br>
-        <ion-text>
+        <!-- <ion-text>
           <a>¿No tienes una cuenta?</a><br>
-        </ion-text>
+        </ion-text> -->
       </div>
     </ion-card-content>
   </ion-card>
@@ -59,13 +59,13 @@
         Al utilizar nuestra aplicación, usted acepta los:  y 
       </ion-text>
       <ion-text class="terms">
-        <a href="#">Términos y Condiciones</a>
+        <a (click)="mostrarTerminos()">Términos y Condiciones</a>
       </ion-text>
       <ion-text>
         y
       </ion-text>
       <ion-text class="terms">
-        <a href="#">Política en Privacidad</a>
+        <a (click)="mostrarPoliticas()">Política en Privacidad</a>
       </ion-text>
     </ion-card>
 

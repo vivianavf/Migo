@@ -8,6 +8,8 @@ import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
 import { Router, RouterModule } from '@angular/router';
+import { TerminosCondicionesPageModule } from '../modals/terminos-condiciones/terminos-condiciones.module';
+import { PrivacidadPageModule } from '../modals/privacidad/privacidad.module';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { Router, RouterModule } from '@angular/router';
     LoginPageRoutingModule,
     ReactiveFormsModule,
     RouterModule,
+    TerminosCondicionesPageModule,
+    PrivacidadPageModule,
   ],
   declarations: [LoginPage]
 })
