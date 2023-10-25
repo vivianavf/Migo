@@ -28,13 +28,13 @@
         <div class="input-container">
           <ion-label class="small-form">C.I.:</ion-label>
           <ion-input
-            type="text"
+            type="number"
             shape="round"
-            
+            name="cedula"
+            [(ngModel)]="cedulaInput"
             required="true"
             class="custom"
-            name=""
-            inputmode="text"
+            inputmode="numeric"
           ></ion-input>
         </div>
         <div class="input-container">
@@ -42,10 +42,11 @@
           <ion-input
             type="text"
             shape="round"
-            
+            name="nombres"
+            [(ngModel)]="nombresInput"
             required="true"
             class="custom"
-            name=""
+            
             inputmode="text"
           ></ion-input>
         </div>
@@ -54,10 +55,11 @@
           <ion-input
             type="text"
             shape="round"
-            
+            name="apellidos"
+            [(ngModel)]="apellidosInput"
             required="true"
             class="custom"
-            name=""
+            
             inputmode="text"
           ></ion-input>
         </div>
@@ -66,10 +68,10 @@
           <ion-input
             type="date"
             shape="round"
-            
+            name="fecha"
+            [(ngModel)]="fechaInput"
             required="true"
             class="custom"
-            name=""
             inputmode="text"
           ></ion-input>
         </div>
@@ -78,10 +80,11 @@
           <ion-input
             type="email"
             shape="round"
-            
+            name="correo"
+            [(ngModel)]="correoInput"
             required="true"
             class="custom"
-            name=""
+            
             inputmode="text"
           ></ion-input>
         </div>
@@ -96,7 +99,6 @@
               shape="round"
               required="true"
               class="custom"
-              name=""
               inputmode="text"
               [ngModelOptions]="{ standalone: true }"
             ></ion-input>
@@ -125,7 +127,6 @@
               shape="round"
               required="true"
               class="custom"
-              name=""
               inputmode="text"
               [ngModelOptions]="{ standalone: true }"
             ></ion-input>
@@ -147,40 +148,31 @@
         <div class="input-container">
           <ion-label class="small-form">Teléfono:</ion-label>
           <ion-input
-            type="text"
+            type="number"
             shape="round"
-            
+            name="telefono"
+            [(ngModel)]="telefonoInput"
             required="true"
             class="custom"
-            name=""
-            inputmode="text"
           ></ion-input>
         </div>
         <div class="input-container">
-          <!--
+          
           <ion-label class="small-form">Sexo:</ion-label>
-          <ion-input
-            type="text"
-            shape="round"
-            
-            required="true"
-            class="custom"
-            name=""
-            inputmode="text"
-          ></ion-input>
-          -->
-          <ion-label class="small-form">Sexo:</ion-label>
-            <ion-item>
-              <ion-select placeholder="Select a Fruit">
-                <div slot="label">Favorite Fruit <ion-text color="danger">(Required)</ion-text></div>
-                <ion-select-option value="apple">Apple</ion-select-option>
-                <ion-select-option value="banana">Banana</ion-select-option>
-                <ion-select-option value="orange">Orange</ion-select-option>
-            </ion-select>
-          </ion-item>  
+          <ion-select
+          name="sexoInput"
+          [(ngModel)]="sexoInput"
+          class="never-flip"
+      toggleIcon="caret-down-sharp"
+      interface="popover"
+      aria-label="sexo"
+      placeholder="Seleccionar">
+            <ion-select-option value="1">Masculino</ion-select-option>
+            <ion-select-option value="2">Femenino</ion-select-option>
+            <ion-select-option value="3">Prefiero No Decir</ion-select-option>
+          </ion-select>
         </div>
-      </form>      
-      
+      </form>
       <div class="checkbox">
         <ion-checkbox [(ngModel)]="termsAccepted"
           ></ion-checkbox
@@ -197,3 +189,6 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+
+

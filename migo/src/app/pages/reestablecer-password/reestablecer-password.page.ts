@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { UsersService } from 'src/app/providers/users.service';
@@ -25,6 +26,7 @@ export class ReestablecerPasswordPage implements OnInit {
   constructor(
     private communicationService: ComunicationService,
     private userService: UsersService,
+    private router: Router,
   ) { }
 
   actualizar(){
@@ -36,8 +38,9 @@ export class ReestablecerPasswordPage implements OnInit {
         const idUsuario = usuarioModificar.id_usuario
         const requestBody = {"contrasena": this.inputValue}
         this.userService.actualizarPassword(idUsuario, requestBody).subscribe((respuesta)=>{
-          console.log(respuesta)
+          // console.log(respuesta)
         })
+        this.router.navigate(['/home']);
       }
     }else{
       //Contrasenas no coinciden

@@ -33,4 +33,8 @@ export class UsersService {
     return this.http.patch(this.baseURL+id, password);
   }
 
+  crearUsuario(usuario: User): Observable<any>{
+    return this.http.post(this.baseURL, usuario);
+  }
+
 }

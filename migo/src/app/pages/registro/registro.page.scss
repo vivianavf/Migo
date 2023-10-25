@@ -133,3 +133,15 @@ div.buttons{
   flex-direction: row;
   align-items: center;
 }
+
+ion-select{
+  --background: white;
+  --border-radius: 30px;
+  --placeholder-color: black;
+  --placeholder-opacity: 1;
+  width: 100%;
+}
+
+ion-select::part(text) {
+  color: black;
+}
