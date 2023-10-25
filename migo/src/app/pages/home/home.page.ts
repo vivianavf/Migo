@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class HomePage {
 
   constructor(
-    private router: Router,
+    private router: Router
   ) {}
 
   cerrarSesion(){
