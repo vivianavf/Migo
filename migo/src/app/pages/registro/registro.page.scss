@@ -18,7 +18,7 @@ ion-label.title{
   font-size: medium;
 }
 
-ion-input.custom {
+ion-input.custom{
     --background: white;
     --border-radius: 30px;
     --border-color: transparent;
@@ -34,7 +34,7 @@ ion-input.custom {
     // width: ;
     // width: 100%;
     // margin-top: 50px;
-    margin-bottom: 5%;
+    margin-bottom: 7%;
   }
 
 
@@ -44,7 +44,6 @@ ion-input.custom {
     color: white;
     font-size: 13px;
     align-items: center;
-
     // size: var(--smaller);
   }
 
@@ -52,7 +51,6 @@ ion-input.custom {
     // max-width: fit-content;
     min-height: fit-content;
     height: fit-content;
-
     // height: 20px;
   }
 
@@ -64,8 +62,8 @@ ion-input.custom {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    // padding-top: 5%;
+    // padding-bottom: 5%;
     // padding-right: 5%;
   }
 
@@ -144,6 +142,7 @@ ion-select::part(text) {
   justify-content: center;
 }
 
-.select-wrapper {
-  
+ion-item .input-wrapper .input-clear-icon {
+  color: white;
 }
+

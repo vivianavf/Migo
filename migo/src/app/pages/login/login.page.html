@@ -2,33 +2,49 @@
   <ion-card class="ion-no-border login-form">
     <ion-card-content>
       <img alt="migo logo" src="../../assets/images/migo_logo.png" />
-      <form class="ion-no-border"[formGroup]="formularioLogin">
-        <ion-item class="input-item" >
+      <form class="ion-no-border" [formGroup]="formularioLogin">
+        <ion-item class="input-item">
           <ion-label position="floating">Correo Electrónico</ion-label>
-          <ion-input formControlName="email" type="email"></ion-input>
+          <ion-input     
+          [counter]="true"
+          maxlength="50"
+          formControlName="email" type="email"></ion-input>
         </ion-item>
         <ion-item class="input-item">
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input formControlName="password" [type]="inputType" [(ngModel)]="inputValue"></ion-input>
-          <ion-button class="eye" slot="end" fill="clear" (click)="inputType = (inputType == 'password') ? 'text' : 'password';" >
-            <ion-icon class="ion-align-self-end"  [name]="(inputType == 'password') ? 'eye' : 'eye-off'"></ion-icon>
-          </ion-button>  
+          <ion-input
+            formControlName="password"
+            [type]="inputType"
+            [(ngModel)]="inputValue"
+            maxlength="10"
+          ></ion-input>
+          <ion-button
+            class="eye"
+            slot="end"
+            fill="clear"
+            (click)="inputType = (inputType == 'password') ? 'text' : 'password';"
+          >
+            <ion-icon
+              class="ion-align-self-end"
+              [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
+            ></ion-icon>
+          </ion-button>
         </ion-item>
       </form>
-      <ion-text class="datosincorrectos"*ngIf="mostrarMensaje" color="danger">
-        Datos incorrectos<br>
+      <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
+        Datos incorrectos<br />
       </ion-text>
-      <ion-text class="datosincorrectos"*ngIf="emailInvalido" color="danger">
-        Email no válido<br>
+      <ion-text class="datosincorrectos" *ngIf="emailInvalido" color="danger">
+        Email no válido<br />
       </ion-text>
       <ion-text>
-        <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br>
+        <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br />
       </ion-text>
-      <br>
+      <br />
       <div>
         <ion-button color="primary" (click)="ingresar()">
-          INICIAR SESIÓN
-        </ion-button><br>
+          INICIAR SESIÓN </ion-button
+        ><br />
         <!-- <ion-text>
           <a>¿No tienes una cuenta?</a><br>
         </ion-text> -->
@@ -38,38 +54,32 @@
 
   <ion-card class="ion-no-border">
     <ion-card-content>
+      <ion-text> <a (click)="registro()">Crear Cuenta</a> <br /> </ion-text>
       <ion-text>
-        <a (click)="registro()">Crear Cuenta</a> <br>
+        <a (click)="ingresarInvitado()" class="invitado">Accede como invitado</a
+        ><br />
       </ion-text>
-      <ion-text >
-        <a (click)="ingresarInvitado()" class="invitado">Accede como invitado</a><br>
-      </ion-text>
-      <ion-text>
-        o iniciar sesión con:<br>
-      </ion-text>
+      <ion-text> o iniciar sesión con:<br /> </ion-text>
       <a>
-        <img class="img-google" alt="google" src="../../assets/images/google-icon-2.png" />
+        <img
+          class="img-google"
+          alt="google"
+          src="../../assets/images/google-icon-2.png"
+        />
       </a>
     </ion-card-content>
   </ion-card>
 
   <ion-footer>
     <ion-card class="size-smaller">
-      <ion-text>
-        Al utilizar nuestra aplicación, usted acepta los:  y 
-      </ion-text>
+      <ion-text> Al utilizar nuestra aplicación, usted acepta los: y </ion-text>
       <ion-text class="terms">
         <a (click)="mostrarTerminos()">Términos y Condiciones</a>
       </ion-text>
-      <ion-text>
-        y
-      </ion-text>
+      <ion-text> y </ion-text>
       <ion-text class="terms">
         <a (click)="mostrarPoliticas()">Política en Privacidad</a>
       </ion-text>
     </ion-card>
-
   </ion-footer>
-
 </ion-content>
-

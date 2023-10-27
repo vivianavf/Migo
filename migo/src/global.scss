@@ -85,3 +85,9 @@ ion-modal.terms{
     --width: 90%;
   }
 
+  ion-input.custom.ios .input-bottom .helper-text,
+  ion-input.custom.ios .input-bottom .counter,
+  ion-input.custom.md .input-bottom .helper-text,
+  ion-input.custom.md .input-bottom .counter {
+    color: var(--ion-color-primary);
+  }

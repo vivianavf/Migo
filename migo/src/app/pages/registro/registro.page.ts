@@ -68,7 +68,7 @@ export class RegistroPage implements OnInit {
 
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.correoInput)?this.emailInvalido = true:this.emailInvalido = false;
 
-    !/^(0[1-9]|1[0-7]|2[0-4])[0-5][0-9]{7}[0-9]$/.test(this.cedulaInput)?this.cedulaNoValida=true:this.cedulaNoValida=false;
+    !/^(0[1-9]|1[0-7]|2[0-4])[0-5][0-9]{7}[0-9]c/.test(this.cedulaInput)?this.cedulaNoValida=true:this.cedulaNoValida=false;
 
     if (
       this.camposCompletos() &&
