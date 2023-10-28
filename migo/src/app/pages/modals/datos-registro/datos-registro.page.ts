@@ -23,6 +23,7 @@ export class DatosRegistroPage implements OnInit {
   @Input() usuario: any;
   @Input() cliente: any;
 
+  public alertButtons = ['OK'];
 
   constructor(
     private modalController: ModalController,

@@ -26,7 +26,7 @@
     </div>
       <form class="ion-no-border">
         <div class="input-container">
-          <ion-label class="small-form">C.I.:</ion-label>
+          <ion-label class="align-left">C.I.:</ion-label>
           <ion-input
           [counter]="true"
            maxlength="10"
@@ -94,20 +94,18 @@
           ></ion-input>
         </div>
         
-        <div class="container">
-          <ion-label class="contrasena">Contraseña</ion-label>
-        <ion-item class="input-item">
-          <ion-input
+        <div class="input-container">
+          <ion-label class="contrasena" >Contraseña</ion-label>
+          <ion-item class="custom">
+            <ion-input
               name="password"
               [type]="inputType"
               [(ngModel)]="inputValue"
               shape="round"
               required="true"
-              class="custom"
+              class="custom password"
               inputmode="text"
-              [counter]="true"
               maxlength="10"
-              [ngModelOptions]="{ standalone: true }"
             ></ion-input>
             <ion-button
             size="small"
@@ -121,23 +119,22 @@
                 [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
               ></ion-icon>
             </ion-button>
-        </ion-item>
+          </ion-item>
         </div>
   
-        <div class="container">
+        <div class="input-container">
           <ion-label class="contrasena">Confirmar Contraseña</ion-label>
-        <ion-item class="input-item">
+        <ion-item class="custom">
           <ion-input
               name="password2"
               [type]="inputType2"
               [(ngModel)]="inputValue2"
               shape="round"
               required="true"
-              class="custom"
+              class="custom password"
               inputmode="text"
-              [counter]="true"
               maxlength="10"
-              [ngModelOptions]="{ standalone: true }"
+              
             ></ion-input>
             <ion-button
             size="small"
@@ -155,7 +152,7 @@
         </div>
         
         <div class="input-container">
-          <ion-label class="small-form">Teléfono:</ion-label>
+          <ion-label>Teléfono:</ion-label>
           <ion-input
             type="text"
             shape="round"
@@ -170,7 +167,7 @@
         </div>
         <div class="input-container">
           
-          <ion-label class="small-form">Sexo:</ion-label>
+          <ion-label>Sexo:</ion-label>
           <ion-select
           name="sexoInput"
           [(ngModel)]="sexoInput"

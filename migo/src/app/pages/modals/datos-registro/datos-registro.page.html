@@ -52,7 +52,16 @@
   <ion-text>
     Son correctos los datos? <br>
   </ion-text>
-  
-  <ion-button (click)="aceptar()">Aceptar</ion-button>
+  <div class="buttons">
+      <ion-button id="present-alert" (click)="aceptar()">Aceptar</ion-button>
   <ion-button (click)="corregirDatos()">Corregir Datos</ion-button>
+  </div>
+  
+  <ion-alert
+  trigger="present-alert"
+  header="Usuario Registrado con éxito"
+  message="Usted puede usar la aplicación"
+  [buttons]="alertButtons"
+></ion-alert>
+
 </ion-content>
