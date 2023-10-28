@@ -1,22 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Página de Inicio
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Usted ha iniciado sesión</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button (click)='mostrarMenu()' menu="menu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+      <ion-title>Página de Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div id="container">
-    <strong>Usted ha iniciado sesión</strong>
-    <ion-button color="primary" (click)="cerrarSesion()">
-      CERRAR SESIÓN
-    </ion-button>
-  </div>
-</ion-content>
+  
+  
+  <ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">Usted ha iniciado sesión</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  
+    <div id="container">
+      <strong>Usted ha iniciado sesión</strong>
+      <ion-button color="primary" (click)="cerrarSesion()">
+        CERRAR SESIÓN
+      </ion-button>
+    </div>
+  </ion-content>

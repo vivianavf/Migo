@@ -17,6 +17,7 @@ export class UsersService {
 
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
   private formato = '?format=json'
+  private user!: User;
 
   constructor(private http: HttpClient) {
   }
@@ -35,6 +36,15 @@ export class UsersService {
 
   crearUsuario(usuario: User): Observable<any>{
     return this.http.post(this.baseURL, usuario);
+  }
+
+  ingresarUsuario(user: any){
+    if(user){
+      this.user = user;
+    }
+  }
+  usuarioActivo(){
+    return this.user;
   }
 
 }

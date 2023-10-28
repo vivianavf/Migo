@@ -10,6 +10,7 @@ export class ClienteService {
 
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/clientes/';
   private formato = '?format=json'
+  private cliente : any;
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +28,14 @@ export class ClienteService {
 
   crearCliente(cliente: Client): Observable<any>{
     return this.http.post(this.baseURL, cliente);
+  }
+
+  ingresarCliente(cliente: any){
+    if(cliente){
+      this.cliente = cliente;
+    }
+  }
+  clienteActivo(){
+    return this.cliente;
   }
 }

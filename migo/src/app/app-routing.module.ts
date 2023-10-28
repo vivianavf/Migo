@@ -47,6 +47,34 @@ const routes: Routes = [
     path: 'datos-registro',
     loadChildren: () => import('./pages/modals/datos-registro/datos-registro.module').then( m => m.DatosRegistroPageModule)
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./pages/modals/menu/menu.module').then( m => m.MenuPageModule)
+  },
+  {
+    path: 'vehiculos',
+    loadChildren: () => import('./pages/vehiculos/vehiculos.module').then( m => m.VehiculosPageModule)
+  },
+  {
+    path: 'verificaciones',
+    loadChildren: () => import('./pages/verificaciones/verificaciones.module').then( m => m.VerificacionesPageModule)
+  },
+  {
+    path: 'historial-pagos',
+    loadChildren: () => import('./pages/historial-pagos/historial-pagos.module').then( m => m.HistorialPagosPageModule)
+  },
+  {
+    path: 'preguntas',
+    loadChildren: () => import('./pages/preguntas/preguntas.module').then( m => m.PreguntasPageModule)
+  },
+  {
+    path: 'tips',
+    loadChildren: () => import('./pages/tips/tips.module').then( m => m.TipsPageModule)
+  },
+  {
+    path: 'reclamos',
+    loadChildren: () => import('./pages/reclamos/reclamos.module').then( m => m.ReclamosPageModule)
+  },
   
 ];
 

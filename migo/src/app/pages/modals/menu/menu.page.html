@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" (click)="cerrarModal()" default-href=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">MENÚ DE OPCIONES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <img class="usericon" alt="Icon" src="../../../../assets/iconos-migo/03.png" />
+    <ion-text class="uppercase-text bold-text">{{client.nombre}} {{client.apellido}}</ion-text>
+    {{user.email}}<br>
+  </div>
+  <div class="container">
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item (click)="abrirVentana('vehiculos')">
+            <ion-thumbnail slot="start">
+              <img alt="" src="/migo/src/assets/iconos-migo/" />
+            </ion-thumbnail>
+            <ion-label>Mis Vehículos</ion-label>
+          </ion-item>   
+          <ion-item (click)="abrirVentana('verificaciones')">
+            <ion-thumbnail slot="start">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+            <ion-label>Verificaciones</ion-label>
+          </ion-item>
+    
+          <ion-item  (click)="abrirVentana('historial')">
+            <ion-thumbnail slot="start">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+            <ion-label>Historial de Pagos</ion-label>
+          </ion-item>
+    
+          <ion-item lines="none" (click)="abrirVentana('preguntas')">
+            <ion-thumbnail slot="start">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+            <ion-label>Preguntas Frecuentes</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" (click)="abrirVentana('tips')">
+            <ion-thumbnail slot="start">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+            <ion-label>Tips y Tutoriales</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" (click)="abrirVentana('reclamos')">
+            <ion-thumbnail slot="start">
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            </ion-thumbnail>
+            <ion-label>Reclamos y Soporte</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
