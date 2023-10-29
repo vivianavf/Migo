@@ -58,27 +58,30 @@ export class RegistroPage implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private userService: UsersService,
-    private modalController: ModalController,
+    private modalController: ModalController
   ) {}
   cancelar() {
     this.router.navigate(['/login']);
   }
 
   registrarse() {
+    !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      this.correoInput
+    )
+      ? (this.emailInvalido = true)
+      : (this.emailInvalido = false);
 
-    !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.correoInput)?this.emailInvalido = true:this.emailInvalido = false;
-
-    !/^(0[1-9]|1[0-7]|2[0-4])[0-5][0-9]{7}[0-9]c/.test(this.cedulaInput)?this.cedulaNoValida=true:this.cedulaNoValida=false;
+    // !/^(0[1-9]|1[0-7]|2[0-4])[0-5][0-9]{7}[0-9]c/.test(this.cedulaInput)?this.cedulaNoValida=true:this.cedulaNoValida=false;
 
     if (
+      this.cedulaEsValida(this.cedulaInput) &&
       this.camposCompletos() &&
       !this.usuarioExiste() &&
       this.esMayordeEdad(this.fechaInput) &&
       this.passwordCoincide(this.inputValue, this.inputValue2) &&
       this.aceptoTerminos() &&
-      !this.emailInvalido &&
-      this.cedulaNoValida
-    ) {    
+      !this.emailInvalido
+    ) {
       this.usuario = {
         id_usuario: this.users.length + 6,
         email: this.correoInput,
@@ -100,32 +103,77 @@ export class RegistroPage implements OnInit {
         telefono: this.telefonoInput,
         estado: 1,
       };
-      this.mostrarDatos()
+      this.mostrarDatos();
     }
   }
 
-  usuarioExiste(){
-    const busquedaEmail = this.users.find(({ email }) => email == this.correoInput);
+  usuarioExiste() {
+    const busquedaEmail = this.users.find(
+      ({ email }) => email == this.correoInput
+    );
 
-    if(busquedaEmail){
+    if (busquedaEmail) {
       this.usuarioExistente = true;
       return true;
-    }else{
+    } else {
       this.usuarioExistente = false;
       return false;
     }
   }
 
-  passwordCoincide(contra1: string, contra2: string){
-    if(contra1==contra2){
-      this.contrasenasIguales=false
-      return true;
-    }else{
-      this.contrasenasIguales=true
-      return false;
+  cedulaEsValida(cedula: string): boolean {
+    this.cedulaNoValida = false;
+
+    if (/^\d{10}$/.test(cedula)) {
+      const digitos: number[] = cedula.split('').map(Number);
+      const codigoProvincia: number = Number(cedula.substring(0, 2));
+  
+      // Verificar que el código de provincia sea válido
+      if (
+        (codigoProvincia >= 1 && codigoProvincia <= 24) ||
+        codigoProvincia === 30
+      ) {
+        const digitoVerificador= digitos.pop();
+  
+        // Calcular el dígito verificador
+        const coeficientes: number[] = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+  
+        let suma = 0;
+        for (let i = 0; i < digitos.length; i++) {
+          let valorActual = digitos[i];
+          let coeficiente = coeficientes[i];
+          let producto = valorActual * coeficiente;
+          if (producto > 9) {
+            producto -= 9;
+          }
+          suma += producto;
+        }
+
+        let digitoCalculado: number = 10 - (suma % 10);
+      if (digitoCalculado === 10) {
+        digitoCalculado = 0;
+      }
+
+      return digitoCalculado === digitoVerificador;
     }
   }
 
+  // Establecer cedulaNoValida en true si la cédula no es válida
+  this.cedulaNoValida = true;
+
+  return false;
+
+  }
+
+  passwordCoincide(contra1: string, contra2: string) {
+    if (contra1 == contra2) {
+      this.contrasenasIguales = false;
+      return true;
+    } else {
+      this.contrasenasIguales = true;
+      return false;
+    }
+  }
 
   esMayordeEdad(fechaInput: string) {
     const fechaNacimientoDate = new Date(fechaInput);
@@ -146,7 +194,6 @@ export class RegistroPage implements OnInit {
   }
 
   camposCompletos() {
-
     if (
       this.inputValue === undefined ||
       this.inputValue2 === undefined ||
@@ -177,7 +224,7 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  async mostrarTerminos(){
+  async mostrarTerminos() {
     const modal = await this.modalController.create({
       component: TerminosCondicionesPage,
       cssClass: 'terms',
@@ -186,7 +233,7 @@ export class RegistroPage implements OnInit {
     return await modal.present();
   }
 
-  async mostrarPoliticas(){
+  async mostrarPoliticas() {
     const modal = await this.modalController.create({
       component: PrivacidadPage,
       cssClass: 'terms',
