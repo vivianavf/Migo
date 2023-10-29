@@ -19,6 +19,9 @@ import { DatosRegistroPage } from '../modals/datos-registro/datos-registro.page'
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+
+  formularioRegistro: FormGroup;
+
   showPasswordText: boolean = false;
 
   inputValue: string = '';
@@ -58,8 +61,21 @@ export class RegistroPage implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private userService: UsersService,
-    private modalController: ModalController
-  ) {}
+    private modalController: ModalController,
+  ) {
+    this.formularioRegistro = this.fb.group({
+      cedula: new FormControl('', Validators.required),
+      nombres: new FormControl('', Validators.required),
+      apellidos: new FormControl('', Validators.required),
+      fecha: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      password2: new FormControl('', Validators.required),
+      telefono: new FormControl('', Validators.required),
+      sexoInput: new FormControl('', Validators.required),
+    });
+  }
+
   cancelar() {
     this.router.navigate(['/login']);
   }
@@ -257,6 +273,7 @@ export class RegistroPage implements OnInit {
         sexo: this.sexoInput,
         usuario: this.usuario,
         cliente: this.cliente,
+        formularioRegistro: this.formularioRegistro,
       },
     });
     return await modal.present();

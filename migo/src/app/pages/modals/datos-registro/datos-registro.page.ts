@@ -22,6 +22,7 @@ export class DatosRegistroPage implements OnInit {
   @Input() sexo: string = '';
   @Input() usuario: any;
   @Input() cliente: any;
+  @Input() formularioRegistro: any;
 
   public alertButtons = ['OK'];
 
@@ -36,8 +37,10 @@ export class DatosRegistroPage implements OnInit {
   aceptar(){
     this.modalController.dismiss();
     
-    // this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{})
-    // this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{})
+    this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{})
+    this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{})
+    this.formularioRegistro.reset();
+    console.log(this.formularioRegistro);
 
     //cerrar este modal y abrir otro que diga usuario registrado con éxito
     this.navCtrl.navigateForward('/home')
