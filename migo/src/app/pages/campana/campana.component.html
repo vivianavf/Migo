@@ -1,0 +1,23 @@
+<ion-text> Mostrando 12 últimas campañas publicadas </ion-text>
+<div class="content">
+  <ion-card *ngFor="let campana of campanas">
+    <ion-card-content>
+      <ion-label class="uppercase-text bold-text">{{campana.nombre_campana}}<br></ion-label>
+      <p>Empresa: {{campana.id_empresa}}</p>
+      <p>Publicado: {{campana.fecha_creacion}}</p>
+      <p>Registrate hasta: {{campana.fecha_fin_registro}}</p>
+      <div class="sector-tarifa">
+        <div class="sector">
+          Sector
+        </div>
+        <div class="tarifa">
+          tarifa - {{campana.tarifa_base}}
+        </div>
+      </div>
+    </ion-card-content>
+    <div class="image-and-button">
+      <ion-img src="../../../assets/campanas/{{campana.id_campana}}.jpg" alt="Marca"></ion-img>
+      <ion-button expand="full">Regístrate</ion-button>
+    </div>
+  </ion-card>
+</div>

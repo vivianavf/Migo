@@ -1,0 +1,30 @@
+div.content{
+  background-color: white;
+  border-radius: 10px;
+  width: 90%;
+}
+
+ion-card {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .info {
+    flex: 1; /* Ocupa el espacio disponible a la izquierda */
+  }
+  
+  .image-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra la imagen y el botón verticalmente */
+    padding: 8px; /* Espaciado interno */
+  }
+  
+  ion-img {
+    width: 100px; /* Ancho de la imagen */
+    height: 100px; /* Altura de la imagen */
+  }
+  
+  ion-img::part(image){
+    border-radius: 100%;
+  }

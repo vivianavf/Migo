@@ -3,22 +3,52 @@
       <ion-buttons slot="start">
         <ion-menu-button (click)='mostrarMenu()' menu="menu" autoHide="false"></ion-menu-button>
     </ion-buttons>
-      <ion-title>Página de Inicio</ion-title>
+    <ion-select aria-label="Fruit" interface="popover" placeholder="Filtrar por">
+      <ion-select-option value="tarifa-asc">Tarifa</ion-select-option>
+      <ion-select-option value="tarifa-desc">Tarifa</ion-select-option>
+      <ion-select-option value="campanaA-Z">Campaña</ion-select-option>
+      <ion-select-option value="campanaZ-A">Campaña</ion-select-option>
+      <ion-select-option value="sectorA-Z">Sector</ion-select-option>
+      <ion-select-option value="sectorZ-A">Sector</ion-select-option>
+    </ion-select>
+
+      <ion-buttons slot="end">
+        <ion-button>Campanita</ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
   
   <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">Usted ha iniciado sesión</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  
-    <div id="container">
-      <strong>Usted ha iniciado sesión</strong>
-      <ion-button color="primary" (click)="cerrarSesion()">
-        CERRAR SESIÓN
-      </ion-button>
+
+    <div class="ad">
+        BANNER PUBLICITARIO
     </div>
+
+    <ion-toolbar class="section-toolbar">
+      <ion-segment [(ngModel)]="segmentValue">
+        <ion-segment-button value="campanas">
+          <ion-label>Campañas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="marcas">
+          <ion-label>Marcas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+
+    <div *ngIf="segmentValue === 'campanas'">
+      <app-campana></app-campana>
+    </div>
+  
+    <div *ngIf="segmentValue === 'marcas'">
+      <app-marcas></app-marcas>
+    </div>
+
   </ion-content>
+
+  <!-- <div id="container">
+    <strong>Usted ha iniciado sesión</strong>
+    <ion-button color="primary" (click)="cerrarSesion()">
+      CERRAR SESIÓN
+    </ion-button>
+  </div> -->
