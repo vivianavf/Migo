@@ -86,7 +86,7 @@ export class RecuperarPasswordPage implements OnInit {
     var email: Email = {
       subject : subject,
       message : message, 
-      from_email : 'migoadvstesting@gmail.com',
+      from_email : 'migo@hangaroa.ec',
       recipient_list : [inputEmail]
     }
 

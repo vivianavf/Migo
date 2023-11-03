@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, Platform } from '@ionic/angular';
 import { MenuPage } from '../modals/menu/menu.page';
@@ -7,13 +7,14 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { Location } from '@angular/common';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
+import { ActionPerformed, PushNotificationSchema, PushNotifications, Token, } from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
@@ -55,6 +56,61 @@ export class HomePage {
   }
   cerrarSesion(){
     this.router.navigate(['/login'])
+  }
+
+  ngOnInit() {
+    console.log('Initializing HomePage');
+
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+    this.addListeners();
+  }
+
+  addListeners = async () => {
+    await PushNotifications.addListener('registration', token => {
+      console.info('Registration token: ', token.value);
+    });
+  
+    await PushNotifications.addListener('registrationError', err => {
+      console.error('Registration error: ', err.error);
+    });
+  
+    await PushNotifications.addListener('pushNotificationReceived', notification => {
+      console.log('Push notification received: ', notification);
+    });
+  
+    await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+      console.log('Push notification action performed', notification.actionId, notification.inputValue);
+    });
+  }
+  
+  registerPushNotifications = async () => {
+    let permStatus = await PushNotifications.checkPermissions();
+  
+    if (permStatus.receive === 'prompt') {
+      permStatus = await PushNotifications.requestPermissions();
+    }
+  
+    if (permStatus.receive !== 'granted') {
+      throw new Error('User denied permissions!');
+    }
+  
+    await PushNotifications.register();
+  }
+  
+  getDeliveredNotifications = async () => {
+    const notificationList = await PushNotifications.getDeliveredNotifications();
+    console.log('delivered notifications', notificationList);
   }
 
 }
