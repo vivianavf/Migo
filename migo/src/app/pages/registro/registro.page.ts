@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -20,6 +20,7 @@ import { DatosRegistroPage } from '../modals/datos-registro/datos-registro.page'
 })
 export class RegistroPage implements OnInit {
 
+  ionSelectElement!: HTMLIonSelectElement;
   formularioRegistro: FormGroup;
 
   showPasswordText: boolean = false;
@@ -279,9 +280,13 @@ export class RegistroPage implements OnInit {
     return await modal.present();
   }
 
+  
+
   ngOnInit() {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
+
+    
   }
 }

@@ -28,7 +28,7 @@
         <div class="input-container">
           <ion-label class="align-left">C.I.:</ion-label>
           <ion-input
-          [counter]="true"
+          
            maxlength="10"
             type="text"
             shape="round"
@@ -48,7 +48,7 @@
             [(ngModel)]="nombresInput"
             required="true"
             class="custom"
-            [counter]="true"
+            
             maxlength="25"
             inputmode="text"
           ></ion-input>
@@ -62,7 +62,7 @@
             [(ngModel)]="apellidosInput"
             required="true"
             class="custom"
-            [counter]="true"
+            
             maxlength="25"
             inputmode="text"
           ></ion-input>
@@ -88,7 +88,7 @@
             [(ngModel)]="correoInput"
             required="true"
             class="custom"
-            [counter]="true"
+            
             maxlength="50"
             inputmode="text"
           ></ion-input>
@@ -123,7 +123,7 @@
         </div>
   
         <div class="input-container">
-          <ion-label class="contrasena">Confirmar Contraseña</ion-label>
+          <ion-label class="contrasena">Repetir Contraseña</ion-label>
         <ion-item class="custom">
           <ion-input
               name="password2"
@@ -161,14 +161,14 @@
             required="true"
             class="custom"
             inputmode="numeric"
-            [counter]="true"
+            
             maxlength="10"
           ></ion-input>
         </div>
         <div class="input-container">
           
           <ion-label>Sexo:</ion-label>
-          <ion-select
+          <ion-select part="my-select"
           name="sexoInput"
           [(ngModel)]="sexoInput"
           class="never-flip"

@@ -7,6 +7,10 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { Location } from '@angular/common';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
+import { Campana } from '../../interfaces/campana';
+import { Marca } from 'src/app/interfaces/marca';
+import { CampanaService } from 'src/app/providers/campana.service';
+import { MarcaService } from 'src/app/providers/marca.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +22,9 @@ export class HomePage {
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
 
+  campanas: Campana[] = [];
+  marcas: Marca[] = [];
+
   constructor(
     private router: Router,
     private modalController: ModalController,
@@ -25,6 +32,9 @@ export class HomePage {
     private clienteService: ClienteService,
     private platform: Platform,
     private location: Location,
+    private campanaService: CampanaService,
+    private marcaService: MarcaService,
+    public events: Event,
   ) {
     this.initializeApp();
   }
@@ -43,7 +53,6 @@ export class HomePage {
   }
 
   initializeApp(){
-
     this.location.subscribe(()=>{
       this.location.forward();
     });
@@ -55,6 +64,16 @@ export class HomePage {
   }
   cerrarSesion(){
     this.router.navigate(['/login'])
+  }
+
+  ngOnInit(){
+    this.campanaService.getCampanas().subscribe((data)=>{
+      this.campanas = data;
+    })
+
+    this.marcaService.getMarcas().subscribe((data)=>{
+      this.marcas = data;
+    })
   }
 
 }

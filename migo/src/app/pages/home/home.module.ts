@@ -15,8 +15,8 @@ import { MarcasComponent } from '../marcas/marcas.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    
   ],
+  exports:[CampanaComponent, MarcasComponent,],
   declarations: [HomePage, CampanaComponent, MarcasComponent]
 })
 export class HomePageModule {}

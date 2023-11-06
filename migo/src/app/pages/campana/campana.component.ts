@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 
