@@ -143,6 +143,10 @@ ion-select::part(text) {
   justify-content: center;
 }
 
+.item-inner {
+  padding-inline-end: 0;
+}
+
 // ion-item .input-wrapper .input-clear-icon {
 //   color: white;
 // }

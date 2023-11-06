@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "785622583870",
-    "project_id": "pushnotificationsmigo",
-    "storage_bucket": "pushnotificationsmigo.appspot.com"
+    "project_number": "369555004314",
+    "project_id": "migo-ads-pushnotifications",
+    "storage_bucket": "migo-ads-pushnotifications.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:785622583870:android:75d7a7a9061475133c9f6f",
+        "mobilesdk_app_id": "1:369555004314:android:37a6ba5e3beb3b777ef823",
         "android_client_info": {
           "package_name": "io.ionic.starter"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDDLJslhNbntrJlNE3wYCZuJjRBrATvZiU"
+          "current_key": "AIzaSyDw6HvDQ0CL8Zr7sJ-mZPrNs-va1TFJ3HE"
         }
       ],
       "services": {

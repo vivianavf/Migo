@@ -13,7 +13,8 @@
     </ion-select>
 
       <ion-buttons slot="end">
-        <ion-button>Campanita</ion-button>
+        <ion-button (click)="getDeliveredNotifications()">Campanita</ion-button>
+        <ion-button (click)="registerPushNotifications()">RegisterNotif</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>

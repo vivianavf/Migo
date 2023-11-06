@@ -84,6 +84,12 @@ export class RecuperarPasswordPage implements OnInit {
     // var subject = "Migo Ads - Recuperación de contraseña"
 
     var email: Email = {
+<<<<<<< HEAD
+=======
+      subject : subject,
+      message : message, 
+      from_email : 'migo@hangaroa.ec',
+>>>>>>> e4fac9f316c4be8355ab81ec900930d2c72b630e
       recipient_list : [inputEmail]
     }
 
