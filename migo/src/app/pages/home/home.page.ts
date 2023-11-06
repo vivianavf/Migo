@@ -7,14 +7,11 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { Location } from '@angular/common';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
-<<<<<<< HEAD
-import { Campana } from '../../interfaces/campana';
+import { ActionPerformed, PushNotificationSchema, PushNotifications, Token, } from '@capacitor/push-notifications';
+import { Campana } from 'src/app/interfaces/campana';
 import { Marca } from 'src/app/interfaces/marca';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { MarcaService } from 'src/app/providers/marca.service';
-=======
-import { ActionPerformed, PushNotificationSchema, PushNotifications, Token, } from '@capacitor/push-notifications';
->>>>>>> e4fac9f316c4be8355ab81ec900930d2c72b630e
 
 @Component({
   selector: 'app-home',
@@ -70,16 +67,6 @@ export class HomePage implements OnInit {
     this.router.navigate(['/login'])
   }
 
-<<<<<<< HEAD
-  ngOnInit(){
-    this.campanaService.getCampanas().subscribe((data)=>{
-      this.campanas = data;
-    })
-
-    this.marcaService.getMarcas().subscribe((data)=>{
-      this.marcas = data;
-    })
-=======
   ngOnInit() {
     console.log('Initializing HomePage');
 
@@ -133,7 +120,6 @@ export class HomePage implements OnInit {
   getDeliveredNotifications = async () => {
     const notificationList = await PushNotifications.getDeliveredNotifications();
     console.log('delivered notifications', notificationList);
->>>>>>> e4fac9f316c4be8355ab81ec900930d2c72b630e
   }
 
 }
