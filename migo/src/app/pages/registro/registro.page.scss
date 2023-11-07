@@ -113,6 +113,7 @@ ion-button.eye{
   padding: 0;
   margin-left: auto;
   width: 35px;
+  
 }
 
 div.buttons{
@@ -127,6 +128,7 @@ ion-select{
   --placeholder-color: black;
   --placeholder-opacity: 1;
   width: 100%;
+  display: flex;
 }
 
 ion-select::part(text) {
@@ -154,3 +156,4 @@ ion-select::part(text) {
 // .input-item ion-input, .item-native{
 //   height: 17px;
 // }
+

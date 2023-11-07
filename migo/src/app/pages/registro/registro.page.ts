@@ -4,6 +4,7 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -65,7 +66,7 @@ export class RegistroPage implements OnInit {
     private modalController: ModalController,
   ) {
     this.formularioRegistro = this.fb.group({
-      cedula: new FormControl('', Validators.required),
+      cedula: new FormControl('', [Validators.required]),
       nombres: new FormControl('', Validators.required),
       apellidos: new FormControl('', Validators.required),
       fecha: new FormControl('', Validators.required),
@@ -82,23 +83,37 @@ export class RegistroPage implements OnInit {
   }
 
   registrarse() {
+
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       this.correoInput
     )
       ? (this.emailInvalido = true)
       : (this.emailInvalido = false);
 
-    // !/^(0[1-9]|1[0-7]|2[0-4])[0-5][0-9]{7}[0-9]c/.test(this.cedulaInput)?this.cedulaNoValida=true:this.cedulaNoValida=false;
+    this.cedulaEsValida(this.cedulaInput); //retorna un booolean
+    this.camposCompletos();
+    this.esMayordeEdad(this.fechaInput);
+    this.aceptoTerminos()
+
+    console.log(this.cedulaNoValida);
+    console.log(this.camposVacios)
+    console.log(this.fechaInvalida)
+    console.log(this.terminosNoAceptados)
 
     if (
-      this.cedulaEsValida(this.cedulaInput) &&
-      this.camposCompletos() &&
+      !this.cedulaNoValida &&
+      !this.camposVacios &&
+      !this.fechaInvalida &&
+      !this.terminosNoAceptados &&
+      // this.cedulaEsValida(this.cedulaInput) &&
+      // this.camposCompletos() &&
       !this.usuarioExiste() &&
-      this.esMayordeEdad(this.fechaInput) &&
+      // this.esMayordeEdad(this.fechaInput) &&
       this.passwordCoincide(this.inputValue, this.inputValue2) &&
-      this.aceptoTerminos() &&
+      // this.aceptoTerminos() &&
       !this.emailInvalido
     ) {
+      console.log("puedo registrarme")
       this.usuario = {
         id_usuario: this.users.length + 6,
         email: this.correoInput,
@@ -177,7 +192,6 @@ export class RegistroPage implements OnInit {
 
   // Establecer cedulaNoValida en true si la cédula no es válida
   this.cedulaNoValida = true;
-
   return false;
 
   }
@@ -287,6 +301,6 @@ export class RegistroPage implements OnInit {
       this.users = data;
     });
 
-    
+    this.formularioRegistro.reset()
   }
 }

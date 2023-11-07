@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { Client } from 'src/app/interfaces/client';
 import { User } from 'src/app/interfaces/user';
@@ -31,6 +32,7 @@ export class DatosRegistroPage implements OnInit {
     private navCtrl: NavController,
     private clienteService: ClienteService,
     private userService: UsersService,
+    private router: Router,
   ) { }
 
 
@@ -43,7 +45,9 @@ export class DatosRegistroPage implements OnInit {
     console.log(this.formularioRegistro);
 
     //cerrar este modal y abrir otro que diga usuario registrado con éxito
-    this.navCtrl.navigateForward('/home')
+    // this.navCtrl.navigateRoot('/home')
+    this.router.navigate(["/home"])
+  
   }
 
   corregirDatos(){
