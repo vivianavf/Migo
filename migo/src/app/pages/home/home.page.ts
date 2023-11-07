@@ -8,6 +8,10 @@ import { Location } from '@angular/common';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
 import { ActionPerformed, PushNotificationSchema, PushNotifications, Token, } from '@capacitor/push-notifications';
+import { Campana } from 'src/app/interfaces/campana';
+import { Marca } from 'src/app/interfaces/marca';
+import { CampanaService } from 'src/app/providers/campana.service';
+import { MarcaService } from 'src/app/providers/marca.service';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +23,9 @@ export class HomePage implements OnInit {
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
 
+  campanas: Campana[] = [];
+  marcas: Marca[] = [];
+
   constructor(
     private router: Router,
     private modalController: ModalController,
@@ -26,6 +33,9 @@ export class HomePage implements OnInit {
     private clienteService: ClienteService,
     private platform: Platform,
     private location: Location,
+    private campanaService: CampanaService,
+    private marcaService: MarcaService,
+    public events: Event,
   ) {
     this.initializeApp();
   }
@@ -44,7 +54,6 @@ export class HomePage implements OnInit {
   }
 
   initializeApp(){
-
     this.location.subscribe(()=>{
       this.location.forward();
     });

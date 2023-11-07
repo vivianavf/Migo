@@ -34,7 +34,7 @@ ion-input.custom, ion-item{
     --padding-end: 7%;
     min-height: fit-content;
     height: fit-content;
-    font-size: 16px;
+    font-size: 20px;
   }
 
   ion-input.password{
@@ -43,16 +43,23 @@ ion-input.custom, ion-item{
 
   div.input-container{
     display: flex;
-    height: 20px;
+    height: 25px;
     margin-bottom: 7%;
   }
 
+  input{
+    min-height: 25px;
+  }
+
+  label#select-label.select-wrapper{
+    height: 25px;
+  }
 
   div.input-container > ion-label{
-    width: 70%;
+    width: 80%;
     min-height:auto;
     color: white;
-    font-size: 13px;
+    font-size: 17px;
     align-items: center;
   }
 
@@ -91,10 +98,14 @@ ion-button.button{
 
 ion-item{
   display: flex;
-    height: 20px;
+    height: 25px;
     width: 100%;
   background-color: white;
   border-radius: 30px;
+}
+
+label{
+  height: 25px;
 }
 
 ion-button.eye{
@@ -143,4 +154,3 @@ ion-select::part(text) {
 // .input-item ion-input, .item-native{
 //   height: 17px;
 // }
-

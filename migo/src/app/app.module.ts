@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CampanaComponent } from './pages/campana/campana.component';
+import { MarcasComponent } from './pages/marcas/marcas.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +19,6 @@ import { FormsModule } from '@angular/forms';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

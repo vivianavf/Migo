@@ -79,19 +79,15 @@ export class RecuperarPasswordPage implements OnInit {
   }
 
   enviarCorreo(inputEmail:string){
-    var code = Math.floor(Math.random() * (999999 - 111111) + 111111).toString()
-    var message = "El código para recuperar su contraseña es "+code
-    var subject = "Migo Ads - Recuperación de contraseña"
+    // var code = Math.floor(Math.random() * (999999 - 111111) + 111111).toString()
+    // var message = "El código para recuperar su contraseña es "+code
+    // var subject = "Migo Ads - Recuperación de contraseña"
 
     var email: Email = {
-      subject : subject,
-      message : message, 
-      from_email : 'migo@hangaroa.ec',
       recipient_list : [inputEmail]
     }
 
-    
-    this.communicationService.sendVariable([inputEmail, code]);
+    this.communicationService.sendVariable([inputEmail]);
     this._http.requestCall(email).subscribe((res) => {
       console.log(res);
     });
