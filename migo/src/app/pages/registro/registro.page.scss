@@ -79,90 +79,95 @@ ion-input.custom, ion-item{
     padding-right: 5%;
   }
 
-ion-text.terms > p{
-  padding-left: 5%;
-  font-size: smaller;
-}
-
-ion-select {
-  z-index: 1;
-}
-
-ion-button.button{
-    width: 50%;
-    padding-top: 5%;
+  ion-text.terms > p{
     padding-left: 5%;
-    padding-right: 5%;
-    // padding-top: 10%;
-}
+    font-size: smaller;
+  }
 
-ion-item{
-  // display: flex;
+  ion-select {
+    z-index: 1;
+  }
+
+  ion-button.button{
+      width: 50%;
+      padding-top: 5%;
+      padding-left: 5%;
+      padding-right: 5%;
+      // padding-top: 10%;
+  }
+
+  ion-item{
+    display: flex;
+    flex-wrap: wrap;
     height: 25px;
-    // display: inline-block;
-  align-self: center;
-  width: 100%;
-  background-color: white;
-  border-radius: 30px;
-}
+    align-items: flex-start;
+    align-self: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+  }
 
-label{
-  height: 25px;
-}
+  ion-input {
+    
+  }
 
-ion-button.eye{
-  margin: 0;
-  padding: 0;
-  margin-left: auto;
-  width: 35px;
-  
-}
+  label{
+    height: 25px;
+  }
 
-div.buttons{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+  ion-button.eye{
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+    width: 26px;
+    
+  }
 
-ion-select{
-  --background: white;
-  --border-radius: 30px;
-  --placeholder-color: black;
-  --placeholder-opacity: 1;
-  width: 100%;
-  display: flex;
-}
+  div.buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
-ion-select::part(text) {
-  color: black;
-}
+  ion-select{
+    --background: white;
+    --border-radius: 30px;
+    --placeholder-color: black;
+    --placeholder-opacity: 1;
+    width: 100%;
+    display: flex;
+  }
 
-.terms a {
-  text-decoration: underline; /* Subrayado */
-  font-weight: bold; /* Negrita */
-}
+  ion-select::part(text) {
+    color: black;
+  }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-}
+  .terms a {
+    text-decoration: underline; /* Subrayado */
+    font-weight: bold; /* Negrita */
+  }
 
-.item-inner {
-  padding-inline-end: 0;
-}
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
 
-// ion-item .input-wrapper .input-clear-icon {
-//   color: white;
-// }
+  .item-inner {
+    padding-inline-end: 0;
+  }
 
-// .input-item ion-input, .item-native{
-//   height: 17px;
-// }
+  // ion-item .input-wrapper .input-clear-icon {
+  //   color: white;
+  // }
 
-::part(native){
-  padding-right: 0;
-}
+  // .input-item ion-input, .item-native{
+  //   height: 17px;
+  // }
 
-::part(native) > .item-inner {
-  padding-right: 0;
-}
+  ::part(native){
+    padding-right: 0;
+  }
+
+  ::part(native) > .item-inner {
+    padding-right: 0;
+  }
