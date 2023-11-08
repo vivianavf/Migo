@@ -97,6 +97,16 @@
         <div class="input-container">
           <ion-label class="contrasena" >Contraseña</ion-label>
           <ion-item class="custom">
+            <ion-input
+            name="password"
+            [type]="inputType"
+            [(ngModel)]="inputValue"
+            shape="round"
+            required="true"
+            class="custom password"
+            inputmode="text"
+            maxlength="10"
+          ></ion-input>
             <ion-button
             size="small"
               class="eye"
@@ -109,17 +119,6 @@
                 [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
               ></ion-icon>
             </ion-button>
-            <ion-input
-              name="password"
-              [type]="inputType"
-              [(ngModel)]="inputValue"
-              shape="round"
-              required="true"
-              class="custom password"
-              inputmode="text"
-              maxlength="10"
-            ></ion-input>
-            
           </ion-item>
         </div>
   

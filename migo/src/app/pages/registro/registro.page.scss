@@ -97,9 +97,11 @@ ion-button.button{
 }
 
 ion-item{
-  display: flex;
+  // display: flex;
     height: 25px;
-    width: 100%;
+    // display: inline-block;
+  align-self: center;
+  width: 100%;
   background-color: white;
   border-radius: 30px;
 }
