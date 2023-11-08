@@ -41,11 +41,11 @@ export class DatosRegistroPage implements OnInit {
     
     this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{})
     this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{})
-    this.formularioRegistro.reset();
     console.log(this.formularioRegistro);
+    this.formularioRegistro.reset();
 
     //cerrar este modal y abrir otro que diga usuario registrado con éxito
-    // this.navCtrl.navigateRoot('/home')
+    //this.navCtrl.navigateRoot('/home')
     this.router.navigate(["/home"])
   
   }

@@ -35,7 +35,6 @@ export class HomePage implements OnInit {
     private location: Location,
     private campanaService: CampanaService,
     private marcaService: MarcaService,
-    public events: Event,
   ) {
     this.initializeApp();
   }
@@ -77,6 +76,7 @@ export class HomePage implements OnInit {
       if (result.receive === 'granted') {
         // Register with Apple / Google to receive push via APNS/FCM
         PushNotifications.register();
+        this.registerPushNotifications();
       } else {
         // Show some error
       }
