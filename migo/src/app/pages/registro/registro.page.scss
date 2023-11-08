@@ -157,3 +157,10 @@ ion-select::part(text) {
 //   height: 17px;
 // }
 
+::part(native){
+  padding-right: 0;
+}
+
+::part(native) > .item-inner {
+  padding-right: 0;
+}

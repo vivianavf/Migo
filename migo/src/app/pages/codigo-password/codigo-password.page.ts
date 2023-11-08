@@ -22,6 +22,7 @@ export class CodigoPasswordPage implements OnInit {
   ) { }
 
   siguiente(){
+    console.log(this.codigoInput, this.codigo)
     if(this.codigoInput == this.codigo){
       this.router.navigate(['/reestablecer-password']);
     }else{
@@ -36,6 +37,7 @@ export class CodigoPasswordPage implements OnInit {
       this.recibido = variable;
       this.email = variable[0];
       this.codigo = variable[1];
+      console.log(variable)
     })
 
     

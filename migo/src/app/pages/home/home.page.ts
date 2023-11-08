@@ -7,7 +7,7 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { Location } from '@angular/common';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
-import { ActionPerformed, PushNotificationSchema, PushNotifications, Token, } from '@capacitor/push-notifications';
+import { ActionPerformed, PushNotificationSchema, PushNotifications, Token} from '@capacitor/push-notifications';
 import { Campana } from 'src/app/interfaces/campana';
 import { Marca } from 'src/app/interfaces/marca';
 import { CampanaService } from 'src/app/providers/campana.service';
@@ -35,7 +35,6 @@ export class HomePage implements OnInit {
     private location: Location,
     private campanaService: CampanaService,
     private marcaService: MarcaService,
-    // public events: Event,
   ) {
     this.initializeApp();
   }

@@ -52,7 +52,6 @@ export class LoginPage implements OnInit {
     var inputPassword = f.password;
 
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail)?this.emailInvalido = true:this.emailInvalido = false;
-
     // var admin = { email: 'admin@gmail.com', password: '1234' };
     var usuarioCorrecto = this.validarLogin(inputEmail, inputPassword);
     console.log("Usuario:")
@@ -62,7 +61,7 @@ export class LoginPage implements OnInit {
       this.formularioLogin.reset();
       this.mostrarMensaje = false;
     } else {
-      console.log('No se pudo');
+      // console.log('No se pudo');
       this.mostrarMensaje = true;
     }
   }
