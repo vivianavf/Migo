@@ -135,6 +135,8 @@ export class RegistroPage implements OnInit {
         telefono: this.telefonoInput,
         estado: 1,
       };
+
+      
       this.mostrarDatos();
     }
   }

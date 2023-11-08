@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
+import { ClienteService } from 'src/app/providers/cliente.service';
+import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,13 +11,15 @@ import { ModalController, NavController } from '@ionic/angular';
 })
 export class MenuPage implements OnInit {
 
-  @Input() user: any;
-  @Input() client: any;
+  user: any = this.userService.usuarioActivo();
+  client: any = this.clientService.clienteActivo();
   
   constructor(
     private modalController: ModalController,
     private router: Router,
     private navCtrl: NavController,
+    private userService: UsersService,
+    private clientService: ClienteService,
   ) { }
 
   cerrarModal() {

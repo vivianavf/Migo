@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     private location: Location,
     private campanaService: CampanaService,
     private marcaService: MarcaService,
-    public events: Event,
+    // public events: Event,
   ) {
     this.initializeApp();
   }

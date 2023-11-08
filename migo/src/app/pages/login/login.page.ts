@@ -55,7 +55,8 @@ export class LoginPage implements OnInit {
 
     // var admin = { email: 'admin@gmail.com', password: '1234' };
     var usuarioCorrecto = this.validarLogin(inputEmail, inputPassword);
-    // usuarioCorrecto = true;
+    console.log("Usuario:")
+    console.log(usuarioCorrecto)
     if (usuarioCorrecto) {
       this.router.navigate(['/home']);
       this.formularioLogin.reset();
