@@ -1,9 +1,14 @@
-ion-item{
-    background-color: white;
+ 
+
+
+  
+  ion-item.opcMenu {
+    --background: #ECEBEB;
     color: black;
     margin-bottom: 5%;
     border-radius: 20px;
-}
+  }
+  
 
 img.usericon{
     height: 120px;
@@ -21,3 +26,4 @@ div.container{
     justify-content: center;
     align-items: center;
   }
+ 
