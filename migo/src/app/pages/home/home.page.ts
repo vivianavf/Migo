@@ -12,6 +12,7 @@ import { Campana } from 'src/app/interfaces/campana';
 import { Marca } from 'src/app/interfaces/marca';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { MarcaService } from 'src/app/providers/marca.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,8 @@ export class HomePage implements OnInit {
   campanas: Campana[] = [];
   marcas: Marca[] = [];
 
+  
+
   constructor(
     private router: Router,
     private modalController: ModalController,
@@ -36,7 +39,7 @@ export class HomePage implements OnInit {
     private campanaService: CampanaService,
     private marcaService: MarcaService,
   ) {
-    this.initializeApp();
+    // this.initializeApp();
   }
 
   async mostrarMenu(){
@@ -52,37 +55,23 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
 
-  initializeApp(){
-    this.location.subscribe(()=>{
-      this.location.forward();
-    });
-    this.platform.ready().then(()=>{
-      this.platform.backButton.subscribeWithPriority(9999,()=>{
-        return;
-      })
-    })
-  }
+  // initializeApp(){
+  //   this.location.subscribe(()=>{
+  //     this.location.forward();
+  //   });
+  //   this.platform.ready().then(()=>{
+  //     this.platform.backButton.subscribeWithPriority(9999,()=>{
+  //       return;
+  //     })
+  //   })
+  // }
   cerrarSesion(){
-    this.router.navigate(['/login'])
-  }
-
-  ngOnInit() {
-    console.log('Initializing HomePage');
-
-    // Request permission to use push notifications
-    // iOS will prompt user and return if they granted permission or not
-    // Android will just grant without prompting
-    PushNotifications.requestPermissions().then(result => {
-      if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-        this.registerPushNotifications();
-      } else {
-        // Show some error
-      }
-    });
-
-    this.addListeners();
+    try{
+      this.router.navigate(['/login'])
+    }catch(error){
+      console.log(error)
+    }
+    
   }
 
   addListeners = async () => {
@@ -118,8 +107,45 @@ export class HomePage implements OnInit {
   }
   
   getDeliveredNotifications = async () => {
-    const notificationList = await PushNotifications.getDeliveredNotifications();
-    console.log('delivered notifications', notificationList);
+    try{
+      const notificationList = await PushNotifications.getDeliveredNotifications();
+      console.log('delivered notifications', notificationList);
+    }catch(error){
+      console.log(error)
+    }
+    
   }
 
+  ngOnInit() {
+    try{
+
+      //Este Plugin solo vale en Android, por eso debe haber una notificacion
+      //Por si se corre la app en movil o iOS
+      const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
+
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+
+    if (isPushNotificationsAvailable) {
+      PushNotifications.requestPermissions().then(result => {
+        if (result.receive === 'granted') {
+          // Register with Apple / Google to receive push via APNS/FCM
+          PushNotifications.register();
+          this.registerPushNotifications();
+        } else {
+          // Show some error
+        }
+      });
+      this.addListeners();
+    }else{
+      console.log("Push Notifications Not Available")
+    }
+
+    
+    
+    }catch(error){
+      console.log(error)
+    }
+  }
 }

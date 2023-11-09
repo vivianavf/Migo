@@ -13,6 +13,8 @@ import { UsersService } from 'src/app/providers/users.service';
 import { TerminosCondicionesPage } from '../modals/terminos-condiciones/terminos-condiciones.page';
 import { PrivacidadPage } from '../modals/privacidad/privacidad.page';
 import { DatosRegistroPage } from '../modals/datos-registro/datos-registro.page';
+import { Client } from 'src/app/interfaces/client';
+import { ClienteService } from 'src/app/providers/cliente.service';
 
 @Component({
   selector: 'app-registro',
@@ -36,6 +38,7 @@ export class RegistroPage implements OnInit {
   camposVacios: boolean = false;
   contrasenasIguales: boolean = false;
   usuarioExistente: boolean = false;
+  cedulaExistente: boolean = false;
   emailInvalido: boolean = false;
 
   inputValue2: string = '';
@@ -56,6 +59,7 @@ export class RegistroPage implements OnInit {
   sexoInput: string = '';
 
   users: User[] = [];
+  clientes: Client[] = [];
   usuario: any;
   cliente: any;
 
@@ -63,6 +67,7 @@ export class RegistroPage implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private userService: UsersService,
+    private clienteService: ClienteService,
     private modalController: ModalController,
   ) {
     this.formularioRegistro = this.fb.group({
@@ -101,6 +106,7 @@ export class RegistroPage implements OnInit {
     console.log(this.terminosNoAceptados)
 
     if (
+      !this.cedulaExiste() &&
       !this.cedulaNoValida &&
       !this.camposVacios &&
       !this.fechaInvalida &&
@@ -151,6 +157,20 @@ export class RegistroPage implements OnInit {
       return true;
     } else {
       this.usuarioExistente = false;
+      return false;
+    }
+  }
+
+  cedulaExiste() {
+    const busquedaCedula = this.clientes.find(
+      ({ cedula_cliente }) => cedula_cliente == this.cedulaInput
+    );
+
+    if (busquedaCedula) {
+      this.cedulaExistente = true;
+      return true;
+    } else {
+      this.cedulaExistente = false;
       return false;
     }
   }
@@ -302,6 +322,10 @@ export class RegistroPage implements OnInit {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
     });
+
+    this.clienteService.getClients().subscribe((data=>{
+      this.clientes= data;
+    }))
 
     this.formularioRegistro.reset()
   }

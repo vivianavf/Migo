@@ -52,32 +52,45 @@ export class LoginPage implements OnInit {
     var inputPassword = f.password;
 
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail)?this.emailInvalido = true:this.emailInvalido = false;
-    // var admin = { email: 'admin@gmail.com', password: '1234' };
-    var usuarioCorrecto = this.validarLogin(inputEmail, inputPassword);
-    console.log("Usuario:")
-    console.log(usuarioCorrecto)
-    if (usuarioCorrecto) {
-      this.router.navigate(['/home']);
-      this.formularioLogin.reset();
-      this.mostrarMensaje = false;
-    } else {
-      // console.log('No se pudo');
-      this.mostrarMensaje = true;
-    }
-  }
 
-  validarLogin(inputEmail: string, inputPassword: string) {
+    //validar login
     var usuarios = this.users;
-    
     const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
     const busquedaPassword = usuarios.find(
       ({ contrasena }) => contrasena === inputPassword
     );
     const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
-    this.userService.ingresarUsuario(busquedaEmail);
-    this.clientService.ingresarCliente(clientBusqueda);
-    return busquedaEmail && busquedaPassword ? true : false;
+    
+    if (busquedaEmail && busquedaPassword) {
+      this.userService.ingresarUsuario(busquedaEmail);
+      this.clientService.ingresarCliente(clientBusqueda);
+
+      //guardar los datos de inicio de sesion
+      localStorage.setItem("user", busquedaEmail.email)
+      if(clientBusqueda){
+        localStorage.setItem("client", clientBusqueda.cedula_cliente)
+      }
+      
+      this.router.navigate(['/home']);
+      this.formularioLogin.reset();
+      this.mostrarMensaje = false;
+    } else {
+      this.mostrarMensaje = true;
+    }
   }
+
+  // validarLogin(inputEmail: string, inputPassword: string) {
+  //   var usuarios = this.users;
+    
+  //   const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
+  //   const busquedaPassword = usuarios.find(
+  //     ({ contrasena }) => contrasena === inputPassword
+  //   );
+  //   const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
+  //   this.userService.ingresarUsuario(busquedaEmail);
+  //   this.clientService.ingresarCliente(clientBusqueda);
+  //   return busquedaEmail && busquedaPassword ? true : false;
+  // }
 
   ingresarInvitado() {
     this.router.navigate(['/invitado']);

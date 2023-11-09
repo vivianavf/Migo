@@ -22,7 +22,7 @@
   <ion-content [fullscreen]="true">
 
     <div class="ad">
-        BANNER PUBLICITARIO
+      <p>BANNER PUBLICITARIO</p>
     </div>
 
     <ion-toolbar class="section-toolbar">
@@ -36,7 +36,7 @@
       </ion-segment>
     </ion-toolbar>
 
-    <div *ngIf="segmentValue === 'campanas'">
+    <div class='app-campana' *ngIf="segmentValue === 'campanas'">
       <app-campana></app-campana>
     </div>
   

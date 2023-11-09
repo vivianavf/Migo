@@ -13,7 +13,8 @@ export class MenuPage implements OnInit {
 
   user: any = this.userService.usuarioActivo();
   client: any = this.clientService.clienteActivo();
-  
+  // user = localStorage.getItem('user');
+
   constructor(
     private modalController: ModalController,
     private router: Router,
@@ -59,6 +60,11 @@ export class MenuPage implements OnInit {
       break;
 
     }
+  }
+
+  cerrarSesion(){
+    this.modalController.dismiss()
+    this.router.navigate(['/login'])
   }
 
   ngOnInit() {
