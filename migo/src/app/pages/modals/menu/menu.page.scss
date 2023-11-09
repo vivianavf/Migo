@@ -1,8 +1,15 @@
- 
 
 
-  
-  ion-item.opcMenu {
+ion-content {
+    --ion-background-color:  rgba(0, 0, 0, 0.60);
+}
+
+
+.menuContainer{
+    background-color:  rgba(0, 0, 0, 0.60) !important;
+}
+
+ion-item.opcMenu {
     --background: #ECEBEB;
     color: black;
     margin-bottom: 5%;
