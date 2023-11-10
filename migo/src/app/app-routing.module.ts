@@ -75,6 +75,10 @@ const routes: Routes = [
     path: 'reclamos',
     loadChildren: () => import('./pages/reclamos/reclamos.module').then( m => m.ReclamosPageModule)
   },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/modals/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
   
 ];
 

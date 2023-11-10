@@ -17,7 +17,7 @@ export class UsersService {
 
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
   private formato = '?format=json'
-  private user!: User;
+  // private user!: User;
 
   constructor(private http: HttpClient) {
   }
@@ -40,11 +40,30 @@ export class UsersService {
 
   ingresarUsuario(user: any){
     if(user){
-      this.user = user;
+      // this.user = user;
+      localStorage.setItem("id_usuario", user.id_usuario.toString())
+      localStorage.setItem("estado_usuario", user.estado.toString())
+      localStorage.setItem("email_usuario", user.email)
+      localStorage.setItem("placa", user.placa)
+      localStorage.setItem("contrasena", user.contrasena)
+      localStorage.setItem("fecha_creacion", user.fecha_creacion)
+      localStorage.setItem("fecha_modificacion", user.fecha_modificacion)
+      localStorage.setItem("rol_usuario", user.rol_usuario.toString())
     }
   }
   usuarioActivo(){
-    return this.user;
+    const usuarioactivo ={
+      id_usuario: Number(localStorage.getItem("id_usuario")),
+    estado: Number(localStorage.getItem("estado_usuario")),
+    email: localStorage.getItem("email_usuario"),
+    placa: localStorage.getItem("placa"),
+    contrasena: localStorage.getItem("contrasena"),
+    fecha_creacion: localStorage.getItem("fecha_creacion"),
+    fecha_modificacion: localStorage.getItem("fecha_modificacion"),
+    rol_usuario: Number(localStorage.getItem("rol_usuario")),
+    };
+    return usuarioactivo;
+    // return this.user;
   }
 
 }

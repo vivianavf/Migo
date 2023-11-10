@@ -7,7 +7,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { Client } from 'src/app/interfaces/client';
 import { UsersService } from 'src/app/providers/users.service';
@@ -39,6 +39,7 @@ export class LoginPage implements OnInit {
     private http: HttpClient,
     private modalController: ModalController,
     private clientService : ClienteService,
+    private navCtrl: NavController,
   ) {
     this.formularioLogin = this.fb.group({
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
@@ -65,13 +66,9 @@ export class LoginPage implements OnInit {
       this.userService.ingresarUsuario(busquedaEmail);
       this.clientService.ingresarCliente(clientBusqueda);
 
-      //guardar los datos de inicio de sesion
-      localStorage.setItem("user", busquedaEmail.email)
-      if(clientBusqueda){
-        localStorage.setItem("client", clientBusqueda.cedula_cliente)
-      }
       
-      this.router.navigate(['/home']);
+      // this.router.navigate(['/home']);
+      this.navCtrl.navigateRoot('/home');
       this.formularioLogin.reset();
       this.mostrarMensaje = false;
     } else {

@@ -44,12 +44,6 @@ export class DatosRegistroPage implements OnInit {
     this.userService.ingresarUsuario(this.usuario)
     this.clienteService.ingresarCliente(this.cliente)
 
-    //guardar los datos de inicio de sesion
-    localStorage.setItem("user", this.usuario.email)
-    if(this.cliente){
-      localStorage.setItem("client", this.cliente.cedula_cliente)
-    }
-
     //cerrar este modal y abrir otro que diga usuario registrado con éxito
     this.navCtrl.navigateRoot('/home')
     // this.router.navigate(["/home"])
