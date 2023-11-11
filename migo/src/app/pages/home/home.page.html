@@ -1,52 +1,58 @@
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button (click)='mostrarMenu()' menu="menu" autoHide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-select aria-label="Fruit" interface="popover" placeholder="Filtrar por">
-      <ion-select-option value="tarifa-asc">Tarifa</ion-select-option>
-      <ion-select-option value="tarifa-desc">Tarifa</ion-select-option>
-      <ion-select-option value="campanaA-Z">Campaña</ion-select-option>
-      <ion-select-option value="campanaZ-A">Campaña</ion-select-option>
-      <ion-select-option value="sectorA-Z">Sector</ion-select-option>
-      <ion-select-option value="sectorZ-A">Sector</ion-select-option>
-    </ion-select>
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)="mostrarMenu()">
+      <ion-icon class="menu" name="menu-outline"></ion-icon>
+    </ion-button>
+    <!-- <ion-menu-button
+      (click)="mostrarMenu()"
+      menu="menu"
+      autoHide="false"
+    ></ion-menu-button> -->
+  </ion-buttons>
+  <ion-select class="filtro" aria-label="Filtrar" interface="popover" placeholder="Filtrar por">
+    <ion-select-option value="tarifa-asc">Tarifa</ion-select-option>
+    <ion-select-option value="tarifa-desc">Tarifa</ion-select-option>
+    <ion-select-option value="campanaA-Z">Campaña</ion-select-option>
+    <ion-select-option value="campanaZ-A">Campaña</ion-select-option>
+    <ion-select-option value="sectorA-Z">Sector</ion-select-option>
+    <ion-select-option value="sectorZ-A">Sector</ion-select-option>
+  </ion-select>
 
-      <ion-buttons slot="end">
-        <ion-button (click)="mostrarNotificaciones()">Campanita</ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  
-  <ion-content [fullscreen]="true">
+  <ion-buttons slot="end">
+    <ion-button (click)="mostrarNotificaciones()">
+      <img
+        src="../../../assets/iconos-migo/campanita.png"
+        style="width: 40px; height: 40px"
+    /></ion-button>
+  </ion-buttons>
+</ion-toolbar>
 
-    <div class="ad">
-      <p>BANNER PUBLICITARIO</p>
-    </div>
+<ion-content [fullscreen]="true">
+  <div class="ad">
+    <p>BANNER PUBLICITARIO</p>
+  </div>
 
-    <ion-toolbar class="section-toolbar">
-      <ion-segment [(ngModel)]="segmentValue">
-        <ion-segment-button value="campanas">
-          <ion-label>Campañas</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="marcas">
-          <ion-label>Marcas</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
+  <ion-toolbar class="section-toolbar">
+    <ion-segment [(ngModel)]="segmentValue">
+      <ion-segment-button value="campanas">
+        <ion-label>Campañas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="marcas">
+        <ion-label>Marcas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 
-    <div class='app-campana' *ngIf="segmentValue === 'campanas'">
-      <app-campana></app-campana>
-    </div>
-  
-    <div *ngIf="segmentValue === 'marcas'">
-      <app-marcas></app-marcas>
-    </div>
+  <div class="app-campana" *ngIf="segmentValue === 'campanas'">
+    <app-campana></app-campana>
+  </div>
 
-  </ion-content>
+  <div *ngIf="segmentValue === 'marcas'">
+    <app-marcas></app-marcas>
+  </div>
+</ion-content>
 
-  <!-- <div id="container">
+<!-- <div id="container">
     <strong>Usted ha iniciado sesión</strong>
     <ion-button color="primary" (click)="cerrarSesion()">
       CERRAR SESIÓN

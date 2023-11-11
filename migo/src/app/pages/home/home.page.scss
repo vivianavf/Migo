@@ -1,3 +1,42 @@
+ion-toolbar{
+  padding-top: 20px;
+  padding-bottom: 14px;
+}
+
+ion-select{
+  --background: white;
+  --border-radius:  50px;
+  --highlight-color-focused: transparent;
+  --placeholder-color: black;
+}
+
+ion-select::part(placeholder){
+  color: black;
+  padding-right: 130px;
+  padding-left: 20px;
+}
+
+ion-select::part(icon) {
+  content: url('../../../assets/iconos-migo/chevron-down-outline.svg');
+  height: 25px;
+  width: 100%;
+}
+
+.filtro{
+  min-height: 40px;
+  width: 230px;
+}
+
+ion-button::part(native){
+  padding: 0;
+}
+
+ion-icon.menu{
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
 #container {
   text-align: center;
 
@@ -38,7 +77,7 @@
   display: flex;
   justify-content: center; /* Alineación horizontal al centro */
   align-items: center; /* Alineación vertical al centro */
-  height: 120px; /* Altura del contenedor, ajusta según tus necesidades */
+  height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
 }
 
 .ad p {
