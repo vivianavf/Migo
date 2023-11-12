@@ -19,7 +19,7 @@
             maxlength="10"
           ></ion-input>
           <ion-button
-            class="eye"
+            class="eye normal-radius"
             slot="end"
             fill="clear"
             (click)="inputType = (inputType == 'password') ? 'text' : 'password';"
@@ -42,7 +42,7 @@
       </ion-text>
       <br />
       <div>
-        <ion-button color="primary" (click)="ingresar()">
+        <ion-button class="normal-radius" color="primary" (click)="ingresar()">
           INICIAR SESIÓN </ion-button
         ><br />
         <!-- <ion-text>

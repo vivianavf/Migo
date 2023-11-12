@@ -73,7 +73,18 @@ ion-button{
     --color: black;
     --color-activated: white;
     --background-activated: black;
-    --border-radius:10px;
+}
+
+.normal-radius{
+  --border-radius:10px;
+}
+
+.rounded-button{
+  --border-radius: 20px;
+}
+
+.white-text{
+  --color: white;
 }
 
 ion-text.datosincorrectos{
@@ -96,6 +107,10 @@ ion-modal.terms{
     text-transform: uppercase;
   }
 
+  .capitalize{
+    text-transform: capitalize;
+  }
+
   .bold-text {
     font-weight: bold;
   }
@@ -111,3 +126,25 @@ ion-modal.terms{
 #select-label{
     min-height: 25px;
   }
+
+
+
+//ion select option
+
+ion-list.sc-ion-select-popover.md{
+  background-color: white;
+}
+
+ion-item.select-interface-option::part(native){
+  background-color: white;
+  color: black
+}
+
+ion-list.sc-ion-select-popover-md{
+    background-color: white;
+    // border-radius: 20px;
+}
+
+.segment-button-checked{
+    background-color: rgba(111,111,111,1);
+}

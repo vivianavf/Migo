@@ -23,6 +23,10 @@ export class HomePage implements OnInit {
   campanas: Campana[] = [];
   marcas: Marca[] = [];
 
+  customPopoverOptions: any = {
+    cssClass: 'popover-wide',
+  };
+
   constructor(
     private modalController: ModalController,
     private userService: UsersService,

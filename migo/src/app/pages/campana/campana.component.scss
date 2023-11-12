@@ -1,13 +1,32 @@
 div.content{
   background-color: white;
-  border-radius: 10px;
-  width: 100%;
+  border-radius: 20px;
+  // width: 100%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.root{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-text{
+  padding-top: 6%;
+  padding-bottom: 6%;
 }
 
 ion-card {
     display: flex;
     flex-direction: row;
   }
+
+ion-card-content{
+  text-align: left;
+  color: black;
+  padding: 10px;
+}
   
   .info {
     flex: 1; /* Ocupa el espacio disponible a la izquierda */
@@ -27,4 +46,33 @@ ion-card {
   
   ion-img::part(image){
     border-radius: 100%;
+  }
+
+  .sector-tarifa{
+    display: flex;
+    flex-direction: row;
+  }
+
+.sector, .tarifa{
+    color: black;
+  }
+
+  .divisor{
+    display: flex;
+    align-items: center;
+  }
+
+  ion-icon{
+    width: 40px;
+    height: 40px;
+    color: rgb(241, 180, 93);
+  }
+
+  .registrarse{
+    width: 120px;
+  }
+
+  ion-card{
+    border-radius: 0;
+    border-bottom: 1px solid rgb(165, 165, 165);
   }

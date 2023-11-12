@@ -1,4 +1,5 @@
-<ion-text> Mostrando 12 últimas campañas publicadas </ion-text>
+<div class="root">
+  <ion-text> Mostrando 12 últimas campañas publicadas </ion-text>
 <div class="content">
   <ion-card *ngFor="let campana of campanas">
     <ion-card-content>
@@ -7,17 +8,21 @@
       <p>Publicado: {{campana.fecha_creacion}}</p>
       <p>Registrate hasta: {{campana.fecha_fin_registro}}</p>
       <div class="sector-tarifa">
-        <div class="sector">
-          Sector
+        <div class="divisor">
+          <ion-icon name="location"></ion-icon>
+          <ion-text class="sector">Sector, Sectores</ion-text>
         </div>
-        <div class="tarifa">
-          tarifa - {{campana.tarifa_base}}
+        <div class="divisor">
+          <ion-icon name="logo-usd"></ion-icon>
+          <ion-text class="tarifa">{{campana.tarifa_base}} por KM</ion-text>
         </div>
       </div>
     </ion-card-content>
     <div class="image-and-button">
       <ion-img src="../../../assets/campanas/{{campana.id_campana}}.jpg" alt="Marca"></ion-img>
-      <ion-button expand="full">Regístrate</ion-button>
+      <ion-button class="rounded-button registrarse white-text " color="warning" shape="round" expand="full">Regístrate</ion-button>
     </div>
   </ion-card>
 </div>
+</div>
+

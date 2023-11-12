@@ -3,11 +3,16 @@ ion-toolbar{
   padding-bottom: 14px;
 }
 
+ion-button.notificaciones{
+  padding-right: 12px;
+}
+
 ion-select{
   --background: white;
   --border-radius:  50px;
   --highlight-color-focused: transparent;
   --placeholder-color: black;
+  margin-left: 10%; 
 }
 
 ion-select::part(placeholder){
@@ -86,9 +91,38 @@ ion-icon.menu{
 
 .section-toolbar{
   padding: 0;
+  background-color: #b7b7b7;
 }
 
 .app-campana{
   display: flex;
   justify-content: center;
+}
+
+ion-label.toolbar{
+  color: white;
+}
+
+ion-segment-button{
+  display: flex;
+  flex-direction: row;
+}
+
+.segment-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 15%;
+}
+
+.toolbar-icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  color: white;
+}
+
+ion-segment-button::part(indicator-background){
+  background-color: transparent;
 }
