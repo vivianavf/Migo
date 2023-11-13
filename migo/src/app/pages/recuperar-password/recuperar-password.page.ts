@@ -12,6 +12,8 @@ import { UsersService } from 'src/app/providers/users.service';
 import { HttpserviceService } from 'src/app/providers/httpservice.service';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { ModalController } from '@ionic/angular';
+import { ClienteService } from 'src/app/providers/cliente.service';
+import { Client } from 'src/app/interfaces/client';
 
 
 @Component({
@@ -21,6 +23,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class RecuperarPasswordPage implements OnInit {
   @Input() users: User[] = [];
+  @Input() clientes: Client[] = [];
 
   emailInvalido: boolean = false;
   emailNoExiste: boolean = false;
@@ -32,6 +35,7 @@ export class RecuperarPasswordPage implements OnInit {
     private userService: UsersService,
     private _http: HttpserviceService,
     private communicationService : ComunicationService,
+    private clientService: ClienteService,
     private modalController: ModalController,
   ) {
     this.formularioCorreo = this.fb.group({
@@ -78,10 +82,26 @@ export class RecuperarPasswordPage implements OnInit {
 
   }
 
+  findIdByEmail(emailToFind: string): string {
+    for (let i = 0; i < this.clientes.length; i++) {
+      if (this.clientes[i].email === emailToFind) {
+        console.log("mail match: "+ this.clientes[i].email + " to: " + emailToFind);
+        return this.clientes[i].nombre + " " + this.clientes[i].apellido; // Found the index
+      }
+    }
+    
+    return "no existe"; // Email not found in the array
+  }
+
   enviarCorreo(inputEmail:string){
+    console.log("buscar id cliente del correo: " + inputEmail);
+    var nombreCompleto = this.findIdByEmail(inputEmail);
+    console.log("nombres:");
+    console.log(nombreCompleto);
+    
     var code = Math.floor(Math.random() * (999999 - 111111) + 111111).toString()
-    var message = "El código para recuperar su contraseña es "+code
-    var subject = "Migo Ads - Recuperación de contraseña"
+    var message = code
+    var subject = nombreCompleto
 
     var email: Email = {
       code: code,
@@ -100,6 +120,11 @@ export class RecuperarPasswordPage implements OnInit {
   ngOnInit() {
     this.userService.getUsers().subscribe((data) => {
       this.users = data;
+    });
+    this.clientService.getClients().subscribe((data) => {
+      this.clientes = data;
+      console.log("clientes:");
+      console.log(this.clientes);
     });
   }
 }
