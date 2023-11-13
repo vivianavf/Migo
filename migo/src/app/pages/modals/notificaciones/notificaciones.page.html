@@ -1,13 +1,61 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button icon="chevron-back" (click)="cerrarModal()" default-href=""></ion-back-button>
+      <ion-back-button
+        icon="chevron-back"
+        (click)="cerrarModal()"
+        default-href=""
+      ></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-center">Notificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  No leidas
-  Leidas
+  <ion-item class="button-container">
+    <ion-button class="ion-text-end">
+      Eliminar Todo
+      <ion-icon name="trash" color="danger"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-item class="first-container container">
+    <ion-title class="read">No leídas</ion-title>
+    <ion-card>
+      <div class="date">
+        12/11/2023
+        22:15
+      </div>
+      <ion-card-content>
+        <img class="notif-img" src="../../../../assets/iconos-migo/campanita.png">
+        <div class="notif-contenido">
+          <ion-text class="notif-title bold-text uppercase-text">Bienvenido</ion-text>
+          <ion-text class="notif-content">Bienvenido a Migo Ads</ion-text>
+        </div>
+        <ion-button class="detalle ion-text-wrap">Ver detalle</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+
+  <div class="line"></div>
+
+
+  <ion-item class="second-container container">
+    <ion-title class="read"> Leídas </ion-title>
+    <ion-text>No Hay Notificaciones</ion-text>
+    <!-- <ion-card>
+      <div class="date">
+        fecha
+        hora
+      </div>
+      <ion-card-content>
+        <img class="notif-img" src="../../../../assets/iconos-migo/01.png">
+        <div class="notif-contenido">
+          <ion-text class="notif-title bold-text uppercase-text">Bienvenido</ion-text>
+          <ion-text>Bienvenido a Migo Ads</ion-text>
+        </div>
+        <ion-button class="detalle ion-text-wrap capitalize-text">Ver detalle</ion-button>
+      </ion-card-content>
+    </ion-card> -->
+  </ion-item>
 </ion-content>
