@@ -120,8 +120,11 @@ export class RegistroPage implements OnInit {
       !this.emailInvalido
     ) {
       console.log("puedo registrarme")
+
+      const nuevoIDusuario = Number(this.users[this.users.length-1].id_usuario)+1
+
       this.usuario = {
-        id_usuario: this.users.length + 6,
+        id_usuario: nuevoIDusuario,
         email: this.correoInput,
         placa: '',
         contrasena: this.inputValue,
@@ -140,6 +143,7 @@ export class RegistroPage implements OnInit {
         sexo: +this.sexoInput,
         telefono: this.telefonoInput,
         estado: 1,
+        id_usuario: nuevoIDusuario,
       };
 
       

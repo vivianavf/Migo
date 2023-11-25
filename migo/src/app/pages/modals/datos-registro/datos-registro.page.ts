@@ -38,16 +38,16 @@ export class DatosRegistroPage implements OnInit {
 
   aceptar(){
     this.modalController.dismiss();
-    this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{})
-    this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{})
-    this.formularioRegistro.reset();
+
+    this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{console.log(respuesta)})
     this.userService.ingresarUsuario(this.usuario)
+
+    this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{ console.log(respuesta)})
     this.clienteService.ingresarCliente(this.cliente)
 
-    //cerrar este modal y abrir otro que diga usuario registrado con éxito
+    this.formularioRegistro.reset();
+
     this.navCtrl.navigateRoot('/home')
-    // this.router.navigate(["/home"])
-  
   }
 
   corregirDatos(){
@@ -55,7 +55,6 @@ export class DatosRegistroPage implements OnInit {
   }
 
   ngOnInit() {
-
     switch(this.sexo){
       case '1':
         this.sexo = "Masculino";

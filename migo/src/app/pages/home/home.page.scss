@@ -15,6 +15,8 @@ ion-select{
   margin-left: 10%; 
 }
 
+/** Shadow Root Select **/
+
 ion-select::part(placeholder){
   color: black;
   padding-right: 130px;
@@ -24,13 +26,25 @@ ion-select::part(placeholder){
 ion-select::part(icon) {
   content: url('../../../assets/iconos-migo/chevron-down-outline.svg');
   height: 25px;
-  width: 100%;
+  width: 30%;
 }
 
 .filtro{
   min-height: 40px;
   width: 230px;
 }
+
+ion-select::part(container){
+  width: 100%;
+}
+
+ion-select::part(text){
+  color: black;
+  padding-right: 130px;
+  padding-left: 20px;
+}
+
+/** Shadow Root Select **/
 
 ion-button::part(native){
   padding: 0;

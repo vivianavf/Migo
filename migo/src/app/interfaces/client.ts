@@ -7,4 +7,5 @@ export interface Client {
     sexo: number,
     telefono: string,
     estado: Number,
+    id_usuario: Number,
 }

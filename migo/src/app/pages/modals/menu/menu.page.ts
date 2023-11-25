@@ -63,6 +63,8 @@ export class MenuPage implements OnInit {
   }
 
   cerrarSesion(){
+    localStorage.clear();
+    sessionStorage.clear();
     this.modalController.dismiss()
     this.router.navigate(['/login'])
   }

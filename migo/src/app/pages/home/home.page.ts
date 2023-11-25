@@ -34,26 +34,7 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private navCtrl: NavController,
   ) {
-    //evitar que el boton de atrás vaya al login
-    // this.platform.ready().then(()=>{
-    //   this.platform.backButton.subscribeWithPriority(9999,()=>{
-    //     document.addEventListener('backbutton', function(event){
-    //       event.preventDefault();
-    //       event.stopPropagation();
-    //     }, false);
-    //   });
-    // });
 
-    ///
-
-    // this.location.subscribe(()=>{
-    //       this.location.forward();
-    //     });
-    //     this.platform.ready().then(()=>{
-    //       this.platform.backButton.subscribeWithPriority(9999,()=>{
-    //         return;
-    //       })
-    //     })
   }
 
   ionViewDidEnter() {
@@ -88,27 +69,6 @@ export class HomePage implements OnInit {
     });
 
     return await modal.present();
-  }
-
-  // initializeApp(){
-  //   this.location.subscribe(()=>{
-  //     this.location.forward();
-  //   });
-  //   this.platform.ready().then(()=>{
-  //     this.platform.backButton.subscribeWithPriority(9999,()=>{
-  //       return;
-  //     })
-  //   })
-  // }
-
-  cerrarSesion(){
-    try{
-      // this.router.navigate(['/login'])
-      this.navCtrl.navigateRoot('/login')
-    }catch(error){
-      console.log(error)
-    }
-    
   }
 
   ngOnInit() {

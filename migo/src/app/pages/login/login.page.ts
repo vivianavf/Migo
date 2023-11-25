@@ -62,11 +62,10 @@ export class LoginPage implements OnInit {
     );
     const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
     
-    if (busquedaEmail && busquedaPassword) {
+    if (busquedaEmail && busquedaPassword && clientBusqueda) {
       this.userService.ingresarUsuario(busquedaEmail);
       this.clientService.ingresarCliente(clientBusqueda);
-
-      
+  
       // this.router.navigate(['/home']);
       this.navCtrl.navigateRoot('/home');
       this.formularioLogin.reset();
@@ -75,19 +74,6 @@ export class LoginPage implements OnInit {
       this.mostrarMensaje = true;
     }
   }
-
-  // validarLogin(inputEmail: string, inputPassword: string) {
-  //   var usuarios = this.users;
-    
-  //   const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
-  //   const busquedaPassword = usuarios.find(
-  //     ({ contrasena }) => contrasena === inputPassword
-  //   );
-  //   const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
-  //   this.userService.ingresarUsuario(busquedaEmail);
-  //   this.clientService.ingresarCliente(clientBusqueda);
-  //   return busquedaEmail && busquedaPassword ? true : false;
-  // }
 
   ingresarInvitado() {
     this.router.navigate(['/invitado']);
