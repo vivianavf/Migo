@@ -79,6 +79,10 @@ const routes: Routes = [
     path: 'notificaciones',
     loadChildren: () => import('./pages/modals/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
+  {
+    path: 'detalles-campana',
+    loadChildren: () => import('./pages/detalles-campana/detalles-campana.module').then( m => m.DetallesCampanaPageModule)
+  },
   
 ];
 

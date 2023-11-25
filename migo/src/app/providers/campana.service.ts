@@ -29,4 +29,12 @@ export class CampanaService {
     return this.http.post(this.baseURL, campana);
   }
 
+  setCampanaActual(campana: Campana){
+    this.campana = campana;
+  }
+
+  getCampanaActual(){
+    return this.campana;
+  }
+
 }

@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginPage,
   },
+  {
+    path: 'detalles-campana',
+    component: LoginPage,
+  },
 
 ];
 

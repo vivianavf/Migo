@@ -4,7 +4,7 @@
   <ion-card *ngFor="let campana of campanas">
     <ion-card-content>
       <ion-label class="uppercase-text bold-text">{{campana.nombre_campana}}<br></ion-label>
-      <p>Empresa: {{campana.id_empresa}}</p>
+      <p>Empresa: {{ empresas_nombres[campana.id_empresa]}} </p>
       <p>Publicado: {{campana.fecha_creacion}}</p>
       <p>Registrate hasta: {{campana.fecha_fin_registro}}</p>
       <div class="sector-tarifa">
@@ -20,7 +20,7 @@
     </ion-card-content>
     <div class="image-and-button">
       <ion-img src="../../../assets/campanas/{{campana.id_campana}}.jpg" alt="Marca"></ion-img>
-      <ion-button class="rounded-button registrarse white-text " color="warning" shape="round" expand="full">Regístrate</ion-button>
+      <ion-button class="rounded-button registrarse white-text " color="warning" shape="round" expand="full" (click)="registrarse(campana)">Regístrate</ion-button>
     </div>
   </ion-card>
 </div>
