@@ -1,3 +1,35 @@
+//toolbar
+ion-toolbar{
+  padding-top: 20px;
+  padding-bottom: 14px;
+}
+
+ion-button.notificaciones{
+  padding-right: 12px;
+}
+
+ion-button::part(native){
+  padding: 0;
+}
+
+ion-icon.menu{
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
+//AD
+.ad {
+  display: flex;
+  justify-content: center; /* Alineación horizontal al centro */
+  align-items: center; /* Alineación vertical al centro */
+  height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+}
+
+.ad p {
+  margin: 0; /* Elimina el margen por defecto del párrafo */
+}
+
 //modal
 .menu{
     --min-width: 100%;
@@ -5,4 +37,95 @@
 
 .notificaciones{
     --min-width: 100%;
+}
+
+//card
+ion-card{
+  background-color: white;
+  border-radius: 20px;
+  // min-height: 100%;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+}
+
+ion-card-content{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.banner-empresa{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center; /* Alineación horizontal al centro */
+  align-items: center; /* Alineación vertical al centro */
+  height: 50px; /* Altura del contenedor, ajusta según tus necesidades */
+}
+
+p.correo{
+  margin-left: 10px;
+}
+
+.info-container{
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.header-campana{
+  text-align: center;
+}
+
+.correo-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.info-campana{
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+
+.titulos-info{
+  width: 60%;
+}
+
+.variables-info{
+  width: 40%;
+  text-align:start;
+}
+
+.mapa{
+}
+
+#map{
+  width: 100%;
+  height: 150px;
+  background-color: rgb(211, 169, 250);
+}
+
+.talleres{
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.talleres-direccion, .vehiculo-tipo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-container{
+  margin-top: 25px;
+  text-align: center;
+}
+
+ion-button.formulario{
+  --border-radius: 20px;
 }

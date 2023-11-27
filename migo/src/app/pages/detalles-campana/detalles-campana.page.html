@@ -3,6 +3,7 @@
     <ion-button class="normal-radius" (click)="mostrarMenu()">
       <ion-icon class="menu" name="menu-outline"></ion-icon>
     </ion-button>
+    <ion-title class="bold-text">DETALLES DE CAMPAÑA</ion-title>
   </ion-buttons>
   
   <ion-buttons slot="end">
@@ -18,4 +19,56 @@
   <div class="ad">
     <p>BANNER PUBLICITARIO</p>
   </div>
+
+  <ion-card>
+    <ion-card-content>
+      <div class="banner-empresa ad">
+        Banner de la empresa
+      </div>
+      <div class="info-container">
+        <div class="header-campana">
+          <h2 class="uppercase-text">{{campana.nombre_campana}}</h2>
+          <p class="capitalize">Nombre de la empresa</p>
+          <p class="capitalize">{{campana.nombre_responsable}}</p>
+          <div class="correo-container">
+            <ion-icon name="mail"></ion-icon>
+            <p class="correo">correo@correo.com</p>
+          </div>
+        </div>
+        <div class="info-campana">
+          <div class="titulos-info">
+            <p>Tarifa por kilometraje:</p>
+            <p>Horario Monetizable:</p>
+            <p>Ciclo de Pago:</p>
+            <p>Cobro máximo:</p>
+            <p>Tipo de Brandeo disponible:</p>
+          </div>
+          <div class="variables-info">
+            <p>$ desde - $ hasta</p>
+            <p>$ desde - $ hasta</p>
+            <p>Cada 2 semanas x</p>
+            <p>$ cobro</p>
+            <p>Pantalla LED</p>
+          </div>
+        </div>
+        <div class="mapa">
+          <p>Sector monetizable:</p>
+          <div id="map"></div>
+        </div>
+        <div class="talleres">
+          <div class="talleres-direccion">
+            <p>Talleres disponibles en:</p>
+            <p>Cdla. Atarazana Manzana 56 Solar 122</p>
+          </div>
+          <div class="vehiculo-tipo">
+            <p>Tipo de Vehículos:</p>
+            <p> imagenes de vehiculos</p>
+          </div>
+        </div>
+        <div class="button-container">
+          <ion-button class="formulario capitalize">Llenar formulario de aplicación</ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { ModalController } from '@ionic/angular';
@@ -6,6 +6,7 @@ import { MenuPage } from '../modals/menu/menu.page';
 import { UsersService } from 'src/app/providers/users.service';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
+import {GoogleMap, Marker} from '@capacitor/google-maps'
 
 @Component({
   selector: 'app-detalles-campana',
@@ -47,9 +48,26 @@ export class DetallesCampanaPage implements OnInit {
     return await modal.present();
   }
 
+  async loadMap(){
+    
+    // GoogleMap.create({
+    //   id: 'my-map',
+    //   apiKey: "AIzaSyDMg06OQIw-YexoKaDViGwbGizLaL1UoEc",
+    //   config: {
+    //     center:{
+    //       lat: 33.6,
+    //       lng: -117.9,
+    //     },
+    //     zoom: 8,
+    //   },
+    //   element: ,
+    // })
+  }
+
   ngOnInit() {
     console.log(this.campanaService.getCampanaActual())
     this.campana = this.campanaService.getCampanaActual()
+    this.loadMap();
   }
 
 }
