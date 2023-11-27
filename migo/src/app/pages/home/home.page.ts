@@ -13,9 +13,10 @@ import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage implements OnInit {
 
-  backButton: Subscription = new Subscription();
+  // backButton: Subscription = new Subscription();
 
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
@@ -37,15 +38,15 @@ export class HomePage implements OnInit {
 
   }
 
-  ionViewDidEnter() {
-    this.backButton = this.platform.backButton.subscribeWithPriority(9999, () => {
-      // No hagas nada para evitar la navegación hacia atrás
-    });
-  }
+  // ionViewDidEnter() {
+  //   this.backButton = this.platform.backButton.subscribeWithPriority(9999, () => {
+  //     // No hagas nada para evitar la navegación hacia atrás
+  //   });
+  // }
 
-  ionViewWillLeave() {
-    this.backButton.unsubscribe();
-  }
+  // ionViewWillLeave() {
+  //   this.backButton.unsubscribe();
+  // }
 
   async mostrarMenu(){
     const modal = await this.modalController.create({
