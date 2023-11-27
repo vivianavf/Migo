@@ -83,6 +83,10 @@ const routes: Routes = [
     path: 'detalles-campana',
     loadChildren: () => import('./pages/detalles-campana/detalles-campana.module').then( m => m.DetallesCampanaPageModule)
   },
+  {
+    path: 'formulario-aplicacion',
+    loadChildren: () => import('./pages/formulario-aplicacion/formulario-aplicacion.module').then( m => m.FormularioAplicacionPageModule)
+  },
   
 ];
 

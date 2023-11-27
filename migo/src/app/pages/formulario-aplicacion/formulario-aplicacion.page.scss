@@ -1,0 +1,40 @@
+//toolbar
+ion-toolbar{
+    padding-top: 20px;
+    padding-bottom: 14px;
+  }
+  
+  ion-button.notificaciones{
+    padding-right: 12px;
+  }
+  
+  ion-button::part(native){
+    padding: 0;
+  }
+  
+  ion-icon.menu{
+    height: 40px;
+    width: 40px;
+    padding: 0;
+  }
+  
+  //AD
+  .ad {
+    display: flex;
+    justify-content: center; /* Alineación horizontal al centro */
+    align-items: center; /* Alineación vertical al centro */
+    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+  }
+  
+  .ad p {
+    margin: 0; /* Elimina el margen por defecto del párrafo */
+  }
+  
+  //modal
+  .menu{
+      --min-width: 100%;
+    }
+  
+  .notificaciones{
+      --min-width: 100%;
+  }
