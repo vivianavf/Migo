@@ -3,9 +3,11 @@
     <ion-button class="normal-radius" (click)="mostrarMenu()">
       <ion-icon class="menu" name="menu-outline"></ion-icon>
     </ion-button>
-    <ion-title class="bold-text">DETALLES DE CAMPAÑA</ion-title>
+    <ion-title class="bold-text uppercase-text toolbar-text"
+      >formulario de aplicación</ion-title
+    >
   </ion-buttons>
-  
+
   <ion-buttons slot="end">
     <ion-button class="notificaciones" (click)="mostrarNotificaciones()">
       <img
@@ -21,6 +23,59 @@
   </div>
 
   <ion-card>
-    
+    <div class="licencia-container">
+      <p class="white-text">Licencia de Conducir:</p>
+      <ion-button class="capitalize subir-archivo">Subir Archivo</ion-button>
+    </div>
+    <div class="formulario">
+      <form class="ion-no-border" [formGroup]="formularioAplicacion">
+        <!-- if usuario ya esta registrado, el correo y cedula ya esta predeterminado -->
+        <ion-item class="input-item">
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input
+            maxlength="50"
+            formControlName="email"
+            type="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Cédula de Identidad</ion-label>
+          <ion-input maxlength="10" formControlName="cedula"></ion-input>
+        </ion-item>
+        <!-- Aqui seria de hacer un select -->
+        <ion-item class="input-item">
+          <ion-label position="floating">Entidad Bancaria</ion-label>
+          <ion-input maxlength="50" formControlName="entidad"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Tipo de Cuenta</ion-label>
+          <ion-input maxlength="50" formControlName="tipocuenta"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="floating">Numero de Cuenta</ion-label>
+          <ion-input maxlength="20" formControlName="cuenta"></ion-input>
+        </ion-item>
+      </form>
+      <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
+        Datos incorrectos<br />
+      </ion-text>
+    </div>
+    <div class="select-vehiculo">
+      <p class="uppercase-text white-text">Seleccionar vehículo:</p>
+      <ion-button class="add-vehiculo">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+      <div class="terms">
+        <div>box</div>
+        <p>
+          Al utilizar nuestra aplicación, usted acepta los:
+          <a>Términos y Condiciones</a> y
+          <a>Política en Privacidad</a>
+        </p>
+      </div>
+    </div>
+    <div class="button-container">
+      <ion-button class="capitalize">Enviar Formulario</ion-button>
+    </div>
   </ion-card>
 </ion-content>

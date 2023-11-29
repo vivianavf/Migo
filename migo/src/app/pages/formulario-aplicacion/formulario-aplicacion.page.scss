@@ -17,6 +17,10 @@ ion-toolbar{
     width: 40px;
     padding: 0;
   }
+
+  ion-title.toolbar-text{
+    font-size: 16px;
+  }
   
   //AD
   .ad {
@@ -37,4 +41,87 @@ ion-toolbar{
   
   .notificaciones{
       --min-width: 100%;
+  }
+
+  //contenido
+  .licencia-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .licencia-container > p{
+    font-size: 17px;
+  }
+
+  ion-button.subir-archivo{
+    --border-radius: 10px;
+    width: 120px;
+    margin-left: 20px;
+  }
+
+  //form
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .formulario{
+    margin-top: 40px;
+  }
+
+  ion-item.input-item{
+    width: 330px;
+    background-color: white;
+    border-radius: 50px;
+    color: black;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 25px;
+    height: 40px;
+    align-items: center;
+    display: flex;
+  }
+
+  .select-vehiculo{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  ion-button.addvehiculo{
+    width: 80px;
+    height: 80px;
+    --background: transparent;
+    --color: white;
+  }
+
+  .terms{
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-right: 50px;
+    align-items: center;
+  }
+
+  .button-container{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+
+  //variables
+
+  .white-text{
+    color: white;
   }
