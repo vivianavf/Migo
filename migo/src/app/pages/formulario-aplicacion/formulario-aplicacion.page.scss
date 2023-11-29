@@ -45,23 +45,31 @@ ion-toolbar{
 
   //contenido
   .licencia-container{
-    display: flex;
-    flex-direction: row;
+//     display: grid;
+//     grid-template-columns: repeat(10, 1fr);
+// grid-template-rows: 1fr;
+// grid-column-gap: 10px;
+// grid-row-gap: 0px; 
+display: flex;
+    
     width: 100%;
     justify-content: center;
-    text-align: center;
-    align-items: center;
+    
     margin-top: 10px;
     margin-bottom: 20px;
   }
 
   .licencia-container > p{
+    // grid-area: 1 / 1 / 2 / 6;
     font-size: 17px;
+    text-align: end;
   }
 
   ion-button.subir-archivo{
     --border-radius: 10px;
+    --background-color: black;
     width: 120px;
+    height: 40px;
     margin-left: 20px;
   }
 
@@ -74,6 +82,10 @@ ion-toolbar{
 
   .formulario{
     margin-top: 40px;
+  }
+
+  ion-input{
+    --placeholder-color: black;
   }
 
   ion-item.input-item{
@@ -93,15 +105,20 @@ ion-toolbar{
     width: 100%;
     display: flex;
     flex-direction: column;
-    text-align: center;
-    justify-content: center;
+    align-items: center;
   }
 
-  ion-button.addvehiculo{
+  ion-button.add-vehiculo{
     width: 80px;
     height: 80px;
     --background: transparent;
     --color: white;
+    --box-shadow: none;
+  }
+
+  ion-icon.plus{
+    min-width: 100%;
+    min-height: 100%;
   }
 
   .terms{
@@ -119,6 +136,16 @@ ion-toolbar{
     margin-top: 10px;
   }
 
+  //modal
+  ion-modal{
+    --height: 50%;
+    --border-radius: 16px;
+  }
+
+  ion-modal > ion-content{
+    --background-color: white;
+    --color: black;
+  }
 
   //variables
 

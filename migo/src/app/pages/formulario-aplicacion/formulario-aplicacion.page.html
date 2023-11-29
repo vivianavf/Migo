@@ -25,35 +25,38 @@
   <ion-card>
     <div class="licencia-container">
       <p class="white-text">Licencia de Conducir:</p>
-      <ion-button class="capitalize subir-archivo">Subir Archivo</ion-button>
+      <input type="file" accept=".pdf" id="getFile" style="display:none" />
+      <ion-button onclick="document.getElementById('getFile').click()" class="capitalize subir-archivo">Subir Archivo</ion-button>
+      <!-- <div class="file">
+        <ion-item>
+          <input type="file"/>
+        </ion-item>
+        <ion-button (click)="subirArchivo()" class="capitalize subir-archivo">Subir Archivo</ion-button>
+      </div> -->
     </div>
     <div class="formulario">
       <form class="ion-no-border" [formGroup]="formularioAplicacion">
         <!-- if usuario ya esta registrado, el correo y cedula ya esta predeterminado -->
         <ion-item class="input-item">
-          <ion-label position="floating">Correo Electrónico</ion-label>
           <ion-input
+          placeholder="Correo Electrónico"
             maxlength="50"
             formControlName="email"
             type="email"
           ></ion-input>
         </ion-item>
         <ion-item class="input-item">
-          <ion-label position="floating">Cédula de Identidad</ion-label>
-          <ion-input maxlength="10" formControlName="cedula"></ion-input>
+          <ion-input placeholder="Cédula de Identidad" maxlength="10" formControlName="cedula"></ion-input>
         </ion-item>
         <!-- Aqui seria de hacer un select -->
         <ion-item class="input-item">
-          <ion-label position="floating">Entidad Bancaria</ion-label>
-          <ion-input maxlength="50" formControlName="entidad"></ion-input>
+          <ion-input placeholder="Entidad Bancaria" maxlength="50" formControlName="entidad"></ion-input>
         </ion-item>
         <ion-item class="input-item">
-          <ion-label position="floating">Tipo de Cuenta</ion-label>
-          <ion-input maxlength="50" formControlName="tipocuenta"></ion-input>
+          <ion-input placeholder="Tipo de Cuenta"  maxlength="50" formControlName="tipocuenta"></ion-input>
         </ion-item>
         <ion-item class="input-item">
-          <ion-label position="floating">Numero de Cuenta</ion-label>
-          <ion-input maxlength="20" formControlName="cuenta"></ion-input>
+          <ion-input placeholder="Número de Cuenta" maxlength="20" formControlName="cuenta"></ion-input>
         </ion-item>
       </form>
       <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
@@ -62,20 +65,27 @@
     </div>
     <div class="select-vehiculo">
       <p class="uppercase-text white-text">Seleccionar vehículo:</p>
-      <ion-button class="add-vehiculo">
-        <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-button id="open-modal" (click)="seleccionarVehiculo()" class="add-vehiculo">
+        <ion-icon class="plus" name="add-circle-outline"></ion-icon>
       </ion-button>
       <div class="terms">
-        <div>box</div>
+        <ion-checkbox></ion-checkbox>
         <p>
           Al utilizar nuestra aplicación, usted acepta los:
-          <a>Términos y Condiciones</a> y
-          <a>Política en Privacidad</a>
+          <a class="terms-politics" (click)="mostrarTerminos()">Términos y Condiciones</a> y
+          <a class="terms-politics" (click)="mostrarPoliticas()">Política en Privacidad</a>
         </p>
       </div>
     </div>
     <div class="button-container">
-      <ion-button class="capitalize">Enviar Formulario</ion-button>
+      <ion-button (click)="enviarFormulario()" class="capitalize">Enviar Formulario</ion-button>
     </div>
   </ion-card>
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-content>
+        Hola 
+      </ion-content>
+    </ng-template> 
+  </ion-modal>
 </ion-content>

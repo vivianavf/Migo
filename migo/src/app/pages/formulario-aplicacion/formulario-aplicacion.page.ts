@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/providers/users.service';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import { MenuPage } from '../modals/menu/menu.page';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Client } from 'src/app/interfaces/client';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -16,6 +17,7 @@ export class FormularioAplicacionPage implements OnInit {
 
   formularioAplicacion: FormGroup;
   mostrarMensaje: boolean = false;
+  cliente!: Client;
 
   constructor(
     private modalController: ModalController,
@@ -56,7 +58,20 @@ export class FormularioAplicacionPage implements OnInit {
     return await modal.present();
   }
 
+  mostrarTerminos(){}
+
+  mostrarPoliticas(){}
+
+  seleccionarVehiculo(){
+    
+  }
+
+  enviarFormulario(){}
+
+  subirArchivo(){}
+
   ngOnInit() {
+    this.cliente = this.clientService.clienteActivo();
   }
 
 }

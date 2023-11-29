@@ -1,4 +1,5 @@
 export interface Client {
+    id_cliente: Number,
     cedula_cliente: string,
     nombre: string,
     apellido: string,

@@ -27,6 +27,8 @@ export class DatosRegistroPage implements OnInit {
 
   public alertButtons = ['OK'];
 
+  clientes: Client[] = [];
+
   constructor(
     private modalController: ModalController,
     private navCtrl: NavController,
@@ -43,8 +45,11 @@ export class DatosRegistroPage implements OnInit {
     this.userService.ingresarUsuario(this.usuario)
 
     this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{ console.log(respuesta)})
-    this.clienteService.ingresarCliente(this.cliente)
 
+    //buscar el nuevo cliente en la database
+    const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
+    if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
+    
     this.formularioRegistro.reset();
 
     this.navCtrl.navigateRoot('/home')
@@ -66,6 +71,10 @@ export class DatosRegistroPage implements OnInit {
         this.sexo = "Prefiero No Decir";
         break;
     }
+
+    this.clienteService.getClients().subscribe((data)=>{
+      this.clientes = data;
+    })
   }
 
 }

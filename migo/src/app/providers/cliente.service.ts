@@ -29,8 +29,9 @@ export class ClienteService {
     return this.http.post(this.baseURL, cliente);
   }
 
-  ingresarCliente(cliente: any) {
+  ingresarCliente(cliente: Client) {
     if (cliente) {
+      localStorage.setItem('id_cliente', cliente.id_cliente.toString());
       localStorage.setItem('cedula_cliente', cliente.cedula_cliente);
       localStorage.setItem('nombre', cliente.nombre);
       localStorage.setItem('apellido', cliente.apellido);
@@ -42,15 +43,17 @@ export class ClienteService {
     }
   }
   clienteActivo() {
-    const clienteactivo ={
+    const clienteactivo = <Client>{
+      id_cliente: Number(localStorage.getItem('id_cliente')),
       cedula_cliente: localStorage.getItem('cedula_cliente'),
       nombre: localStorage.getItem('nombre'),
       apellido: localStorage.getItem('apellido'),
       fecha_nacimiento: localStorage.getItem('fecha_nacimiento'),
       email: localStorage.getItem('email_cliente'),
-      sexo: localStorage.getItem('sexo'),
+      sexo: Number(localStorage.getItem('sexo')),
       telefono: localStorage.getItem('telefono'),
-      estado: Number(localStorage.getItem('estado'))
+      estado: Number(localStorage.getItem('estado')),
+      id_usuario: Number(localStorage.getItem('id_usuario')),
     };
     return clienteactivo;
   }
