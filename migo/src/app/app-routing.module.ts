@@ -86,7 +86,11 @@ const routes: Routes = [
   {
     path: 'formulario-aplicacion',
     loadChildren: () => import('./pages/formulario-aplicacion/formulario-aplicacion.module').then( m => m.FormularioAplicacionPageModule)
+  },  {
+    path: 'agregar-vehiculo',
+    loadChildren: () => import('./pages/agregar-vehiculo/agregar-vehiculo.module').then( m => m.AgregarVehiculoPageModule)
   },
+
   
 ];
 

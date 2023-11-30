@@ -1,0 +1,71 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button
+      default-href="#"
+      text=""
+      icon="chevron-back"
+    ></ion-back-button>
+  </ion-buttons>
+  <ion-title>NUEVO VEHICULO</ion-title>
+</ion-toolbar>
+
+<ion-content>
+
+  <div class="ad">
+    <p>BANNER PUBLICITARIO</p>
+  </div>
+
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item>
+      <ion-label position="floating">Nombre del Conductor</ion-label>
+      <ion-input [(ngModel)]="driverName" name="driverName" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Teléfono</ion-label>
+      <ion-input [(ngModel)]="phone" name="phone" type="tel" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Placa del Vehículo</ion-label>
+      <ion-input [(ngModel)]="plate" name="plate" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Marca</ion-label>
+      <ion-select [(ngModel)]="brand" name="brand" required>
+        <ion-select-option value="marca1">Marca 1</ion-select-option>
+        <ion-select-option value="marca2">Marca 2</ion-select-option>
+        <!-- Agrega más opciones según sea necesario -->
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Modelo</ion-label>
+      <ion-select [(ngModel)]="model" name="model" required>
+        <ion-select-option value="modelo1">Modelo 1</ion-select-option>
+        <ion-select-option value="modelo2">Modelo 2</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Color del Vehículo</ion-label>
+    <ion-select [(ngModel)]="color" name="color" required>
+      <ion-select-option value="rojo">Rojo</ion-select-option>
+      <ion-select-option value="azul">Azul</ion-select-option>
+      <ion-select-option value="verde">Verde</ion-select-option>
+      <ion-select-option value="negro">Negro</ion-select-option>
+      <ion-select-option value="blanco">Blanco</ion-select-option>
+      <!-- Agrega más opciones según sea necesario -->
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Año del Vehículo</ion-label>
+    <ion-input [(ngModel)]="year" name="year" type="number" required></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" (click)="submitForm()">Agregar Conductor</ion-button>
+</ion-content>
+
