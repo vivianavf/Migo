@@ -7,6 +7,8 @@ import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page
 import { MenuPage } from '../modals/menu/menu.page';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Client } from 'src/app/interfaces/client';
+import { VehiculoService } from 'src/app/providers/vehiculo.service';
+import { Vehiculo } from 'src/app/interfaces/vehiculo';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -18,12 +20,15 @@ export class FormularioAplicacionPage implements OnInit {
   formularioAplicacion: FormGroup;
   mostrarMensaje: boolean = false;
   cliente!: Client;
+  vehiculos: Vehiculo[] = [];
+  vehiculosUsuario: Vehiculo[] = [];
 
   constructor(
     private modalController: ModalController,
     private userService: UsersService,
     private clientService: ClienteService,
     private campanaService: CampanaService,
+    private vehiculoService: VehiculoService,
     public fb: FormBuilder,
   ) {
     this.formularioAplicacion = this.fb.group({
@@ -63,7 +68,13 @@ export class FormularioAplicacionPage implements OnInit {
   mostrarPoliticas(){}
 
   seleccionarVehiculo(){
-    
+    this.vehiculos.forEach((element)=>{
+      const vehiculoPertenece = this.vehiculos.find(({id_cliente}) => id_cliente === this.cliente.id_cliente);
+      //if
+      console.log(vehiculoPertenece)
+      if(vehiculoPertenece) this.vehiculosUsuario.push(vehiculoPertenece)
+    })
+    // const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
   }
 
   enviarFormulario(){}
@@ -72,6 +83,9 @@ export class FormularioAplicacionPage implements OnInit {
 
   ngOnInit() {
     this.cliente = this.clientService.clienteActivo();
+    this.vehiculoService.getVehiculos().subscribe((data)=>{
+      this.vehiculos = data;
+    })
   }
 
 }

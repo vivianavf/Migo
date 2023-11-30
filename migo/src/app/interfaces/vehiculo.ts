@@ -1,16 +1,16 @@
 export interface Vehiculo {
-    "telefono": string,
+    "telefono_conductor": number,
     "placa": string,
     "anio": number,
-    "categoria": number,
-    "color": number,
-    "urlImgIzq": string,
-    "urlImgDer": string,
-    "urlImgFron": string,
-    "urlImgTra": string,
-    "urlImgTecho": string,
+    "categoria_vehiculo": number,
+    "color_vehiculo": number,
+    "imagen_izq": string,
+    "imagen_der": string,
+    "imagen_frontal": string,
+    "imagen_trasera": string,
+    "imagen_techo": string,
     "estado": number,
-    "idCliente": number,
-    "idMarca": number,
-    "idModelo": number
+    "id_cliente": number,
+    "id_marca": number,
+    "id_modelo": number
 }
