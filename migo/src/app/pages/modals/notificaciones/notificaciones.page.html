@@ -7,15 +7,15 @@
         default-href=""
       ></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Notificaciones</ion-title>
+    <ion-title class="ion-text-center bold-text uppercase-text">Notificaciones</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-item class="button-container">
-    <ion-button class="ion-text-end">
+    <ion-button class="ion-text-end eliminar capitalize bold-text">
       Eliminar Todo
-      <ion-icon name="trash" color="danger"></ion-icon>
+      <ion-icon name="trash" color="white"></ion-icon>
     </ion-button>
   </ion-item>
 
@@ -27,12 +27,12 @@
         22:15
       </div>
       <ion-card-content>
-        <img class="notif-img" src="../../../../assets/iconos-migo/campanita.png">
+        <img class="notif-img" src="../../../../assets/campanas/1.jpg">
         <div class="notif-contenido">
           <ion-text class="notif-title bold-text uppercase-text">Bienvenido</ion-text>
-          <ion-text class="notif-content">Bienvenido a Migo Ads</ion-text>
+          <ion-text class="notif-content">Te damos la bienvenida a Migo Ads! Ahora puedes comenzar a monetizar. </ion-text>
         </div>
-        <ion-button class="detalle ion-text-wrap">Ver detalle</ion-button>
+        <ion-button class="detalle ion-text-wrap capitalize bold-text">Ver detalle</ion-button>
       </ion-card-content>
     </ion-card>
   </ion-item>
@@ -43,19 +43,5 @@
   <ion-item class="second-container container">
     <ion-title class="read"> Leídas </ion-title>
     <ion-text>No Hay Notificaciones</ion-text>
-    <!-- <ion-card>
-      <div class="date">
-        fecha
-        hora
-      </div>
-      <ion-card-content>
-        <img class="notif-img" src="../../../../assets/iconos-migo/01.png">
-        <div class="notif-contenido">
-          <ion-text class="notif-title bold-text uppercase-text">Bienvenido</ion-text>
-          <ion-text>Bienvenido a Migo Ads</ion-text>
-        </div>
-        <ion-button class="detalle ion-text-wrap capitalize-text">Ver detalle</ion-button>
-      </ion-card-content>
-    </ion-card> -->
   </ion-item>
 </ion-content>

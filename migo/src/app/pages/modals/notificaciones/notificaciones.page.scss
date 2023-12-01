@@ -1,5 +1,23 @@
+@import '../../../../theme/variables.scss';
+
 .button-container ion-button{
    margin-left: auto;
+}
+
+//boton eliminar
+ion-button.eliminar{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    --background: rgb(157, 0, 0);
+    --color: white;
+    --background-activated: var( --ion-color-primary);
+    width: 125px;
+    height: 30px;
+    --border-radius: 10px;
+}
+
+ion-icon[name="trash"]{
+    margin-left: 5px;
 }
 
 .container::part(native){
@@ -22,7 +40,7 @@ ion-content{
 
 ion-title.read{
     width: 100%;
-    
+    margin-bottom: 10px;
 }
 
 ion-card{
@@ -35,32 +53,41 @@ ion-card{
 .date{
     margin-right: 10px;
     text-align:right;
+    height: 1px;
 }
 
 ion-card-content{
     display: flex;
     padding-top: 0;
+    padding: 0;
+    padding-left: 5px;
+    height: 100%;
+    align-items: center;
 }
 
 .notif-img{
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     border-radius: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .notif-contenido{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    
     margin-left: 10px;
-    justify-content: center;
-    // margin-right: auto;
+    
+    margin: 0;
+    margin-left: 0;
+    height: 100%;
 }
 
 ion-text.notif-title{
     padding-left: 0;
     font-size: 20px;
+    margin-top: 7px;
 }
 
 ion-text.notif-content{
@@ -72,9 +99,14 @@ ion-text{
 }
 
 ion-button.detalle{
-    height: 50px;
-    width: 70px;
+    height: 42px;
+    width: 80px;
     font-size: inherit; 
     align-self: center;
     margin-left: auto;
+    margin-right: 15px;
+    margin-top: 15px;
+    --background: var(--ion-color-warning);
+    --color: white;
+    --border-radius: 10px;
 }
