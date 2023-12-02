@@ -7,7 +7,7 @@
 //boton eliminar
 ion-button.eliminar{
     margin-top: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     --background: rgb(157, 0, 0);
     --color: white;
     --background-activated: var( --ion-color-primary);
@@ -84,14 +84,29 @@ ion-card-content{
     height: 100%;
 }
 
+//titulo de la notificacion
 ion-text.notif-title{
     padding-left: 0;
     font-size: 20px;
     margin-top: 7px;
+    width: 187px;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
+//texto de la notificacion
 ion-text.notif-content{
     font-size: 15px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 ion-text{

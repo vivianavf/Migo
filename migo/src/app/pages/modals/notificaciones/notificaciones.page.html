@@ -13,28 +13,14 @@
 
 <ion-content [fullscreen]="true">
   <ion-item class="button-container">
-    <ion-button class="ion-text-end eliminar capitalize bold-text">
+    <ion-button class="ion-text-end eliminar capitalize bold-text" (click)="eliminarTodo()">
       Eliminar Todo
       <ion-icon name="trash" color="white"></ion-icon>
     </ion-button>
   </ion-item>
 
-  <ion-item class="first-container container">
+  <ion-item id="parent-notifications" class="first-container container" #parentNotifications>
     <ion-title class="read">No leídas</ion-title>
-    <ion-card>
-      <div class="date">
-        12/11/2023
-        22:15
-      </div>
-      <ion-card-content>
-        <img class="notif-img" src="../../../../assets/campanas/1.jpg">
-        <div class="notif-contenido">
-          <ion-text class="notif-title bold-text uppercase-text">Bienvenido</ion-text>
-          <ion-text class="notif-content">Te damos la bienvenida a Migo Ads! Ahora puedes comenzar a monetizar. </ion-text>
-        </div>
-        <ion-button class="detalle ion-text-wrap capitalize bold-text">Ver detalle</ion-button>
-      </ion-card-content>
-    </ion-card>
   </ion-item>
 
   <div class="line"></div>

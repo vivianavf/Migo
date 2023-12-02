@@ -25,7 +25,7 @@ export class MarcaService {
     return this.http.get<Marca[]>(this.baseURL+id+"/"+this.formato);
   }
 
-  crearCampana(marca: Marca): Observable<any>{
+  crearMarca(marca: Marca): Observable<any>{
     return this.http.post(this.baseURL, marca);
   }
 
