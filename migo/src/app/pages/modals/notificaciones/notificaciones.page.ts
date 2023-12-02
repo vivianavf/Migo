@@ -83,7 +83,9 @@ export class NotificacionesPage implements OnInit {
     }
   };
 
-  eliminarTodo() {}
+  eliminarTodo() {
+    //eliminar notificaciones del servidor (nunca más regresan, se eliminan para siempreeeee)
+  }
 
   ngOnInit() {
     try {

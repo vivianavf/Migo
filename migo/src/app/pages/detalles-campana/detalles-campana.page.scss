@@ -18,16 +18,20 @@ ion-icon.menu{
   padding: 0;
 }
 
-//AD
-.ad {
-  display: flex;
-  justify-content: center; /* Alineación horizontal al centro */
-  align-items: center; /* Alineación vertical al centro */
-  height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
-}
+// //AD
+// .ad {
+//   display: flex;
+//   justify-content: center; /* Alineación horizontal al centro */
+//   align-items: center; /* Alineación vertical al centro */
+//   height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+// }
 
-.ad p {
-  margin: 0; /* Elimina el margen por defecto del párrafo */
+// .ad p {
+//   margin: 0; /* Elimina el margen por defecto del párrafo */
+// }
+
+.img-ad{
+  object-position: -0px -32px;
 }
 
 //modal
@@ -55,13 +59,18 @@ ion-card-content{
   padding-right: 0;
 }
 
+//banner de empresa
+.img-empresa{
+  object-position: -0px 25px;
+}
+
 .banner-empresa{
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center; /* Alineación horizontal al centro */
   align-items: center; /* Alineación vertical al centro */
-  height: 50px; /* Altura del contenedor, ajusta según tus necesidades */
+  height: 70px; /* Altura del contenedor, ajusta según tus necesidades */
 }
 
 p.correo{

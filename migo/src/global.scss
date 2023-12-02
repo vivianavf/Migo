@@ -116,9 +116,17 @@ ion-modal.terms{
   }
   
   .ad{
-    background-color: yellow;
-    color: black;
+    background-color: transparent;
+    // color: black;
     text-align: center;
+    overflow: hidden;
+    height: 100px;
+  }
+
+  .img-ad{
+    width: 100%;
+    // height: inherit;
+    // object-position: -0px -106px;
   }
 
   //shadow

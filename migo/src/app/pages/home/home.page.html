@@ -24,20 +24,24 @@
 
 <ion-content [fullscreen]="true">
   <div class="ad">
-    <p>BANNER PUBLICITARIO</p>
+    <ion-img
+      src="../../../assets/images/banner-seguros.png"
+      alt="Banner Publicitario"
+      class="img-ad"
+    ></ion-img>
   </div>
 
   <ion-toolbar class="section-toolbar">
     <ion-segment [(ngModel)]="segmentValue">
       <ion-segment-button value="campanas">
         <div class="segment-container">
-          <ion-icon class='toolbar-icon' name="megaphone"></ion-icon>
+          <ion-icon class="toolbar-icon" name="megaphone"></ion-icon>
           <ion-label class="toolbar bold-text capitalize">Campañas</ion-label>
         </div>
       </ion-segment-button>
       <ion-segment-button value="marcas">
         <div class="segment-container">
-          <ion-icon class='toolbar-icon' name="business"></ion-icon>
+          <ion-icon class="toolbar-icon" name="business"></ion-icon>
           <ion-label class="toolbar bold-text capitalize">Marcas</ion-label>
         </div>
       </ion-segment-button>

@@ -22,18 +22,22 @@ ion-toolbar{
     font-size: 16px;
   }
   
-  //AD
-  .ad {
-    display: flex;
-    justify-content: center; /* Alineación horizontal al centro */
-    align-items: center; /* Alineación vertical al centro */
-    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
-  }
+  // //AD
+  // .ad {
+  //   display: flex;
+  //   justify-content: center; /* Alineación horizontal al centro */
+  //   align-items: center; /* Alineación vertical al centro */
+  //   height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+  // }
   
-  .ad p {
-    margin: 0; /* Elimina el margen por defecto del párrafo */
-  }
+  // .ad p {
+  //   margin: 0; /* Elimina el margen por defecto del párrafo */
+  // }
   
+  .img-ad{
+    object-position: -0px -25px;
+  }
+
   //modal
   .menu{
       --min-width: 100%;

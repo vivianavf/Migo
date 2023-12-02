@@ -1,9 +1,12 @@
-.ad {
-    display: flex;
-    justify-content: center; /* Alineación horizontal al centro */
-    align-items: center; /* Alineación vertical al centro */
-    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
-  }
+// .ad {
+//     display: flex;
+//     justify-content: center; /* Alineación horizontal al centro */
+//     align-items: center; /* Alineación vertical al centro */
+//     height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+//   }
+.img-ad{
+  object-position: -0px -27px;
+}
 
 .divisor{
     display: flex;
