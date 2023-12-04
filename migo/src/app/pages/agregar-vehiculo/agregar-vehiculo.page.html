@@ -19,57 +19,50 @@
     ></ion-img>
   </div>
 
-  <ion-list lines="full" class="ion-no-margin ion-no-padding">
-    <ion-item>
-      <ion-label position="floating">Nombre del Conductor</ion-label>
-      <ion-input [(ngModel)]="driverName" name="driverName" required></ion-input>
-    </ion-item>
+  <form>
+    <ion-list>
+      <ion-item [class.invalid-border]="isInvalidField('driverName')">
+        <ion-label position="stacked">Nombre del Conductor</ion-label>
+        <ion-input [(ngModel)]="formFields.driverName" name="driverName" class="rounded-input" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Teléfono</ion-label>
-      <ion-input [(ngModel)]="phone" name="phone" type="tel" required></ion-input>
-    </ion-item>
+      <ion-item [class.invalid-border]="isInvalidField('phone')">
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input [(ngModel)]="formFields.phone" name="phone" type="tel" class="rounded-input" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Placa del Vehículo</ion-label>
-      <ion-input [(ngModel)]="plate" name="plate" required></ion-input>
-    </ion-item>
+      <ion-item [class.invalid-border]="isInvalidField('plate')">
+        <ion-label position="stacked">Placa del Vehículo</ion-label>
+        <ion-input [(ngModel)]="formFields.plate" name="plate" class="rounded-input" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Marca</ion-label>
-      <ion-select [(ngModel)]="brand" name="brand" required>
-        <ion-select-option value="marca1">Marca 1</ion-select-option>
-        <ion-select-option value="marca2">Marca 2</ion-select-option>
-        <!-- Agrega más opciones según sea necesario -->
-      </ion-select>
-    </ion-item>
+      <ion-item [class.invalid-border]="isInvalidField('year')">
+        <ion-label position="stacked">Año del Vehículo</ion-label>
+        <ion-input [(ngModel)]="formFields.year" name="year" type="number" class="rounded-input" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Modelo</ion-label>
-      <ion-select [(ngModel)]="model" name="model" required>
-        <ion-select-option value="modelo1">Modelo 1</ion-select-option>
-        <ion-select-option value="modelo2">Modelo 2</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+      <ion-item [class.invalid-border]="isInvalidField('brand')">
+        <ion-label position="stacked">Marca</ion-label>
+        <ion-select [(ngModel)]="formFields.brand" name="brand" class="rounded-input" required>
+          <ion-select-option value="marca1">Marca 1</ion-select-option>
+          <ion-select-option value="marca2">Marca 2</ion-select-option>
+          <!-- Agrega más opciones según sea necesario -->
+        </ion-select>
+      </ion-item>
 
-  <ion-item>
-    <ion-label>Color del Vehículo</ion-label>
-    <ion-select [(ngModel)]="color" name="color" required>
-      <ion-select-option value="rojo">Rojo</ion-select-option>
-      <ion-select-option value="azul">Azul</ion-select-option>
-      <ion-select-option value="verde">Verde</ion-select-option>
-      <ion-select-option value="negro">Negro</ion-select-option>
-      <ion-select-option value="blanco">Blanco</ion-select-option>
-      <!-- Agrega más opciones según sea necesario -->
-    </ion-select>
-  </ion-item>
+      <ion-item [class.invalid-border]="isInvalidField('model')">
+        <ion-label position="stacked">Modelo</ion-label>
+        <ion-select [(ngModel)]="formFields.model" name="model" class="rounded-input" required>
+          <ion-select-option value="modelo1">Modelo 1</ion-select-option>
+          <ion-select-option value="modelo2">Modelo 2</ion-select-option>
+          <!-- Agrega más opciones según sea necesario -->
+        </ion-select>
+      </ion-item>
+    </ion-list>
 
-  <ion-item>
-    <ion-label position="floating">Año del Vehículo</ion-label>
-    <ion-input [(ngModel)]="year" name="year" type="number" required></ion-input>
-  </ion-item>
-
-  <ion-button expand="full" (click)="submitForm()">Agregar Conductor</ion-button>
+    <div class="submit-button-container">
+      <ion-button expand="default" (click)="submitForm()">Agregar Conductor</ion-button>
+    </div>
+  </form>
 </ion-content>
 

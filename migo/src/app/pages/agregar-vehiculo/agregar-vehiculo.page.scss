@@ -4,3 +4,25 @@
 //     align-items: center; /* Alineación vertical al centro */
 //     height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
 //   }
+
+.buttons-container{
+    display: flex;
+    justify-content: center; /* Alineación horizontal al centro */
+    align-items: center; /* Alineación vertical al centro */
+    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+}
+
+.rounded-input {
+    border-radius: 10px;
+    background-color: white;
+    padding: 8px; /* Ajusta el relleno según sea necesario */
+    color: black; /* Cambia el color del texto a negro */
+}
+
+.invalid-border {
+    --border-color: red !important; /* Color del borde cuando es inválido */
+}
+
+.submit-button-container {
+    text-align: center; /* Centra el contenido horizontalmente */
+}  
