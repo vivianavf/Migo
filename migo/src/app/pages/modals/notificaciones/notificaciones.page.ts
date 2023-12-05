@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
-import { IonCard, ModalController } from '@ionic/angular';
+import { AlertController, IonCard, ModalController } from '@ionic/angular';
 import { Notificacion } from 'src/app/interfaces/notificacion';
 import { NotificacionesService } from 'src/app/providers/notificaciones.service';
 
@@ -18,13 +18,15 @@ import { NotificacionesService } from 'src/app/providers/notificaciones.service'
 })
 export class NotificacionesPage implements OnInit {
   @ViewChild('parentNotifications', { read: ElementRef, static: true })
+  
   parentNotifications!: ElementRef;
   notificaciones: Notificacion[] = [];
 
   constructor(
     private modalController: ModalController,
     private notificacionesService: NotificacionesService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private alertController: AlertController,
   ) {}
 
   cerrarModal() {
@@ -83,8 +85,57 @@ export class NotificacionesPage implements OnInit {
     }
   };
 
-  eliminarTodo() {
+  async eliminarTodo() {
+    
     //eliminar notificaciones del servidor (nunca más regresan, se eliminan para siempreeeee)
+    const alert = await this.alertController.create({
+      cssClass: "notificationsAlert",
+      header: 'Está seguro de eliminar todas las notificaciones?',
+      message: 'Esta acción no se puede revertir',
+      buttons: [{
+        cssClass: "cancelarButton",
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Alert canceled');
+        },
+      },
+      {
+        cssClass: "YesButton",
+        text: 'Aceptar',
+        role: 'confirm',
+        handler: () => {
+          console.log('Alert confirmed');
+          var cards = document.getElementsByTagName("ion-card");
+          //hacer lo de eliminar todas las notificaciones
+        },
+      },],
+    });
+
+    await alert.present();
+  }
+
+  async verMas(fecha_creacion: string, titulo: string, descripcion: string){
+    const alert = await this.alertController.create({
+      cssClass: "notificationInfo",
+      header: titulo,
+      subHeader: fecha_creacion,
+      message: descripcion,
+      //TODO: falta la imagen
+      buttons: [
+      {
+        cssClass: "YesButton",
+        text: 'Aceptar',
+        role: 'confirm',
+        handler: () => {
+          console.log('Alert confirmed');
+          
+        },
+      },],
+    });
+
+    await alert.present();
+
   }
 
   ngOnInit() {
@@ -146,12 +197,17 @@ export class NotificacionesPage implements OnInit {
         this.renderer.addClass(botonDetalles, 'capitalize')
         this.renderer.addClass(botonDetalles, 'ion-text-wrap')
         this.renderer.addClass(botonDetalles, 'bold-text')
-        botonDetalles.innerHTML = `Ver detalle`
+        botonDetalles.innerHTML = `Ver Más`
         this.renderer.appendChild(cardContent, botonDetalles)
         
         const ionItem = this.parentNotifications.nativeElement;
         this.renderer.appendChild(ionItem, newCard);
-      });
+        botonDetalles.addEventListener('click', this.verMas(element.fecha_creacion, element.titulo, element.descripcion));
+
+        //TODO: Arreglar esto
     });
-  }
-}
+  
+  
+  })
+
+}}
