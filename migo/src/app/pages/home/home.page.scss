@@ -1,3 +1,4 @@
+
 ion-toolbar{
   padding-top: 20px;
   padding-bottom: 14px;
@@ -7,42 +8,93 @@ ion-button.notificaciones{
   padding-right: 12px;
 }
 
-ion-select{
-  --background: white;
-  --border-radius:  50px;
-  --highlight-color-focused: transparent;
-  --placeholder-color: black;
-  margin-left: 10%; 
+// ion-select{
+//   --background: white;
+//   --border-radius:  50px;
+//   --highlight-color-focused: transparent;
+//   --placeholder-color: black;
+//   margin-left: 7%; 
+// }
+
+//filter options con ion-button y ion-list
+ion-text.filtrar-por{
+  color: black;
+  margin-right: auto;
+  margin-left: 20px;
+  font-size: 16px;
+}
+ion-button#filtro{
+  display: flex;
+  --border-radius: 50px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.end-of-line{
+  margin-left: auto;
+  margin-right: 15px;
+}
+//select
+ion-item.select-option{
+  background-color: white;
+  color: black;
+  font-size: 18px;
+}
+ion-icon.end-of-line{
+  align-self:flex-end;
+  color: black;
+}
+ion-content::part(scroll){
+  border-radius: 20px;
+  margin-top: 5px;
+}
+.item-icon{
+  width: 25px;
+  height: 25px;
+}
+
+/** Filter Options Root Select **/
+ion-content.filter-options::part(scroll){
+  padding: 0;
+  background-color: white;
+}
+
+ion-list.list-options{
+  padding: 0;
+  background-color: white; 
+}
+
+ion-item.select-option::part(native){
+  background-color: white;
 }
 
 /** Shadow Root Select **/
 
-ion-select::part(placeholder){
-  color: black;
-  padding-right: 130px;
-  padding-left: 20px;
-}
+// ion-select::part(placeholder){
+//   color: black;
+//   padding-right: 130px;
+//   padding-left: 20px;
+// }
 
-ion-select::part(icon) {
-  content: url('../../../assets/iconos-migo/chevron-down-outline.svg');
-  height: 25px;
-  width: 30%;
-}
+// ion-select::part(icon) {
+//   content: url('../../../assets/iconos-migo/chevron-down-outline.svg');
+//   height: 25px;
+//   width: 30%;
+// }
 
-.filtro{
-  min-height: 40px;
-  width: 230px;
-}
+// .filtro{
+//   min-height: 40px;
+//   width: 220px;
+// }
 
-ion-select::part(container){
-  width: 100%;
-}
+// ion-select::part(container){
+//   width: 100%;
+// }
 
-ion-select::part(text){
-  color: black;
-  padding-right: 130px;
-  padding-left: 20px;
-}
+// ion-select::part(text){
+//   color: black;
+//   padding-left: 20px;
+// }
 
 /** Shadow Root Select **/
 

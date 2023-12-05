@@ -1,5 +1,5 @@
 export interface Client {
-    id_cliente: Number,
+    id_cliente?: Number,
     cedula_cliente: string,
     nombre: string,
     apellido: string,
@@ -8,5 +8,5 @@ export interface Client {
     sexo: number,
     telefono: string,
     estado: Number,
-    id_usuario: Number,
+    id_usuario?: Number,
 }

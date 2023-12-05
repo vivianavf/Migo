@@ -50,7 +50,6 @@ export class DetallesCampanaPage implements OnInit {
   }
 
   async loadMap(){
-    
     // GoogleMap.create({
     //   id: 'my-map',
     //   apiKey: "AIzaSyDMg06OQIw-YexoKaDViGwbGizLaL1UoEc",

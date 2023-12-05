@@ -113,7 +113,7 @@ export class NotificacionesPage implements OnInit {
       this.notificaciones = data;
 
       data.forEach((element) => {
-        console.log(element);
+        // console.log(element);
         const newCard = this.renderer.createElement('ion-card');
         const divDate = this.renderer.createElement('div')
         this.renderer.addClass(divDate, 'date');

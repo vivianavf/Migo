@@ -25,6 +25,8 @@ export class DatosRegistroPage implements OnInit {
   @Input() cliente: any;
   @Input() formularioRegistro: any;
 
+  nuevoID!: number;
+
   public alertButtons = ['OK'];
 
   clientes: Client[] = [];
@@ -41,14 +43,67 @@ export class DatosRegistroPage implements OnInit {
   aceptar(){
     this.modalController.dismiss();
 
-    this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{console.log(respuesta)})
-    this.userService.ingresarUsuario(this.usuario)
+    var nuevoID;
+    this.userService.crearUsuario(this.usuario).subscribe((respuesta) =>{
+      this.usuario = respuesta
+      console.log("Usuario registrado con exito", this.usuario)
+      nuevoID = this.usuario.id_usuario;
+      console.log(nuevoID)
+      this.userService.ingresarUsuario(this.usuario)
 
-    this.clienteService.crearCliente(this.cliente).subscribe((respuesta)=>{ console.log(respuesta)})
+          var nuevocliente = <any>{ 
+          cedula_cliente: this.cedula,
+          nombre: this.nombres,
+          apellido: this.apellidos,
+          fecha_nacimiento: this.fechaNacimiento,
+          email: this.correo,
+          sexo: Number(this.cliente.sexo),
+          telefono: this.telefono,
+          estado: 1,
+          id_usuario: Number(nuevoID),
+    }
+
+      this.clienteService.crearCliente(nuevocliente).subscribe((respuesta)=>{
+      console.log(respuesta)
+
+    })
+
+    this.clienteService.ingresarCliente(nuevocliente)
+
+    // const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
+    // if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
+
+    })
+
+    // this.userService.ingresarUsuario(actualUsuario)
+
+    // var nuevoIDUsuario2 = localStorage.getItem("id_usuario")
+    // console.log(this.nuevoID);
+    // console.log(this.usuario)
+    // console.log(this.sexo) //Femenino
+
+    // var nuevocliente = <any>{ 
+    //       cedula_cliente: this.cedula,
+    //       nombre: this.nombres,
+    //       apellido: this.apellidos,
+    //       fecha_nacimiento: this.fechaNacimiento,
+    //       email: this.correo,
+    //       sexo: Number(this.sexo),
+    //       telefono: this.telefono,
+    //       estado: 1,
+    //       id_usuario: Number(nuevoIDUsuario2),
+    // }
+    
+    // console.log(nuevocliente)
+
+    // this.clienteService.crearCliente(nuevocliente).subscribe((respuesta)=>{
+    //   console.log(respuesta)
+    // })
+    // this.clienteService.ingresarCliente(nuevocliente)
 
     //buscar el nuevo cliente en la database
-    const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
-    if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
+    // const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
+    // if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
     
     this.formularioRegistro.reset();
 

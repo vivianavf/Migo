@@ -21,6 +21,7 @@
 
   <ion-item id="parent-notifications" class="first-container container" #parentNotifications>
     <ion-title class="read">No leídas</ion-title>
+    <ion-progress-bar *ngIf="notificaciones.length === 0" type="indeterminate"></ion-progress-bar>
   </ion-item>
 
   <div class="line"></div>

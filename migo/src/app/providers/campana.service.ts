@@ -12,13 +12,18 @@ export class CampanaService {
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/campaniaspublicitarias/';
   private formato = '?format=json'
   private campana : any;
+  public campanasObtenidas: Campana[] = [];
 
   constructor(
     private http: HttpClient,
   ) { }
 
   getCampanas():Observable<Campana[]>{
-    return this.http.get<Campana[]>(this.baseURL+this.formato);
+    var respuesta = this.http.get<Campana[]>(this.baseURL+this.formato);
+    respuesta.forEach((campanas)=>{
+      this.campanasObtenidas = campanas;
+    })
+    return respuesta;
   }
 
   getCampanabyId(id: number):Observable<Campana[]>{

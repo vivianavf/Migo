@@ -70,8 +70,8 @@ export class MenuPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.user)
-    console.log(this.client)
+    // console.log(this.user)
+    // console.log(this.client)
   }
 
 }

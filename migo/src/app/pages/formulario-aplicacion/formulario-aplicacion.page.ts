@@ -71,7 +71,7 @@ export class FormularioAplicacionPage implements OnInit {
     this.vehiculos.forEach((element)=>{
       const vehiculoPertenece = this.vehiculos.find(({id_cliente}) => id_cliente === this.cliente.id_cliente);
       //if
-      console.log(vehiculoPertenece)
+      // console.log(vehiculoPertenece)
       if(vehiculoPertenece) this.vehiculosUsuario.push(vehiculoPertenece)
     })
     // const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);

@@ -94,10 +94,10 @@ export class RecuperarPasswordPage implements OnInit {
   }
 
   enviarCorreo(inputEmail:string){
-    console.log("buscar id cliente del correo: " + inputEmail);
+    // console.log("buscar id cliente del correo: " + inputEmail);
     var nombreCompleto = this.findIdByEmail(inputEmail);
-    console.log("nombres:");
-    console.log(nombreCompleto);
+    // console.log("nombres:");
+    // console.log(nombreCompleto);
     
     var code = Math.floor(Math.random() * (999999 - 111111) + 111111).toString()
     var message = code
@@ -123,8 +123,8 @@ export class RecuperarPasswordPage implements OnInit {
     });
     this.clientService.getClients().subscribe((data) => {
       this.clientes = data;
-      console.log("clientes:");
-      console.log(this.clientes);
+      // console.log("clientes:");
+      // console.log(this.clientes);
     });
   }
 }

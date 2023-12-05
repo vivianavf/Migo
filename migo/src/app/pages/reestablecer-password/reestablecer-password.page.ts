@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { UsersService } from 'src/app/providers/users.service';
@@ -27,9 +28,11 @@ export class ReestablecerPasswordPage implements OnInit {
     private communicationService: ComunicationService,
     private userService: UsersService,
     private router: Router,
+    private modalController: ModalController,
+    private alertController: AlertController,
   ) { }
 
-  actualizar(){
+  async actualizar(){
     //verificar que las 2 contraseñas coinciden
     if(this.inputValue==this.inputValue2 && this.inputValue !== undefined && this.inputValue2 !== undefined){
       this.noCoincide = false;
@@ -40,13 +43,30 @@ export class ReestablecerPasswordPage implements OnInit {
         this.userService.actualizarPassword(idUsuario, requestBody).subscribe((respuesta)=>{
           // console.log(respuesta)
         })
-        this.router.navigate(['/home']);
+
+        const alert = await this.alertController.create({
+          // header: "",
+          message: "La contraseña ha sido actualizada con éxito",
+          buttons: [{
+            text: "Aceptar",
+            handler:()=>{ this.router.navigate(["/home"])}
+          }],
+          cssClass: "passwordAlert",
+        })
+
+        await alert.present();
+        // this.router.navigate(['/home']);
       }
     }else{
       //Contrasenas no coinciden
       this.noCoincide = true;
     }
     
+  }
+
+  irAHome(){
+    this.router.navigate(['/home']);
+    this.modalController.dismiss();
   }
 
   ngOnInit() {

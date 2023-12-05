@@ -1,5 +1,6 @@
 <div class="root">
-  <ion-text> Mostrando últimas campañas publicadas </ion-text>
+  <ion-text *ngIf="campanas.length > 0"> Mostrando últimas campañas publicadas </ion-text>
+  <ion-progress-bar *ngIf="campanas.length === 0" type="indeterminate"></ion-progress-bar>
 <div class="content">
   <ion-card *ngFor="let campana of campanas">
     <ion-card-content>
@@ -19,7 +20,7 @@
       </div>
     </ion-card-content>
     <div class="image-and-button">
-      <ion-img src="../../../assets/campanas/{{campana.id_campana}}.jpg" alt="Marca"></ion-img>
+      <ion-img src="../../../assets/campanas/{{campana.id_empresa}}.jpg" alt="Marca"></ion-img>
       <ion-button class="rounded-button registrarse white-text " color="warning" shape="round" expand="full" (click)="registrarse(campana)">Regístrate</ion-button>
     </div>
   </ion-card>

@@ -16,7 +16,7 @@ export class HttpserviceService {
   ) { }
 
   requestCall(datos: any){
-    console.log(datos)
+    // console.log(datos)
     return this.http.post(this.baseURL, datos)
   }
 }

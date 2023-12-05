@@ -156,3 +156,18 @@ ion-list.sc-ion-select-popover-md{
 .segment-button-checked{
     background-color: rgba(111,111,111,1);
 }
+
+
+  //alert in change password
+  ion-alert.passwordAlert{
+    --background: white;
+    --backdrop-opacity: 0.5;
+    --border-radius: 15px;
+    --color:black;
+    .alert-button{
+        background-color: var(--ion-color-primary);
+        border-radius: 10px;
+        color: black;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+      }    
+  }

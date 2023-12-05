@@ -31,7 +31,9 @@ export class ClienteService {
 
   ingresarCliente(cliente: Client) {
     if (cliente) {
-      localStorage.setItem('id_cliente', cliente.id_cliente.toString());
+      if(cliente.id_cliente){
+        localStorage.setItem('id_cliente', cliente.id_cliente.toString());
+      }
       localStorage.setItem('cedula_cliente', cliente.cedula_cliente);
       localStorage.setItem('nombre', cliente.nombre);
       localStorage.setItem('apellido', cliente.apellido);

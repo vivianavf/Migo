@@ -100,10 +100,10 @@ export class RegistroPage implements OnInit {
     this.esMayordeEdad(this.fechaInput);
     this.aceptoTerminos()
 
-    console.log(this.cedulaNoValida);
-    console.log(this.camposVacios)
-    console.log(this.fechaInvalida)
-    console.log(this.terminosNoAceptados)
+    // console.log(this.cedulaNoValida);
+    // console.log(this.camposVacios)
+    // console.log(this.fechaInvalida)
+    // console.log(this.terminosNoAceptados)
 
     if (
       !this.cedulaExiste() &&
@@ -119,7 +119,7 @@ export class RegistroPage implements OnInit {
       // this.aceptoTerminos() &&
       !this.emailInvalido
     ) {
-      console.log("puedo registrarme")
+      // console.log("puedo registrarme")
 
       const nuevoIDusuario = Number(this.users[this.users.length-1].id_usuario)+1
 

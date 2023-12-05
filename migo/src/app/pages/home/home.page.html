@@ -4,14 +4,87 @@
       <ion-icon class="menu" name="menu-outline"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-select class="filtro" interface="popover" placeholder="Filtrar por">
-    <ion-select-option value="tarifaasc">Tarifa</ion-select-option>
-    <ion-select-option value="tarifadesc">Tarifa</ion-select-option>
-    <ion-select-option value="campanaAZ">Campaña</ion-select-option>
-    <ion-select-option value="campanaZA">Campaña</ion-select-option>
-    <ion-select-option value="sectorAZ">Sector</ion-select-option>
-    <ion-select-option value="sectorZA">Sector</ion-select-option>
-  </ion-select>
+  <!-- <ion-select class="filtro" interface="popover" placeholder="Filtrar por">
+    <ion-select-option value="tarifaasc">
+      <div>Tarifa</div>
+      <ion-icon
+        id="tarifa-asc"
+        class="end-of-line"
+        name="chevron-up-outline"
+      ></ion-icon>
+    </ion-select-option>
+    <ion-select-option value="tarifadesc">
+      <div>Tarifa</div>
+      <div class="filtro-end-of-line">
+        <ion-icon id="tarifa-dsc" name="chevron-down-outline"></ion-icon>
+      </div>
+    </ion-select-option>
+    <ion-select-option value="campanaAZ">
+      <div>Campaña</div>
+      <div class="filtro-end-of-line">A-Z</div>
+    </ion-select-option>
+    <ion-select-option value="campanaZA">
+      <div>Campaña</div>
+      <div class="filtro-end-of-line">Z-A</div>
+    </ion-select-option>
+    <ion-select-option value="sectorAZ">
+      <div>Sector</div>
+      <div class="filtro-end-of-line">A-Z</div>
+    </ion-select-option>
+    <ion-select-option value="sectorZA">
+      <div>Campaña</div>
+      <div class="filtro-end-of-line">Z-A</div>
+    </ion-select-option>
+  </ion-select> -->
+
+  <ion-button id="filtro">
+    <ion-text class="capitalize filtrar-por" >Filtrar por</ion-text>
+    <ion-icon
+        id="icon-filtrar"
+        class="end-of-line"
+        name="chevron-down-outline"
+      ></ion-icon>
+  </ion-button>
+  <ion-popover trigger="filtro" alignment="center">
+    <ng-template>
+      <ion-content class="filter-options">
+        <ion-list class="list-options">
+          <ion-item class="select-option" (click)="actualizarOrden('tarif-ascendente')">
+            Tarifa
+            <div class="end-of-line"><ion-icon
+              id="tarifa-asc"
+              class="item-icon"
+              name="chevron-up-outline"
+            ></ion-icon></div>
+          </ion-item>
+          <ion-item class="select-option" (click)="actualizarOrden('tarif-descendente')">
+            Tarifa
+            <div class="end-of-line"><ion-icon
+              id="tarifa-asc"
+              class="item-icon"
+              name="chevron-down-outline"
+            ></ion-icon></div>
+          </ion-item>
+          <ion-item class="select-option" (click)="actualizarOrden('ascendente')">
+            Campaña
+            <div class="end-of-line">A-Z</div>
+          </ion-item>
+          <ion-item class="select-option" (click)="actualizarOrden('descendente')">
+            Campaña
+            <div class="end-of-line">Z-A</div>
+          </ion-item>
+          <ion-item class="select-option" (click)="actualizarOrden('sect-descendente')">
+            Sector
+            <div class="end-of-line">A-Z</div>
+          </ion-item>
+          <ion-item class="select-option" (click)="actualizarOrden('sect-descendente')">
+            Sector
+            <div class="end-of-line">Z-A</div>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 
   <ion-buttons slot="end">
     <ion-button class="notificaciones" (click)="mostrarNotificaciones()">

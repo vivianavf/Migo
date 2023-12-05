@@ -38,6 +38,7 @@ export class CodigoPasswordPage implements OnInit {
       this.email = variable[0];
       this.codigo = variable[1];
       console.log(variable)
+      
     })
 
     
