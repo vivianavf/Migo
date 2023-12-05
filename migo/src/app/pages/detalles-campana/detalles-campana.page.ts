@@ -7,6 +7,8 @@ import { UsersService } from 'src/app/providers/users.service';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import {GoogleMap, Marker} from '@capacitor/google-maps'
+import { Empresa } from 'src/app/interfaces/empresa';
+import { EmpresaService } from 'src/app/providers/empresa.service';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -17,12 +19,15 @@ import {GoogleMap, Marker} from '@capacitor/google-maps'
 export class DetallesCampanaPage implements OnInit {
 
   campana!: Campana;
+  empresas: Empresa[] = [];
+  empresaSeleccionada !: Empresa;
 
   constructor(
     private campanaService: CampanaService,
     private modalController: ModalController,
     private userService: UsersService,
     private clientService: ClienteService,
+    private empresaService: EmpresaService,
     private navCtrl: NavController,
   ) { }
 
@@ -50,18 +55,7 @@ export class DetallesCampanaPage implements OnInit {
   }
 
   async loadMap(){
-    // GoogleMap.create({
-    //   id: 'my-map',
-    //   apiKey: "AIzaSyDMg06OQIw-YexoKaDViGwbGizLaL1UoEc",
-    //   config: {
-    //     center:{
-    //       lat: 33.6,
-    //       lng: -117.9,
-    //     },
-    //     zoom: 8,
-    //   },
-    //   element: ,
-    // })
+
   }
 
   abrirFormulario(){
@@ -72,6 +66,10 @@ export class DetallesCampanaPage implements OnInit {
     console.log(this.campanaService.getCampanaActual())
     this.campana = this.campanaService.getCampanaActual()
     this.loadMap();
+
+    this.empresaService.getEmpresas().subscribe((data)=>{
+      this.empresas = data;
+    });
   }
 
 }
