@@ -1,3 +1,36 @@
-<p>
-  Muy Pronto!!
-</p>
+<div class="root">
+  <ion-progress-bar *ngIf="empresas.length === 0" type="indeterminate"></ion-progress-bar>
+<div class="content">
+  <ion-card *ngFor="let empresa of empresas">
+    <div class="banner-empresa ad">
+      <ion-img
+    src="../../../assets/images/banner-empresarial.jpg"
+    alt="Banner de la empresa"
+    class="img-empresa"
+  ></ion-img>
+    </div>
+    <ion-card-content class="container">
+      <div class="sub-container" id="empresa-info">
+        <ion-text class="uppercase-text bold-text"> --Nombre de la empresa </ion-text>
+        <p>Campañas Activas: ###</p>
+        <p>Vehículos:</p>
+        <div class="vehiculosContainer">
+          <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    alt="Vehiculo"></ion-img>
+    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    alt="Vehiculo"></ion-img>
+    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    alt="Vehiculo"></ion-img>
+    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    alt="Vehiculo"></ion-img>
+        </div>
+      </div>
+      <div class="sub-container" id="tarifa-verMas">
+        <p>Tarifas:</p>
+        <p> $999 - $999</p>
+        <ion-button class="rounded-button verMas white-text " shape="round" expand="full" (click)="verMas(empresa)">Ver Más</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>
+</div>
