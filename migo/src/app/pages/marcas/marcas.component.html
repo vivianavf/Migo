@@ -11,8 +11,8 @@
     </div>
     <ion-card-content class="container">
       <div class="sub-container" id="empresa-info">
-        <ion-text class="uppercase-text bold-text"> --Nombre de la empresa </ion-text>
-        <p>Campañas Activas: ###</p>
+        <ion-text class="uppercase-text bold-text"> {{empresa.nombre}} </ion-text>
+        <p>Campañas Activas: {{contarCampanasActivas(empresa.id_empresa)}}</p>
         <p>Vehículos:</p>
         <div class="vehiculosContainer">
           <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"

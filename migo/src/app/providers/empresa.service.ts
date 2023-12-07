@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Empresa } from '../interfaces/empresa';
+import { CampanaService } from './campana.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class EmpresaService {
 
   constructor(
     private http: HttpClient,
+    private campanaService: CampanaService,
   ) { }
 
   getEmpresas():Observable<Empresa[]>{
@@ -27,4 +30,17 @@ export class EmpresaService {
   crearEmpresa(empresa: Empresa): Observable<any>{
     return this.http.post(this.baseURL, empresa);
   }
+
+getNumeroCampanasActivas(empresa:Empresa){
+    return 0;
+  }
+
+  setCampanasActivas(empresa:Empresa){    
+    return 0;
+  }
+
+  getVehiculos(){}
+
+  getPromediosTarifas(){}
+
 }
