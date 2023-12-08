@@ -106,8 +106,10 @@ export class NotificacionesPage implements OnInit {
         role: 'confirm',
         handler: () => {
           console.log('Alert confirmed');
-          var cards = document.getElementsByTagName("ion-card");
-          //hacer lo de eliminar todas las notificaciones
+          var cards = document.getElementsByClassName("notifCard");
+          while (cards.length > 0) {
+            cards[0].remove();
+          }
         },
       },],
     });
@@ -164,46 +166,48 @@ export class NotificacionesPage implements OnInit {
       this.notificaciones = data;
 
       data.forEach((element) => {
-        // console.log(element);
-        const newCard = this.renderer.createElement('ion-card');
-        const divDate = this.renderer.createElement('div')
-        this.renderer.addClass(divDate, 'date');
-        divDate.innerHTML = `${element.fecha_creacion}`
-        this.renderer.appendChild(newCard, divDate);
-        //ion-card-content
-        const cardContent = this.renderer.createElement('ion-card-content')
-        this.renderer.appendChild(newCard, cardContent)
-        const imgElement = this.renderer.createElement('img')
-        this.renderer.addClass(imgElement, "notif-img")
-        this.renderer.setAttribute(imgElement,'src', "../../../../assets/images/migo_logo.png")
-        this.renderer.appendChild(cardContent, imgElement)
-        const contenidoNotif = this.renderer.createElement('div')
-        this.renderer.addClass(contenidoNotif, 'notif-contenido')
-        const text1 = this.renderer.createElement('ion-text')
-        this.renderer.addClass(text1, 'notif-title')
-        this.renderer.addClass(text1, 'bold-text')
-        this.renderer.addClass(text1, 'uppercase-text')
-        text1.innerHTML = `${element.titulo}`
-        this.renderer.appendChild(contenidoNotif, text1)
-        const text2 = this.renderer.createElement('ion-text')
-        this.renderer.addClass(text2, 'notif-content')
-        text2.innerHTML = `${element.descripcion}`
-        this.renderer.appendChild(contenidoNotif, text2)
-        this.renderer.appendChild(cardContent, contenidoNotif)
+        console.log(element);
+        if(element.estado == 1){
+          const newCard = this.renderer.createElement('ion-card');
+          this.renderer.addClass(newCard, 'notifCard');
+          const divDate = this.renderer.createElement('div')
+          this.renderer.addClass(divDate, 'date');
+          divDate.innerHTML = `${element.fecha_creacion}`
+          this.renderer.appendChild(newCard, divDate);
+          //ion-card-content
+          const cardContent = this.renderer.createElement('ion-card-content')
+          this.renderer.appendChild(newCard, cardContent)
+          const imgElement = this.renderer.createElement('img')
+          this.renderer.addClass(imgElement, "notif-img")
+          this.renderer.setAttribute(imgElement,'src', "../../../../assets/images/migo_logo.png")
+          this.renderer.appendChild(cardContent, imgElement)
+          const contenidoNotif = this.renderer.createElement('div')
+          this.renderer.addClass(contenidoNotif, 'notif-contenido')
+          const text1 = this.renderer.createElement('ion-text')
+          this.renderer.addClass(text1, 'notif-title')
+          this.renderer.addClass(text1, 'bold-text')
+          this.renderer.addClass(text1, 'uppercase-text')
+          text1.innerHTML = `${element.titulo}`
+          this.renderer.appendChild(contenidoNotif, text1)
+          const text2 = this.renderer.createElement('ion-text')
+          this.renderer.addClass(text2, 'notif-content')
+          text2.innerHTML = `${element.descripcion}`
+          this.renderer.appendChild(contenidoNotif, text2)
+          this.renderer.appendChild(cardContent, contenidoNotif)
 
-        //boton
-        const botonDetalles = this.renderer.createElement('ion-button')
-        this.renderer.addClass(botonDetalles, 'detalle')
-        this.renderer.addClass(botonDetalles, 'capitalize')
-        this.renderer.addClass(botonDetalles, 'ion-text-wrap')
-        this.renderer.addClass(botonDetalles, 'bold-text')
-        botonDetalles.innerHTML = `Ver Más`
-        this.renderer.appendChild(cardContent, botonDetalles)
-        
-        const ionItem = this.parentNotifications.nativeElement;
-        this.renderer.appendChild(ionItem, newCard);
-        botonDetalles.addEventListener('click', this.verMas(element.fecha_creacion, element.titulo, element.descripcion));
-
+          //boton
+          const botonDetalles = this.renderer.createElement('ion-button')
+          this.renderer.addClass(botonDetalles, 'detalle')
+          this.renderer.addClass(botonDetalles, 'capitalize')
+          this.renderer.addClass(botonDetalles, 'ion-text-wrap')
+          this.renderer.addClass(botonDetalles, 'bold-text')
+          botonDetalles.innerHTML = `Ver Más`
+          this.renderer.appendChild(cardContent, botonDetalles)
+          
+          const ionItem = this.parentNotifications.nativeElement;
+          this.renderer.appendChild(ionItem, newCard);
+          botonDetalles.addEventListener('click', this.verMas(element.fecha_creacion, element.titulo, element.descripcion));
+        }
         //TODO: Arreglar esto
     });
   

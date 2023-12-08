@@ -23,4 +23,8 @@ export class NotificacionesService {
   getNotificacionbyId(id: number):Observable<Notificacion[]>{
     return this.http.get<Notificacion[]>(this.baseURL+id+"/"+this.formato)
   }
+
+  editNotificaciones(notifId: string, notificacion: Notificacion){
+    return this.http.put(this.baseURL+notifId, notificacion)
+  }
 }
