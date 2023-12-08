@@ -24,7 +24,35 @@ export class NotificacionesService {
     return this.http.get<Notificacion[]>(this.baseURL+id+"/"+this.formato)
   }
 
-  editNotificaciones(notifId: string, notificacion: Notificacion){
-    return this.http.put(this.baseURL+notifId, notificacion)
+  clearNotificaciones(notifId: string, notificacion: Notificacion){
+    var body = {
+      "id_notificacion": notificacion.id_notificacion,
+      "titulo": notificacion.titulo,
+      "descripcion": notificacion.descripcion,
+      "fecha_creacion": notificacion.fecha_creacion,
+      "fecha_fin": notificacion.fecha_fin,
+      "imagen": notificacion.imagen,
+      "frecuencia_envio": notificacion.frecuencia_envio,
+      "id_campana": notificacion.id_campana,
+      "fecha_modificacion": notificacion.fecha_modificacion,
+      "estado": 2
+    }
+    return this.http.put(this.baseURL+notifId, body)
+  }
+
+  setNotificaciones(notifId: string, notificacion: Notificacion){
+    var body = {
+      "id_notificacion": notificacion.id_notificacion,
+      "titulo": notificacion.titulo,
+      "descripcion": notificacion.descripcion,
+      "fecha_creacion": notificacion.fecha_creacion,
+      "fecha_fin": notificacion.fecha_fin,
+      "imagen": notificacion.imagen,
+      "frecuencia_envio": notificacion.frecuencia_envio,
+      "id_campana": notificacion.id_campana,
+      "fecha_modificacion": notificacion.fecha_modificacion,
+      "estado": 1
+    }
+    return this.http.put(this.baseURL+notifId, body)
   }
 }

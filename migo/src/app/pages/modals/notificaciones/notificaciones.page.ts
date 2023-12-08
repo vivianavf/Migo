@@ -110,6 +110,11 @@ export class NotificacionesPage implements OnInit {
           while (cards.length > 0) {
             cards[0].remove();
           }
+          for (let i = 0; i < this.notificaciones.length; i++) {
+            this.notificacionesService.clearNotificaciones(this.notificaciones[i].id_notificacion.toString(), this.notificaciones[i]).subscribe((data) => {
+              console.log(data);
+            })
+          }
         },
       },],
     });
@@ -207,6 +212,12 @@ export class NotificacionesPage implements OnInit {
           const ionItem = this.parentNotifications.nativeElement;
           this.renderer.appendChild(ionItem, newCard);
           botonDetalles.addEventListener('click', this.verMas(element.fecha_creacion, element.titulo, element.descripcion));
+        } else {
+          for (let i = 0; i < this.notificaciones.length; i++) {
+            this.notificacionesService.setNotificaciones(this.notificaciones[i].id_notificacion.toString(), this.notificaciones[i]).subscribe((data) => {
+              console.log(data);
+            })
+          }
         }
         //TODO: Arreglar esto
     });
