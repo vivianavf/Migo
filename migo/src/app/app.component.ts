@@ -26,6 +26,9 @@ export class AppComponent implements OnInit{
       // Set HomePage as Root
       // this.router.navigate(['/home']);
       this.navCtrl.navigateRoot('/home');
+
+      //aqui se renderiza el tabs
+      
     }else{
       // Set Login Page as Root
       // this.router.navigate(['/login']);

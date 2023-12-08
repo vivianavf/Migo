@@ -29,8 +29,12 @@
   <ion-card>
     <div class="licencia-container">
       <p class="white-text">Licencia de Conducir:</p>
-      <input type="file" accept=".pdf" id="getFile" style="display:none" />
-      <ion-button onclick="document.getElementById('getFile').click()" class="capitalize subir-archivo">Subir Archivo</ion-button>
+      <input type="file" name='inputfile' onChange='showName()' accept=".pdf" id="getFile" style="display:none"/>
+      
+      <div class="fileName">
+        <ion-button onclick="document.getElementById('getFile').click()" class="capitalize subir-archivo">Subir Archivo</ion-button>
+        <ion-text >{{nombreArchivo}}</ion-text>
+      </div>
       <!-- <div class="file">
         <ion-item>
           <input type="file"/>
@@ -39,7 +43,7 @@
       </div> -->
     </div>
     <div class="formulario">
-      <form class="ion-no-border" [formGroup]="formularioAplicacion">
+      <div class="ion-no-border" [formGroup]="formularioAplicacion">
         <!-- if usuario ya esta registrado, el correo y cedula ya esta predeterminado -->
         <ion-item class="input-item">
           <ion-input
@@ -54,15 +58,52 @@
         </ion-item>
         <!-- Aqui seria de hacer un select -->
         <ion-item class="input-item">
-          <ion-input placeholder="Entidad Bancaria" maxlength="50" formControlName="entidad"></ion-input>
+          <ion-button id="filtro">
+            <ion-text class="capitalize filtrar-por">{{entidadBancaria}}</ion-text>
+            <ion-icon
+                id="icon-filtrar"
+                class="end-of-line"
+                name="chevron-down-outline"
+              ></ion-icon>
+          </ion-button>
+          <ion-popover trigger="filtro" alignment="center">
+            <ng-template>
+              <ion-content class="filter-options">
+                <ion-list class="list-options" *ngFor="let banco of entidadesBancarias">
+                  <ion-item class="select-option" (click)="cambiarBanco(banco)">
+                    {{banco}}
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
         </ion-item>
+
         <ion-item class="input-item">
-          <ion-input placeholder="Tipo de Cuenta"  maxlength="50" formControlName="tipocuenta"></ion-input>
+          <ion-button id="filtroCuenta">
+            <ion-text class="capitalize filtrar-por">{{tipoCuenta}}</ion-text>
+            <ion-icon
+                id="icon-filtrar"
+                class="end-of-line"
+                name="chevron-down-outline"
+              ></ion-icon>
+          </ion-button>
+          <ion-popover trigger="filtroCuenta" alignment="center">
+            <ng-template>
+              <ion-content class="filter-options">
+                <ion-list class="list-options" *ngFor="let cuenta of tiposCuentas">
+                  <ion-item class="select-option" (click)="cambiarCuenta(cuenta)">
+                    {{cuenta}}
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
         </ion-item>
         <ion-item class="input-item">
           <ion-input placeholder="Número de Cuenta" maxlength="20" formControlName="cuenta"></ion-input>
         </ion-item>
-      </form>
+      </div>
       <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
         Datos incorrectos<br />
       </ion-text>
@@ -85,11 +126,5 @@
       <ion-button (click)="enviarFormulario()" class="capitalize">Enviar Formulario</ion-button>
     </div>
   </ion-card>
-  <ion-modal #modal trigger="open-modal">
-    <ng-template>
-      <ion-content>
-        Hola 
-      </ion-content>
-    </ng-template> 
-  </ion-modal>
+  
 </ion-content>

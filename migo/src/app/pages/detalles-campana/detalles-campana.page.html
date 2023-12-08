@@ -28,7 +28,7 @@
     <ion-card-content>
       <div class="banner-empresa ad">
         <ion-img
-      src="../../../assets/images/banner-empresarial.jpg"
+      src="../../../assets/banners/{{campana.id_empresa}}.jpg"
       alt="Banner de la empresa"
       class="img-empresa"
     ></ion-img>
@@ -36,12 +36,12 @@
       <div class="info-container">
         <div class="header-campana">
           <h2 class="uppercase-text">{{campana.nombre_campana}}</h2>
-          <p class="capitalize">Nombre de la empresa</p>
-          <p class="capitalize">{{campana.nombre_responsable}}</p>
-          <div class="correo-container">
+          <p class="capitalize">{{nombreEmpresa}}</p>
+          <p class="capitalize">Responsable: {{campana.nombre_responsable}}</p>
+          <!-- <div class="correo-container">
             <ion-icon name="mail"></ion-icon>
-            <p class="correo">correo@correo.com</p>
-          </div>
+            <p class="correo">{{correoEncargado}}</p>
+          </div> -->
         </div>
         <div class="info-campana">
           <div class="titulos-info">
@@ -52,16 +52,22 @@
             <p>Tipo de Brandeo disponible:</p>
           </div>
           <div class="variables-info">
-            <p>$ desde - $ hasta</p>
-            <p>$ desde - $ hasta</p>
-            <p>Cada 2 semanas x</p>
-            <p>$ cobro</p>
+            <p>$0,25 - $0,50</p>
+            <p>13:00 - 18:00</p>
+            <p>Cada 2 semanas</p>
+            <p>$500</p>
             <p>Pantalla LED</p>
           </div>
         </div>
         <div class="mapa">
           <p>Sector monetizable:</p>
-          <div id="map"></div>
+          <div id="map">
+            <ion-img
+      src="../../../assets/rutas/2.png"
+      alt="Ruta"
+      class="img-ad"
+    ></ion-img>
+          </div>
         </div>
         <div class="talleres">
           <div class="talleres-direccion">
@@ -74,7 +80,7 @@
           </div>
         </div>
         <div class="button-container">
-          <ion-button class="formulario capitalize" (click)="abrirFormulario()">Llenar formulario de aplicación</ion-button>
+          <ion-button class="formulario capitalize" (click)="abrirFormulario()" color="warning">Aplicar</ion-button>
         </div>
       </div>
     </ion-card-content>

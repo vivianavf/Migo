@@ -27,10 +27,38 @@ export class MarcasComponent  implements OnInit {
 
   contarCampanasActivas(idEmpresa: any){
     const campanasEmpresa = this.campanas.filter(
-      (campana) => campana.id_empresa === Number(idEmpresa)
+      (campana) => 
+        campana.id_empresa === Number(idEmpresa)
     );
 
     return campanasEmpresa.length;
+  }
+
+  rangoTarifas(idEmpresa: any){
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => 
+        campana.id_empresa === Number(idEmpresa)
+    );
+
+    var tarifaBase: number[] = []
+    if(campanasEmpresa.length>0){
+      campanasEmpresa.forEach((campana)=>{
+        tarifaBase.push(campana.tarifa_base)
+      })
+    }
+    let rangoTarifa: number[] = []
+
+    if(tarifaBase.length>0){ 
+      var minimo = Math.min(...tarifaBase);
+      var maximo = Math.max(...tarifaBase);
+        rangoTarifa.push(minimo)
+        rangoTarifa.push(maximo)
+    }else{
+      rangoTarifa.push(0)
+      rangoTarifa.push(0)
+    }
+    return rangoTarifa;
+
   }
 
   ngOnInit() {

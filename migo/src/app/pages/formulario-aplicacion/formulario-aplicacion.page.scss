@@ -21,6 +21,12 @@ ion-toolbar{
   ion-title.toolbar-text{
     font-size: 16px;
   }
+
+  .fileName{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
   
   // //AD
   // .ad {
@@ -59,8 +65,8 @@ display: flex;
     width: 100%;
     justify-content: center;
     
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 7px;
+    margin-bottom: 5px;
   }
 
   .licencia-container > p{
@@ -85,11 +91,15 @@ display: flex;
   }
 
   .formulario{
-    margin-top: 40px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
   }
 
   ion-input{
     --placeholder-color: black;
+    margin-left: 20px;
+    --placeholder-opacity: 1;
   }
 
   ion-item.input-item{
@@ -99,7 +109,7 @@ display: flex;
     color: black;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     height: 40px;
     align-items: center;
     display: flex;
@@ -113,8 +123,8 @@ display: flex;
   }
 
   ion-button.add-vehiculo{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     --background: transparent;
     --color: white;
     --box-shadow: none;
@@ -128,8 +138,8 @@ display: flex;
   .terms{
     display: flex;
     flex-direction: row;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
     align-items: center;
   }
 
@@ -137,7 +147,7 @@ display: flex;
     width: 100%;
     text-align: center;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   //modal
@@ -156,3 +166,40 @@ display: flex;
   .white-text{
     color: white;
   }
+
+  //filter options con ion-button y ion-list
+ion-item::part(native){
+  padding: 0;
+  min-width: 100%;
+  min-height: 100%;
+  .item-inner{
+    padding: 0;
+  }
+}
+ion-text.filtrar-por{
+  color: black;
+  margin-right: auto;
+  margin-left: 20px;
+  font-size: 16px;
+}
+ion-button#filtro, #filtroCuenta{
+  display: flex;
+  --border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  --background: white;
+  --box-shadow: 0px
+}
+
+//terms
+ion-checkbox{
+  --size: 20px;
+  --border-color: #ffffff;
+  padding-right: 5%;
+}
+
+.terms>p{
+  margin-left: 10px;
+}
