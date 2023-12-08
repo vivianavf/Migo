@@ -9,6 +9,8 @@ import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page
 import {GoogleMap, Marker} from '@capacitor/google-maps'
 import { Empresa } from 'src/app/interfaces/empresa';
 import { EmpresaService } from 'src/app/providers/empresa.service';
+import { User } from 'src/app/interfaces/user';
+import { Client } from 'src/app/interfaces/client';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -20,7 +22,11 @@ export class DetallesCampanaPage implements OnInit {
 
   campana!: Campana;
   empresas: Empresa[] = [];
+  usuarios: User[] = [];
+  clientes: Client[] = [];
   empresaSeleccionada !: Empresa;
+  nombreEmpresa = "-";
+  correoEncargado = "--@--";
 
   constructor(
     private campanaService: CampanaService,
@@ -65,11 +71,23 @@ export class DetallesCampanaPage implements OnInit {
   ngOnInit() {
     console.log(this.campanaService.getCampanaActual())
     this.campana = this.campanaService.getCampanaActual()
-    this.loadMap();
-
+    var idEmpresa = this.campana.id_empresa;
     this.empresaService.getEmpresas().subscribe((data)=>{
       this.empresas = data;
+      const busquedaEmpresa = this.empresas.find(({ id_empresa }) => id_empresa === idEmpresa);
+      if(busquedaEmpresa)this.nombreEmpresa = busquedaEmpresa.nombre;
     });
+
+    this.clientService.getClients().subscribe((data)=>{
+      this.clientes = data;
+      const busquedaCliente = this.clientes.find(({ nombre }) => nombre === this.campana.nombre_responsable);
+      if(busquedaCliente){
+        this.correoEncargado = busquedaCliente.email;
+        }
+    });
+    
+    this.loadMap();
+
   }
 
 }

@@ -61,7 +61,7 @@ ion-card-content{
 
 //banner de empresa
 .img-empresa{
-  object-position: -0px 25px;
+  // object-position: -0px 25px;
 }
 
 .banner-empresa{
@@ -137,4 +137,5 @@ p.correo{
 
 ion-button.formulario{
   --border-radius: 20px;
+  width: 150px;
 }

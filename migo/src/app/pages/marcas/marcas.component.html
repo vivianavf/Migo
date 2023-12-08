@@ -4,31 +4,32 @@
   <ion-card *ngFor="let empresa of empresas">
     <div class="banner-empresa ad">
       <ion-img
-    src="../../../assets/images/banner-empresarial.jpg"
+    src="../../../assets/banners/{{empresa.id_empresa}}.jpg"
     alt="Banner de la empresa"
     class="img-empresa"
+    id="{{empresa.id_empresa}}"
   ></ion-img>
     </div>
     <ion-card-content class="container">
       <div class="sub-container" id="empresa-info">
-        <ion-text class="uppercase-text bold-text"> {{empresa.nombre}} </ion-text>
+        <ion-text class="uppercase-text bold-text nombre"> {{empresa.nombre}} </ion-text>
         <p>Campañas Activas: {{contarCampanasActivas(empresa.id_empresa)}}</p>
         <p>Vehículos:</p>
         <div class="vehiculosContainer">
-          <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+          <ion-img class="vehiculoType" src="../../../assets/autos/1.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    <ion-img class="vehiculoType" src="../../../assets/autos/2.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    <ion-img class="vehiculoType" src="../../../assets/autos/3.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="https://docs-demo.ionic.io/assets/madison.jpg"
+    <ion-img class="vehiculoType" src="../../../assets/autos/4.png"
     alt="Vehiculo"></ion-img>
         </div>
       </div>
       <div class="sub-container" id="tarifa-verMas">
-        <p>Tarifas:</p>
-        <p> $999 - $999</p>
-        <ion-button class="rounded-button verMas white-text " shape="round" expand="full" (click)="verMas(empresa)">Ver Más</ion-button>
+        <p>Tarifas desde:</p>
+        <p> ${{rangoTarifas(empresa.id_empresa)[0]}} - ${{rangoTarifas(empresa.id_empresa)[1]}} </p>
+        <ion-button class="rounded-button verMas white-text " color="warning" shape="round" expand="full" (click)="verMas(empresa)">Ver Más</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

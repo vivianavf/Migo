@@ -29,11 +29,6 @@ div.content{
 ion-text{
     color: black;
 }
-//banner de empresa
-.img-empresa{
-    // object-position: -0px 25px;
-  }
-  
   .banner-empresa{
     margin-top: 20px;
     height: 70px; /* Altura del contenedor, ajusta según tus necesidades */
@@ -47,6 +42,15 @@ ion-text{
   ion-card-content.container{
     display: flex;
     flex-direction: row;
+  }
+
+  ion-text.nombre{
+    width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   #empresa-info{

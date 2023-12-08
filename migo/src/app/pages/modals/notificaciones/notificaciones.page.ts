@@ -141,7 +141,7 @@ export class NotificacionesPage implements OnInit {
       },],
     });
 
-    await alert.present();
+    // await alert.present();
 
   }
 
