@@ -13,6 +13,7 @@ import { Campana } from 'src/app/interfaces/campana';
 import { Marca } from 'src/app/interfaces/marca';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import { CampanaComponent } from '../campana/campana.component';
+import { TabsService } from 'src/app/providers/tabs.service';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,8 @@ export class HomePage implements OnInit {
     private platform: Platform,
     private navCtrl: NavController,
     private popOverCtrl: PopoverController,
-    private campanaComponent: CampanaComponent
+    private campanaComponent: CampanaComponent,
+    private tabService: TabsService,
   ) {}
 
   actualizarOrden(orden: string) {
@@ -99,5 +101,7 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tabService.showTab = true;
+  }
 }

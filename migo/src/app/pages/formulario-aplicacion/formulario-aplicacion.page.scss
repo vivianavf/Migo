@@ -27,6 +27,10 @@ ion-toolbar{
     flex-direction: column;
     text-align: center;
   }
+
+  ion-card{
+    background-color: transparent;
+  }
   
   // //AD
   // .ad {
@@ -157,7 +161,7 @@ display: flex;
   }
 
   ion-modal > ion-content{
-    --background-color: white;
+    // --background-color: white;
     --color: black;
   }
 

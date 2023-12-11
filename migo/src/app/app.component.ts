@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ClienteService } from './providers/cliente.service';
 import { CampanaService } from './providers/campana.service';
+import { TabsService } from './providers/tabs.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { CampanaService } from './providers/campana.service';
 })
 export class AppComponent implements OnInit{
   public users: User[] = [];
+  tabs: boolean = true;
 
   constructor(
     private userService: UsersService,
@@ -20,12 +22,22 @@ export class AppComponent implements OnInit{
     private campanaService: CampanaService,
     private router: Router,
     private navCtrl: NavController,
+    private tabsService : TabsService,
   ) {
 
   }
 
+  showTab(){
+    this.tabs = true;
+  }
+
+  hideTabs(){
+    this.tabs = false;
+  }
+
   ngOnInit() {
 
+    console.log(this.tabsService.showTab)
     this.userService.getUsers().subscribe((data)=>{})
     this.clientService.getClients().subscribe((data)=>{})
     this.campanaService.getCampanas().subscribe((data)=>{})
@@ -34,13 +46,14 @@ export class AppComponent implements OnInit{
     if(userExists){
       // Set HomePage as Root
       // this.router.navigate(['/home']);
+     
       this.navCtrl.navigateRoot('/home');
-
       //aqui se renderiza el tabs
       
     }else{
       // Set Login Page as Root
       // this.router.navigate(['/login']);
+      
       this.navCtrl.navigateRoot('/login')
       console.log("no hay nada")
     }

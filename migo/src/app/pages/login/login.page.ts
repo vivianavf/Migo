@@ -14,6 +14,7 @@ import { UsersService } from 'src/app/providers/users.service';
 import { PrivacidadPage } from '../modals/privacidad/privacidad.page';
 import { TerminosCondicionesPage } from '../modals/terminos-condiciones/terminos-condiciones.page';
 import { ClienteService } from 'src/app/providers/cliente.service';
+import { TabsService } from 'src/app/providers/tabs.service';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginPage implements OnInit {
     private modalController: ModalController,
     private clientService : ClienteService,
     private navCtrl: NavController,
+    private tabService: TabsService,
   ) {
     this.formularioLogin = this.fb.group({
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
@@ -106,7 +108,15 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    this.users = this.userService.usersObtenidos;
-    this.clients = this.clientService.clientesObtenidos;
+
+    this.tabService.hideTabs();
+    
+    this.userService.getUsers().subscribe((data)=>{
+      this.users = data;
+    })
+   
+    this.clientService.getClients().subscribe((data)=>{
+      this.clients = data;
+    })
   }
 }

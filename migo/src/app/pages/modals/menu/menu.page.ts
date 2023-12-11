@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
+// import { AppComponent } from 'src/app/app.component';
 import { ClienteService } from 'src/app/providers/cliente.service';
+import { TabsService } from 'src/app/providers/tabs.service';
 import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
@@ -21,6 +23,8 @@ export class MenuPage implements OnInit {
     private navCtrl: NavController,
     private userService: UsersService,
     private clientService: ClienteService,
+    private tabService: TabsService,
+    // private app: AppComponent,
   ) { }
 
   cerrarModal() {
@@ -63,6 +67,7 @@ export class MenuPage implements OnInit {
   }
 
   cerrarSesion(){
+    // this.app.hideTabs();
     localStorage.clear();
     sessionStorage.clear();
     this.modalController.dismiss()
