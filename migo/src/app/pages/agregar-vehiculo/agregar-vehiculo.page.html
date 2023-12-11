@@ -21,45 +21,80 @@
 
   <form>
     <ion-list>
-      <ion-item [class.invalid-border]="isInvalidField('driverName')">
+      <ion-item [class.invalid-border]="isInvalidField('Nombre')">
         <ion-label position="stacked">Nombre del Conductor</ion-label>
-        <ion-input [(ngModel)]="formFields.driverName" name="driverName" class="rounded-input" required></ion-input>
+        <ion-input
+          [(ngModel)]="formFields.Nombre"
+          name="Nombre"
+          placeholder="Ingrese el nombre"
+          class="rounded-input"
+          required
+          maxlength="30"
+          pattern="^[a-zA-Z]+$"
+        ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('phone')">
+      <ion-item [class.invalid-border]="isInvalidField('Telefono')">
         <ion-label position="stacked">Teléfono</ion-label>
-        <ion-input [(ngModel)]="formFields.phone" name="phone" type="tel" class="rounded-input" required></ion-input>
+        <ion-input
+          [(ngModel)]="formFields.Telefono"
+          name="Telefono"
+          placeholder="Ingrese el teléfono"
+          class="rounded-input"
+          required
+          maxlength="10"
+          pattern="^[0-9]+$"
+        ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('plate')">
-        <ion-label position="stacked">Placa del Vehículo</ion-label>
-        <ion-input [(ngModel)]="formFields.plate" name="plate" class="rounded-input" required></ion-input>
+      <ion-item [class.invalid-border]="isInvalidField('Placa')">
+        <ion-label position="stacked">Placa</ion-label>
+        <ion-input
+          [(ngModel)]="formFields.Placa"
+          name="Placa"
+          placeholder="Ingrese la placa. Ejemplo: GXY1234"
+          class="rounded-input"
+          required
+          maxlength="7"
+          pattern="^[A-Z]{3}-[0-9]{4}$"
+        ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('year')">
-        <ion-label position="stacked">Año del Vehículo</ion-label>
-        <ion-input [(ngModel)]="formFields.year" name="year" type="number" class="rounded-input" required></ion-input>
+      <ion-item [class.invalid-border]="isInvalidField('Anio')">
+        <ion-label position="stacked">Año</ion-label>
+        <ion-input
+          [(ngModel)]="formFields.Anio"
+          name="Anio"
+          placeholder="Ingrese el año"
+          class="rounded-input"
+          required
+          maxlength="4"
+          pattern="^[1-9][0-9]{3}$"
+          [ngModelOptions]="{standalone: true}"
+        ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('brand')">
+      <ion-item [class.invalid-border]="isInvalidField('Marca')">
         <ion-label position="stacked">Marca</ion-label>
-        <ion-select [(ngModel)]="formFields.brand" name="brand" class="rounded-input" required>
+        <ion-select [(ngModel)]="formFields.Marca" name="Marca" class="rounded-input" required>
           <ion-select-option value="marca1">Marca 1</ion-select-option>
           <ion-select-option value="marca2">Marca 2</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('model')">
+      <ion-item [class.invalid-border]="isInvalidField('Modelo')">
         <ion-label position="stacked">Modelo</ion-label>
-        <ion-select [(ngModel)]="formFields.model" name="model" class="rounded-input" required>
+        <ion-select [(ngModel)]="formFields.Modelo" name="Modelo" class="rounded-input" required>
           <ion-select-option value="modelo1">Modelo 1</ion-select-option>
           <ion-select-option value="modelo2">Modelo 2</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
     </ion-list>
-
+    <div *ngIf="showValidationError" class="validation-error">
+      {{ showValidationError }}
+    </div>
     <div class="submit-button-container">
       <ion-button expand="default" (click)="submitForm()">Agregar Conductor</ion-button>
     </div>
