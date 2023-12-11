@@ -28,7 +28,9 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDMg06OQIw-YexoKaDViGwbGizLaL1UoEc"/>
+       
+        <!-- AIzaSyDMg06OQIw-YexoKaDViGwbGizLaL1UoEc -->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDon5hzHRwL1069HmRZ7XVNREzQdwxV5zA"/>
 
     </application>
 
@@ -37,4 +39,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

@@ -323,14 +323,8 @@ export class RegistroPage implements OnInit {
   
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
-
-    this.clienteService.getClients().subscribe((data=>{
-      this.clientes= data;
-    }))
-
+    this.users = this.userService.usersObtenidos;
+    this.clientes = this.clienteService.clientesObtenidos;
     this.formularioRegistro.reset()
   }
 }

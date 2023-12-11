@@ -73,9 +73,7 @@ export class CampanaComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.campanaService.getCampanas().subscribe((data)=>{
-      this.campanas = this.campanaService.campanasObtenidas;
-    })  
+    this.campanas = this.campanaService.campanasObtenidas;
     
     this.empresaService.getEmpresas().subscribe((data)=>{
       this.empresas = data;

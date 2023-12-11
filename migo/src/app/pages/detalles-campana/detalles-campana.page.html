@@ -35,7 +35,7 @@
       </div>
       <div class="info-container">
         <div class="header-campana">
-          <h2 class="uppercase-text">{{campana.nombre_campana}}</h2>
+          <h2 class="uppercase-text bold-text">{{campana.nombre_campana}}</h2>
           <p class="capitalize">{{nombreEmpresa}}</p>
           <p class="capitalize">Responsable: {{campana.nombre_responsable}}</p>
           <!-- <div class="correo-container">
@@ -44,7 +44,7 @@
           </div> -->
         </div>
         <div class="info-campana">
-          <div class="titulos-info">
+          <div class="titulos-info bold-text">
             <p>Tarifa por kilometraje:</p>
             <p>Horario Monetizable:</p>
             <p>Ciclo de Pago:</p>
@@ -59,19 +59,16 @@
             <p>Pantalla LED</p>
           </div>
         </div>
-        <div class="mapa">
-          <p>Sector monetizable:</p>
-          <div id="map">
-            <ion-img
-      src="../../../assets/rutas/2.png"
-      alt="Ruta"
-      class="img-ad"
-    ></ion-img>
+        <div class="mapa bold-text">
+          <p >Sector monetizable:</p>
+          <div id="newMap">
+            <!-- <div #mapElement id="mapElement" class="custom-map"></div> -->
+            <capacitor-google-map #mapElement class="custom-map" id="map"></capacitor-google-map>
           </div>
         </div>
         <div class="talleres">
           <div class="talleres-direccion">
-            <p>Talleres disponibles en:</p>
+            <p>Talleres disponibles:</p>
             <p>Cdla. Atarazana Manzana 56 Solar 122</p>
           </div>
           <div class="vehiculo-tipo">

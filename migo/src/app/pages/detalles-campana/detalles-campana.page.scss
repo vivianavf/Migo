@@ -78,8 +78,8 @@ p.correo{
 }
 
 .info-container{
-  padding-left: 25px;
-  padding-right: 25px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .header-campana{
@@ -109,13 +109,24 @@ p.correo{
   text-align:start;
 }
 
-.mapa{
-}
-
-#map{
+capacitor-google-map {
+  display: inline-block;
   width: 100%;
   height: 150px;
-  background-color: rgb(211, 169, 250);
+}
+
+#newMap{
+  width: 100%;
+  height: 250px;
+  background-color: rgb(226, 226, 226);
+  border-radius: 20px;
+}
+
+.custom-map {
+  width: 100%;
+  height: 250px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
 }
 
 .talleres{

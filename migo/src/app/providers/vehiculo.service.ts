@@ -11,13 +11,18 @@ export class VehiculoService {
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/vehiculos/';
   private formato = '?format=json'
   private vehiculo!: Vehiculo;
+  public vehiculosObtenidos: Vehiculo[] = [];
 
   constructor(
     private http: HttpClient,
   ) { }
 
   getVehiculos():Observable<Vehiculo[]>{
-    return this.http.get<Vehiculo[]>(this.baseURL+this.formato);
+    var respuesta = this.http.get<Vehiculo[]>(this.baseURL+this.formato);
+    respuesta.forEach((vehiculos)=>{
+      this.vehiculosObtenidos = vehiculos;
+    })
+    return respuesta;
   }
 
   getVehiculobyId(id: number):Observable<Vehiculo[]>{

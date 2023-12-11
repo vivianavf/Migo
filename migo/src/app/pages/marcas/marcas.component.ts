@@ -66,11 +66,7 @@ export class MarcasComponent  implements OnInit {
       this.empresas = data;
       })
     )
-
-    this.campanaService.getCampanas().subscribe((data)=>{
-      this.campanas = data;
-    })
-
+    this.campanas = this.campanaService.campanasObtenidas;
   }
 
 }

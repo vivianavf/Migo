@@ -103,7 +103,7 @@ display: flex;
   }
 
   ion-item.input-item{
-    width: 330px;
+    width: 300px;
     background-color: white;
     border-radius: 50px;
     color: black;
@@ -193,6 +193,38 @@ ion-button#filtro, #filtroCuenta{
   --box-shadow: 0px
 }
 
+//select
+ion-item.select-option{
+  background-color: white;
+  color: black;
+  // font-size: 18px;
+}
+
+ion-content::part(scroll){
+  border-radius: 20px;
+  margin-top: 5px;
+}
+
+ion-popover::part(content){
+  width: 290px;
+}
+
+/** Filter Options Root Select **/
+ion-content.filter-options::part(scroll){
+  padding: 0;
+  background-color: white;
+}
+
+ion-list.list-options{
+  // padding: 0;
+  background-color: white; 
+}
+
+ion-item.select-option::part(native){
+  background-color: white;
+}
+
+
 //terms
 ion-checkbox{
   --size: 20px;
@@ -202,4 +234,9 @@ ion-checkbox{
 
 .terms>p{
   margin-left: 10px;
+}
+
+
+ion-button.enviar{
+  width: 150px;
 }

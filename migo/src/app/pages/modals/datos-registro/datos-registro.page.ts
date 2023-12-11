@@ -127,9 +127,7 @@ export class DatosRegistroPage implements OnInit {
         break;
     }
 
-    this.clienteService.getClients().subscribe((data)=>{
-      this.clientes = data;
-    })
+    this.clientes = this.clienteService.clientesObtenidos;
   }
 
 }

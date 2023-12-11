@@ -18,12 +18,17 @@ export class UsersService {
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/usuarios/';
   private formato = '?format=json'
   // private user!: User;
+  public usersObtenidos: User[] = [];
 
   constructor(private http: HttpClient) {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseURL+this.formato);
+    var respuesta = this.http.get<User[]>(this.baseURL+this.formato);
+    respuesta.forEach((users)=>{
+      this.usersObtenidos = users;
+    })
+    return respuesta;
   }
 
   getUserById(id: number): Observable<User[]> {

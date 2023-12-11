@@ -70,15 +70,11 @@ export class ReestablecerPasswordPage implements OnInit {
   }
 
   ngOnInit() {
-
     this.communicationService.variable$.subscribe((data) =>{
       this.emailUser = data[0]
     })
 
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
-    
+    this.users = this.userService.usersObtenidos;
   }
 
 }

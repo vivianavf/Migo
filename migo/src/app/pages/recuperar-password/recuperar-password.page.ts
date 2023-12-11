@@ -118,13 +118,7 @@ export class RecuperarPasswordPage implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
-    this.clientService.getClients().subscribe((data) => {
-      this.clientes = data;
-      // console.log("clientes:");
-      // console.log(this.clientes);
-    });
+    this.users = this.userService.usersObtenidos;
+    this.clientes = this.clientService.clientesObtenidos;
   }
 }

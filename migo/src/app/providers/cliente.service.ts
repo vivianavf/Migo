@@ -10,11 +10,16 @@ export class ClienteService {
   private baseURL =
     'https://migoadvs.pythonanywhere.com/Database/Database/clientes/';
   private formato = '?format=json';
+  public clientesObtenidos : Client[] = [];
 
   constructor(private http: HttpClient) {}
 
   getClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.baseURL + this.formato);
+    var respuesta = this.http.get<Client[]>(this.baseURL+this.formato);
+    respuesta.forEach((clientes)=>{
+      this.clientesObtenidos = clientes;
+    })
+    return respuesta;
   }
 
   getClientbyId(id: number): Observable<Client[]> {

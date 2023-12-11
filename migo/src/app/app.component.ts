@@ -3,6 +3,8 @@ import { UsersService } from './providers/users.service';
 import { User } from 'src/app/interfaces/user';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { ClienteService } from './providers/cliente.service';
+import { CampanaService } from './providers/campana.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,8 @@ export class AppComponent implements OnInit{
 
   constructor(
     private userService: UsersService,
+    private clientService: ClienteService,
+    private campanaService: CampanaService,
     private router: Router,
     private navCtrl: NavController,
   ) {
@@ -21,6 +25,11 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
+
+    this.userService.getUsers().subscribe((data)=>{})
+    this.clientService.getClients().subscribe((data)=>{})
+    this.campanaService.getCampanas().subscribe((data)=>{})
+
     let userExists = localStorage.getItem('email_usuario');
     if(userExists){
       // Set HomePage as Root

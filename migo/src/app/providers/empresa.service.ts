@@ -13,6 +13,7 @@ export class EmpresaService {
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/empresas/';
   private formato = '?format=json'
   // private empresa!: Empresa;
+  public empresasObtenidas: Empresa[] = [];
 
   constructor(
     private http: HttpClient,
@@ -20,7 +21,11 @@ export class EmpresaService {
   ) { }
 
   getEmpresas():Observable<Empresa[]>{
-    return this.http.get<Empresa[]>(this.baseURL+this.formato);
+    var respuesta = this.http.get<Empresa[]>(this.baseURL+this.formato);
+    respuesta.forEach((empresas)=>{
+      this.empresasObtenidas = empresas;
+    })
+    return respuesta;
   }
 
   getEmpresabyId(id: number):Observable<Empresa[]>{

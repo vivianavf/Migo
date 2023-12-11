@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CampanaComponent } from './pages/campana/campana.component';
 import { MarcasComponent } from './pages/marcas/marcas.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TabsPageModule } from './pages/tabs/tabs.module';
 
 
