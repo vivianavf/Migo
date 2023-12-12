@@ -7,24 +7,24 @@
 
 .buttons-container{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 75px;
+    justify-content: center; /* Alineación horizontal al centro */
+    align-items: center; /* Alineación vertical al centro */
+    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
 }
 
 .rounded-input {
     border-radius: 10px;
     background-color: white;
-    padding: 8px; 
-    color: black; 
+    padding: 8px; /* Ajusta el relleno según sea necesario */
+    color: black; /* Cambia el color del texto a negro */
 }
 
 .invalid-border {
-    --border-color: red !important; 
+    --border-color: red !important; /* Color del borde cuando es inválido */
 }
 
 .submit-button-container {
-    text-align: center; 
+    text-align: center; /* Centra el contenido horizontalmente */
 }
 
 ion-item {
@@ -43,36 +43,9 @@ ion-item {
     margin-bottom: 3%;
 }
 
-ion-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-ion-list {
-width: 100%;
-max-width: 400px; 
-}
-
 .add_button {
-    width: 90%; /* Two buttons per row */
+    width: 45%; /* Two buttons per row */
     margin: 5px;
+    color: black;
     background-color: white;
-    border-radius: 10px;
-    color: black; /* Text color */
 }
-
-
-.fotos-buttons-container {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-evenly;
-}
-
-
-.button-content {
-    width: 110%;
-    text-align: center;
-    margin-bottom: 5px; /* Adjust as needed for spacing between label/icon and button text */
-}
-  
