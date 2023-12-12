@@ -21,6 +21,9 @@
 
   <form>
     <ion-list>
+      <ion-item-divider color="primary">
+        <ion-label>Informacion vehicular</ion-label>
+      </ion-item-divider>
       <ion-item [class.invalid-border]="isInvalidField('Nombre')">
         <ion-label position="stacked">Nombre del Conductor</ion-label>
         <ion-input
@@ -92,6 +95,50 @@
         </ion-select>
       </ion-item>
     </ion-list>
+    
+    <ion-list>
+      <ion-item-divider color="primary">
+        <ion-label>Fotos del vehiculo</ion-label>
+      </ion-item-divider>
+      <div class='fotos-buttons-container'>
+        <div class="button-container" (click)="takeOrUploadPicture('Lado Izquierdo')">
+          <ion-label>Lado Izquierdo</ion-label>
+          <ion-button expand="full" class="add_button">
+            Tomar foto
+          </ion-button>
+        </div>
+  
+        <div class="button-container" (click)="takeOrUploadPicture('Lado Derecho')">
+          <ion-label>Lado Derecho</ion-label>
+          <ion-button expand="full" class="add_button">
+            Tomar foto
+          </ion-button>
+        </div>
+  
+        <div class="button-container" (click)="takeOrUploadPicture('Frontal')">
+          <ion-label>Frontal</ion-label>
+          <ion-button expand="full" class="add_button">
+            Tomar foto
+          </ion-button>
+        </div>
+  
+        <div class="button-container" (click)="takeOrUploadPicture('Trasera')">
+          <ion-label>Trasera</ion-label>
+          <ion-button expand="full" class="add_button">
+            Tomar foto
+          </ion-button>
+        </div>
+  
+        <div class="button-container" (click)="takeOrUploadPicture('Aerea')">
+          <ion-label>Aerea</ion-label>
+          <ion-button expand="full" class="add_button">
+            Tomar foto
+          </ion-button>
+        </div>
+      </div>
+  
+    </ion-list>
+
     <div *ngIf="showValidationError" class="validation-error">
       {{ showValidationError }}
     </div>

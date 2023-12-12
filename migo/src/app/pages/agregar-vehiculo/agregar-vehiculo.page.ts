@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { VehiculoService } from '../../providers/vehiculo.service';
 
 
 interface FormFields {
@@ -30,7 +31,7 @@ export class AgregarVehiculoPage implements OnInit {
     attemptedSubmit: boolean = false;
     showValidationError: string = '';
 
-  constructor() { }
+  constructor(servicoVehiculos:VehiculoService) { }
 
   ngOnInit() {
   }
@@ -47,6 +48,14 @@ export class AgregarVehiculoPage implements OnInit {
     }
 
     // Aquí puedes agregar la lógica para enviar los datos a tu servidor o realizar otras acciones
+    var body = {
+      nombre: this.formFields.Nombre,
+      telefono: this.formFields.Telefono,
+      placa: this.formFields.Placa,
+      anio: this.formFields.Anio,
+      marca: this.formFields.Marca,
+      modelo: this.formFields.Modelo,
+    }
     console.log('Formulario enviado:', this.formFields);
     this.showValidationError = '';
   }
@@ -66,6 +75,11 @@ export class AgregarVehiculoPage implements OnInit {
 
     // Puedes agregar lógica adicional si es necesario
     console.log('Formulario cancelado');
+  }
+
+  takeOrUploadPicture(label: string) {
+    // Add logic to handle taking or uploading pictures based on the button label
+    console.log(`Picture taken/uploaded for: ${label}`);
   }
 
   isInvalidField(fieldName: keyof FormFields): boolean {
