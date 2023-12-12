@@ -150,25 +150,34 @@ export class DetallesCampanaPage implements OnInit {
   }
 
   async addPolygons(){
-    this.sector.cerco_virtual.forEach((cercoVirtual)=>{
-      const polygon: Polygon = {
-        paths: [
-          cercoVirtual
-        ],
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        fillColor: '#ff00ff',
-        fillOpacity: 0.35,
-      };
-
-      this.map.addPolygons([polygon]);
-      // this.poligonId = result[0];
-    })
+    if(this.sector){
+      await this.sector.cerco_virtual.forEach((cercoVirtual)=>{
+        const polygon: Polygon = {
+          paths: [
+            cercoVirtual
+          ],
+          strokeColor: '#ffffff',
+          strokeWeight: 2,
+          fillColor: '#ff00ff',
+          fillOpacity: 0.35,
+        };
+  
+        this.map.addPolygons([polygon]);
+        // this.poligonId = result[0];
+      })
+    }
   }
 
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter recibo campana",this.campanaService.getCampanaActual())
+  }
+
+  ionViewDidEnter(){
+    console.log("ionViewDidEnter recibo campana",this.campanaService.getCampanaActual())
+  }
 
   ngOnInit() {
-    console.log(this.campanaService.getCampanaActual())
+    console.log("recibo campana",this.campanaService.getCampanaActual())
     this.campana = this.campanaService.getCampanaActual()
     var idEmpresa = this.campana.id_empresa;
     this.empresaService.getEmpresas().subscribe((data)=>{

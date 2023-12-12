@@ -102,6 +102,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.tabService.showTab = true;
+    this.tabService.showTabs();
   }
 }

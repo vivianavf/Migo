@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable, ViewChild } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,15 +6,27 @@ import { Injectable } from '@angular/core';
 export class TabsService {
 
   public showTab: boolean = false;
+  // @ViewChild('tabBar', { read: ElementRef, static: true })
+  // tabBar!: ElementRef;
 
-  constructor() { }
+  constructor(
+    // private renderer: Renderer2,
+  ) { }
 
   showTabs(){
-    this.showTab = true;
+    const tabBar = document.getElementById('tabBar');
+    if(tabBar){
+      tabBar.style.display = 'flex';
+    }
   }
 
   hideTabs(){
-    this.showTab = false;
+    const tabBar = document.getElementById('tabBar');
+    if(tabBar){
+      tabBar.style.display = 'none';
+    }
+    // const tabBar = this.tabBar.nativeElement;
+    // this.renderer.setAttribute(tabBar,'display', "none")
   }
 
 }

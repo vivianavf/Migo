@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
   }
 
   ingresar() {
+    this.tabService.showTabs();
     var f = this.formularioLogin.value;
     var inputEmail = f.email;
     var inputPassword = f.password;

@@ -176,9 +176,7 @@ ion-item::part(native){
   padding: 0;
   min-width: 100%;
   min-height: 100%;
-  .item-inner{
-    padding: 0;
-  }
+  
 }
 ion-text.filtrar-por{
   color: black;
@@ -202,10 +200,12 @@ ion-item.select-option{
   background-color: white;
   color: black;
   // font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
 }
 
 ion-content::part(scroll){
-  border-radius: 20px;
   margin-top: 5px;
 }
 
@@ -217,15 +217,19 @@ ion-popover::part(content){
 ion-content.filter-options::part(scroll){
   padding: 0;
   background-color: white;
+  border-radius: 10px;
 }
 
 ion-list.list-options{
   // padding: 0;
   background-color: white; 
+  padding: 0;
+
 }
 
 ion-item.select-option::part(native){
   background-color: white;
+  
 }
 
 

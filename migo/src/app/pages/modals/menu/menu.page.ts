@@ -24,7 +24,6 @@ export class MenuPage implements OnInit {
     private userService: UsersService,
     private clientService: ClienteService,
     private tabService: TabsService,
-    // private app: AppComponent,
   ) { }
 
   cerrarModal() {
@@ -68,6 +67,7 @@ export class MenuPage implements OnInit {
 
   cerrarSesion(){
     // this.app.hideTabs();
+    this.tabService.hideTabs();
     localStorage.clear();
     sessionStorage.clear();
     this.modalController.dismiss()

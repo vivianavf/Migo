@@ -28,6 +28,7 @@ export class CampanaComponent  implements OnInit {
   ) { }
 
   registrarse( campana: Campana){
+    console.log("Envio la campana",campana)
     this.campanaService.setCampanaActual(campana);
     this.navCtrl.navigateRoot('detalles-campana')
   }
@@ -73,6 +74,7 @@ export class CampanaComponent  implements OnInit {
   }
 
   ngOnInit() {
+    console.log("holi")
     this.campanas = this.campanaService.campanasObtenidas;
     
     this.empresaService.getEmpresas().subscribe((data)=>{
