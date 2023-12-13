@@ -5,11 +5,13 @@
 //     height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
 //   }
 
-.buttons-container{
+.fotos-buttons-container{
     display: flex;
-    justify-content: center; /* Alineación horizontal al centro */
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center; /* Alineación vertical al centro */
-    height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
+    margin-top: 5%;
+    margin-bottom:5%;
 }
 
 .rounded-input {
@@ -43,9 +45,10 @@ ion-item {
     margin-bottom: 3%;
 }
 
-.add_button {
-    width: 45%; /* Two buttons per row */
-    margin: 5px;
-    color: black;
-    background-color: white;
+ion-button.add_button {
+    --width: 50px /* Two buttons per row */
+    --margin: 5px;
+    --color: black;
+    --background: white;
+    --border-radius: 10px !important;
 }

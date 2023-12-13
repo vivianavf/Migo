@@ -1,7 +1,7 @@
 <ion-toolbar>
   <ion-buttons slot="start">
     <ion-back-button
-      default-href="#"
+      default-href="/vehiculos"
       text=""
       icon="chevron-back"
     ></ion-back-button>
@@ -29,7 +29,7 @@
         <ion-input
           [(ngModel)]="formFields.Nombre"
           name="Nombre"
-          placeholder="Ingrese el nombre"
+          placeholder="  Ingrese el nombre"
           class="rounded-input"
           required
           maxlength="30"
@@ -42,7 +42,7 @@
         <ion-input
           [(ngModel)]="formFields.Telefono"
           name="Telefono"
-          placeholder="Ingrese el teléfono"
+          placeholder="  Ingrese el teléfono"
           class="rounded-input"
           required
           maxlength="10"
@@ -55,7 +55,7 @@
         <ion-input
           [(ngModel)]="formFields.Placa"
           name="Placa"
-          placeholder="Ingrese la placa. Ejemplo: GXY1234"
+          placeholder="  Ingrese la placa. Ejemplo: GXY1234"
           class="rounded-input"
           required
           maxlength="7"
@@ -68,7 +68,7 @@
         <ion-input
           [(ngModel)]="formFields.Anio"
           name="Anio"
-          placeholder="Ingrese el año"
+          placeholder="  Ingrese el año"
           class="rounded-input"
           required
           maxlength="4"
@@ -80,8 +80,8 @@
       <ion-item [class.invalid-border]="isInvalidField('Marca')">
         <ion-label position="stacked">Marca</ion-label>
         <ion-select [(ngModel)]="formFields.Marca" name="Marca" class="rounded-input" required>
-          <ion-select-option value="marca1">Marca 1</ion-select-option>
-          <ion-select-option value="marca2">Marca 2</ion-select-option>
+          <ion-select-option value="1">Marca 1</ion-select-option>
+          <ion-select-option value="2">Marca 2</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
@@ -89,8 +89,8 @@
       <ion-item [class.invalid-border]="isInvalidField('Modelo')">
         <ion-label position="stacked">Modelo</ion-label>
         <ion-select [(ngModel)]="formFields.Modelo" name="Modelo" class="rounded-input" required>
-          <ion-select-option value="modelo1">Modelo 1</ion-select-option>
-          <ion-select-option value="modelo2">Modelo 2</ion-select-option>
+          <ion-select-option value="1">Modelo 1</ion-select-option>
+          <ion-select-option value="2">Modelo 2</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
@@ -103,35 +103,35 @@
       <div class='fotos-buttons-container'>
         <div class="button-container" (click)="takeOrUploadPicture('Lado Izquierdo')">
           <ion-label>Lado Izquierdo</ion-label>
-          <ion-button class='add_button' expand="full" class="add_button">
+          <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
         <div class="button-container" (click)="takeOrUploadPicture('Lado Derecho')">
           <ion-label>Lado Derecho</ion-label>
-          <ion-button class='add_button' expand="full" class="add_button">
+          <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
         <div class="button-container" (click)="takeOrUploadPicture('Frontal')">
           <ion-label>Frontal</ion-label>
-          <ion-button class='add_button' expand="full" class="add_button">
+          <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
         <div class="button-container" (click)="takeOrUploadPicture('Trasera')">
           <ion-label>Trasera</ion-label>
-          <ion-button class='add_button' expand="full" class="add_button">
+          <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
         <div class="button-container" (click)="takeOrUploadPicture('Aerea')">
           <ion-label>Aerea</ion-label>
-          <ion-button class='add_button' expand="full" class="add_button">
+          <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>

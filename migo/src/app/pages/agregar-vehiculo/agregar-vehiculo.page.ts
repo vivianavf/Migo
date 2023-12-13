@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { VehiculoService } from '../../providers/vehiculo.service';
+import { VehiculoService } from 'src/app/providers/vehiculo.service';
 
 
 interface FormFields {
@@ -30,8 +30,9 @@ export class AgregarVehiculoPage implements OnInit {
 
     attemptedSubmit: boolean = false;
     showValidationError: string = '';
+    servicio = this.servicioVehiculos;
 
-  constructor(servicoVehiculos:VehiculoService) { }
+  constructor(private servicioVehiculos:VehiculoService) { }
 
   ngOnInit() {
   }
@@ -45,18 +46,31 @@ export class AgregarVehiculoPage implements OnInit {
     if (missingFields.length > 0) {
       this.showValidationError = `Debe llenar los campos: ${missingFields.join(', ')}.`;
       return;
+    } else {
+      var body = {
+    "telefono_conductor": Number.parseInt(this.formFields.Telefono),
+    "placa": this.formFields.Placa,
+    "anio": Number.parseInt(this.formFields.Anio),
+    "categoria_vehiculo": 1,
+    "color_vehiculo": 1,
+    "imagen_izq": '',
+    "imagen_der": '',
+    "imagen_frontal": '',
+    "imagen_trasera": '',
+    "imagen_techo": '',
+    "estado": 1,
+    "id_cliente": 1,
+    "id_marca": Number.parseInt(this.formFields.Marca),
+    "id_modelo": Number.parseInt(this.formFields.Modelo)
+}
+      this.servicio.crearVehiculo(body).subscribe((data)=>{
+        console.log(data);
+      });
+      console.log('Formulario enviado:', this.formFields);
+
     }
 
     // Aquí puedes agregar la lógica para enviar los datos a tu servidor o realizar otras acciones
-    var body = {
-      nombre: this.formFields.Nombre,
-      telefono: this.formFields.Telefono,
-      placa: this.formFields.Placa,
-      anio: this.formFields.Anio,
-      marca: this.formFields.Marca,
-      modelo: this.formFields.Modelo,
-    }
-    console.log('Formulario enviado:', this.formFields);
     this.showValidationError = '';
   }
 
