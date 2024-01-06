@@ -168,17 +168,8 @@ export class DetallesCampanaPage implements OnInit {
     }
   }
 
-  ionViewWillEnter(){
-    console.log("ionViewWillEnter recibo campana",this.campanaService.getCampanaActual())
-  }
-
-  ionViewDidEnter(){
-    console.log("ionViewDidEnter recibo campana",this.campanaService.getCampanaActual())
-  }
-
-  ngOnInit() {
-    console.log("recibo campana",this.campanaService.getCampanaActual())
-    this.campana = this.campanaService.getCampanaActual()
+  generarDatos(){
+    this.campana = this.campanaService.getCampanaActual();
     var idEmpresa = this.campana.id_empresa;
     this.empresaService.getEmpresas().subscribe((data)=>{
       this.empresas = data;
@@ -186,36 +177,38 @@ export class DetallesCampanaPage implements OnInit {
       if(busquedaEmpresa)this.nombreEmpresa = busquedaEmpresa.nombre;
     });
 
-    this.clientes = this.clientService.clientesObtenidos;
-    const busquedaCliente = this.clientes.find(({ nombre }) => nombre === this.campana.nombre_responsable);
-      if(busquedaCliente){
-        this.correoEncargado = busquedaCliente.email;
-        }
-
-    // this.clientService.getClients().subscribe((data)=>{
-    //   this.clientes = data;
-    //   const busquedaCliente = this.clientes.find(({ nombre }) => nombre === this.campana.nombre_responsable);
-    //   if(busquedaCliente){
-    //     this.correoEncargado = busquedaCliente.email;
-    //     }
-    // });
+    console.log("Nombre Empresa", this.nombreEmpresa)
 
     this.sectorService.getSectores().subscribe((data)=>{
       this.sectores = data;
       this.campana = this.campanaService.getCampanaActual()
       data.forEach((sectorX)=>{
-        // if(this.campana.id_sector === sectorX.id_sector){
-        //   this.sector = sectorX;
-        // }
         if(sectorX.id_sector === 19){
           this.sector = sectorX;
         }
       })
     })
-    
     this.crearMapa(-2.189822999999990, -79.88775);
-    // this.initMap(-2.189822999999990, -79.88775);
 
   }
 
+  ionViewWillEnter(){
+    try {
+      console.log("WILL ENTER")
+      this.generarDatos();
+    } catch (error) {
+      
+    }
+   
+  }
+
+  ngOnInit() {
+
+    try {
+      console.log("WILL ENTER")
+      this.generarDatos();
+    } catch (error) {
+      
+    }
+  }
 }

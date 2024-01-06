@@ -29,11 +29,12 @@
   <ion-card>
     <div class="licencia-container">
       <p class="white-text">Licencia de Conducir:</p>
-      <input type="file" name='inputfile' onChange='showName()' accept=".pdf" id="getFile" style="display:none"/>
+      <input type="file" name='inputfile' (change)="onFileChange($event)" accept=".pdf" id="getFile" style="display:none"/>
       
       <div class="fileName">
         <ion-button onclick="document.getElementById('getFile').click()" class="capitalize subir-archivo" color="warning">Subir Archivo</ion-button>
-        <ion-text >{{nombreArchivo}}</ion-text>
+        <ion-text *ngIf="showName" id="file-name">Formato admitido: .pdf</ion-text>
+        <ion-text id="nombreArchivo">{{nombreArchivo}}</ion-text>
       </div>
       <!-- <div class="file">
         <ion-item>

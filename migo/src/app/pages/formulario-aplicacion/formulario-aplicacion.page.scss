@@ -26,6 +26,30 @@ ion-toolbar{
     display: flex;
     flex-direction: column;
     text-align: center;
+    width: 200px;
+    align-items: center;
+    height: 65px;
+
+    //
+    // line-height: 1.2;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 1;
+    // -webkit-box-orient: vertical;
+  }
+
+  ion-text#nombreArchivo{
+    height: 15px;
+    width: 200px;
+
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+
   }
 
   ion-card{

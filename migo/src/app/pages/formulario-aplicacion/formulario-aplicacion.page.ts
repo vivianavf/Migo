@@ -23,9 +23,12 @@ export class FormularioAplicacionPage implements OnInit {
   vehiculos: Vehiculo[] = [];
   vehiculosUsuario: Vehiculo[] = [];
   nombreArchivo = "";
+  showName = true;
 
   entidadBancaria = "Entidad Bancaria";
   tipoCuenta = "Tipo de Cuenta";
+
+  file!: File;
 
   public entidadesBancarias = [
     'Banco del Ecuador',
@@ -135,11 +138,11 @@ export class FormularioAplicacionPage implements OnInit {
     // const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
   }
 
-  showName(){
-    var input = document.getElementById("getFile") as HTMLInputElement;
-    var nombre = input?.files?.item(0)?.name;
-    console.log(nombre)
-  } 
+  onFileChange(fileChangeEvent: any){
+    this.file = fileChangeEvent.target.files[0];
+    this.nombreArchivo = this.file.name;
+    this.showName = false;
+  }
 
   cambiarBanco(banco: string){
     this.entidadBancaria = banco;
