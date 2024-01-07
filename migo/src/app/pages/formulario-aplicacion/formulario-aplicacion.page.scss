@@ -1,3 +1,5 @@
+@import url('../../../theme/variables.scss');
+
 //toolbar
 ion-toolbar{
     padding-top: 20px;
@@ -150,6 +152,14 @@ display: flex;
     align-items: center;
   }
 
+  .select-v{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+  }
+
   ion-button.add-vehiculo{
     width: 60px;
     height: 60px;
@@ -163,6 +173,53 @@ display: flex;
     min-height: 100%;
   }
 
+  /** Cuando el vehiculo ya esta seleccionado **/
+
+  .selected-v{
+    text-align: center;
+    height: 150px;
+  }
+
+  .vehiculoSeleccionado{
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+    text-align: center;
+    height: 100px;
+    width: 220px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+  }
+
+  .img-container{
+    display: flex;
+    align-items: center;
+  }
+
+  .img-vehiculo{
+    width: 80px;
+  }
+
+  .info-container{
+    width: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .info-container>p{
+    margin: 0;
+    padding: 0;
+  }
+
+  .icons-container{
+    padding-top: 7px; 
+  }
+
+  /*** MODALS ***/
+
   .terms{
     display: flex;
     flex-direction: row;
@@ -170,6 +227,16 @@ display: flex;
     margin-right: 25px;
     align-items: center;
   }
+
+  .vehiculos-modal{
+    display: flex;
+    flex-direction: row;
+    margin-left: 25px;
+    margin-right: 25px;
+    align-items: center;
+  }
+
+  /*** ***/
 
   .button-container{
     width: 100%;
@@ -208,7 +275,7 @@ ion-text.filtrar-por{
   margin-left: 20px;
   font-size: 16px;
 }
-ion-button#filtro, #filtroCuenta{
+ion-button.filtro{
   display: flex;
   --border-radius: 50px;
   width: 100%;
@@ -233,11 +300,32 @@ ion-content::part(scroll){
   margin-top: 5px;
 }
 
-ion-popover::part(content){
+ion-popover#listaBancos::part(content){
+  background: white;
+  width: 290px;
+  height: 300px;
+  top: calc(90px + var(--offset-y, 0px));
+  left: calc(55px + var(--offset-x, 0px));
+}
+
+//popover
+#listaCuentas::part(content){
+  background: white;
   width: 290px;
 }
 
+//SearchBar
+ion-searchbar#buscarBanco{
+  --border-radius: 20px;
+  --background: var(--ion-color-primary);
+  --color: black;
+}
+
 /** Filter Options Root Select **/
+ion-content.filter-options::part(background){
+  background: white;
+}
+
 ion-content.filter-options::part(scroll){
   padding: 0;
   background-color: white;
@@ -248,14 +336,16 @@ ion-list.list-options{
   // padding: 0;
   background-color: white; 
   padding: 0;
-
 }
 
 ion-item.select-option::part(native){
   background-color: white;
-  
 }
 
+//retroalimentacion
+.retroalimentacion{
+  padding-left: 50px;
+}
 
 //terms
 ion-checkbox{

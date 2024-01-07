@@ -174,7 +174,11 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },  {
+    path: 'vehiculos-modal',
+    loadChildren: () => import('./pages/modals/vehiculos-modal/vehiculos-modal.module').then( m => m.VehiculosModalPageModule)
   },
+
 
 ];
 

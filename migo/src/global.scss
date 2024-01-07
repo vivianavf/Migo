@@ -96,6 +96,13 @@ ion-modal.terms{
     --width: 90%;
   }
 
+  ion-modal.vehiculos-modal{
+    --height: 200px;
+    --width: 300px;
+    --border-radius: 20px;
+    --background: white;
+  }
+
   ion-input.custom.ios .input-bottom .helper-text,
   ion-input.custom.ios .input-bottom .counter,
   ion-input.custom.md .input-bottom .helper-text,

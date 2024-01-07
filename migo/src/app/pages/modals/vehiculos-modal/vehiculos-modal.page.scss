@@ -1,0 +1,41 @@
+ion-content#vehiculos-content{
+    background: white;
+}
+
+#vehiculos-content::part(background){
+    background: white;
+}
+
+ion-text.info{
+    color: black;
+}
+
+swiper-container {
+    color: black;
+    width: 100%;
+    // height: 90%;
+    // margin-left: auto;
+    // margin-right: auto;
+}
+
+swiper-slide {
+    color: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 200px !important; 
+    // width: 130px;
+}
+
+ion-text.placa{
+    color: black;
+}
+
+img.foto{
+    width: 120px;
+    height: 120px;
+}
+

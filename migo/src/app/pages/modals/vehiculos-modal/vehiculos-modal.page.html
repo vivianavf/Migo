@@ -1,0 +1,8 @@
+<ion-content id="vehiculos-content">
+  <swiper-container [modules]="swiperModules" [slidesPerView]="2" [pagination]="true" >
+    <swiper-slide *ngFor="let vehiculo of vehiculosCliente" (click)="elegirVehiculo(vehiculo)">
+      <img class="foto" src="../../../../assets/images/vehiculos/{{vehiculo.id_vehiculo}}.jpg" [alt]="vehiculo.placa" />
+      <ion-text class="placa bold-text">{{vehiculo.placa}}</ion-text>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

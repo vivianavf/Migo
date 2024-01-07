@@ -176,9 +176,7 @@ export class DetallesCampanaPage implements OnInit {
       const busquedaEmpresa = this.empresas.find(({ id_empresa }) => id_empresa === idEmpresa);
       if(busquedaEmpresa)this.nombreEmpresa = busquedaEmpresa.nombre;
     });
-
-    console.log("Nombre Empresa", this.nombreEmpresa)
-
+    
     this.sectorService.getSectores().subscribe((data)=>{
       this.sectores = data;
       this.campana = this.campanaService.getCampanaActual()

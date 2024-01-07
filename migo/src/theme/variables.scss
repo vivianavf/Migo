@@ -13,7 +13,7 @@
   font-family: 'Bahnschrift';
   font-style: normal;
   font-weight: normal;
-  src: url('../assets/fonts/Bahnschrift\ Regular.ttf');
+  src: url('../assets/fonts/Bahnschrift.ttf');
 }
 
 @font-face {
@@ -40,11 +40,7 @@ ion-card-title, ion-label, ion-button{
   --ion-text-color: black;
   --ion-toolbar-background:  rgba(0, 0, 0, 0.60);
   --ion-toolbar-color: white;
-
-
-  /** Font para textos **/
-  // --ion-font-family: 'Source Code';
-
+  
   /** primary **/
   --ion-color-primary: rgb(255,255,0);
   --ion-color-primary-rgb: 255, 255, 0;

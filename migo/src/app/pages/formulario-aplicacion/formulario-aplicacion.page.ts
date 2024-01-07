@@ -9,6 +9,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Client } from 'src/app/interfaces/client';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
+import { User } from 'src/app/interfaces/user';
+import { PrivacidadPage } from '../modals/privacidad/privacidad.page';
+import { TerminosCondicionesPage } from '../modals/terminos-condiciones/terminos-condiciones.page';
+import { VehiculosModalPage } from '../modals/vehiculos-modal/vehiculos-modal.page';
+import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
+import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
+import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -20,6 +27,7 @@ export class FormularioAplicacionPage implements OnInit {
   formularioAplicacion: FormGroup;
   mostrarMensaje: boolean = false;
   cliente!: Client;
+  usuario!: User;
   vehiculos: Vehiculo[] = [];
   vehiculosUsuario: Vehiculo[] = [];
   nombreArchivo = "";
@@ -28,7 +36,26 @@ export class FormularioAplicacionPage implements OnInit {
   entidadBancaria = "Entidad Bancaria";
   tipoCuenta = "Tipo de Cuenta";
 
+  vehiculoSeleccionado !: Vehiculo | null;
+  marcaVehiculo = ""
+  modeloVehiculo = ""
+
   file!: File;
+
+  //form
+  correoInput: string = '';
+  cedulaInput: string = '';
+  numeroCuentaInput: string = '';
+
+  //mensajes retroalimentacion
+  terminosNoAceptados: boolean = false;
+  archivoVacio: boolean = false;
+  entidadBancariaVacio: boolean = false;
+  tipodeCuentaVacio: boolean = false;
+  numeroCuentaVacio: boolean = false;
+  termsAccepted: any;
+  seleccionoVehiculo: boolean = false;
+  mostrarmsgVehiculo: boolean = false;
 
   public entidadesBancarias = [
     'Banco del Ecuador',
@@ -61,11 +88,17 @@ export class FormularioAplicacionPage implements OnInit {
     'Banco Guaymango',
     'Banco Rioja',
     'Banco Ruminahui',
+    'Cooperativa de Ahorro y Crédito “Juventud Ecuatoriana Progresista” LTDA., (JEP)',
+    'Cooperativa Alianza del Valle',
+    'Cooprogreso',
+    'Cooperativa de Ahorro y Crédito 29 de Octubre Ltda.'
   ];
 
   public tiposCuentas = [
     'Ahorros', 'Corriente'
   ];
+
+  public results = [...this.entidadesBancarias];
 
   entidadesFiltradas: string[] = [];
   entidadSeleccionada: string = '';  
@@ -78,6 +111,9 @@ export class FormularioAplicacionPage implements OnInit {
     private vehiculoService: VehiculoService,
     public fb: FormBuilder,
     private popCtrl: PopoverController,
+    private elegirVehiculoService: ElegirVehiculoService,
+    private marcaVehiculoService: MarcaVehiculoService,
+    private modeloVehiculoService: ModeloVehiculosService,
   ) {
     this.formularioAplicacion = this.fb.group({
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
@@ -124,24 +160,66 @@ export class FormularioAplicacionPage implements OnInit {
     return await modal.present();
   }
 
-  mostrarTerminos(){}
+  async mostrarTerminos() {
+    const modal = await this.modalController.create({
+      component: TerminosCondicionesPage,
+      cssClass: 'terms',
+    });
 
-  mostrarPoliticas(){}
+    return await modal.present();
+  }
 
-  seleccionarVehiculo(){
-    // this.vehiculos.forEach((element)=>{
-    //   const vehiculoPertenece = this.vehiculos.find(({id_cliente}) => id_cliente === this.cliente.id_cliente);
-    //   //if
-    //   // console.log(vehiculoPertenece)
-    //   if(vehiculoPertenece) this.vehiculosUsuario.push(vehiculoPertenece)
-    // })
-    // const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
+  async mostrarPoliticas() {
+    const modal = await this.modalController.create({
+      component: PrivacidadPage,
+      cssClass: 'terms',
+    });
+
+    return await modal.present();
+  }
+
+  async seleccionarVehiculo(){
+    //enviar el ID del cliente
+    //mostrar un modal donde se muestren todos los vehiculos
+
+    const modal = await this.modalController.create({
+      component: VehiculosModalPage,
+      cssClass: 'vehiculos-modal',
+      componentProps: {
+        idCliente: this.cliente.id_cliente,
+      },
+    });
+
+    modal.onDidDismiss().then((data)=>{
+      this.vehiculoSeleccionado = this.elegirVehiculoService.vehiculoElegido;
+      if(this.vehiculoSeleccionado){
+        this.marcaVehiculoService.getMarcabyId(this.vehiculoSeleccionado.id_marca).subscribe((data)=>{
+          this.marcaVehiculo = data.nombre;
+        });
+        this.modeloVehiculoService.getModelobyId(this.vehiculoSeleccionado.id_modelo).subscribe((data)=>{
+          this.modeloVehiculo = data.nombre;
+        })
+        this.seleccionoVehiculo = true;
+      }
+    })
+
+    return await modal.present();
+  }
+
+  eliminarVehiculo(){
+    this.seleccionoVehiculo = false;
+    this.elegirVehiculoService.eliminarVehiculo();
   }
 
   onFileChange(fileChangeEvent: any){
     this.file = fileChangeEvent.target.files[0];
     this.nombreArchivo = this.file.name;
     this.showName = false;
+  }
+
+  handleInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.results = this.entidadesBancarias.filter((d) => d.toLowerCase().indexOf(query) > -1);
   }
 
   cambiarBanco(banco: string){
@@ -154,15 +232,104 @@ export class FormularioAplicacionPage implements OnInit {
     this.popCtrl.dismiss();
   }
 
-  enviarFormulario(){}
+  enviarFormulario(){
+    this.aceptoTerminos()
+    this.entidadVacio()
+    this.archivoExiste()
+    this.tipoCuentaExiste()
+    this.numeroCuentaExiste()
+    this.vehiculoHaSidoSeleccionado()
 
-  subirArchivo(){}
+    if(!this.terminosNoAceptados 
+      && !this.archivoVacio
+      && !this.entidadBancariaVacio
+      && !this.tipodeCuentaVacio
+      && !this.numeroCuentaVacio
+      && this.seleccionoVehiculo
+      ){
+        console.log("puede registrarse")
+        //correo = correoInput
+        //cedula = cedulaInput
+      //logica de registro a campaña
+      //recoger todos los datos
+      //enviarlos al server
+      //mostrar pantalla de registro exitoso
+    }else{
+      console.log("No puede registrarse")
+    }
 
-  ngOnInit() {
+  }
+
+  vehiculoHaSidoSeleccionado(){
+    if(!this.seleccionoVehiculo){
+      this.mostrarmsgVehiculo = true;
+    }else{
+      this.mostrarmsgVehiculo = false;
+    }
+  }
+
+  archivoExiste(){
+    this.nombreArchivo.length>0?this.archivoVacio=false:this.archivoVacio=true;
+    return this.archivoVacio
+  }
+
+  entidadVacio(){
+    console.log(this.entidadBancaria)
+    this.entidadBancaria!="Entidad Bancaria"?this.entidadBancariaVacio=false:this.entidadBancariaVacio=true;
+    return this.entidadBancariaVacio;
+  }
+
+  tipoCuentaExiste(){
+    this.tipoCuenta!="Tipo de Cuenta"?this.tipodeCuentaVacio=false:this.tipodeCuentaVacio=true;
+    return this.tipodeCuentaVacio;
+  }
+
+  numeroCuentaExiste(){
+    console.log(this.numeroCuentaInput)
+    !this.numeroCuentaInput?this.numeroCuentaVacio=true:this.numeroCuentaVacio=false;
+    return this.numeroCuentaVacio;
+  }
+
+  aceptoTerminos() {
+    if (!this.termsAccepted) {
+      this.terminosNoAceptados = true;
+      return false;
+    } else {
+      this.terminosNoAceptados = false;
+      return true;
+    }
+  }
+
+  generarApp(){
     this.cliente = this.clientService.clienteActivo();
+
+    this.correoInput = this.cliente.email;
+    this.cedulaInput = this.cliente.cedula_cliente;
+    // this.usuario = this.userService.usuarioActivo();
+
+    console.log(this.campanaService.getCampanaActual())
+
+    console.log(this.userService.usuarioActivo());
     this.vehiculoService.getVehiculos().subscribe((data)=>{
       this.vehiculos = data;
     })
+
+  }
+
+  ionViewWillEnter(){
+    try {
+      this.generarApp();
+    } catch (error) {
+      
+    }
+  }
+
+  ngOnInit() {
+    try {
+      this.generarApp();
+    } catch (error) {
+      
+    }
   }
 
 }
