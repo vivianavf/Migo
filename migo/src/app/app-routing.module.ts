@@ -176,9 +176,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
+    path: 'camara-integrada',
+    loadChildren: () => import('./pages/camara-integrada/camara-integrada.module').then( m => m.CamaraIntegradaPageModule)
+  },
+
+  {
     path: 'vehiculos-modal',
     loadChildren: () => import('./pages/modals/vehiculos-modal/vehiculos-modal.module').then( m => m.VehiculosModalPageModule)
-  },  {
+  },
+  {
     path: 'qr',
     loadChildren: () => import('./pages/modals/qr/qr.module').then( m => m.QrPageModule)
   },
