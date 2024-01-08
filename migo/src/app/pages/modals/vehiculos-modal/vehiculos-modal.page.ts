@@ -24,6 +24,8 @@ export class VehiculosModalPage implements OnInit {
 
   vehiculoSeleccionado: any;
 
+  hayVehiculos=false;
+
   constructor(
     private vehiculoService: VehiculoService,
     private elegirVehiculoService: ElegirVehiculoService,
@@ -42,6 +44,8 @@ export class VehiculosModalPage implements OnInit {
           this.vehiculosCliente.push(vehiculo);
         }
       })
+
+      if(this.vehiculosCliente.length>0){this.hayVehiculos=true}else{this.hayVehiculos=false}
     })
   }
 

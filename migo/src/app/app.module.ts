@@ -12,6 +12,7 @@ import { CampanaComponent } from './pages/campana/campana.component';
 import { MarcasComponent } from './pages/marcas/marcas.component';
 import { TabsPageModule } from './pages/tabs/tabs.module';
 
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,8 +24,10 @@ import { TabsPageModule } from './pages/tabs/tabs.module';
     FormsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    FileOpener
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

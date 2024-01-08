@@ -104,6 +104,21 @@ ion-modal.terms{
     --background: white;
   }
 
+  .qr-modal{
+    --height: 75%;
+    --width: 90%;
+    --border-radius: 20px;
+    --background: white;
+  }
+
+  .ion-black-text{
+    --color:black;
+  }
+
+  .black-text{
+    color: black;
+  }
+  
   ion-input.custom.ios .input-bottom .helper-text,
   ion-input.custom.ios .input-bottom .counter,
   ion-input.custom.md .input-bottom .helper-text,
