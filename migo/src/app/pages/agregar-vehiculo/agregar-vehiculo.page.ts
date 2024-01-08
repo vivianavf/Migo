@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
+import { CamaraService } from 'src/app/providers/camara.service';
 
 
 interface FormFields {
@@ -32,9 +34,13 @@ export class AgregarVehiculoPage implements OnInit {
     showValidationError: string = '';
     servicio = this.servicioVehiculos;
 
-  constructor(private servicioVehiculos:VehiculoService) { }
+  constructor(private servicioVehiculos:VehiculoService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      const photoPath = params['photoPath'];
+      // Use the photoPath as needed (e.g., display or store it)
+    });
   }
 
   submitForm() {
@@ -93,7 +99,7 @@ export class AgregarVehiculoPage implements OnInit {
 
   takeOrUploadPicture(label: string) {
     // Add logic to handle taking or uploading pictures based on the button label
-    console.log(`Picture taken/uploaded for: ${label}`);
+    this.router.navigate(['/camara-integrada', { label }]);
   }
 
   isInvalidField(fieldName: keyof FormFields): boolean {

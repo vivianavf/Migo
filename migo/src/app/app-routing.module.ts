@@ -174,7 +174,11 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
+  },  {
+    path: 'camara-integrada',
+    loadChildren: () => import('./pages/camara-integrada/camara-integrada.module').then( m => m.CamaraIntegradaPageModule)
   },
+
 
 ];
 
