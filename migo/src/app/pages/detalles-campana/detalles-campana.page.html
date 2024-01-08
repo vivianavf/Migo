@@ -5,7 +5,7 @@
     </ion-button>
     <ion-title class="bold-text">DETALLES DE CAMPAÑA</ion-title>
   </ion-buttons>
-  
+
   <ion-buttons slot="end">
     <ion-button class="notificaciones" (click)="mostrarNotificaciones()">
       <img
@@ -28,65 +28,94 @@
     <ion-card-content>
       <div class="banner-empresa ad">
         <ion-img
-      src="../../../assets/banners/{{campana.id_empresa}}.jpg"
-      alt="Banner de la empresa"
-      class="img-empresa"
-    ></ion-img>
+          src="../../../assets/banners/{{campana.id_empresa}}.jpg"
+          alt="Banner de la empresa"
+          class="img-empresa"
+        ></ion-img>
       </div>
       <div class="info-container">
         <div class="header-campana">
           <h2 class="uppercase-text bold-text">{{campana.nombre_campana}}</h2>
           <p class="capitalize">{{nombreEmpresa}}</p>
           <p class="capitalize">Responsable: {{campana.nombre_responsable}}</p>
-          <!-- <div class="correo-container">
+          <div class="correo-container">
             <ion-icon name="mail"></ion-icon>
-            <p class="correo">{{correoEncargado}}</p>
-          </div> -->
+            <p class="correo">{{campana.correo_responsable}}</p>
+          </div>
         </div>
         <div class="info-campana">
           <div class="titulos-info bold-text">
             <p>Tarifa por kilometraje:</p>
             <p>Horario Monetizable:</p>
-            <p>Ciclo de Pago:</p>
-            <p>Cobro máximo:</p>
+            <p>Cobro mínimo:</p>
             <p>Tipo de Brandeo disponible:</p>
           </div>
           <div class="variables-info">
-            <p>$0,25 - $0,50</p>
-            <p>13:00 - 18:00</p>
-            <p>Cada 2 semanas</p>
-            <p>$500</p>
-            <p>Pantalla LED</p>
+            <p>${{campana.tarifa_min}} - ${{campana.tarifa_max}}</p>
+            <p>
+              {{campana.hora_monetizable_inicio}} -
+              {{campana.hora_monetizable_fin}}
+            </p>
+            <p>${{campana.cobro_minimo}}</p>
+            <p>{{campana.tipo_brandeo}}</p>
           </div>
         </div>
         <div class="mapa bold-text">
-          <p >Sector monetizable:</p>
+          <p>Sector monetizable:</p>
           <div id="newMap">
-            <!-- <div #mapElement id="mapElement" class="custom-map"></div> -->
-            <capacitor-google-map #mapElement class="custom-map" id="map"></capacitor-google-map>
+            <img class="custom-map" src="../../../assets/rutas/2.png"/>
+            <!-- <capacitor-google-map
+              #mapElement
+              class="custom-map"
+              id="map"
+            ></capacitor-google-map> -->
           </div>
         </div>
         <div class="talleres">
           <div class="talleres-direccion">
             <p>Talleres disponibles:</p>
-            <p>Cdla. Atarazana Manzana 56 Solar 122</p>
+            <div class="taller-direccion">
+              <p>{{campana.taller_brandeo}}</p>
+              <p>Cdla. Atarazana Manzana 56 Solar 122</p>
+            </div>
           </div>
           <div class="vehiculo-tipo">
             <p>Tipo de Vehículos:</p>
             <div class="vehiculosContainer">
-              <ion-img class="vehiculoType" src="../../../assets/autos/1.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/2.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/3.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/4.png"
-    alt="Vehiculo"></ion-img>
+              <ion-img
+                *ngIf="campana.sedan_admisible"
+                class="vehiculoType"
+                src="../../../assets/autos/1.png"
+                alt="Vehiculo"
+              ></ion-img>
+              <ion-img
+                *ngIf="campana.bus_admisible"
+                class="vehiculoType"
+                src="../../../assets/autos/2.png"
+                alt="Vehiculo"
+              ></ion-img>
+              <ion-img
+                *ngIf="campana.camion_admisible"
+                class="vehiculoType"
+                src="../../../assets/autos/3.png"
+                alt="Vehiculo"
+              ></ion-img>
+              <ion-img
+                *ngIf="campana.camioneta_admisible"
+                class="vehiculoType"
+                src="../../../assets/autos/4.png"
+                alt="Vehiculo"
+              ></ion-img>
             </div>
           </div>
         </div>
         <div class="button-container">
-          <ion-button class="formulario capitalize" (click)="abrirFormulario()" color="warning">Aplicar</ion-button>
+          <ion-button
+            class="formulario capitalize"
+            (click)="abrirFormulario()"
+            color="warning"
+            >Aplicar</ion-button
+          >
         </div>
       </div>
     </ion-card-content>

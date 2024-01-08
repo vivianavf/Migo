@@ -49,7 +49,7 @@ export class ReestablecerPasswordPage implements OnInit {
           message: "La contraseña ha sido actualizada con éxito",
           buttons: [{
             text: "Aceptar",
-            handler:()=>{ this.router.navigate(["/home"])}
+            handler:()=>{ this.router.navigate(["/login"])}
           }],
           cssClass: "passwordAlert",
         })

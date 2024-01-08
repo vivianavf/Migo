@@ -29,49 +29,82 @@
   <ion-card>
     <div class="licencia-container">
       <p class="white-text">Licencia de Conducir:</p>
-      <input type="file" name='inputfile' (change)="onFileChange($event)" accept=".pdf" id="getFile" style="display:none"/>
-      
+      <input
+        type="file"
+        name="inputfile"
+        (change)="onFileChange($event)"
+        accept=".pdf"
+        id="getFile"
+        style="display: none"
+      />
+
       <div class="fileName">
-        <ion-button onclick="document.getElementById('getFile').click()" class="capitalize subir-archivo" color="warning">Subir Archivo</ion-button>
-        <ion-text *ngIf="showName" id="file-name">Formato admitido: .pdf</ion-text>
+        <ion-button
+          onclick="document.getElementById('getFile').click()"
+          class="capitalize subir-archivo"
+          color="warning"
+          >Subir Archivo</ion-button
+        >
+        <ion-text *ngIf="showName" id="file-name"
+          >Formato admitido: (.pdf)</ion-text
+        >
         <ion-text id="nombreArchivo">{{nombreArchivo}}</ion-text>
       </div>
-      <!-- <div class="file">
-        <ion-item>
-          <input type="file"/>
-        </ion-item>
-        <ion-button (click)="subirArchivo()" class="capitalize subir-archivo">Subir Archivo</ion-button>
-      </div> -->
     </div>
     <div class="formulario">
       <div class="ion-no-border" [formGroup]="formularioAplicacion">
         <!-- if usuario ya esta registrado, el correo y cedula ya esta predeterminado -->
         <ion-item class="input-item">
           <ion-input
-          placeholder="Correo Electrónico"
+            [placeholder]="correoInput"
             maxlength="50"
+            inputmode="text"
             formControlName="email"
             type="email"
+            aria-disabled="true"
           ></ion-input>
         </ion-item>
         <ion-item class="input-item">
-          <ion-input placeholder="Cédula de Identidad" maxlength="10" formControlName="cedula"></ion-input>
+          <ion-input
+            [placeholder]="cedulaInput"
+            maxlength="10"
+            formControlName="cedula"
+            aria-disabled="true"
+          ></ion-input>
         </ion-item>
         <!-- Aqui seria de hacer un select -->
         <ion-item class="input-item">
-          <ion-button id="filtro">
-            <ion-text class="capitalize filtrar-por">{{entidadBancaria}}</ion-text>
+          <ion-button id="filtroBanco" class="filtro">
+            <ion-text class="capitalize filtrar-por"
+              >{{entidadBancaria}}</ion-text
+            >
             <ion-icon
-                id="icon-filtrar"
-                class="end-of-line"
-                name="chevron-down-outline"
-              ></ion-icon>
+              id="icon-filtrar"
+              class="end-of-line"
+              name="chevron-down-outline"
+            ></ion-icon>
           </ion-button>
-          <ion-popover trigger="filtro" alignment="center">
+          <ion-popover
+            id="listaBancos"
+            side="top"
+            alignment="center"
+            trigger="filtroBanco"
+            alignment="center"
+          >
             <ng-template>
               <ion-content class="filter-options">
-                <ion-list class="list-options" >
-                  <ion-item class="select-option" *ngFor="let banco of entidadesBancarias" (click)="cambiarBanco(banco)">
+                <ion-searchbar
+                  id="buscarBanco"
+                  show-clear-button="focus"
+                  (ionInput)="handleInput($event)"
+                  placeholder="Buscar..."
+                ></ion-searchbar>
+                <ion-list class="list-options">
+                  <ion-item
+                    class="select-option"
+                    *ngFor="let banco of results"
+                    (click)="cambiarBanco(banco)"
+                  >
                     {{banco}}
                   </ion-item>
                 </ion-list>
@@ -81,19 +114,27 @@
         </ion-item>
 
         <ion-item class="input-item">
-          <ion-button id="filtroCuenta">
+          <ion-button id="filtroCuenta" class="filtro">
             <ion-text class="capitalize filtrar-por">{{tipoCuenta}}</ion-text>
             <ion-icon
-                id="icon-filtrar"
-                class="end-of-line"
-                name="chevron-down-outline"
-              ></ion-icon>
+              id="icon-filtrar"
+              class="end-of-line"
+              name="chevron-down-outline"
+            ></ion-icon>
           </ion-button>
-          <ion-popover trigger="filtroCuenta" alignment="center">
+          <ion-popover
+            id="listaCuentas"
+            trigger="filtroCuenta"
+            alignment="center"
+          >
             <ng-template>
               <ion-content class="filter-options">
-                <ion-list class="list-options" >
-                  <ion-item class="select-option" *ngFor="let cuenta of tiposCuentas" (click)="cambiarCuenta(cuenta)">
+                <ion-list class="list-options">
+                  <ion-item
+                    class="select-option"
+                    *ngFor="let cuenta of tiposCuentas"
+                    (click)="cambiarCuenta(cuenta)"
+                  >
                     {{cuenta}}
                   </ion-item>
                 </ion-list>
@@ -102,30 +143,103 @@
           </ion-popover>
         </ion-item>
         <ion-item class="input-item">
-          <ion-input placeholder="Número de Cuenta" maxlength="20" formControlName="cuenta"></ion-input>
+          <ion-input
+            placeholder="Número de Cuenta"
+            type="text"
+            maxlength="20"
+            formControlName="cuenta"
+            inputmode="numeric"
+            [(ngModel)]="numeroCuentaInput"
+          ></ion-input>
         </ion-item>
       </div>
-      <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
-        Datos incorrectos<br />
+    </div>
+
+    <!-- Mensajes de retroalimentacion -->
+    <div class="retroalimentacion">
+      <ion-text class="datosincorrectos" *ngIf="archivoVacio" color="danger">
+        Debe subir un archivo<br />
+      </ion-text>
+      <ion-text
+        class="datosincorrectos"
+        *ngIf="entidadBancariaVacio"
+        color="danger"
+      >
+        Elija una entidad bancaria<br />
+      </ion-text>
+      <ion-text class="datosincorrectos" *ngIf="tipodeCuentaVacio" color="danger">
+        Elija un tipo de cuenta<br />
+      </ion-text>
+      <ion-text class="datosincorrectos" *ngIf="numeroCuentaVacio" color="danger">
+        Escriba su número de cuenta<br />
+      </ion-text>
+      <ion-text class="datosincorrectos" *ngIf="mostrarmsgVehiculo" color="danger">
+        Elija o registre un vehiculo<br />
       </ion-text>
     </div>
+    
+
     <div class="select-vehiculo">
-      <p class="uppercase-text white-text">Seleccionar vehículo:</p>
-      <ion-button id="open-modal" (click)="seleccionarVehiculo()" class="add-vehiculo">
-        <ion-icon class="plus" name="add-circle-outline"></ion-icon>
-      </ion-button>
+      <div class="select-v" *ngIf="!seleccionoVehiculo">
+        <p class="uppercase-text white-text">Seleccionar vehículo:</p>
+        <ion-button
+          id="open-modal"
+          (click)="seleccionarVehiculo()"
+          class="add-vehiculo"
+        >
+          <ion-icon class="plus" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="selected-v" *ngIf="seleccionoVehiculo">
+        <p class="uppercase-text white-text">Vehiculo Seleccionado:</p>
+        <div class="vehiculoSeleccionado">
+          <div class="img-container"><img class="img-vehiculo" src="../../../assets/images/vehiculos/{{vehiculoSeleccionado?.id_vehiculo}}.jpg" alt="{{vehiculoSeleccionado?.placa}}"/></div>
+          <div class="info-container">
+            <p>{{marcaVehiculo}}</p>
+            <p>{{modeloVehiculo}}</p>
+            <p>{{vehiculoSeleccionado?.placa}}</p>
+          </div>
+          <div class="icons-container">
+            <ion-icon
+              name="trash-outline"
+              (click)="eliminarVehiculo()"
+            ></ion-icon>
+          </div>
+        </div>
+      </div>
+
       <div class="terms">
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox [(ngModel)]="termsAccepted"> </ion-checkbox>
         <p>
-          Al utilizar nuestra aplicación, usted acepta los:
-          <a class="terms-politics" (click)="mostrarTerminos()">Términos y Condiciones</a> y
-          <a class="terms-politics" (click)="mostrarPoliticas()">Política en Privacidad</a>
+          Al registrarse en esta campaña, usted acepta los:
+          <a class="terms-politics" (click)="mostrarTerminos()"
+            >Términos y Condiciones</a
+          >
+          y
+          <a class="terms-politics" (click)="mostrarPoliticas()"
+            >Política en Privacidad</a
+          >
         </p>
       </div>
     </div>
+
+    <!-- Mensajes de retroalimentacion -->
+    <div class="retroalimentacion">
+      <ion-text
+      class="datosincorrectos"
+      *ngIf="terminosNoAceptados"
+      color="danger"
+    >
+      Debe aceptar los Términos y Condiciones<br />
+    </ion-text>
+    </div>
+    
+
     <div class="button-container">
-      <ion-button (click)="enviarFormulario()" class="capitalize-text enviar">Enviar</ion-button>
+      <ion-button (click)="enviarFormulario()" class="capitalize-text enviar"
+        >Enviar</ion-button
+      >
     </div>
   </ion-card>
-  
 </ion-content>

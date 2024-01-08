@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ClienteService } from './providers/cliente.service';
 import { CampanaService } from './providers/campana.service';
+import { register } from 'swiper/element/bundle';
+
+
+register();
 
 @Component({
   selector: 'app-root',
