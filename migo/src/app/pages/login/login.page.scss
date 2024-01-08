@@ -8,12 +8,20 @@
     color: white;
 }
 
+ion-input{
+    --color: white;
+}
+
 .login-form{
     padding-top: 12%;
 }
 
 form{
     padding-top: 10%;
+}
+
+.form-label{
+    --color: white;
 }
 
 ion-card-content{

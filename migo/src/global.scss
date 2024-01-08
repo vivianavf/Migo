@@ -65,7 +65,8 @@ ion-toolbar > ion-title {
 }
 
 ion-item.input-item{
-    --border-color: 1px solid white;
+    --border: 1px solid white;
+    --border-color: white;
 }
 
 ion-button{
@@ -142,7 +143,9 @@ ion-modal.terms{
     min-height: 25px;
   }
 
-
+.form-label{
+  --color: white;
+}
 
 //ion select option
 

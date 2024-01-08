@@ -82,53 +82,6 @@ export class DetallesCampanaPage implements OnInit {
     this.navCtrl.navigateRoot('formulario-aplicacion');
   }
 
-  //Mapas con Cordova (no funciona)
-  // initMap(lat: number, lng: number){
-  //   const mapRef = document.getElementById('mapElement') as HTMLElement;
-  //   this.map =  GoogleMaps.create({
-  //     id: "mapita",
-  //     element: mapRef,
-  //     apiKey: "AIzaSyDon5hzHRwL1069HmRZ7XVNREzQdwxV5zA",
-  //     config:{
-  //       center:{
-  //         lat: lat,
-  //         lng: lng,
-  //       },
-  //       zoom: 14,
-  //       mapTypeControl: false,
-  //       streetViewControl: false,
-  //     }
-  //   })
-
-    // Coordenadas del polígono
-    // const polygonCoords: LatLng[] = [
-    //   new LatLng(-2.156887724792319, -79.84346136474609),
-    //   new LatLng(-2.1658077660230486, -79.82251867675781),
-    //   new LatLng( -2.171983148430453, -79.80397924804687),
-    //   new LatLng( -2.1843338374438646,-79.81359228515625),
-
-    //   new LatLng( -2.171640072291617,-79.83384832763672),
-    //   new LatLng( -2.1778154308600515, -79.84105810546875),
-    //   new LatLng( -2.181246174688068,-79.832818359375),
-    //   new LatLng( -2.185706129965349,-79.8492978515625),
-    //   new LatLng( -2.179873878095092,-79.85753759765625),
-    //   new LatLng( -2.170610843407798, -79.85238775634765),
-    //     new LatLng( -2.1678662296258975,-79.8492978515625),
-    //     new LatLng( -2.165464688483917,-79.84208807373047),
-    // ];
-
-    // Opciones del polígono
-    // const polygonOptions: PolygonOptions = {
-    //   points: polygonCoords,
-    //   strokeColor: '#FF0000',
-    //   strokeWidth: 5,
-    //   fillColor: '#FF0000',
-    // };
-
-    // this.map.addPolygon(polygonOptions).then((polygon: Polygon)=>{
-    // })
-  // }
-
   // Mapas con Capacitor
   async crearMapa(lat: number, lng: number){
     this.map = await GoogleMap.create({
