@@ -29,6 +29,8 @@ export class HomePage implements OnInit {
   campanas: Campana[] = [];
   marcas: Marca[] = [];
 
+  mostrarBotonFiltro = true;
+
   customPopoverOptions: any = {
     cssClass: 'popover-wide',
   };
@@ -78,6 +80,16 @@ export class HomePage implements OnInit {
   //   this.backButton.unsubscribe();
   // }
 
+  borrarFiltro(){
+    this.mostrarBotonFiltro = false;
+    console.log(this.mostrarBotonFiltro)
+  }
+
+  mostrarFiltro(){
+    this.mostrarBotonFiltro = true;
+    console.log(this.mostrarBotonFiltro)
+  }
+
   async mostrarMenu() {
     const modal = await this.modalController.create({
       component: MenuPage,
@@ -98,7 +110,7 @@ export class HomePage implements OnInit {
       cssClass: 'notificaciones',
     });
 
-    return await modal.present();
+    // return await modal.present();
   }
 
   ngOnInit() {

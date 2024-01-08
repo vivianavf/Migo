@@ -38,6 +38,7 @@ export class DetallesCampanaPage implements OnInit {
   nombreEmpresa = "-";
   correoEncargado = "--@--";
   
+  
   //Mapa de Google Maps
   // polygon: any;
   map!: GoogleMap;

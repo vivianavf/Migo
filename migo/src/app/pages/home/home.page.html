@@ -37,7 +37,7 @@
     </ion-select-option>
   </ion-select> -->
 
-  <ion-button id="filtro">
+  <ion-button  *ngIf="mostrarFiltro" id="filtro">
     <ion-text class="capitalize filtrar-por" >Filtrar por</ion-text>
     <ion-icon
         id="icon-filtrar"
@@ -45,7 +45,7 @@
         name="chevron-down-outline"
       ></ion-icon>
   </ion-button>
-  <ion-popover trigger="filtro" alignment="center">
+  <ion-popover id="filtro-popover" trigger="filtro" alignment="center">
     <ng-template>
       <ion-content class="filter-options">
         <ion-list class="list-options">
@@ -121,11 +121,11 @@
     </ion-segment>
   </ion-toolbar>
 
-  <div class="app-campana" *ngIf="segmentValue === 'campanas'">
-    <app-campana></app-campana>
+  <div class="app-campana" *ngIf="segmentValue === 'campanas'" (click)="mostrarFiltro()" >
+    <app-campana  ></app-campana>
   </div>
 
-  <div *ngIf="segmentValue === 'marcas'">
-    <app-marcas></app-marcas>
+  <div *ngIf="segmentValue === 'marcas'" (click)="borrarFiltro()">
+    <app-marcas  ></app-marcas>
   </div>
 </ion-content>

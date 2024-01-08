@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, PopoverController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { UsersService } from 'src/app/providers/users.service';
@@ -114,6 +114,7 @@ export class FormularioAplicacionPage implements OnInit {
     private elegirVehiculoService: ElegirVehiculoService,
     private marcaVehiculoService: MarcaVehiculoService,
     private modeloVehiculoService: ModeloVehiculosService,
+    private navCtrl: NavController,
   ) {
     this.formularioAplicacion = this.fb.group({
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
@@ -248,6 +249,8 @@ export class FormularioAplicacionPage implements OnInit {
       && this.seleccionoVehiculo
       ){
         console.log("puede registrarse")
+        this.navCtrl.navigateRoot('/home');
+        
         //correo = correoInput
         //cedula = cedulaInput
       //logica de registro a campaña
