@@ -40,6 +40,8 @@
     "@ionic-native/file-opener": "^5.36.0",
     "@ionic-native/google-maps": "^5.27.0-beta-20200630",
     "@ionic/angular": "^7.6.3",
+    "@ionic/pwa-elements": "^3.2.2",
+    "angularx-qrcode": "^17.0.0",
     "cordova-plugin-email-composer": "^0.10.1",
     "cordova-plugin-file-opener2": "^4.0.0",
     "firebase": "^10.5.2",

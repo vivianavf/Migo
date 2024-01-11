@@ -2,7 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    namespace "io.ionic.starter"
+
+  compileSdk 33
+  namespace "io.ionic.starter"
     defaultConfig {
         applicationId "io.ionic.starter"
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 30
