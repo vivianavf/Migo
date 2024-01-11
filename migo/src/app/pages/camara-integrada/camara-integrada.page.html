@@ -1,16 +1,26 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>camara-integrada</ion-title>
+    <ion-title>
+      Your Page
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">camara-integrada</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-button (click)="takePhoto()">Take Photo</ion-button>
-  </ion-content>
+<ion-content class="ion-padding">
+  <ion-button (click)="takePhoto()">Take Photo</ion-button>
+
+  <!-- Live camera feed -->
+  <div *ngIf="cameraImage === null">
+    <video
+      id="cameraPreview"
+      width="100%"
+      height="auto"
+      muted
+      autoplay
+      playsinline
+    ></video>
+  </div>
+
+  <!-- Captured image -->
+  <img *ngIf="cameraImage !== null" [src]="cameraImage" alt="Captured Image" />
 </ion-content>

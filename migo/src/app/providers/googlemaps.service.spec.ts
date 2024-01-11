@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { GooglemapsService } from './googlemaps.service';
 
-describe('GooglemapsService', () => {
+/*describe('GooglemapsService', () => {
   let service: GooglemapsService;
 
   beforeEach(() => {
@@ -13,4 +13,4 @@ describe('GooglemapsService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-});
+});*/

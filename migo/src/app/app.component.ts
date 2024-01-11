@@ -17,6 +17,7 @@ register();
 })
 export class AppComponent implements OnInit{
   public users: User[] = [];
+  public title = 'my-capacitor-project';
 
   constructor(
     private userService: UsersService,
