@@ -39,3 +39,15 @@ img.foto{
     height: 120px;
 }
 
+.mensaje-nohay{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+}
+
+.msg-v{
+    color: black;
+}

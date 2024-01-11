@@ -1,0 +1,13 @@
+<ion-content id="qr-content">
+  <div class="title">
+    <ion-text class="ion-black-text black-text uppercase-text">
+      PRESENTE EL SIGUIENTE CÓDIGO EN EL taller de brandeo:
+    </ion-text>
+    <ion-text class="ion-black-text black-text capitalize">
+      {{campana.taller_brandeo}}
+    </ion-text>
+  </div>
+  <ion-button (click)="crearQR()">Mostrar QR</ion-button>
+  <div class="QR"><qrcode [qrdata]="datos" [width]="400"></qrcode></div>
+  <ion-button>Aceptar</ion-button>
+</ion-content>

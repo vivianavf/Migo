@@ -5,7 +5,7 @@ import SwiperCore from 'swiper';
 import {Swiper} from 'swiper';
 import { IonicSlides } from '@ionic/core';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-vehiculos-modal',
@@ -24,14 +24,22 @@ export class VehiculosModalPage implements OnInit {
 
   vehiculoSeleccionado: any;
 
+  hayVehiculos=false;
+
   constructor(
     private vehiculoService: VehiculoService,
     private elegirVehiculoService: ElegirVehiculoService,
     private modalController: ModalController,
+    private navCtrl: NavController,
   ) { }
 
   elegirVehiculo(vehiculo: any) {
     this.elegirVehiculoService.sendVehiculo(vehiculo);
+    this.modalController.dismiss();
+  }
+
+  irRegistro(){
+    this.navCtrl.navigateRoot('/agregar-vehiculo');
     this.modalController.dismiss();
   }
 
@@ -42,6 +50,8 @@ export class VehiculosModalPage implements OnInit {
           this.vehiculosCliente.push(vehiculo);
         }
       })
+
+      if(this.vehiculosCliente.length>0){this.hayVehiculos=true}else{this.hayVehiculos=false}
     })
   }
 

@@ -184,6 +184,11 @@ const routes: Routes = [
     path: 'vehiculos-modal',
     loadChildren: () => import('./pages/modals/vehiculos-modal/vehiculos-modal.module').then( m => m.VehiculosModalPageModule)
   },
+  {
+    path: 'qr',
+    loadChildren: () => import('./pages/modals/qr/qr.module').then( m => m.QrPageModule)
+  },
+
 
 
 ];

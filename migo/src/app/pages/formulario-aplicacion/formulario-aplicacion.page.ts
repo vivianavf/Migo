@@ -16,6 +16,7 @@ import { VehiculosModalPage } from '../modals/vehiculos-modal/vehiculos-modal.pa
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
+import { QrPage } from '../modals/qr/qr.page';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -249,18 +250,37 @@ export class FormularioAplicacionPage implements OnInit {
       && this.seleccionoVehiculo
       ){
         console.log("puede registrarse")
-        this.navCtrl.navigateRoot('/home');
-        
+        // this.navCtrl.navigateRoot('/home');
+
+        this.mostrarQR();
         //correo = correoInput
         //cedula = cedulaInput
       //logica de registro a campaña
       //recoger todos los datos
       //enviarlos al server
       //mostrar pantalla de registro exitoso
+
     }else{
       console.log("No puede registrarse")
     }
 
+  }
+
+  async mostrarQR(){
+    const modal = await this.modalController.create({
+      component: QrPage,
+      componentProps:{
+        user: this.userService.usuarioActivo(),
+        client: this.clientService.clienteActivo(),
+        campana: this.campanaService.getCampanaActual(),
+        vehiculo: this.elegirVehiculoService.vehiculoElegido,
+        marca: this.marcaVehiculo,
+        modelo: this.modeloVehiculo,
+      },
+      cssClass: 'qr-modal',
+    })
+
+    return await modal.present();
   }
 
   vehiculoHaSidoSeleccionado(){
