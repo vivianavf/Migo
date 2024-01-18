@@ -14,7 +14,7 @@ export class ModeloVehiculosService {
     private http: HttpClient,
   ) { }
 
-  getModelos():Observable<string[]>{
+  getModelos():Observable<any[]>{
     var respuesta = this.http.get<any[]>(this.baseURL+this.formato);
     return respuesta;
   }

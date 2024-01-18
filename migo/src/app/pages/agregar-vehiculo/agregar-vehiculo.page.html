@@ -80,8 +80,7 @@
       <ion-item [class.invalid-border]="isInvalidField('Marca')">
         <ion-label color="primary" position="stacked">Marca</ion-label>
         <ion-select [(ngModel)]="formFields.Marca" name="Marca" class="rounded-input" required>
-          <ion-select-option value="1">Marca 1</ion-select-option>
-          <ion-select-option value="2">Marca 2</ion-select-option>
+          <ion-select-option *ngFor="let marca of valoresMarcas"  value="{{ marca.id_marca }}">{{ marca.nombre }}</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
@@ -89,8 +88,7 @@
       <ion-item [class.invalid-border]="isInvalidField('Modelo')">
         <ion-label color="primary" position="stacked">Modelo</ion-label>
         <ion-select [(ngModel)]="formFields.Modelo" name="Modelo" class="rounded-input" required>
-          <ion-select-option value="1">Modelo 1</ion-select-option>
-          <ion-select-option value="2">Modelo 2</ion-select-option>
+          <ion-select-option *ngFor="let modelo of valoresModelos" value="{{ modelo.id_modelo }}">{{ modelo.nombre }}</ion-select-option>
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
@@ -101,35 +99,35 @@
         <ion-label>Fotos del vehiculo</ion-label>
       </ion-item-divider>
       <div class='fotos-buttons-container'>
-        <div class="button-container" (click)="takeOrUploadPicture('Lado Izquierdo')">
+        <div class="button-container" (click)="takePhoto('Lado Izquierdo')">
           <ion-label color="primary">Lado Izquierdo</ion-label>
           <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
-        <div class="button-container" (click)="takeOrUploadPicture('Lado Derecho')">
+        <div class="button-container" (click)="takePhoto('Lado Derecho')">
           <ion-label color="primary">Lado Derecho</ion-label>
           <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
-        <div class="button-container" (click)="takeOrUploadPicture('Frontal')">
+        <div class="button-container" (click)="takePhoto('Frontal')">
           <ion-label color="primary">Frontal</ion-label>
           <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
-        <div class="button-container" (click)="takeOrUploadPicture('Trasera')">
+        <div class="button-container" (click)="takePhoto('Trasera')">
           <ion-label color="primary">Trasera</ion-label>
           <ion-button expand="full" class="add_button">
             Tomar foto
           </ion-button>
         </div>
   
-        <div class="button-container" (click)="takeOrUploadPicture('Aerea')">
+        <div class="button-container" (click)="takePhoto('Aerea')">
           <ion-label color="primary">Aerea</ion-label>
           <ion-button expand="full" class="add_button">
             Tomar foto

@@ -15,7 +15,7 @@ export class MarcaVehiculoService {
     private http: HttpClient,
   ) { }
 
-  getMarcas():Observable<string[]>{
+  getMarcas():Observable<any[]>{
     var respuesta = this.http.get<any[]>(this.baseURL+this.formato);
     return respuesta;
   }
