@@ -52,13 +52,11 @@ export class AgregarVehiculoPage implements OnInit {
     });
     this.marcaService.getMarcas().subscribe((data)=>{
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
         this.valoresMarcas.push(data[i]);
       }
     });
     this.modeloService.getModelos().subscribe((data)=>{
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
         this.valoresModelos.push(data[i]);
       }
     });
