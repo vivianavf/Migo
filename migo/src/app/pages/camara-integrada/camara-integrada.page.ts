@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { CamaraService } from 'src/app/providers/camara.service';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-camara-integrada',
@@ -11,9 +12,20 @@ import { Router } from '@angular/router';
 export class CamaraIntegradaPage {
   constructor(private cameraService: CamaraService, private router:Router) {}
 
-  async takePhoto() {
-    const photoPath = await this.cameraService.takePhoto();
-    this.router.navigate(['/previous-page', { photoPath }]);
+  cameraImage: string | null = null;
+
+  async takePhoto(): Promise<void> {
+    try {
+      const image = await Camera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+        quality: 100,
+      });
+
+      this.cameraImage = image.webPath ?? null;
+    } catch (error) {
+      console.error('Error capturing photo', error);
+    }
   }
 
 }

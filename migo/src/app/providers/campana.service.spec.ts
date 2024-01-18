@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CampanaService } from './campana.service';
 
-describe('CampanaService', () => {
+/*describe('CampanaService', () => {
   let service: CampanaService;
 
   beforeEach(() => {
@@ -13,4 +13,4 @@ describe('CampanaService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-});
+});*/

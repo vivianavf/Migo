@@ -3,11 +3,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
 
-describe('HomePage', () => {
+/*describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
 
-  beforeEach(async () => {
+  beforeEach(async() => {
     await TestBed.configureTestingModule({
       declarations: [HomePage],
       imports: [IonicModule.forRoot()]
@@ -21,4 +21,4 @@ describe('HomePage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/

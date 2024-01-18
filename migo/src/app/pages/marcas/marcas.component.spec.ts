@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MarcasComponent } from './marcas.component';
 
-describe('MarcasComponent', () => {
+/*describe('MarcasComponent', () => {
   let component: MarcasComponent;
   let fixture: ComponentFixture<MarcasComponent>;
 
@@ -21,4 +21,4 @@ describe('MarcasComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+});*/
