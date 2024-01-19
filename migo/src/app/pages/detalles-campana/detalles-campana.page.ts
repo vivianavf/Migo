@@ -1,4 +1,12 @@
-import { Component, ElementRef, Inject, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { ModalController, NavController } from '@ionic/angular';
@@ -18,7 +26,7 @@ import { Sector } from 'src/app/interfaces/sector';
 
 // import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { SectorService } from 'src/app/providers/sector.service';
-import { GoogleMapsModule} from '@angular/google-maps'
+import { GoogleMapsModule, MapPolygon } from '@angular/google-maps';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -26,36 +34,31 @@ import { GoogleMapsModule} from '@angular/google-maps'
   styleUrls: ['./detalles-campana.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-
 export class DetallesCampanaPage implements OnInit {
-
   campana!: Campana;
   empresas: Empresa[] = [];
   usuarios: User[] = [];
   clientes: Client[] = [];
   sectores: Sector[] = [];
-  sector !: Sector;
-  empresaSeleccionada !: Empresa;
-  nombreEmpresa = "-";
-  correoEncargado = "--@--";
-
-  vertices: google.maps.LatLngLiteral[] = [
-    {lat: 13, lng: 13},
-    {lat: -13, lng: 0},
-    {lat: 13, lng: -13},
-  ];
+  sector?: Sector;
+  empresaSeleccionada!: Empresa;
+  nombreEmpresa = '-';
+  correoEncargado = '--@--';
 
   @ViewChild('map') mapRef!: google.maps.Map;
-  center: google.maps.LatLngLiteral = {lat: -2.189822999999990, lng: -79.88775};
-  zoom = 15;
+  map?: google.maps.Map;
+  center: google.maps.LatLngLiteral = {
+    lat: -2.18982299999999,
+    lng: -79.88775,
+  };
+  zoom = 12;
 
   source!: google.maps.LatLngLiteral;
-  destination!: google.maps.LatLngLiteral
+  destination!: google.maps.LatLngLiteral;
 
   ds!: google.maps.DirectionsService;
   dr!: google.maps.DirectionsRenderer;
-  
-  
+
   //Mapa de Google Maps
   // polygon: any;
   // map!: GoogleMap;
@@ -69,33 +72,31 @@ export class DetallesCampanaPage implements OnInit {
     private clientService: ClienteService,
     private empresaService: EmpresaService,
     private sectorService: SectorService,
-    private navCtrl: NavController,
-  ) { }
+    private navCtrl: NavController
+  ) {}
 
-  async mostrarNotificaciones(){
+  async mostrarNotificaciones() {
     const modal = await this.modalController.create({
-    component: NotificacionesPage,
-    componentProps:{
-
-    },
-    cssClass: 'notificaciones,'
-    })
+      component: NotificacionesPage,
+      componentProps: {},
+      cssClass: 'notificaciones,',
+    });
   }
 
-  async mostrarMenu(){
+  async mostrarMenu() {
     const modal = await this.modalController.create({
       component: MenuPage,
-      componentProps:{
+      componentProps: {
         user: this.userService.usuarioActivo(),
         client: this.clientService.clienteActivo(),
       },
       cssClass: 'menu',
-    })
+    });
 
     return await modal.present();
   }
 
-  abrirFormulario(){
+  abrirFormulario() {
     this.navCtrl.navigateRoot('formulario-aplicacion');
   }
 
@@ -132,67 +133,97 @@ export class DetallesCampanaPage implements OnInit {
   //         fillColor: '#ff00ff',
   //         fillOpacity: 0.35,
   //       };
-  
+
   //       this.map.addPolygons([polygon]);
   //       // this.poligonId = result[0];
   //     })
   //   }
   // }
 
-  generarDatos(){
+  generarDatos() {
     this.campana = this.campanaService.getCampanaActual();
     var idEmpresa = this.campana.id_empresa;
-    this.empresaService.getEmpresas().subscribe((data)=>{
+    this.empresaService.getEmpresas().subscribe((data) => {
       this.empresas = data;
-      const busquedaEmpresa = this.empresas.find(({ id_empresa }) => id_empresa === idEmpresa);
-      if(busquedaEmpresa)this.nombreEmpresa = busquedaEmpresa.nombre;
+      const busquedaEmpresa = this.empresas.find(
+        ({ id_empresa }) => id_empresa === idEmpresa
+      );
+      if (busquedaEmpresa) this.nombreEmpresa = busquedaEmpresa.nombre;
     });
-    
-    this.sectorService.getSectores().subscribe((data)=>{
-      this.sectores = data;
-      this.campana = this.campanaService.getCampanaActual()
-      data.forEach((sectorX)=>{
-        if(sectorX.id_sector === 19){
-          this.sector = sectorX;
-        }
-      })
-    })
-    // this.crearMapa(-2.189822999999990, -79.88775);
 
+    // this.crearSectores();
   }
 
-  crearCercos(){
-    if(this.sector){
-      console.log(this.sector)
+  crearSectores() {
+    this.sectorService.getSectores().subscribe((data) => {
+      this.sectores = data;
+      this.campana = this.campanaService.getCampanaActual();
+      data.forEach((sectorX) => {
+        if (sectorX.id_sector == 19) {
+          this.sector = sectorX;
+          this.crearCercos();
+        }
+      });
+    });
+    // this.crearMapa(-2.189822999999990, -79.88775);
+  }
+
+  async crearCercos() {
+    if (this.sector) {
+      let createdPolygon: any;
+
+      this.sector.cerco_virtual.forEach((cerco) => {
+        console.log(cerco);
+        if (cerco) {
+          createdPolygon = new google.maps.Polygon({
+            paths: [cerco],
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+          });
+
+          createdPolygon.setMap(this.map);
+        }
+      });
+
+      // console.log(createdPolygon)
+      
     }
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     try {
       this.generarDatos();
       this.createMap();
+      this.crearSectores();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-   
   }
 
-  createMap(){
+  createMap() {
     var mapOptions = {
-      zoom:this.zoom,
+      zoom: this.zoom,
       center: this.center,
       disableDefaultUI: true,
       fullscreenControl: true,
-    }
-    var map = new google.maps.Map(document.getElementById('map-campana')!, mapOptions);
+    };
+    var mapCreado = new google.maps.Map(
+      document.getElementById('map-campana')!,
+      mapOptions
+    );
+    this.map = mapCreado;
   }
 
   ngOnInit() {
     try {
       this.generarDatos();
+      // this.crearSectores();
+      // this.createMap();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   }
 }
