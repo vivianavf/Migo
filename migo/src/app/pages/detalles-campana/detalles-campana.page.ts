@@ -16,8 +16,9 @@ import { Sector } from 'src/app/interfaces/sector';
 // import { CapacitorGoogleMaps } from '@capacitor/google-maps/dist/typings/implementation';
 // import { GoogleMap, GoogleMaps, GoogleMapOptions, LatLng, Polygon, PolygonOptions } from '@ionic-native/google-maps';
 
-import { GoogleMap, Polygon } from '@capacitor/google-maps';
+// import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { SectorService } from 'src/app/providers/sector.service';
+import { GoogleMapsModule} from '@angular/google-maps'
 
 @Component({
   selector: 'app-detalles-campana',
@@ -37,13 +38,29 @@ export class DetallesCampanaPage implements OnInit {
   empresaSeleccionada !: Empresa;
   nombreEmpresa = "-";
   correoEncargado = "--@--";
+
+  vertices: google.maps.LatLngLiteral[] = [
+    {lat: 13, lng: 13},
+    {lat: -13, lng: 0},
+    {lat: 13, lng: -13},
+  ];
+
+  @ViewChild('map') mapRef!: google.maps.Map;
+  center: google.maps.LatLngLiteral = {lat: -2.189822999999990, lng: -79.88775};
+  zoom = 15;
+
+  source!: google.maps.LatLngLiteral;
+  destination!: google.maps.LatLngLiteral
+
+  ds!: google.maps.DirectionsService;
+  dr!: google.maps.DirectionsRenderer;
   
   
   //Mapa de Google Maps
   // polygon: any;
-  map!: GoogleMap;
-  @ViewChild('mapElement') mapRef!: ElementRef<HTMLElement>;
-  polygonId?: string;
+  // map!: GoogleMap;
+  // @ViewChild('mapElement') mapRef!: ElementRef<HTMLElement>;
+  // polygonId?: string;
 
   constructor(
     private campanaService: CampanaService,
@@ -83,44 +100,44 @@ export class DetallesCampanaPage implements OnInit {
   }
 
   // Mapas con Capacitor
-  async crearMapa(lat: number, lng: number){
-    this.map = await GoogleMap.create({
-      id: 'mapaSector',
-      element: document.getElementById('map')  as HTMLElement,
-      apiKey: 'AIzaSyDon5hzHRwL1069HmRZ7XVNREzQdwxV5zA',
-      config:{
-        center:{
-          lat: lat,
-          lng: lng,
-        },
-        zoom: 11,
-        streetViewControl: false,
-        disableDefaultUI: true,
-      }
-    })
+  // async crearMapa(lat: number, lng: number){
+  //   this.map = await GoogleMap.create({
+  //     id: 'mapaSector',
+  //     element: document.getElementById('map')  as HTMLElement,
+  //     apiKey: 'AIzaSyDon5hzHRwL1069HmRZ7XVNREzQdwxV5zA',
+  //     config:{
+  //       center:{
+  //         lat: lat,
+  //         lng: lng,
+  //       },
+  //       zoom: 11,
+  //       streetViewControl: false,
+  //       disableDefaultUI: true,
+  //     }
+  //   })
 
-    this.addPolygons();
-    //addpolygons
-  }
+  //   this.addPolygons();
+  //   //addpolygons
+  // }
 
-  async addPolygons(){
-    if(this.sector){
-      await this.sector.cerco_virtual.forEach((cercoVirtual)=>{
-        const polygon: Polygon = {
-          paths: [
-            cercoVirtual
-          ],
-          strokeColor: '#ffffff',
-          strokeWeight: 2,
-          fillColor: '#ff00ff',
-          fillOpacity: 0.35,
-        };
+  // async addPolygons(){
+  //   if(this.sector){
+  //     await this.sector.cerco_virtual.forEach((cercoVirtual)=>{
+  //       const polygon: Polygon = {
+  //         paths: [
+  //           cercoVirtual
+  //         ],
+  //         strokeColor: '#ffffff',
+  //         strokeWeight: 2,
+  //         fillColor: '#ff00ff',
+  //         fillOpacity: 0.35,
+  //       };
   
-        this.map.addPolygons([polygon]);
-        // this.poligonId = result[0];
-      })
-    }
-  }
+  //       this.map.addPolygons([polygon]);
+  //       // this.poligonId = result[0];
+  //     })
+  //   }
+  // }
 
   generarDatos(){
     this.campana = this.campanaService.getCampanaActual();
@@ -140,27 +157,42 @@ export class DetallesCampanaPage implements OnInit {
         }
       })
     })
-    this.crearMapa(-2.189822999999990, -79.88775);
+    // this.crearMapa(-2.189822999999990, -79.88775);
 
+  }
+
+  crearCercos(){
+    if(this.sector){
+      console.log(this.sector)
+    }
   }
 
   ionViewWillEnter(){
     try {
-      console.log("WILL ENTER")
       this.generarDatos();
+      this.createMap();
     } catch (error) {
-      
+      console.log(error)
     }
    
   }
 
-  ngOnInit() {
+  createMap(){
+    var mapOptions = {
+      zoom:this.zoom,
+      center: this.center,
+      disableDefaultUI: true,
+      fullscreenControl: true,
+    }
+    var map = new google.maps.Map(document.getElementById('map-campana')!, mapOptions);
+  }
 
+  ngOnInit() {
     try {
-      console.log("WILL ENTER")
       this.generarDatos();
     } catch (error) {
-      
+      console.log(error)
     }
+    
   }
 }

@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule} from '@angular/google-maps'
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import { DetallesCampanaPage } from './detalles-campana.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DetallesCampanaPageRoutingModule
+    DetallesCampanaPageRoutingModule,
+    GoogleMapsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [DetallesCampanaPage]
