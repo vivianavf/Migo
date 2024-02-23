@@ -25,17 +25,112 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+@import "./theme/variables.scss";
+
 ion-card, ion-footer{
     --ion-background-color: transparent;
     box-shadow: none !important;
 }
 
+/** Color fondos **/
+
+/** Color titulos **/
+.form-title{
+  color: var(--ion-text-color);
+  font-size: medium;
+}
+
+.title-container{
+  border-bottom: 1px solid var(--ion-text-color);
+}
+
+/** Color textos **/
+
 ion-text{
-    color: white;
+  --color: var(--ion-text-color);
+  color: var(--ion-text-color);
+}
+
+ion-input{
+  --color: var(--ion-input-text-color);
+}
+
+ion-item.clear-input-item{
+  --border: 1px solid var(--ion-input-text-color);
+  --border-color: var(--ion-input-text-color);
+}
+
+.side-icon{
+  color: var(--ion-side-icon-color);
+}
+
+.side-icon-contrast{
+  color: var(--ion-side-icon-color2);
+  --color: var(--ion-side-icon-color2);
+}
+
+.orange-color-contrast{
+  color: var(--ion-contrast-orange);
+  --color: var(--ion-contrast-orange);
+}
+
+.white-text{
+  --color: white;
+  color: white;
+}
+
+.black-text{
+  --color: black;
+  color: black;
+}
+
+.white-background{
+  background-color: white;
+  --background: white;
+  --background-color: white;
+}
+
+.black-background{
+  background-color: black;
+  --background: black;
+  --background-color: black;
+}
+
+.primary-background{
+  background-color: var(--ion-color-primary);
+  --background: var(--ion-color-primary);
+  --background-color: var(--ion-color-primary);
+}
+
+.form-label{
+  --color: var(--ion-text-color);
 }
 
 a{
-    color: white;
+  text-decoration: none;
+  color: var(--ion-text-color);
+}
+
+.terms > a {
+  text-decoration: underline; /* Subrayado */
+  font-weight: bold; /* Negrita */
+  color:  var(--ion-text-color);
+}
+
+.datosincorrectos{
+  color : var(--ion-color-danger);
+}
+
+/** Color objetos **/
+ion-checkbox{
+  --border-color: #ffffff;
+}
+
+ion-button{
+  --ion-font-weight:bold;
+  --color: black;
+  --color-activated: white;
+  --background-activated: black;
 }
 
 ion-toolbar{
@@ -54,6 +149,7 @@ ion-toolbar > ion-title {
 }
 
 
+
 /** Tamaños de fuente **/
 
 .size-small{
@@ -64,18 +160,6 @@ ion-toolbar > ion-title {
     font-size: 10px;
 }
 
-ion-item.input-item{
-    --border: 1px solid white;
-    --border-color: white;
-}
-
-ion-button{
-    --ion-font-weight:bold;
-    --color: black;
-    --color-activated: white;
-    --background-activated: black;
-}
-
 .normal-radius{
   --border-radius:10px;
 }
@@ -84,13 +168,7 @@ ion-button{
   --border-radius: 20px;
 }
 
-.white-text{
-  --color: white;
-}
 
-ion-text.datosincorrectos{
-    color : red;
-}
 
 ion-modal.terms{
     --height: 75%;
@@ -157,10 +235,6 @@ ion-modal.terms{
 #select-label{
     min-height: 25px;
   }
-
-.form-label{
-  --color: white;
-}
 
 //ion select option
 

@@ -3,14 +3,14 @@
     <ion-card-content>
       <img alt="migo logo" src="../../assets/images/migo_logo.png" />
       <form class="ion-no-border" [formGroup]="formularioLogin">
-        <ion-item class="input-item">
+        <ion-item class="clear-input-item">
           <ion-label class="form-label" position="floating">Correo Electrónico</ion-label>
           <ion-input     
           [counter]="true"
           maxlength="50"
           formControlName="email" type="email"></ion-input>
         </ion-item>
-        <ion-item class="input-item">
+        <ion-item class="clear-input-item">
           <ion-label class="form-label" position="floating">Contraseña</ion-label>
           <ion-input
             formControlName="password"
@@ -25,24 +25,24 @@
             (click)="inputType = (inputType == 'password') ? 'text' : 'password';"
           >
             <ion-icon
-              class="ion-align-self-end"
+              class="ion-align-self-end side-icon"
               [name]="(inputType == 'password') ? 'eye' : 'eye-off'"
             ></ion-icon>
           </ion-button>
         </ion-item>
       </form>
-      <ion-text class="datosincorrectos" *ngIf="mostrarMensaje" color="danger">
+      <ion-text class="datosincorrectos" *ngIf="mostrarMensaje">
         Datos incorrectos<br />
       </ion-text>
-      <ion-text class="datosincorrectos" *ngIf="emailInvalido" color="danger">
+      <ion-text class="datosincorrectos" *ngIf="emailInvalido">
         Email no válido<br />
       </ion-text>
       <ion-text>
-        <a (click)="recuperarPassword()">¿Olvidaste tu contraseña?</a><br />
+        <a (click)="recuperarPassword()" class="normal-link">¿Olvidaste tu contraseña?</a><br />
       </ion-text>
       <br />
       <div>
-        <ion-button class="normal-radius" color="primary" (click)="ingresar()">
+        <ion-button class="normal-radius" (click)="ingresar()">
           INICIAR SESIÓN </ion-button
         ><br />
         <!-- <ion-text>
@@ -54,9 +54,9 @@
 
   <ion-card class="ion-no-border">
     <ion-card-content>
-      <ion-text> <a (click)="registro()">Crear Cuenta</a> <br /> </ion-text>
+      <ion-text> <a (click)="registro()" class="normal-link">Crear Cuenta</a> <br /> </ion-text>
       <ion-text>
-        <a (click)="ingresarInvitado()" class="invitado">Accede como invitado</a
+        <a (click)="ingresarInvitado()" class="normal-link">Accede como invitado</a
         ><br />
       </ion-text>
       <ion-text> o iniciar sesión con:<br /> </ion-text>
@@ -72,7 +72,7 @@
 
   <ion-footer>
     <ion-card class="size-smaller">
-      <ion-text> Al utilizar nuestra aplicación, usted acepta los: y </ion-text>
+      <ion-text> Al utilizar nuestra aplicación, usted acepta los: </ion-text>
       <ion-text class="terms">
         <a (click)="mostrarTerminos()">Términos y Condiciones</a>
       </ion-text>

@@ -20,37 +20,37 @@
   </div>
 
   <div class="divisor first-divisor">
-    <div class="placa">
-      <img src="../../../assets/icono de menu/01.png">
-      Placa
+    <div class="img-placa">
+      <img class="primary-car-img"src="../../../assets/icono de menu/01.png">
+      {{vehiculoPrincipal?.placa}}
     </div>
     <ion-list>
       <ion-item>
-        Marca
+        {{vehiculoPrincipal?.id_marca}}
       </ion-item>
       <ion-item>
-        Modelo
+        {{vehiculoPrincipal?.id_modelo}}
       </ion-item>
       <ion-item>
-        Color
+        {{vehiculoPrincipal?.color_vehiculo}}
       </ion-item>
       <ion-item>
-        Año
+        {{vehiculoPrincipal?.anio}}
       </ion-item>
     </ion-list>
   </div>
 
   <div class="divisor second-divisor">
     <ion-item><ion-title>Vehiculos Secundarios</ion-title></ion-item>
-    <ion-card>
+    <ion-card class="white-background" *ngFor="let vehiculoSecundario of vehiculosSecundarios">
       <ion-card-content>
         <div class="secondary-car-img">
           <img src="../../../assets/icono de menu/01.png">
         </div>
         <div class="secondary-car-info">
-          Nombre Conductor
-          Numero de Placa
-          Numero de Matricula
+          {{vehiculoSecundario?.id_cliente}}<br>
+          {{vehiculoSecundario?.placa}}<br>
+          {{vehiculoSecundario?.anio}}
         </div>
         <div class="secondary-car-buttons">
           <ion-icon name="trash" color="danger"></ion-icon>
