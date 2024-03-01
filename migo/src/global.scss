@@ -33,6 +33,13 @@ ion-card, ion-footer{
 }
 
 /** Color fondos **/
+body{
+  background: var(--ion-background-color);
+}
+
+ion-content:host{
+  --background: white;
+}
 
 /** Color titulos **/
 .form-title{
@@ -70,8 +77,8 @@ ion-item.clear-input-item{
 }
 
 .orange-color-contrast{
-  color: var(--ion-contrast-orange);
-  --color: var(--ion-contrast-orange);
+  color: var(--ion-color-warning);
+  --color: var(--ion-color-warning);
 }
 
 .white-text{
@@ -131,6 +138,11 @@ ion-button{
   --color: black;
   --color-activated: white;
   --background-activated: black;
+}
+
+.contrast-button{
+  --background: var(--ion-color-warning);
+  --color: var(--ion-text-color);
 }
 
 ion-toolbar{

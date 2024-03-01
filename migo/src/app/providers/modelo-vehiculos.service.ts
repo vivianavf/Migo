@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ModeloVehiculo } from '../interfaces/modelo-vehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ModeloVehiculosService {
     return respuesta;
   }
 
-  getModelobyId(id: number):Observable<any>{
-    return this.http.get<any>(this.baseURL+id+"/"+this.formato);
+  getModelobyId(id: number):Observable<ModeloVehiculo>{
+    return this.http.get<ModeloVehiculo>(this.baseURL+id+"/"+this.formato);
   }
 }

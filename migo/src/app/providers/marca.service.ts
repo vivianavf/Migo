@@ -26,8 +26,8 @@ export class MarcaService {
     return respuesta;
   }
 
-  getMarcabyId(id: number):Observable<Marca[]>{
-    return this.http.get<Marca[]>(this.baseURL+id+"/"+this.formato);
+  getMarcabyId(id: number):Observable<Marca>{
+    return this.http.get<Marca>(this.baseURL+id+"/"+this.formato);
   }
 
   crearMarca(marca: Marca): Observable<any>{

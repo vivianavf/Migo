@@ -15,6 +15,8 @@ export const environment = {
    appId: "1:706096807005:web:8d2afa08bca1f0157861b4"
  };*/
 
+ //TODO: Modificar
+
  export const firebaseConfig = {
   apiKey: "AIzaSyDw6HvDQ0CL8Zr7sJ-mZPrNs-va1TFJ3HE",
   authDomain: "migo-ads-pushnotifications.firebaseapp.com",

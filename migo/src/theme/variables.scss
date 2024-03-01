@@ -36,18 +36,20 @@ ion-card-title, ion-label, ion-button{
 /** Ionic CSS Variables **/
 :root {
 
-  --ion-background-color:  rgba(0, 0, 0, 0.80);
+  --ion-background-color:  rgba(0, 0, 0, 0.5);
   --ion-text-color: white;
   --ion-toolbar-background:  rgba(0, 0, 0, 0.60);
   --ion-toolbar-color: white;
   --ion-input-text-color: white;
   --ion-side-icon-color: white;
   --ion-side-icon-color2: black;
-  --ion-contrast-orange: rgb(241, 180, 93);
+  
+  --ion-contrast-orange: rgb(211, 142, 46);
   
   /** primary **/
-  --ion-color-primary: rgb(255,255,0);
-  --ion-color-primary-rgb: 255, 255, 0;
+  /** --ion-color-primary: rgb(255,255,0); **/
+  --ion-color-primary: rgb(18,188,190);
+  --ion-color-primary-rgb: 18, 188, 190;
   --ion-color-primary-contrast: black;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
   --ion-color-primary-shade: #000000;
@@ -70,7 +72,7 @@ ion-card-title, ion-label, ion-button{
   --ion-color-tertiary-tint: #000000;
 
   /** success **/
-  --ion-color-success: rgb(255,255,0);
+  --ion-color-success: rgb(18,188,190);
   --ion-color-success-rgb: 255, 255, 0;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
@@ -78,7 +80,8 @@ ion-card-title, ion-label, ion-button{
   --ion-color-success-tint: #000000;
 
   /** warning **/
-  --ion-color-warning: #e5aa4c;
+  /** --ion-color-warning: #e5aa4c; **/
+  --ion-color-warning: rgb(11, 185, 220);
   --ion-color-warning-rgb: 255, 196, 9;
   --ion-color-warning-contrast: #000000;
   --ion-color-warning-contrast-rgb: 0, 0, 0;

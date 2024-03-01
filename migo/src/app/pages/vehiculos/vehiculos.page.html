@@ -21,15 +21,15 @@
 
   <div class="divisor first-divisor">
     <div class="img-placa">
-      <img class="primary-car-img"src="../../../assets/icono de menu/01.png">
-      {{vehiculoPrincipal?.placa}}
+      <img class="primary-car-img" src="../../../assets/images/vehiculos/{{vehiculoPrincipal?.id_vehiculo}}.jpg">
+      <ion-text class="bold-text">{{vehiculoPrincipal?.placa}}</ion-text>
     </div>
     <ion-list>
       <ion-item>
-        {{vehiculoPrincipal?.id_marca}}
+        {{marcaPrincipal}}
       </ion-item>
       <ion-item>
-        {{vehiculoPrincipal?.id_modelo}}
+        {{modeloPrincipal}}
       </ion-item>
       <ion-item>
         {{vehiculoPrincipal?.color_vehiculo}}
@@ -45,22 +45,24 @@
     <ion-card class="white-background" *ngFor="let vehiculoSecundario of vehiculosSecundarios">
       <ion-card-content>
         <div class="secondary-car-img">
-          <img src="../../../assets/icono de menu/01.png">
+          <img src="../../../assets/images/vehiculos/{{vehiculoSecundario.id_vehiculo}}.jpg">
         </div>
         <div class="secondary-car-info">
-          {{vehiculoSecundario?.id_cliente}}<br>
+          <!-- {{obtenerCliente(vehiculoSecundario?.id_cliente)}}<br> -->
           {{vehiculoSecundario?.placa}}<br>
           {{vehiculoSecundario?.anio}}
         </div>
         <div class="secondary-car-buttons">
-          <ion-icon name="trash" color="danger"></ion-icon>
-          <ion-button>
-            Ver detalle
+          <ion-icon class="trash" name="trash" color="danger"></ion-icon>
+          <ion-button class="bold-text contrast-button ver-detalle">
+            Ver Más
           </ion-button>
         </div>
     </ion-card-content>
   </ion-card>
-    <ion-button class="uppercase-text" (click)="agregarVehiculo()">Agregar un vehículo</ion-button>
+  <div class="button-container">
+    <ion-button class="agregar-vehiculo uppercase-text" (click)="agregarVehiculo()">Agregar un vehículo</ion-button>
+  </div>
   </div>
 
 </ion-content>

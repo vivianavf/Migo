@@ -16,6 +16,8 @@ import { TerminosCondicionesPage } from '../modals/terminos-condiciones/terminos
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { TabsService } from 'src/app/providers/tabs.service';
 
+import { sha224, sha256 } from 'js-sha256';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -60,12 +62,17 @@ export class LoginPage implements OnInit {
     //validar login
     var usuarios = this.users;
     const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
+
+    //transformar con SHA256
+    inputPassword = this.encriptarSHA256(inputPassword);
+
     const busquedaPassword = usuarios.find(
       ({ contrasena }) => contrasena === inputPassword
     );
     const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
     
     if (busquedaEmail && busquedaPassword && clientBusqueda) {
+      console.log(inputPassword)
       this.userService.ingresarUsuario(busquedaEmail);
       this.clientService.ingresarCliente(clientBusqueda);
   
@@ -75,7 +82,12 @@ export class LoginPage implements OnInit {
       this.mostrarMensaje = false;
     } else {
       this.mostrarMensaje = true;
+      console.log(inputPassword)
     }
+  }
+
+  encriptarSHA256(inputPassword: any){
+    return sha256(inputPassword);
   }
 
   ingresarInvitado() {

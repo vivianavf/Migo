@@ -1,28 +1,69 @@
-// .ad {
-//     display: flex;
-//     justify-content: center; /* Alineación horizontal al centro */
-//     align-items: center; /* Alineación vertical al centro */
-//     height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
-//   }
+@import '../../../theme/variables.scss';
 
-.fotos-buttons-container{
+ion-label{
+    width: 100%;
+    flex:initial;
+}
+
+ion-item{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center; /* Alineación vertical al centro */
-    margin-top: 5%;
-    margin-bottom:5%;
+    flex-direction: column;
+    align-items: start;
+}
+
+ion-item::part(native){
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    height: 90px;
+    align-items: start;
+}
+
+ion-title{
+    padding-left: 0;
+}
+
+.first-form{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+ion-input{
+    width: 350px;
+}
+
+ion-select:host{
+    flex: 0;
+}
+
+.foto-laterales{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-style: dashed;
+    margin: 10px;
 }
 
 .rounded-input {
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: white;
     padding: 8px; /* Ajusta el relleno según sea necesario */
     color: black; /* Cambia el color del texto a negro */
-}
-
-.invalid-border {
-    --border-color: red !important; /* Color del borde cuando es inválido */
 }
 
 .submit-button-container {
@@ -42,11 +83,15 @@
 }
 
 ion-button.add_button {
-    --width: 50px /* Two buttons per row */
-    --margin: 5px;
-    --color: black;
-    --background: white;
-    --border-radius: 10px !important;
+    --background: transparent;
+    --color: var(--ion-color-primary);
+    text-decoration: underline;
+    font-weight: bold;
+
+}
+
+ion-button.add-button:host(.button-solid){
+    --box-shadow:0;
 }
 
 ion-select-option{

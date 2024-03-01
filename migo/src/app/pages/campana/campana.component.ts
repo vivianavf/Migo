@@ -74,7 +74,6 @@ export class CampanaComponent  implements OnInit {
   }
 
   ngOnInit() {
-    console.log("holi")
     this.campanas = this.campanaService.campanasObtenidas;
     
     this.empresaService.getEmpresas().subscribe((data)=>{
