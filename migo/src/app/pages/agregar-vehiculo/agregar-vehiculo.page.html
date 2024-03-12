@@ -10,7 +10,6 @@
 </ion-toolbar>
 
 <ion-content>
-
   <div class="ad">
     <ion-img
       src="../../../assets/images/banner3.jpeg"
@@ -26,8 +25,9 @@
   <form>
     <div class="first-form">
       <ion-item [class.invalid-border]="isInvalidField('Nombre')">
-        <ion-label >Nombre del Conductor</ion-label>
+        <ion-label>Nombre del Conductor</ion-label>
         <ion-input
+          class="addVehiculoInput"
           [(ngModel)]="formFields.Nombre"
           name="Nombre"
           placeholder="  Ingrese el nombre"
@@ -35,11 +35,12 @@
           required
           maxlength="30"
           pattern="^[a-zA-Z]+$"
+          enterkeyhint="next"
         ></ion-input>
       </ion-item>
 
       <ion-item [class.invalid-border]="isInvalidField('Telefono')">
-        <ion-label >Teléfono</ion-label>
+        <ion-label>Teléfono</ion-label>
         <ion-input
           [(ngModel)]="formFields.Telefono"
           name="Telefono"
@@ -48,11 +49,13 @@
           required
           maxlength="10"
           pattern="^[0-9]+$"
+          inputmode="numeric"
+          enterkeyhint="next"
         ></ion-input>
       </ion-item>
 
       <ion-item [class.invalid-border]="isInvalidField('Placa')">
-        <ion-label >Placa</ion-label>
+        <ion-label>Placa</ion-label>
         <ion-input
           [(ngModel)]="formFields.Placa"
           name="Placa"
@@ -61,130 +64,224 @@
           required
           maxlength="7"
           pattern="^[A-Z]{3}-[0-9]{4}$"
+          enterkeyhint="next"
         ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('Anio')">
-        <ion-label >Año</ion-label>
+      <ion-item
+        class="item-input"
+        [class.invalid-border]="isInvalidField('anio')"
+      >
+        <ion-label>Año</ion-label>
         <ion-input
-          [(ngModel)]="formFields.Anio"
-          name="Anio"
-          placeholder="  Ingrese el año"
+          [(ngModel)]="formFields.anio"
+          name="anio"
+          placeholder="Ingrese el año"
           class="rounded-input"
+          inputmode="numeric"
           required
-          maxlength="4"
-          pattern="^[1-9][0-9]{3}$"
-          [ngModelOptions]="{standalone: true}"
         ></ion-input>
+
+        <!-- <ion-popover trigger="año-selector" size="cover">
+          <ng-template>
+            <ion-datetime
+              name="anio"
+              presentation="year"
+              [(ngModel)]="formFields.anio"
+              show-default-buttons="true"
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover> -->
       </ion-item>
 
       <ion-item [class.invalid-border]="isInvalidField('Marca')">
-        <ion-label >Marca</ion-label>
-        <ion-select part="select-marca-vehiculo" class="never-flip"
-        toggleIcon="caret-down-sharp"
-        interface="popover" [(ngModel)]="formFields.Marca" name="Marca" class="rounded-input" required>
-          <ion-select-option *ngFor="let marca of valoresMarcas"  value="{{ marca.id_marca }}">{{ marca.nombre }}</ion-select-option>
+        <ion-label>Marca</ion-label>
+        <ion-select
+          part="select-marca-vehiculo"
+          class="never-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          [(ngModel)]="formFields.Marca"
+          name="Marca"
+          class="rounded-input"
+          required
+        >
+          <ion-select-option
+            *ngFor="let marca of valoresMarcas"
+            value="{{ marca.id_marca }}"
+            >{{ marca.nombre }}</ion-select-option
+          >
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
 
       <ion-item [class.invalid-border]="isInvalidField('Modelo')">
-        <ion-label >Modelo</ion-label>
-        <ion-select part="select-modelo-vehiculo"  class="never-flip"
-        toggleIcon="caret-down-sharp"
-        interface="popover" [(ngModel)]="formFields.Modelo" name="Modelo" class="rounded-input" required>
-          <ion-select-option *ngFor="let modelo of valoresModelos" value="{{ modelo.id_modelo }}">{{ modelo.nombre }}</ion-select-option>
+        <ion-label>Modelo</ion-label>
+        <ion-select
+          part="select-modelo-vehiculo"
+          class="never-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          [(ngModel)]="formFields.Modelo"
+          name="Modelo"
+          class="rounded-input"
+          required
+        >
+          <ion-select-option
+            *ngFor="let modelo of valoresModelos"
+            value="{{ modelo.id_modelo }}"
+            >{{ modelo.nombre }}</ion-select-option
+          >
           <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
     </div>
-      
-    
-    
+
     <div class="second-form">
       <ion-item-divider color="primary">
         <ion-title>Fotos del vehículo</ion-title>
       </ion-item-divider>
       <div class="foto-laterales">
         <div class="button-container">
-          <ion-label  *ngIf="!fotoIzquierdaTomada">Lateral Izquierdo</ion-label>
-          <ion-img #foto *ngIf="fotoIzquierdaTomada"
-          src={{srcIzquierda}}
-        ></ion-img>
-          <ion-button  *ngIf="!fotoIzquierdaTomada" expand="full" class="add_button" (click)="takePhoto('Izquierda')">
+          <ion-label *ngIf="!fotoIzquierdaTomada">Lateral Izquierdo</ion-label>
+
+          <ion-img
+            *ngIf="fotoIzquierdaTomada"
+            (click)="abrirModal()"
+            src="{{srcIzquierda}}"
+          ></ion-img>
+
+          <ion-button
+            *ngIf="!fotoIzquierdaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Izquierda')"
+          >
             Tomar foto
           </ion-button>
-          <ion-button  *ngIf="fotoIzquierdaTomada" expand="full" class="add_button" (click)="takePhoto('Izquierda')">
-            Cambiar foto 
+          <ion-button
+            *ngIf="fotoIzquierdaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Izquierda')"
+          >
+            Cambiar foto
           </ion-button>
         </div>
 
         <div class="button-container">
-          <ion-label  *ngIf="!fotoDerechaTomada">Lateral Derecho</ion-label>
-          <ion-img #foto *ngIf="fotoDerechaTomada"
-          src={{srcDerecha}}
-        ></ion-img>
-          <ion-button  *ngIf="!fotoDerechaTomada" expand="full" class="add_button" (click)="takePhoto('Derecha')">
+          <ion-label *ngIf="!fotoDerechaTomada">Lateral Derecho</ion-label>
+          <ion-img
+            *ngIf="fotoDerechaTomada"
+            (click)="abrirModal()"
+            src="{{srcDerecha}}"
+          ></ion-img>
+          <ion-button
+            *ngIf="!fotoDerechaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Derecha')"
+          >
             Tomar foto
           </ion-button>
-          <ion-button  *ngIf="fotoDerechaTomada" expand="full" class="add_button" (click)="takePhoto('Derecha')">
-            Cambiar foto 
+          <ion-button
+            *ngIf="fotoDerechaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Derecha')"
+          >
+            Cambiar foto
           </ion-button>
         </div>
       </div>
 
       <div class="foto-laterales">
         <div class="button-container">
-          <ion-label  *ngIf="!fotoTraseraTomada">Foto Trasera</ion-label>
-          <ion-img #foto *ngIf="fotoTraseraTomada"
-          src={{srcTrasera}}
-        ></ion-img>
-          <ion-button  *ngIf="!fotoTraseraTomada" expand="full" class="add_button" (click)="takePhoto('Trasera')">
+          <ion-label *ngIf="!fotoTraseraTomada">Foto Trasera</ion-label>
+          <ion-img
+            (click)="abrirModal()"
+            *ngIf="fotoTraseraTomada"
+            src="{{srcTrasera}}"
+          ></ion-img>
+          <ion-button
+            *ngIf="!fotoTraseraTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Trasera')"
+          >
             Tomar foto
           </ion-button>
-          <ion-button  *ngIf="fotoTraseraTomada" expand="full" class="add_button" (click)="takePhoto('Trasera')">
-            Cambiar foto 
+          <ion-button
+            *ngIf="fotoTraseraTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Trasera')"
+          >
+            Cambiar foto
           </ion-button>
         </div>
 
         <div class="button-container">
-          <ion-label  *ngIf="!fotoAereaTomada">Foto Aérea</ion-label>
-          <ion-img #foto *ngIf="fotoAereaTomada"
-          src={{srcAerea}}
-        ></ion-img>
-          <ion-button  *ngIf="!fotoAereaTomada" expand="full" class="add_button" (click)="takePhoto('Aerea')">
+          <ion-label *ngIf="!fotoAereaTomada">Foto Aérea</ion-label>
+          <ion-img
+            (click)="abrirModal()"
+            *ngIf="fotoAereaTomada"
+            src="{{srcAerea}}"
+          ></ion-img>
+          <ion-button
+            *ngIf="!fotoAereaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Aerea')"
+          >
             Tomar foto
           </ion-button>
-          <ion-button  *ngIf="fotoAereaTomada" expand="full" class="add_button" (click)="takePhoto('Aerea')">
-            Cambiar foto 
+          <ion-button
+            *ngIf="fotoAereaTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Aerea')"
+          >
+            Cambiar foto
           </ion-button>
         </div>
       </div>
 
       <div class="foto-laterales">
         <div class="button-container">
-          <ion-label  *ngIf="!fotoFrontalTomada">Foto Frontal</ion-label>
-          <ion-img #foto *ngIf="fotoFrontalTomada"
-          src={{srcFrontal}}
-        ></ion-img>
-          <ion-button  *ngIf="!fotoFrontalTomada" expand="full" class="add_button" (click)="takePhoto('Frontal')">
+          <ion-label *ngIf="!fotoFrontalTomada">Foto Frontal</ion-label>
+          <ion-img
+            (click)="abrirModal()"
+            *ngIf="fotoFrontalTomada"
+            src="{{srcFrontal}}"
+          ></ion-img>
+          <ion-button
+            *ngIf="!fotoFrontalTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Frontal')"
+          >
             Tomar foto
           </ion-button>
-          <ion-button  *ngIf="fotoFrontalTomada" expand="full" class="add_button" (click)="takePhoto('Frontal')">
-            Cambiar foto 
+          <ion-button
+            *ngIf="fotoFrontalTomada"
+            expand="full"
+            class="add_button"
+            (click)="takePhoto('Frontal')"
+          >
+            Cambiar foto
           </ion-button>
         </div>
       </div>
-  
-        
-      </div>
+    </div>
 
     <div *ngIf="showValidationError" class="validation-error datosincorrectos">
       {{ showValidationError }}
     </div>
     <div class="submit-button-container">
-      <ion-button expand="default" (click)="submitForm()">Agregar Vehículo</ion-button>
+      <ion-button expand="default" (click)="submitForm()"
+        >Agregar Vehículo</ion-button
+      >
     </div>
   </form>
 </ion-content>
-

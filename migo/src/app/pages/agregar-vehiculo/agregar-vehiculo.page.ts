@@ -7,21 +7,30 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 import { MarcaVehiculo } from 'src/app/interfaces/marca-vehiculo';
 import { ModeloVehiculo } from 'src/app/interfaces/modelo-vehiculo';
 import { Observable } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { FotopreviewPage } from '../modals/fotopreview/fotopreview.page';
+
 
 interface FormFields {
   Nombre: string;
   Telefono: string;
   Placa: string;
-  Anio: string;
+  anio: string;
   Marca: number;
   Modelo: number;
+  FotoFrontal: string | Photo;
+  FotoTrasera: string | Photo;
+  FotoIzquierda: string | Photo;
+  FotoDerecha: string | Photo;
+  FotoTecho: string | Photo;
 }
+
 
 @Component({
   selector: 'app-agregar-vehiculo',
@@ -29,20 +38,22 @@ interface FormFields {
   styleUrls: ['./agregar-vehiculo.page.scss'],
 })
 export class AgregarVehiculoPage implements OnInit {
-  @ViewChild('foto', { read: ElementRef }) private foto?: ElementRef;
-
   formFields: FormFields = {
     Nombre: '',
     Telefono: '',
     Placa: '',
-    Anio: '',
+    anio: '',
     Marca: 0,
     Modelo: 0,
+    FotoFrontal: '',
+    FotoTrasera: '',
+    FotoIzquierda: '',
+    FotoDerecha: '',
+    FotoTecho: '',
   };
 
   attemptedSubmit: boolean = false;
   showValidationError: string = '';
-  servicio = this.servicioVehiculos;
   valoresMarcas: MarcaVehiculo[] = [];
   valoresModelos: ModeloVehiculo[] = [];
 
@@ -58,12 +69,18 @@ export class AgregarVehiculoPage implements OnInit {
   srcTrasera: string = '';
   srcFrontal: string = '';
 
+  srcMostrarFoto: string = '';
+
+  alertButtons = ['OK'];
+  alertInputs = [{ label: 'Red', type: 'radio', value: 'red' }];
+
   constructor(
     private modeloService: ModeloVehiculosService,
     private marcaService: MarcaVehiculoService,
-    private servicioVehiculos: VehiculoService,
+    private vehiculoService: VehiculoService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -71,8 +88,6 @@ export class AgregarVehiculoPage implements OnInit {
       const photoPath = params['photoPath'];
       // Use the photoPath as needed (e.g., display or store it)
     });
-
-    
 
     this.marcaService.getMarcas().subscribe((data) => {
       for (let i = 0; i < data.length; i++) {
@@ -84,6 +99,19 @@ export class AgregarVehiculoPage implements OnInit {
         this.valoresModelos.push(data[i]);
       }
     });
+  }
+
+  async abrirModal() {
+    console.log('ABRIRMODAL', this.srcMostrarFoto);
+    const modal = await this.modalCtrl.create({
+      component: FotopreviewPage,
+      cssClass: 'fotopreview',
+      componentProps: {
+        FotoURL: this.srcMostrarFoto,
+      },
+    });
+
+    modal.present();
   }
 
   submitForm() {
@@ -101,22 +129,29 @@ export class AgregarVehiculoPage implements OnInit {
       var body = {
         telefono_conductor: Number.parseInt(this.formFields.Telefono),
         placa: this.formFields.Placa,
-        anio: Number.parseInt(this.formFields.Anio),
-        categoria_vehiculo: 1,
-        color_vehiculo: 1,
-        imagen_izq: '',
-        imagen_der: '',
-        imagen_frontal: '',
-        imagen_trasera: '',
-        imagen_techo: '',
+        anio: Number.parseInt(this.formFields.anio),
+        categoria_vehiculo: 1, /////////
+        color_vehiculo: 1, ////////////
+        imagen_izq: this.srcIzquierda,
+        imagen_der: this.srcDerecha,
+        imagen_frontal: this.srcFrontal,
+        imagen_trasera: this.srcTrasera,
+        imagen_techo: this.srcAerea,
         estado: 1,
-        id_cliente: 1,
+        id_cliente: 1, //////////
         id_marca: this.formFields.Marca,
         id_modelo: this.formFields.Modelo,
       };
-      this.servicio.crearVehiculo(body).subscribe((data) => {
-        console.log(data);
-      });
+
+      console.log(body);
+
+      this.vehiculoService.crearVehiculo(body).subscribe((response=>{
+        console.log(response);
+      }));
+
+      // this.servicio.crearVehiculo(body).subscribe((data) => {
+      //   console.log(data);
+      // });
       console.log('Formulario enviado:', this.formFields);
     }
 
@@ -130,9 +165,14 @@ export class AgregarVehiculoPage implements OnInit {
       Nombre: '',
       Telefono: '',
       Placa: '',
-      Anio: '',
+      anio: '',
       Marca: 1,
       Modelo: 1,
+      FotoFrontal: '',
+      FotoTrasera: '',
+      FotoIzquierda: '',
+      FotoDerecha: '',
+      FotoTecho: '',
     };
     this.attemptedSubmit = false;
     this.showValidationError = '';
@@ -170,7 +210,8 @@ export class AgregarVehiculoPage implements OnInit {
   selectedMarcaId: number | undefined;
   filteredModelos: ModeloVehiculo[] = [];
 
-  cameraImage: string | null = null;
+  cameraImage?: File;
+  
 
   async takePhoto(label: string): Promise<void> {
     try {
@@ -180,13 +221,16 @@ export class AgregarVehiculoPage implements OnInit {
         quality: 100,
       });
 
-      this.cameraImage = image.webPath ?? null;
+      // this.guardarFoto(image);
+      // GQB720
 
       switch (label) {
         case 'Aerea':
           if (image.webPath) {
             this.fotoAereaTomada = true;
             this.srcAerea = image.webPath!.toString();
+            this.srcMostrarFoto = image.webPath!.toString();
+            this.formFields.FotoTecho = image;
           }
           break;
 
@@ -194,6 +238,8 @@ export class AgregarVehiculoPage implements OnInit {
           if (image.webPath) {
             this.fotoFrontalTomada = true;
             this.srcFrontal = image.webPath!.toString();
+            this.srcMostrarFoto = image.webPath!.toString();
+            this.formFields.FotoFrontal = image;
           }
           break;
 
@@ -201,6 +247,8 @@ export class AgregarVehiculoPage implements OnInit {
           if (image.webPath) {
             this.fotoTraseraTomada = true;
             this.srcTrasera = image.webPath!.toString();
+            this.srcMostrarFoto = image.webPath!.toString();
+            this.formFields.FotoTrasera = image;
           }
           break;
 
@@ -208,6 +256,8 @@ export class AgregarVehiculoPage implements OnInit {
           if (image.webPath) {
             this.fotoDerechaTomada = true;
             this.srcDerecha = image.webPath!.toString();
+            this.srcMostrarFoto = image.webPath!.toString();
+            this.formFields.FotoDerecha = image;
           }
           break;
 
@@ -215,12 +265,15 @@ export class AgregarVehiculoPage implements OnInit {
           if (image.webPath) {
             this.fotoIzquierdaTomada = true;
             this.srcIzquierda = image.webPath!.toString();
+            this.srcMostrarFoto = image.webPath!.toString();
+            this.formFields.FotoIzquierda = image;
           }
           break;
       }
-
     } catch (error) {
       console.error('Error capturing photo', error);
     }
   }
+
+
 }

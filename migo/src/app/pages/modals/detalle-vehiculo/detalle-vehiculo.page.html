@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detalles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-img class="foto-grande" [src]="src"></ion-img>
+
+  <div class="previews">
+    <ion-img
+      class="foto-chiquita"
+      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}frontal.jpg"
+      (click)="cambiarImagen('frontal')"
+    ></ion-img>
+    <ion-img
+      class="foto-chiquita"
+      (click)="cambiarImagen('izq')"
+      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}izq.jpg"
+    ></ion-img>
+    <ion-img
+      class="foto-chiquita"
+      (click)="cambiarImagen('der')"
+      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}derecha.jpg"
+    ></ion-img>
+    <ion-img
+      class="foto-chiquita"
+      (click)="cambiarImagen('techo')"
+      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}techo.jpg"
+    ></ion-img>
+    <ion-img
+      class="foto-chiquita"
+      (click)="cambiarImagen('trasera')"
+      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}trasera.jpg"
+    ></ion-img>
+  </div>
+
+  <div class="title uppercase-text bold-text">
+    <ion-text><br />Información del vehículo<br /></ion-text>
+  </div>
+
+  <div class="info-columns">
+    <div>
+      <ion-text class="bold-text label">Placa</ion-text>
+      <ion-text class="info">{{vehiculo.placa}}</ion-text>
+    </div>
+
+    <div>
+      <ion-text class="bold-text label">Año</ion-text>
+      <ion-text class="info">{{vehiculo.anio}}</ion-text>
+    </div>
+
+    <div>
+      <ion-text class="bold-text label">Categoría</ion-text>
+      <ion-text class="info">{{vehiculo.categoria_vehiculo}}</ion-text>
+    </div>
+
+    <div>
+      <ion-text class="bold-text label">Marca</ion-text>
+      <ion-text class="info">{{marca}}</ion-text>
+    </div>
+
+    <div>
+      <ion-text class="bold-text label">Modelo</ion-text>
+      <ion-text class="info">{{modelo}}</ion-text>
+    </div>
+  </div>
+
+  <div class="title uppercase-text bold-text">
+    <ion-text><br />Información del conductor<br /></ion-text>
+  </div>
+
+  <div class="info-columns">
+    <div>
+      <ion-text class="bold-text label">Nombre(s)</ion-text>
+      <ion-text *ngIf="conductor" class="info">{{conductor.nombre}}</ion-text>
+    </div>
+    <div>
+      <ion-text class="bold-text label">Apellido(s)</ion-text>
+      <ion-text *ngIf="conductor" class="info">{{conductor.apellido}}</ion-text>
+    </div>
+    <div>
+      <ion-text class="bold-text label">Sexo</ion-text>
+      <ion-text *ngIf="conductor" class="info">{{conductor.sexo}}</ion-text>
+    </div>
+    <div>
+      <ion-text class="bold-text label">Edad</ion-text>
+      <ion-text  *ngIf="conductor" class="info">{{edadConductor}} años</ion-text>
+    </div>
+  </div>
+
+  <div class="title uppercase-text bold-text">
+    <ion-text><br />Datos de Contacto<br /></ion-text>
+  </div>
+
+  <div class="info-columns">
+    <div>
+      <ion-text class="bold-text label">Email</ion-text>
+      <ion-text *ngIf="conductor" class="info">{{conductor.email}}</ion-text>
+    </div>
+    <div>
+      <ion-text class="bold-text label">Teléfono</ion-text>
+      <ion-text href="tel:+1-1800-555-5555" class="info">{{vehiculo.telefono_conductor}}</ion-text>
+    </div>
+  </div>
+</ion-content>

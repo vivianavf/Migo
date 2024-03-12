@@ -1,0 +1,62 @@
+ion-content{
+    --background: white;
+    background-color: white;
+    padding-top: 5px;
+    --padding-bottom: 20px;
+}
+
+ion-text{
+    --color: black;
+    color: black;
+}
+
+.title{
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.info-columns{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.info-columns > * {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.label{
+    width: 50%;
+}
+
+.info{
+    width: 50%;
+}
+
+ion-img.foto-grande{
+    width: 100%;
+    padding: 10px;
+    aspect-ratio: 4/3;
+}
+  
+.previews{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+ion-img.foto-chiquita{
+    max-width: 60px;
+    width: 60px;
+    margin: 3px;
+    opacity: 0.4;
+    aspect-ratio: 4/3;
+}
+
+ion-img.foto-chiquita:active{
+    opacity: 1;
+}

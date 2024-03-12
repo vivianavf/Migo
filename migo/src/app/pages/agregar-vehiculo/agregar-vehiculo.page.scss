@@ -9,14 +9,25 @@ ion-item{
     display: flex;
     flex-direction: column;
     align-items: start;
+    --highlight-color-focused: transparent;
+    --highlight-color-invalid: transparent;
+    --highlight-color-valid: transparent;
+    // height: 70px;
 }
 
 ion-item::part(native){
     background: transparent;
     display: flex;
     flex-direction: column;
-    height: 90px;
+    height: 70px;
     align-items: start;
+}
+
+ion-item::part(native){
+    .item-inner{
+        border-style: none;
+        border: none;
+    }
 }
 
 ion-title{
@@ -33,11 +44,18 @@ ion-title{
 }
 
 ion-input{
-    width: 350px;
+    width: 100%;
+    --padding-top: 0px; /* para arreglar el input dentro */
+    min-height: 30px;
 }
 
 ion-select:host{
-    flex: 0;
+    // flex: 0;
+    min-height: 30px;
+}
+
+ion-select:host(:not(.legacy-select)){
+    min-height: 30px;
 }
 
 .foto-laterales{
@@ -47,9 +65,14 @@ ion-select:host{
     justify-content: center;
 }
 
+#previewFoto{
+    --background: transparent;
+}
+
 .button-container{
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    min-height: 200px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,12 +80,13 @@ ion-select:host{
     text-align: center;
     border-style: dashed;
     margin: 10px;
+    aspect-ratio: 1/2;
 }
 
 .rounded-input {
     border-radius: 30px;
     background-color: white;
-    padding: 8px; /* Ajusta el relleno según sea necesario */
+    // padding: 8px; /* Ajusta el relleno según sea necesario */
     color: black; /* Cambia el color del texto a negro */
 }
 
@@ -96,4 +120,13 @@ ion-button.add-button:host(.button-solid){
 
 ion-select-option{
     --color: black;
+}
+
+.preview-modal{
+    
+}
+
+.legacy-input.sc-ion-input-md-h{
+    --padding-top:0px;
+    --padding-start:15px;
 }

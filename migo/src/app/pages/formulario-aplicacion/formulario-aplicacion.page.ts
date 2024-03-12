@@ -1,11 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController, PopoverController } from '@ionic/angular';
+import {
+  ModalController,
+  NavController,
+  PopoverController,
+} from '@ionic/angular';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { UsersService } from 'src/app/providers/users.service';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import { MenuPage } from '../modals/menu/menu.page';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Client } from 'src/app/interfaces/client';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
@@ -17,6 +26,23 @@ import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 import { QrPage } from '../modals/qr/qr.page';
+import { Campana } from 'src/app/interfaces/campana';
+import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
+
+// interface FormFields {
+//   Teléfono: number;
+//   Licencia: File | string;
+//   Matrícula: File | string;
+//   Cuenta_Bancaria: string;
+//   Cédula: string;
+//   Entidad_Bancaria: number;
+//   Tipo_Cuenta: number;
+//   Email: string;
+//   Fecha_Envío: Date | string,
+//   id_chofer: number,
+//   id_cliente: number,
+//   id_campana: number
+// }
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -24,22 +50,38 @@ import { QrPage } from '../modals/qr/qr.page';
   styleUrls: ['./formulario-aplicacion.page.scss'],
 })
 export class FormularioAplicacionPage implements OnInit {
+  // formFields: FormFields = {
+  //   Teléfono: 0,
+  //   Licencia: '',
+  //   Matrícula: '',
+  //   Cuenta_Bancaria: '',
+  //   Cédula: '',
+  //   Entidad_Bancaria: 0,
+  //   Tipo_Cuenta: 0,
+  //   Email: '',
+  // };
+
+  // attemptedSubmit: boolean = false;
+  // showValidationError: string = '';
+  // valoresMarcas: MarcaVehiculo[] = [];
+  // valoresModelos: ModeloVehiculo[] = [];
 
   formularioAplicacion: FormGroup;
   mostrarMensaje: boolean = false;
   cliente!: Client;
-  usuario!: User;
+  usuario?: User;
+  campana!: Campana;
   vehiculos: Vehiculo[] = [];
   vehiculosUsuario: Vehiculo[] = [];
-  nombreArchivo = "";
+  nombreArchivo = '';
   showName = true;
 
-  entidadBancaria = "Entidad Bancaria";
-  tipoCuenta = "Tipo de Cuenta";
+  entidadBancaria = 'Entidad Bancaria';
+  tipoCuenta = 'Tipo de Cuenta';
 
-  vehiculoSeleccionado !: Vehiculo | null;
-  marcaVehiculo = ""
-  modeloVehiculo = ""
+  vehiculoSeleccionado!: Vehiculo | null;
+  marcaVehiculo = '';
+  modeloVehiculo = '';
 
   file!: File;
 
@@ -92,17 +134,15 @@ export class FormularioAplicacionPage implements OnInit {
     'Cooperativa de Ahorro y Crédito “Juventud Ecuatoriana Progresista” LTDA., (JEP)',
     'Cooperativa Alianza del Valle',
     'Cooprogreso',
-    'Cooperativa de Ahorro y Crédito 29 de Octubre Ltda.'
+    'Cooperativa de Ahorro y Crédito 29 de Octubre Ltda.',
   ];
 
-  public tiposCuentas = [
-    'Ahorros', 'Corriente'
-  ];
+  public tiposCuentas = ['Ahorros', 'Corriente'];
 
   public results = [...this.entidadesBancarias];
 
   entidadesFiltradas: string[] = [];
-  entidadSeleccionada: string = '';  
+  entidadSeleccionada: string = '';
 
   constructor(
     private modalController: ModalController,
@@ -116,13 +156,22 @@ export class FormularioAplicacionPage implements OnInit {
     private marcaVehiculoService: MarcaVehiculoService,
     private modeloVehiculoService: ModeloVehiculosService,
     private navCtrl: NavController,
+    private formService: FormularioAplicacionService,
   ) {
     this.formularioAplicacion = this.fb.group({
-      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
+      email: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ),
+        ])
+      ),
       cedula: new FormControl('', Validators.required),
       entidad: new FormControl('', Validators.required),
       tipocuenta: new FormControl('', Validators.required),
-      cuenta: new FormControl('', Validators.required)
+      cuenta: new FormControl('', Validators.required),
     });
   }
 
@@ -138,26 +187,24 @@ export class FormularioAplicacionPage implements OnInit {
     this.entidadesFiltradas = [];
     this.formularioAplicacion.controls['entidad'].setValue(entidad);
   }
-  
-  async mostrarNotificaciones(){
-    const modal = await this.modalController.create({
-    component: NotificacionesPage,
-    componentProps:{
 
-    },
-    cssClass: 'notificaciones,'
-    })
+  async mostrarNotificaciones() {
+    const modal = await this.modalController.create({
+      component: NotificacionesPage,
+      componentProps: {},
+      cssClass: 'notificaciones,',
+    });
   }
 
-  async mostrarMenu(){
+  async mostrarMenu() {
     const modal = await this.modalController.create({
       component: MenuPage,
-      componentProps:{
+      componentProps: {
         user: this.userService.usuarioActivo(),
         client: this.clientService.clienteActivo(),
       },
       cssClass: 'menu',
-    })
+    });
 
     return await modal.present();
   }
@@ -180,7 +227,7 @@ export class FormularioAplicacionPage implements OnInit {
     return await modal.present();
   }
 
-  async seleccionarVehiculo(){
+  async seleccionarVehiculo() {
     //enviar el ID del cliente
     //mostrar un modal donde se muestren todos los vehiculos
 
@@ -192,28 +239,32 @@ export class FormularioAplicacionPage implements OnInit {
       },
     });
 
-    modal.onDidDismiss().then((data)=>{
+    modal.onDidDismiss().then((data) => {
       this.vehiculoSeleccionado = this.elegirVehiculoService.vehiculoElegido;
-      if(this.vehiculoSeleccionado){
-        this.marcaVehiculoService.getMarcabyId(this.vehiculoSeleccionado.id_marca).subscribe((data)=>{
-          this.marcaVehiculo = data.nombre;
-        });
-        this.modeloVehiculoService.getModelobyId(this.vehiculoSeleccionado.id_modelo).subscribe((data)=>{
-          this.modeloVehiculo = data.nombre;
-        })
+      if (this.vehiculoSeleccionado) {
+        this.marcaVehiculoService
+          .getMarcabyId(this.vehiculoSeleccionado.id_marca)
+          .subscribe((data) => {
+            this.marcaVehiculo = data.nombre;
+          });
+        this.modeloVehiculoService
+          .getModelobyId(this.vehiculoSeleccionado.id_modelo)
+          .subscribe((data) => {
+            this.modeloVehiculo = data.nombre;
+          });
         this.seleccionoVehiculo = true;
       }
-    })
+    });
 
     return await modal.present();
   }
 
-  eliminarVehiculo(){
+  eliminarVehiculo() {
     this.seleccionoVehiculo = false;
     this.elegirVehiculoService.eliminarVehiculo();
   }
 
-  onFileChange(fileChangeEvent: any){
+  onFileChange(fileChangeEvent: any) {
     this.file = fileChangeEvent.target.files[0];
     this.nombreArchivo = this.file.name;
     this.showName = false;
@@ -221,55 +272,75 @@ export class FormularioAplicacionPage implements OnInit {
 
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
-    this.results = this.entidadesBancarias.filter((d) => d.toLowerCase().indexOf(query) > -1);
+    this.results = this.entidadesBancarias.filter(
+      (d) => d.toLowerCase().indexOf(query) > -1
+    );
   }
 
-  cambiarBanco(banco: string){
+  cambiarBanco(banco: string) {
     this.entidadBancaria = banco;
     this.popCtrl.dismiss();
   }
 
-  cambiarCuenta(cuenta: string){
+  cambiarCuenta(cuenta: string) {
     this.tipoCuenta = cuenta;
     this.popCtrl.dismiss();
   }
 
-  enviarFormulario(){
-    this.aceptoTerminos()
-    this.entidadVacio()
-    this.archivoExiste()
-    this.tipoCuentaExiste()
-    this.numeroCuentaExiste()
-    this.vehiculoHaSidoSeleccionado()
+  enviarFormulario() {
+    this.aceptoTerminos();
+    this.entidadVacio();
+    this.archivoExiste();
+    this.tipoCuentaExiste();
+    this.numeroCuentaExiste();
+    this.vehiculoHaSidoSeleccionado();
 
-    if(!this.terminosNoAceptados 
-      && !this.archivoVacio
-      && !this.entidadBancariaVacio
-      && !this.tipodeCuentaVacio
-      && !this.numeroCuentaVacio
-      && this.seleccionoVehiculo
-      ){
-        console.log("puede registrarse")
-        // this.navCtrl.navigateRoot('/home');
+    if (
+      !this.terminosNoAceptados &&
+      !this.archivoVacio &&
+      !this.entidadBancariaVacio &&
+      !this.tipodeCuentaVacio &&
+      !this.numeroCuentaVacio &&
+      this.seleccionoVehiculo
+    ) {
+      console.log('puede registrarse');
+      // this.navCtrl.navigateRoot('/home');
 
-        this.mostrarQR();
-        //correo = correoInput
-        //cedula = cedulaInput
+      this.mostrarQR();
+
+      var body = {
+        telefono_conductor: parseInt(this.cliente.telefono)!,
+        licencia: 'File | string',
+        matricula: 'File | string',
+        numero_cuenta_bancaria: this.numeroCuentaInput,
+        cedula: this.cliente.cedula_cliente,
+        entidad_bancaria: 1,
+        tipo_cuenta_bancaria: 1,
+        correo_electronico: this.cliente.email,
+        fecha_envio: new Date().toLocaleString(), ///corregir
+        id_chofer: Number(this.cliente.id_cliente)!,  //// corregir
+        id_cliente: Number(this.cliente.id_cliente)!,
+        id_campana: Number(this.campana.id_campana)!,
+      };
+      //correo = correoInput
+      //cedula = cedulaInput
       //logica de registro a campaña
       //recoger todos los datos
       //enviarlos al server
+
+      this.formService.crearFormulario(body).subscribe((response)=>{
+        console.log(response);
+      })
       //mostrar pantalla de registro exitoso
-
-    }else{
-      console.log("No puede registrarse")
+    } else {
+      console.log('No puede registrarse');
     }
-
   }
 
-  async mostrarQR(){
+  async mostrarQR() {
     const modal = await this.modalController.create({
       component: QrPage,
-      componentProps:{
+      componentProps: {
         user: this.userService.usuarioActivo(),
         client: this.clientService.clienteActivo(),
         campana: this.campanaService.getCampanaActual(),
@@ -278,38 +349,46 @@ export class FormularioAplicacionPage implements OnInit {
         modelo: this.modeloVehiculo,
       },
       cssClass: 'qr-modal',
-    })
+    });
 
     return await modal.present();
   }
 
-  vehiculoHaSidoSeleccionado(){
-    if(!this.seleccionoVehiculo){
+  vehiculoHaSidoSeleccionado() {
+    if (!this.seleccionoVehiculo) {
       this.mostrarmsgVehiculo = true;
-    }else{
+    } else {
       this.mostrarmsgVehiculo = false;
     }
   }
 
-  archivoExiste(){
-    this.nombreArchivo.length>0?this.archivoVacio=false:this.archivoVacio=true;
-    return this.archivoVacio
+  archivoExiste() {
+    this.nombreArchivo.length > 0
+      ? (this.archivoVacio = false)
+      : (this.archivoVacio = true);
+    return this.archivoVacio;
   }
 
-  entidadVacio(){
-    console.log(this.entidadBancaria)
-    this.entidadBancaria!="Entidad Bancaria"?this.entidadBancariaVacio=false:this.entidadBancariaVacio=true;
+  entidadVacio() {
+    console.log(this.entidadBancaria);
+    this.entidadBancaria != 'Entidad Bancaria'
+      ? (this.entidadBancariaVacio = false)
+      : (this.entidadBancariaVacio = true);
     return this.entidadBancariaVacio;
   }
 
-  tipoCuentaExiste(){
-    this.tipoCuenta!="Tipo de Cuenta"?this.tipodeCuentaVacio=false:this.tipodeCuentaVacio=true;
+  tipoCuentaExiste() {
+    this.tipoCuenta != 'Tipo de Cuenta'
+      ? (this.tipodeCuentaVacio = false)
+      : (this.tipodeCuentaVacio = true);
     return this.tipodeCuentaVacio;
   }
 
-  numeroCuentaExiste(){
-    console.log(this.numeroCuentaInput)
-    !this.numeroCuentaInput?this.numeroCuentaVacio=true:this.numeroCuentaVacio=false;
+  numeroCuentaExiste() {
+    console.log(this.numeroCuentaInput);
+    !this.numeroCuentaInput
+      ? (this.numeroCuentaVacio = true)
+      : (this.numeroCuentaVacio = false);
     return this.numeroCuentaVacio;
   }
 
@@ -323,36 +402,26 @@ export class FormularioAplicacionPage implements OnInit {
     }
   }
 
-  generarApp(){
+  generarApp() {
     this.cliente = this.clientService.clienteActivo();
-
     this.correoInput = this.cliente.email;
     this.cedulaInput = this.cliente.cedula_cliente;
-    // this.usuario = this.userService.usuarioActivo();
-
-    console.log(this.campanaService.getCampanaActual())
-
-    console.log(this.userService.usuarioActivo());
-    this.vehiculoService.getVehiculos().subscribe((data)=>{
+    this.campana = this.campanaService.getCampanaActual();
+    this.vehiculoService.getVehiculos().subscribe((data) => {
       this.vehiculos = data;
-    })
-
+    });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     try {
       this.generarApp();
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
   ngOnInit() {
     try {
       this.generarApp();
-    } catch (error) {
-      
-    }
+      this.formularioAplicacion.reset();
+    } catch (error) {}
   }
-
 }

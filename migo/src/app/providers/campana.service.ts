@@ -38,7 +38,7 @@ export class CampanaService {
     this.campana = campana;
   }
 
-  getCampanaActual(){
+  getCampanaActual(): Campana{
     return this.campana;
   }
 

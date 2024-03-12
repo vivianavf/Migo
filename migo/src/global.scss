@@ -194,6 +194,27 @@ ion-modal.terms{
     --background: white;
   }
 
+  ion-modal.fotopreview{
+    --height: 600px;
+    --width: 400px;
+    --border-radius: 20px;
+    --background: white;
+  }
+
+  ion-modal.detalle-vehiculo{
+    --height: 600px;
+    --width: 90%;
+    --border-radius: 20px;
+    --background: white;
+  }
+
+  ion-modal.deleteVehiculoConfirmation{
+    --height: 300px;
+    --width: 90%;
+    --border-radius: 20px;
+    --background: white;
+  }
+
   .qr-modal{
     --height: 75%;
     --width: 90%;
@@ -319,3 +340,14 @@ ion-list.sc-ion-select-popover-md{
         box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1);
       }  
   }
+
+
+ion-input.addVehiculoInput > input{
+  --pading-top: 0px;
+  --padding-bottom: 0px;
+}
+
+.legacy-input.sc-ion-input-md-h .native-input.sc-ion-input-md{
+  --pading-top: 0px;
+  --padding-bottom: 0px;
+}

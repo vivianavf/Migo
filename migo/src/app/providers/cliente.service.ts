@@ -22,8 +22,8 @@ export class ClienteService {
     return respuesta;
   }
 
-  getClientbyId(id: number): Observable<Client[]> {
-    return this.http.get<Client[]>(this.baseURL + id + '/' + this.formato);
+  getClientbyId(id: number): Observable<Client> {
+    return this.http.get<Client>(this.baseURL + id + '/' + this.formato);
   }
 
   // actualizarPassword(id: number, password: any): Observable<any>{

@@ -188,6 +188,14 @@ const routes: Routes = [
     path: 'qr',
     loadChildren: () => import('./pages/modals/qr/qr.module').then( m => m.QrPageModule)
   },
+  {
+    path: 'fotopreview',
+    loadChildren: () => import('./pages/modals/fotopreview/fotopreview.module').then( m => m.FotopreviewPageModule)
+  },
+  {
+    path: 'detalle-vehiculo',
+    loadChildren: () => import('./pages/modals/detalle-vehiculo/detalle-vehiculo.module').then( m => m.DetalleVehiculoPageModule)
+  },
 
 
 

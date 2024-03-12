@@ -28,8 +28,8 @@ export class EmpresaService {
     return respuesta;
   }
 
-  getEmpresabyId(id: number):Observable<Empresa[]>{
-    return this.http.get<Empresa[]>(this.baseURL+id+"/"+this.formato);
+  getEmpresabyId(id: number):Observable<Empresa>{
+    return this.http.get<Empresa>(this.baseURL+id+"/"+this.formato);
   }
 
   crearEmpresa(empresa: Empresa): Observable<any>{

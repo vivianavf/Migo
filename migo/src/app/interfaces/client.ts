@@ -9,4 +9,6 @@ export interface Client {
     telefono: string,
     estado: Number,
     id_usuario?: Number,
+    id_empresa?: Number,
+    id_campana?: Number,
 }
