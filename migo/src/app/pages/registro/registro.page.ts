@@ -15,6 +15,7 @@ import { PrivacidadPage } from '../modals/privacidad/privacidad.page';
 import { DatosRegistroPage } from '../modals/datos-registro/datos-registro.page';
 import { Client } from 'src/app/interfaces/client';
 import { ClienteService } from 'src/app/providers/cliente.service';
+import { RegistroConductorService } from 'src/app/providers/registro-conductor.service';
 
 @Component({
   selector: 'app-registro',
@@ -22,7 +23,6 @@ import { ClienteService } from 'src/app/providers/cliente.service';
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-
   ionSelectElement!: HTMLIonSelectElement;
   formularioRegistro: FormGroup;
 
@@ -69,6 +69,7 @@ export class RegistroPage implements OnInit {
     private userService: UsersService,
     private clienteService: ClienteService,
     private modalController: ModalController,
+    private regConductorService: RegistroConductorService,
   ) {
     this.formularioRegistro = this.fb.group({
       cedula: new FormControl('', [Validators.required]),
@@ -87,8 +88,7 @@ export class RegistroPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  registrarse() {
-
+  registrarse(rol: string) {
     !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       this.correoInput
     )
@@ -98,12 +98,7 @@ export class RegistroPage implements OnInit {
     this.cedulaEsValida(this.cedulaInput); //retorna un booolean
     this.camposCompletos();
     this.esMayordeEdad(this.fechaInput);
-    this.aceptoTerminos()
-
-    // console.log(this.cedulaNoValida);
-    // console.log(this.camposVacios)
-    // console.log(this.fechaInvalida)
-    // console.log(this.terminosNoAceptados)
+    this.aceptoTerminos();
 
     if (
       !this.cedulaExiste() &&
@@ -111,43 +106,55 @@ export class RegistroPage implements OnInit {
       !this.camposVacios &&
       !this.fechaInvalida &&
       !this.terminosNoAceptados &&
-      // this.cedulaEsValida(this.cedulaInput) &&
-      // this.camposCompletos() &&
       !this.usuarioExiste() &&
-      // this.esMayordeEdad(this.fechaInput) &&
       this.passwordCoincide(this.inputValue, this.inputValue2) &&
-      // this.aceptoTerminos() &&
       !this.emailInvalido
     ) {
-      // console.log("puedo registrarme")
+      switch (rol) {
+        case 'principal':
+          const nuevoIDusuario =
+            Number(this.users[this.users.length - 1].id_usuario) + 1;
+          this.usuario = {
+            id_usuario: nuevoIDusuario,
+            email: this.correoInput,
+            placa: '',
+            contrasena: this.inputValue,
+            fecha_creacion: new Date().toISOString().split('T')[0],
+            fecha_modificacion: new Date().toISOString().split('T')[0],
+            estado: 1,
+            rol_usuario: 2, //chofer
+          };
 
-      const nuevoIDusuario = Number(this.users[this.users.length-1].id_usuario)+1
-
-      this.usuario = {
-        id_usuario: nuevoIDusuario,
-        email: this.correoInput,
-        placa: '',
-        contrasena: this.inputValue,
-        fecha_creacion: new Date().toISOString().split('T')[0],
-        fecha_modificacion: new Date().toISOString().split('T')[0],
-        estado: 1,
-        rol_usuario: 2, //chofer
-      };
-
-      this.cliente = {
-        cedula_cliente: this.cedulaInput,
-        nombre: this.nombresInput,
-        apellido: this.apellidosInput,
-        fecha_nacimiento: this.fechaInput,
-        email: this.correoInput,
-        sexo: +this.sexoInput,
-        telefono: this.telefonoInput,
-        estado: 1,
-        id_usuario: nuevoIDusuario,
-      };
-
-      
-      this.mostrarDatos();
+          this.cliente = {
+            cedula_cliente: this.cedulaInput,
+            nombre: this.nombresInput,
+            apellido: this.apellidosInput,
+            fecha_nacimiento: this.fechaInput,
+            email: this.correoInput,
+            sexo: +this.sexoInput,
+            telefono: this.telefonoInput,
+            estado: 1,
+            id_usuario: nuevoIDusuario,
+          };
+          this.mostrarDatos();
+          break;
+        case 'conductor':
+          const nuevoIDusuario2 =
+            Number(this.users[this.users.length - 1].id_usuario) + 1;
+          this.usuario = {
+            id_usuario: nuevoIDusuario2,
+            email: this.correoInput,
+            placa: '',
+            contrasena: this.inputValue,
+            fecha_creacion: new Date().toISOString().split('T')[0],
+            fecha_modificacion: new Date().toISOString().split('T')[0],
+            estado: 1,
+            rol_usuario: 2, //chofer
+          };
+          this.regConductorService.setConductor(this.usuario);
+          this.router.navigate(['/registro-conductor']);
+          break;
+      }
     }
   }
 
@@ -185,17 +192,17 @@ export class RegistroPage implements OnInit {
     if (/^\d{10}$/.test(cedula)) {
       const digitos: number[] = cedula.split('').map(Number);
       const codigoProvincia: number = Number(cedula.substring(0, 2));
-  
+
       // Verificar que el código de provincia sea válido
       if (
         (codigoProvincia >= 1 && codigoProvincia <= 24) ||
         codigoProvincia === 30
       ) {
-        const digitoVerificador= digitos.pop();
-  
+        const digitoVerificador = digitos.pop();
+
         // Calcular el dígito verificador
         const coeficientes: number[] = [2, 1, 2, 1, 2, 1, 2, 1, 2];
-  
+
         let suma = 0;
         for (let i = 0; i < digitos.length; i++) {
           let valorActual = digitos[i];
@@ -208,18 +215,17 @@ export class RegistroPage implements OnInit {
         }
 
         let digitoCalculado: number = 10 - (suma % 10);
-      if (digitoCalculado === 10) {
-        digitoCalculado = 0;
+        if (digitoCalculado === 10) {
+          digitoCalculado = 0;
+        }
+
+        return digitoCalculado === digitoVerificador;
       }
-
-      return digitoCalculado === digitoVerificador;
     }
-  }
 
-  // Establecer cedulaNoValida en true si la cédula no es válida
-  this.cedulaNoValida = true;
-  return false;
-
+    // Establecer cedulaNoValida en true si la cédula no es válida
+    this.cedulaNoValida = true;
+    return false;
   }
 
   passwordCoincide(contra1: string, contra2: string) {
@@ -320,11 +326,9 @@ export class RegistroPage implements OnInit {
     return await modal.present();
   }
 
-  
-
   ngOnInit() {
     this.users = this.userService.usersObtenidos;
     this.clientes = this.clienteService.clientesObtenidos;
-    this.formularioRegistro.reset()
+    this.formularioRegistro.reset();
   }
 }

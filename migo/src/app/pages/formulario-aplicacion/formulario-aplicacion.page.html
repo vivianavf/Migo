@@ -31,24 +31,48 @@
       <p class="white-text">Licencia de Conducir:</p>
       <input
         type="file"
-        name="inputfile"
-        (change)="onFileChange($event)"
+        name="inputfile-lic"
+        (change)="onFileChange($event, 'licencia')"
         accept=".pdf"
-        id="getFile"
+        id="getFileLic"
         style="display: none"
       />
 
       <div class="fileName">
         <ion-button
-          onclick="document.getElementById('getFile').click()"
+          onclick="document.getElementById('getFileLic').click()"
           class="capitalize subir-archivo"
           
           >Subir Archivo</ion-button
         >
-        <ion-text *ngIf="showName" id="file-name"
+        <ion-text *ngIf="showLicencia" id="file-name"
           >Formato admitido: (.pdf)</ion-text
         >
-        <ion-text id="nombreArchivo">{{nombreArchivo}}</ion-text>
+        <ion-text id="archivoLicencia">{{archivoLicencia}}</ion-text>
+      </div>
+    </div>
+    <div class="licencia-container">
+      <p class="white-text">Matrícula:</p>
+      <input
+        type="file"
+        name="inputfile-matr"
+        (change)="onFileChange($event, 'matricula')"
+        accept=".pdf"
+        id="getFileMatr"
+        style="display: none"
+      />
+
+      <div class="fileName">
+        <ion-button
+          onclick="document.getElementById('getFileMatr').click()"
+          class="capitalize subir-archivo"
+          
+          >Subir Archivo</ion-button
+        >
+        <ion-text *ngIf="showMatricula" id="file-name"
+          >Formato admitido: (.pdf)</ion-text
+        >
+        <ion-text id="archivoMatricula">{{archivoMatricula}}</ion-text>
       </div>
     </div>
     <div class="formulario">

@@ -196,6 +196,10 @@ const routes: Routes = [
     path: 'detalle-vehiculo',
     loadChildren: () => import('./pages/modals/detalle-vehiculo/detalle-vehiculo.module').then( m => m.DetalleVehiculoPageModule)
   },
+  {
+    path: 'registro-conductor',
+    loadChildren: () => import('./pages/registro-conductor/registro-conductor.module').then( m => m.RegistroConductorPageModule)
+  },
 
 
 

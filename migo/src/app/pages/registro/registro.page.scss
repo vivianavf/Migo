@@ -84,10 +84,6 @@ ion-input.custom, ion-item{
     font-size: smaller;
   }
 
-  ion-select {
-    z-index: 1;
-  }
-
   ion-button.button{
       width: 50%;
       padding-top: 5%;
@@ -123,7 +119,7 @@ ion-input.custom, ion-item{
     
   }
 
-  div.buttons{
+  .buttons{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -140,16 +136,21 @@ ion-input.custom, ion-item{
 
   ion-select::part(text) {
     color: black;
+    width: 100%;
   }
+
+  ion-select::part(container){
+    width: 100%;
+    padding-left: 5%;
+  }
+
+ion-select::part(icon){
+  padding-right: 5%;
+}
 
   .terms a {
     text-decoration: underline; /* Subrayado */
     font-weight: bold; /* Negrita */
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: center;
   }
 
   .item-inner {
@@ -163,11 +164,3 @@ ion-input.custom, ion-item{
   // .input-item ion-input, .item-native{
   //   height: 17px;
   // }
-
-  ::part(native){
-    padding-right: 0;
-  }
-
-  ::part(native) > .item-inner {
-    padding-right: 0;
-  }

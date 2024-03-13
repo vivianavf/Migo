@@ -19,11 +19,11 @@
   </div>
 
   <ion-item-divider color="primary">
-    <ion-title>Informacion vehicular</ion-title>
+    <ion-title>Informacion del conductor</ion-title>
   </ion-item-divider>
 
   <form>
-    <div class="first-form">
+    <div class="conductor-form">
       <ion-item [class.invalid-border]="isInvalidField('Nombre')">
         <ion-label>Nombre del Conductor</ion-label>
         <ion-input
@@ -53,6 +53,12 @@
           enterkeyhint="next"
         ></ion-input>
       </ion-item>
+    </div>
+
+    <div class="vehiculo-form">
+      <ion-item-divider color="primary">
+        <ion-title>Informacion del vehículo</ion-title>
+      </ion-item-divider>
 
       <ion-item [class.invalid-border]="isInvalidField('Placa')">
         <ion-label>Placa</ion-label>
@@ -137,7 +143,7 @@
       </ion-item>
     </div>
 
-    <div class="second-form">
+    <div class="fotos-form">
       <ion-item-divider color="primary">
         <ion-title>Fotos del vehículo</ion-title>
       </ion-item-divider>

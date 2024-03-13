@@ -73,8 +73,10 @@ export class FormularioAplicacionPage implements OnInit {
   campana!: Campana;
   vehiculos: Vehiculo[] = [];
   vehiculosUsuario: Vehiculo[] = [];
-  nombreArchivo = '';
-  showName = true;
+  archivoLicencia = '';
+  archivoMatricula = '';
+  showLicencia = true;
+  showMatricula= true;
 
   entidadBancaria = 'Entidad Bancaria';
   tipoCuenta = 'Tipo de Cuenta';
@@ -264,10 +266,19 @@ export class FormularioAplicacionPage implements OnInit {
     this.elegirVehiculoService.eliminarVehiculo();
   }
 
-  onFileChange(fileChangeEvent: any) {
+  onFileChange(fileChangeEvent: any, tipo: string) {
     this.file = fileChangeEvent.target.files[0];
-    this.nombreArchivo = this.file.name;
-    this.showName = false;
+    switch(tipo){
+      case 'licencia':
+        this.archivoLicencia = this.file.name;
+        this.showLicencia = false;
+        break;
+      case 'matricula':
+        this.archivoMatricula = this.file.name;
+        this.showMatricula = false;
+        break;
+    }    
+    
   }
 
   handleInput(event: any) {
@@ -363,7 +374,7 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   archivoExiste() {
-    this.nombreArchivo.length > 0
+    this.archivoLicencia.length > 0
       ? (this.archivoVacio = false)
       : (this.archivoVacio = true);
     return this.archivoVacio;

@@ -34,13 +34,11 @@ ion-title{
     padding-left: 0;
 }
 
-.first-form{
+.conductor-form{
     display: flex;
     flex-direction: column;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 ion-input{
@@ -55,6 +53,10 @@ ion-select:host{
 }
 
 ion-select:host(:not(.legacy-select)){
+    min-height: 30px;
+}
+
+ion-select{
     min-height: 30px;
 }
 

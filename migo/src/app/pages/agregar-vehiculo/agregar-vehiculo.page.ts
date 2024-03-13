@@ -15,6 +15,8 @@ import { ModeloVehiculo } from 'src/app/interfaces/modelo-vehiculo';
 import { Observable } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 import { FotopreviewPage } from '../modals/fotopreview/fotopreview.page';
+import { Email } from 'src/app/interfaces/email';
+import { HttpserviceService } from 'src/app/providers/httpservice.service';
 
 
 interface FormFields {
@@ -25,10 +27,10 @@ interface FormFields {
   Marca: number;
   Modelo: number;
   FotoFrontal: string | Photo;
-  FotoTrasera: string | Photo;
-  FotoIzquierda: string | Photo;
-  FotoDerecha: string | Photo;
-  FotoTecho: string | Photo;
+  FotoTrasera:  string | Photo;
+  FotoIzquierda:  string | Photo;
+  FotoDerecha:  string | Photo;
+  FotoTecho:  string | Photo;
 }
 
 
@@ -45,11 +47,11 @@ export class AgregarVehiculoPage implements OnInit {
     anio: '',
     Marca: 0,
     Modelo: 0,
-    FotoFrontal: '',
-    FotoTrasera: '',
-    FotoIzquierda: '',
-    FotoDerecha: '',
-    FotoTecho: '',
+    FotoFrontal: "",
+    FotoTrasera: "",
+    FotoIzquierda: "",
+    FotoDerecha: "",
+    FotoTecho: "",
   };
 
   attemptedSubmit: boolean = false;
@@ -80,7 +82,8 @@ export class AgregarVehiculoPage implements OnInit {
     private vehiculoService: VehiculoService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private _http: HttpserviceService,
   ) {}
 
   ngOnInit() {
@@ -114,6 +117,18 @@ export class AgregarVehiculoPage implements OnInit {
     modal.present();
   }
 
+  enviarCorreo(inputEmail:string){
+    var email: Email = {
+      code: "",
+      message: "",
+      subject: "Un nuevo vehículo ha sido agregado a su cuenta",
+      recipient_list : [inputEmail]
+    }
+    this._http.requestCall(email).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   submitForm() {
     // Marcamos que se ha intentado enviar el formulario
     this.attemptedSubmit = true;
@@ -130,13 +145,13 @@ export class AgregarVehiculoPage implements OnInit {
         telefono_conductor: Number.parseInt(this.formFields.Telefono),
         placa: this.formFields.Placa,
         anio: Number.parseInt(this.formFields.anio),
-        categoria_vehiculo: 1, /////////
-        color_vehiculo: 1, ////////////
-        imagen_izq: this.srcIzquierda,
-        imagen_der: this.srcDerecha,
-        imagen_frontal: this.srcFrontal,
-        imagen_trasera: this.srcTrasera,
-        imagen_techo: this.srcAerea,
+        categoria_vehiculo: "suv", ///////// agregar como ion-select
+        color_vehiculo: "Negro", //////////// agregar como ion-select
+        imagen_izq: this.formFields.FotoIzquierda,
+        imagen_der: this.formFields.FotoDerecha,
+        imagen_frontal: this.formFields.FotoFrontal,
+        imagen_trasera: this.formFields.FotoTrasera,
+        imagen_techo: this.formFields.FotoTecho,
         estado: 1,
         id_cliente: 1, //////////
         id_marca: this.formFields.Marca,
@@ -153,6 +168,8 @@ export class AgregarVehiculoPage implements OnInit {
       //   console.log(data);
       // });
       console.log('Formulario enviado:', this.formFields);
+      // this.enviarCorreo()
+
     }
 
     // Aquí puedes agregar la lógica para enviar los datos a tu servidor o realizar otras acciones

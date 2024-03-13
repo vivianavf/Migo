@@ -27,93 +27,94 @@
 
 @import "./theme/variables.scss";
 
-ion-card, ion-footer{
-    --ion-background-color: transparent;
-    box-shadow: none !important;
+ion-card,
+ion-footer {
+  --ion-background-color: transparent;
+  box-shadow: none !important;
 }
 
 /** Color fondos **/
-body{
+body {
   background: var(--ion-background-color);
 }
 
-ion-content:host{
+ion-content:host {
   --background: white;
 }
 
 /** Color titulos **/
-.form-title{
+.form-title {
   color: var(--ion-text-color);
   font-size: medium;
 }
 
-.title-container{
+.title-container {
   border-bottom: 1px solid var(--ion-text-color);
 }
 
 /** Color textos **/
 
-ion-text{
+ion-text {
   --color: var(--ion-text-color);
   color: var(--ion-text-color);
 }
 
-ion-input{
+ion-input {
   --color: var(--ion-input-text-color);
 }
 
-ion-item.clear-input-item{
+ion-item.clear-input-item {
   --border: 1px solid var(--ion-input-text-color);
   --border-color: var(--ion-input-text-color);
 }
 
-.side-icon{
+.side-icon {
   color: var(--ion-side-icon-color);
 }
 
-.side-icon-contrast{
+.side-icon-contrast {
   color: var(--ion-side-icon-color2);
   --color: var(--ion-side-icon-color2);
 }
 
-.orange-color-contrast{
+.orange-color-contrast {
   color: var(--ion-color-warning);
   --color: var(--ion-color-warning);
 }
 
-.white-text{
+.white-text {
   --color: white;
   color: white;
 }
 
-.black-text{
+.black-text {
   --color: black;
   color: black;
 }
 
-.white-background{
+.white-background {
   background-color: white;
   --background: white;
   --background-color: white;
 }
 
-.black-background{
+.black-background {
   background-color: black;
   --background: black;
   --background-color: black;
 }
 
-.primary-background{
+.primary-background {
   background-color: var(--ion-color-primary);
   --background: var(--ion-color-primary);
   --background-color: var(--ion-color-primary);
 }
 
-.form-label{
+.form-label {
   --color: var(--ion-text-color);
 }
 
-a{
+a {
   text-decoration: none;
   color: var(--ion-text-color);
 }
@@ -121,233 +122,240 @@ a{
 .terms > a {
   text-decoration: underline; /* Subrayado */
   font-weight: bold; /* Negrita */
-  color:  var(--ion-text-color);
+  color: var(--ion-text-color);
 }
 
-.datosincorrectos{
-  color : var(--ion-color-danger);
+.datosincorrectos {
+  color: var(--ion-color-danger);
 }
 
 /** Color objetos **/
-ion-checkbox{
+ion-checkbox {
   --border-color: #ffffff;
 }
 
-ion-button{
-  --ion-font-weight:bold;
+ion-button {
+  --ion-font-weight: bold;
   --color: black;
   --color-activated: white;
   --background-activated: black;
 }
 
-.contrast-button{
+.contrast-button {
   --background: var(--ion-color-warning);
   --color: var(--ion-text-color);
 }
 
-ion-toolbar{
-    padding-top: 10%;
-    padding-left: 5%;
+ion-toolbar {
+  padding-top: 2%;
+  display: flex;
+  text-align: center;
+}
+
+ion-toolbar > ion-buttons {
+  height: 48px;
+  width: 48px;
 }
 
 ion-toolbar > ion-title {
-    width: fit-content;
-    padding-left: 20%;
+  width: 100%;
+  padding-right: 48px;
 }
 
-.msg-icon{
-    width: 30%;
-    height: 30%;
+.msg-icon {
+  width: 30%;
+  height: 30%;
 }
-
-
 
 /** Tamaños de fuente **/
 
-.size-small{
-    font-size: 15px;
+.size-small {
+  font-size: 15px;
 }
 
 .size-smaller {
-    font-size: 10px;
+  font-size: 10px;
 }
 
-.normal-radius{
-  --border-radius:10px;
+.normal-radius {
+  --border-radius: 10px;
 }
 
-.rounded-button{
+.rounded-button {
   --border-radius: 20px;
 }
 
+ion-modal.terms {
+  --height: 75%;
+  --width: 90%;
+}
 
+ion-modal.vehiculos-modal {
+  --height: 200px;
+  --width: 300px;
+  --border-radius: 20px;
+  --background: white;
+}
 
-ion-modal.terms{
-    --height: 75%;
-    --width: 90%;
-  }
+ion-modal.fotopreview {
+  --height: 600px;
+  --width: 400px;
+  --border-radius: 20px;
+  --background: white;
+}
 
-  ion-modal.vehiculos-modal{
-    --height: 200px;
-    --width: 300px;
-    --border-radius: 20px;
-    --background: white;
-  }
+ion-modal.detalle-vehiculo {
+  --height: 600px;
+  --width: 90%;
+  --border-radius: 20px;
+  --background: white;
+}
 
-  ion-modal.fotopreview{
-    --height: 600px;
-    --width: 400px;
-    --border-radius: 20px;
-    --background: white;
-  }
+ion-modal.deleteVehiculoConfirmation {
+  --height: 300px;
+  --width: 90%;
+  --border-radius: 20px;
+  --background: white;
+}
 
-  ion-modal.detalle-vehiculo{
-    --height: 600px;
-    --width: 90%;
-    --border-radius: 20px;
-    --background: white;
-  }
+ion-modal.conductor-modal {
+  --height: 400px;
+  --width: 95%;
+  --border-radius: 20px;
+  --background: white;
+}
 
-  ion-modal.deleteVehiculoConfirmation{
-    --height: 300px;
-    --width: 90%;
-    --border-radius: 20px;
-    --background: white;
-  }
+.qr-modal {
+  --height: 75%;
+  --width: 90%;
+  --border-radius: 20px;
+  --background: white;
+}
 
-  .qr-modal{
-    --height: 75%;
-    --width: 90%;
-    --border-radius: 20px;
-    --background: white;
-  }
+.ion-black-text {
+  --color: black;
+}
 
-  .ion-black-text{
-    --color:black;
-  }
+.black-text {
+  color: black;
+}
 
-  .black-text{
-    color: black;
-  }
-  
-  ion-input.custom.ios .input-bottom .helper-text,
-  ion-input.custom.ios .input-bottom .counter,
-  ion-input.custom.md .input-bottom .helper-text,
-  ion-input.custom.md .input-bottom .counter {
-    color: var(--ion-color-primary);
-  }
+ion-input.custom.ios .input-bottom .helper-text,
+ion-input.custom.ios .input-bottom .counter,
+ion-input.custom.md .input-bottom .helper-text,
+ion-input.custom.md .input-bottom .counter {
+  color: var(--ion-color-primary);
+}
 
-  .uppercase-text {
-    text-transform: uppercase;
-  }
+.uppercase-text {
+  text-transform: uppercase;
+}
 
-  .capitalize{
-    text-transform: capitalize;
-  }
+.capitalize {
+  text-transform: capitalize;
+}
 
-  .bold-text {
-    font-weight: bold;
-  }
-  
-  .ad{
-    background-color: transparent;
-    // color: black;
-    text-align: center;
-    overflow: hidden;
-    height: 100px;
-  }
+.bold-text {
+  font-weight: bold;
+}
 
-  .img-ad{
-    width: 100%;
-    // height: inherit;
-    // object-position: -0px -106px;
-  }
+.ad {
+  background-color: transparent;
+  // color: black;
+  text-align: center;
+  overflow: hidden;
+  height: 100px;
+}
 
-  //shadow
+.img-ad {
+  width: 100%;
+  // height: inherit;
+  // object-position: -0px -106px;
+}
 
-#select-label{
-    min-height: 25px;
-  }
+//shadow
+
+#select-label {
+  min-height: 25px;
+}
 
 //ion select option
 
-ion-list.sc-ion-select-popover.md{
+ion-list.sc-ion-select-popover.md {
   background-color: white;
 }
 
-ion-item.select-interface-option::part(native){
+ion-item.select-interface-option::part(native) {
   background-color: white;
-  color: black
+  color: black;
 }
 
-ion-list.sc-ion-select-popover-md{
-    background-color: white;
-    // border-radius: 20px;
+ion-list.sc-ion-select-popover-md {
+  background-color: white;
+  // border-radius: 20px;
 }
 
-.segment-button-checked{
-    background-color: rgba(111,111,111,1);
+.segment-button-checked {
+  background-color: rgba(111, 111, 111, 1);
 }
 
+//alert in change password
+ion-alert.passwordAlert {
+  --background: white;
+  --backdrop-opacity: 0.4;
+  --border-radius: 15px;
+  --color: black;
+  .alert-button {
+    background-color: var(--ion-color-primary);
+    border-radius: 10px;
+    color: black;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+}
 
-  //alert in change password
-  ion-alert.passwordAlert{
-    --background: white;
-    --backdrop-opacity: 0.4;
-    --border-radius: 15px;
-    --color:black;
-    .alert-button{
-        background-color: var(--ion-color-primary);
-        border-radius: 10px;
-        color: black;
-        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-      }    
+//alert in notifications
+ion-alert.notificationsAlert {
+  --background: white;
+  --backdrop-opacity: 0.4;
+  --border-radius: 15px;
+  // --color:red;
+  h2.alert-title {
+    color: black;
+  }
+  .alert-message {
+    color: red;
+  }
+  .alert-wrapper {
+    border-radius: 15px;
+  }
+  // .alert-button{
+  //     background-color: var(--ion-color-primary);
+  //     border-radius: 10px;
+  //     color: black;
+  //     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  //   }
+
+  .cancelarButton {
+    // background-color: var(--ion-color-primary);
+    // border-radius: 5px;
+    color: black;
+    // box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1);
   }
 
-  //alert in notifications
-  ion-alert.notificationsAlert{
-    --background: white;
-    --backdrop-opacity: 0.4;
-    --border-radius: 15px;
-    // --color:red;
-    h2.alert-title{
-      color: black;
-    }
-    .alert-message{
-      color: red;
-    }
-    .alert-wrapper{
-      border-radius: 15px;
-    }
-    // .alert-button{
-    //     background-color: var(--ion-color-primary);
-    //     border-radius: 10px;
-    //     color: black;
-    //     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    //   }    
-
-      .cancelarButton{
-        // background-color: var(--ion-color-primary);
-        // border-radius: 5px;
-        color: black;
-        // box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1);
-      }  
-
-      .YesButton{
-        background-color: var(--ion-color-primary);
-        border-radius: 5px;
-        color: black;
-        box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1);
-      }  
+  .YesButton {
+    background-color: var(--ion-color-primary);
+    border-radius: 5px;
+    color: black;
+    box-shadow: 2px 2px 1px 1px rgba(0, 0, 0, 0.1);
   }
+}
 
-
-ion-input.addVehiculoInput > input{
+ion-input.addVehiculoInput > input {
   --pading-top: 0px;
   --padding-bottom: 0px;
 }
 
-.legacy-input.sc-ion-input-md-h .native-input.sc-ion-input-md{
+.legacy-input.sc-ion-input-md-h .native-input.sc-ion-input-md {
   --pading-top: 0px;
   --padding-bottom: 0px;
 }

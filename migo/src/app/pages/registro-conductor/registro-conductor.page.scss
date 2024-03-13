@@ -1,0 +1,23 @@
+@import url('../../../theme/variables.scss');
+
+.title{
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+ion-title.main-title{
+    max-width: max-content;
+    margin: 0;
+    padding: 0;
+    text-align: end;
+    font-size: x-large;
+}
+
+ion-icon#help-trigger{
+    height: 25px;
+    width: 25px;
+    margin-left: 2px;
+    color: var(--ion-color-primary);
+}

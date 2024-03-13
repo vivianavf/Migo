@@ -1,0 +1,41 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button
+      default-href="#"
+      text=""
+      icon="chevron-back"
+    ></ion-back-button>
+  </ion-buttons>
+  <ion-title>CONDUCTOR</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <div class="title">
+    <ion-title class="main-title" size="x-large">Registrarse como Conductor</ion-title>
+    <ion-icon id="help-trigger" name="help-circle-outline"></ion-icon>
+    <ion-popover trigger="help-trigger" triggerAction="click">
+      <ng-template>
+        <ion-content class="ion-padding">Hello World!</ion-content>
+      </ng-template>
+    </ion-popover>
+  </div>
+
+  <form>
+    <ion-text> Buscar Por Número de Cédula</ion-text>
+    <ion-input></ion-input>
+    <ion-button (click)="buscar()">Buscar</ion-button>
+    <!-- poner al ladito la lupita de buscar -->
+
+    <ion-text>No se encuentra a la persona</ion-text>
+    <ion-text
+      >Usted se va a registrar como conductor de --- persona ---
+    </ion-text>
+
+    <ion-button> Registrase </ion-button>
+  </form>
+
+  <div class="confirmacion">
+    <ion-text>Ahora usted pertenece a la unidad de ---persona ----</ion-text>
+    <ion-button (click)="irInicio()">Aceptar</ion-button>
+  </div>
+</ion-content>
