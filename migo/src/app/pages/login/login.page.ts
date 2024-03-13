@@ -15,8 +15,7 @@ import { PrivacidadPage } from '../modals/privacidad/privacidad.page';
 import { TerminosCondicionesPage } from '../modals/terminos-condiciones/terminos-condiciones.page';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { TabsService } from 'src/app/providers/tabs.service';
-
-import { sha224, sha256 } from 'js-sha256';
+import { sha256 } from 'js-sha256';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +29,7 @@ export class LoginPage implements OnInit {
   inputValue: string = '';
   inputType: string = '';
   mostrarMensaje: boolean = false;
+  logearse: boolean = false;
   emailInvalido: boolean = false;
   users: User[] = [];
   clients: Client[] = [];
@@ -52,7 +52,6 @@ export class LoginPage implements OnInit {
   }
 
   ingresar() {
-    this.tabService.showTabs();
     var f = this.formularioLogin.value;
     var inputEmail = f.email;
     var inputPassword = f.password;
@@ -70,19 +69,23 @@ export class LoginPage implements OnInit {
       ({ contrasena }) => contrasena === inputPassword
     );
     const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
-    
     if (busquedaEmail && busquedaPassword && clientBusqueda) {
       console.log(inputPassword)
       this.userService.ingresarUsuario(busquedaEmail);
       this.clientService.ingresarCliente(clientBusqueda);
   
-      // this.router.navigate(['/home']);
-      this.navCtrl.navigateRoot('/home');
       this.formularioLogin.reset();
       this.mostrarMensaje = false;
+      this.logearse = true;
     } else {
       this.mostrarMensaje = true;
       console.log(inputPassword)
+    }
+    console.log("logearse: ",this.logearse);
+    if (this.logearse) {
+      console.log("entro")
+      this.tabService.showTabs();
+      this.navCtrl.navigateRoot('/home');
     }
   }
 

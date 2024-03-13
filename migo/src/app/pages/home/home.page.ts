@@ -110,7 +110,7 @@ export class HomePage implements OnInit {
       cssClass: 'notificaciones',
     });
 
-    // return await modal.present();
+     return await modal.present();
   }
 
   ngOnInit() {
