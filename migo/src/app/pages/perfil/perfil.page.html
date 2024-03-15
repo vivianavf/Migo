@@ -9,34 +9,34 @@
 
   <div class="icon-name-email">
     <ion-img id="user-icon" src="../../../assets/iconos-migo/03.png"></ion-img>
-    <ion-text>NOMBRE APELLIDO</ion-text>
-    <ion-text>example@gmail.com</ion-text>
+    <ion-text class="capitalize">{{perfil.nombre}} {{perfil.apellido}}</ion-text>
+    <ion-text>{{perfil.email}}</ion-text>
   </div>
 
   <div class="user-information">
-    <ion-item class="info"><ion-text>Información Personal</ion-text> </ion-item>
-    <ion-item class="info"
-      ><ion-text class="label">Número de Cédula</ion-text>
-      <ion-text class="value">099999999</ion-text></ion-item
+    <div class="info"><ion-text>Información Personal</ion-text> </div>
+    <div class="info"
+      ><ion-text class="label">Cédula</ion-text>
+      <ion-text class="value">{{perfil.cedula}}</ion-text></div
     >
-    <ion-item class="info"
+    <div class="info"
       ><ion-text class="label">Teléfono</ion-text>
-      <ion-text class="value">099999999</ion-text></ion-item
+      <ion-text class="value">{{perfil.telefono}}</ion-text></div
     >
-    <ion-item class="info"
+    <div class="info"
       ><ion-text class="label">Sexo</ion-text>
-      <ion-text class="value">099999999</ion-text></ion-item
+      <ion-text class="value">{{perfil.sexo}}</ion-text></div
     >
-    <ion-item class="info"
+    <div class="info"
       ><ion-text class="label">Fecha de Creación</ion-text>
-      <ion-text class="value">099999999</ion-text></ion-item
+      <ion-text class="value">{{perfil.fecha_creacion}}</ion-text></div
     >
   </div>
 
   <div class="button-container">
-    <ion-button (click)="modificarContrasena()"
+    <ion-button class="perfilButton" (click)="modificarContrasena()"
       >Modificar Contraseña</ion-button
     >
-    <ion-button (click)="eliminarCuenta()">Eliminar Cuenta</ion-button>
+    <ion-button class="perfilButton" (click)="eliminarCuenta()">Eliminar Cuenta</ion-button>
   </div>
 </ion-content>

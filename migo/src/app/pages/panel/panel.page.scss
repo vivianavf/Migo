@@ -36,11 +36,12 @@ capacitor-google-map {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    // height: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card:host{
+    margin-inline: 0;
   }
 
   // ion-content::part(scroll){

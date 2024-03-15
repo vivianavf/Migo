@@ -234,7 +234,7 @@ ion-modal.conductor-modal {
 
 ion-content.bannerContent::part(background){
   background: none;
-}ß
+}
 
 .ion-black-text {
   --color: black;
@@ -242,6 +242,10 @@ ion-content.bannerContent::part(background){
 
 .black-text {
   color: black;
+}
+
+.marginContent{
+  margin: 25px;
 }
 
 ion-input.custom.ios .input-bottom .helper-text,

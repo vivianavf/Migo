@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
+import { ChoferService } from './chofer.service';
+import { ClienteService } from './cliente.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,11 @@ export class UsersService {
   // private user!: User;
   public usersObtenidos: User[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private choferService: ChoferService,
+    private clienteService: ClienteService
+  ) {}
 
   getUsers(): Observable<User[]> {
     var respuesta = this.http.get<User[]>(this.baseURL + this.formato);
@@ -87,5 +93,61 @@ export class UsersService {
     };
     return usuarioactivo;
     // return this.user;
+  }
+
+  sexoString(sexo: number): string {
+    switch (sexo) {
+      case 1:
+        return 'Masculino';
+        break;
+      case 2:
+        return 'Femenino';
+        break;
+      case 3:
+        return 'Prefiero No Decir';
+        break;
+    }
+
+    return '';
+  }
+
+  esChoferOCliente() {
+    switch (this.usuarioActivo().rol_usuario) {
+      case 2: //es chofer
+        return {
+          id_chofer: this.choferService.choferActivo().id_chofer,
+          nombre: this.choferService.choferActivo().nombre.toString(),
+          apellido: this.choferService.choferActivo().apellido.toString(),
+          fecha_nacimiento: this.choferService.choferActivo().fecha_nacimiento,
+          fecha_creacion: this.usuarioActivo().fecha_creacion,
+          email: this.usuarioActivo().email!,
+          cedula: this.choferService.choferActivo().cedula_chofer.toString(),
+          telefono: '...',
+          sexo: this.sexoString(this.choferService.choferActivo().sexo),
+        };
+        break;
+      case 5: //es cliente
+        return {
+          id_cliente: this.clienteService.clienteActivo().id_cliente,
+          nombre: this.clienteService.clienteActivo().nombre.toString(),
+          apellido: this.clienteService.clienteActivo().apellido.toString(),
+          fecha_nacimiento: this.clienteService.clienteActivo().fecha_nacimiento,
+          fecha_creacion: this.usuarioActivo().fecha_creacion,
+          email: this.usuarioActivo().email!,
+          cedula: this.clienteService.clienteActivo().cedula_cliente.toString(),
+          telefono: this.clienteService.clienteActivo().telefono,
+          sexo: this.sexoString(this.clienteService.clienteActivo().sexo),
+        };
+        break;
+    }
+
+    return {
+      nombre: '...',
+      apellido: '...',
+      email: '...',
+      cedula: '...',
+      telefono: '...',
+      sexo: '...',
+    };
   }
 }
