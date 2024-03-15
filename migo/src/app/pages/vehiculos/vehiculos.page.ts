@@ -9,6 +9,7 @@ import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.servi
 import { UsersService } from 'src/app/providers/users.service';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { DetalleVehiculoPage } from '../modals/detalle-vehiculo/detalle-vehiculo.page';
+import { LocalstorageService } from 'src/app/providers/localstorage.service';
 
 @Component({
   selector: 'app-vehiculos',
@@ -35,6 +36,7 @@ export class VehiculosPage implements OnInit {
     private marcaService: MarcaVehiculoService,
     private modeloService: ModeloVehiculosService,
     private modalCtrl: ModalController,
+    private localStorageSrvc: LocalstorageService,
   ) {}
 
  
@@ -44,6 +46,9 @@ export class VehiculosPage implements OnInit {
   }
 
   async verMas(vehiculoSecundario: any){
+
+    console.log(this.vehiculos);
+
     const modal = await this.modalCtrl.create({
       component: DetalleVehiculoPage,
       cssClass: 'detalle-vehiculo',
@@ -69,38 +74,58 @@ export class VehiculosPage implements OnInit {
     this.vehiculosSecundarios.splice(index, 1);
   }
 
-  ngOnInit() {
-    
+  obtenerVehiculos(idCliente: number){
+    console.log("OBTENER VEHICULOS")
+    this.vehiculoService.getVehiculos().subscribe((data) => {
+      data.forEach((vehiculo) => {
+        if (vehiculo.id_cliente === idCliente) {
+          if (!(this.vehiculos.find(carro => carro.id_vehiculo === vehiculo.id_vehiculo))) {
+            this.vehiculos.push(vehiculo);
+          }
+        }
+      });
+
+      console.log(this.localStorageSrvc.obtenerVehiculosLocalStorage());
+
+      this.localStorageSrvc.obtenerVehiculosLocalStorage().forEach((vehiculo)=>{
+        if (!(this.vehiculos.find(carro => carro.id_vehiculo === vehiculo.id_vehiculo))) {
+          this.vehiculos.push(vehiculo);
+        }
+      })
+
+      console.log(this.vehiculos);
+
+      this.vehiculoPrincipal = this.vehiculos[0];
+      
+      //get Marca
+      this.marcaService.getMarcabyId(this.vehiculoPrincipal.id_marca).subscribe((data)=>{
+        this.marcaPrincipal = data.nombre;
+      });
+
+      //get Modelo
+      this.modeloService.getModelobyId(this.vehiculoPrincipal.id_modelo).subscribe((data) => {
+        this.modeloPrincipal = data.nombre;
+      })
+
+      this.vehiculosSecundarios = this.vehiculos.slice(1, this.vehiculos.length);
+      
+    });
+
+  }
+
+  ionViewDidEnter() {
     var idCliente = this.clientService.clienteActivo().id_cliente;
 
     if (idCliente) {
-      this.vehiculoService.getVehiculos();
-      // const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
+      this.obtenerVehiculos(idCliente);
+    }
+  }
 
-      this.vehiculoService.getVehiculos().subscribe((data) => {
-        // this.vehiculos = data;
-        data.forEach((vehiculo) => {
-          if (vehiculo.id_cliente === idCliente) {
-            this.vehiculos.push(vehiculo);
-          }
-        });
-        this.vehiculoPrincipal = this.vehiculos[0];
-        
-        //get Marca
-        this.marcaService.getMarcabyId(this.vehiculoPrincipal.id_marca).subscribe((data)=>{
-          this.marcaPrincipal = data.nombre;
-        });
+  ngOnInit() {
+    var idCliente = this.clientService.clienteActivo().id_cliente;
 
-        //get Modelo
-        this.modeloService.getModelobyId(this.vehiculoPrincipal.id_modelo).subscribe((data) => {
-          this.modeloPrincipal = data.nombre;
-        })
-
-        this.vehiculosSecundarios = this.vehiculos.slice(
-          1,
-          this.vehiculos.length - 1
-        );
-      });
+    if (idCliente) {
+      this.obtenerVehiculos(idCliente);
     }
   }
 

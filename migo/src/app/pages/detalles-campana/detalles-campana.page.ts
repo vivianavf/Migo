@@ -27,6 +27,7 @@ import { Sector } from 'src/app/interfaces/sector';
 // import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { SectorService } from 'src/app/providers/sector.service';
 import { GoogleMapsModule, MapPolygon } from '@angular/google-maps';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -72,7 +73,8 @@ export class DetallesCampanaPage implements OnInit {
     private clientService: ClienteService,
     private empresaService: EmpresaService,
     private sectorService: SectorService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toolbarService: ToolbarService
   ) {}
 
   async mostrarNotificaciones() {
@@ -99,46 +101,6 @@ export class DetallesCampanaPage implements OnInit {
   abrirFormulario() {
     this.navCtrl.navigateRoot('formulario-aplicacion');
   }
-
-  // Mapas con Capacitor
-  // async crearMapa(lat: number, lng: number){
-  //   this.map = await GoogleMap.create({
-  //     id: 'mapaSector',
-  //     element: document.getElementById('map')  as HTMLElement,
-  //     apiKey: 'AIzaSyDon5hzHRwL1069HmRZ7XVNREzQdwxV5zA',
-  //     config:{
-  //       center:{
-  //         lat: lat,
-  //         lng: lng,
-  //       },
-  //       zoom: 11,
-  //       streetViewControl: false,
-  //       disableDefaultUI: true,
-  //     }
-  //   })
-
-  //   this.addPolygons();
-  //   //addpolygons
-  // }
-
-  // async addPolygons(){
-  //   if(this.sector){
-  //     await this.sector.cerco_virtual.forEach((cercoVirtual)=>{
-  //       const polygon: Polygon = {
-  //         paths: [
-  //           cercoVirtual
-  //         ],
-  //         strokeColor: '#ffffff',
-  //         strokeWeight: 2,
-  //         fillColor: '#ff00ff',
-  //         fillOpacity: 0.35,
-  //       };
-
-  //       this.map.addPolygons([polygon]);
-  //       // this.poligonId = result[0];
-  //     })
-  //   }
-  // }
 
   generarDatos() {
     this.campana = this.campanaService.getCampanaActual();
@@ -189,7 +151,6 @@ export class DetallesCampanaPage implements OnInit {
       });
 
       // console.log(createdPolygon)
-      
     }
   }
 
@@ -220,6 +181,7 @@ export class DetallesCampanaPage implements OnInit {
   ngOnInit() {
     try {
       this.generarDatos();
+      this.toolbarService.setTexto('DETALLES DE CAMPANA');
       // this.crearSectores();
       // this.createMap();
     } catch (error) {

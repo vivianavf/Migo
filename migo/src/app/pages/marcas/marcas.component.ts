@@ -28,7 +28,7 @@ export class MarcasComponent  implements OnInit {
   contarCampanasActivas(idEmpresa: any){
     const campanasEmpresa = this.campanas.filter(
       (campana) => 
-        campana.id_empresa === Number(idEmpresa)
+        campana.id_empresa === idEmpresa
     );
 
     return campanasEmpresa.length;
@@ -37,7 +37,7 @@ export class MarcasComponent  implements OnInit {
   rangoTarifas(idEmpresa: any){
     const campanasEmpresa = this.campanas.filter(
       (campana) => 
-        campana.id_empresa === Number(idEmpresa)
+        campana.id_empresa === idEmpresa
     );
 
     var tarifaBase: number[] = []

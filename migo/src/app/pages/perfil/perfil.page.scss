@@ -1,0 +1,35 @@
+.icon-name-email{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#user-icon{
+    width: 250px;
+    height: 250px;
+}
+
+.user-information{
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+}
+
+.label{
+
+}
+
+.value{
+    background: white;
+    color: black;
+}

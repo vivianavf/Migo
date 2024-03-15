@@ -113,7 +113,7 @@ export class RegistroPage implements OnInit {
       switch (rol) {
         case 'principal':
           const nuevoIDusuario =
-            Number(this.users[this.users.length - 1].id_usuario) + 1;
+            this.users[this.users.length - 1].id_usuario + 1;
           this.usuario = {
             id_usuario: nuevoIDusuario,
             email: this.correoInput,
@@ -140,7 +140,7 @@ export class RegistroPage implements OnInit {
           break;
         case 'conductor':
           const nuevoIDusuario2 =
-            Number(this.users[this.users.length - 1].id_usuario) + 1;
+            this.users[this.users.length - 1].id_usuario + 1;
           this.usuario = {
             id_usuario: nuevoIDusuario2,
             email: this.correoInput,

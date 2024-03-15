@@ -22,7 +22,7 @@ export class ClienteService {
     return respuesta;
   }
 
-  getClientbyId(id: number): Observable<Client> {
+  getClientbyId(id?: number): Observable<Client> {
     return this.http.get<Client>(this.baseURL + id + '/' + this.formato);
   }
 

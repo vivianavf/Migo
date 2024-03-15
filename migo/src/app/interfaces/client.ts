@@ -1,5 +1,5 @@
 export interface Client {
-    id_cliente?: Number,
+    id_cliente?: number,
     cedula_cliente: string,
     nombre: string,
     apellido: string,
@@ -7,8 +7,8 @@ export interface Client {
     email: string,
     sexo: number,
     telefono: string,
-    estado: Number,
-    id_usuario?: Number,
-    id_empresa?: Number,
-    id_campana?: Number,
+    estado: number,
+    id_usuario?: number,
+    id_empresa?: number,
+    id_campana?: number,
 }

@@ -28,21 +28,8 @@ import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.servi
 import { QrPage } from '../modals/qr/qr.page';
 import { Campana } from 'src/app/interfaces/campana';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
-// interface FormFields {
-//   Teléfono: number;
-//   Licencia: File | string;
-//   Matrícula: File | string;
-//   Cuenta_Bancaria: string;
-//   Cédula: string;
-//   Entidad_Bancaria: number;
-//   Tipo_Cuenta: number;
-//   Email: string;
-//   Fecha_Envío: Date | string,
-//   id_chofer: number,
-//   id_cliente: number,
-//   id_campana: number
-// }
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -159,6 +146,7 @@ export class FormularioAplicacionPage implements OnInit {
     private modeloVehiculoService: ModeloVehiculosService,
     private navCtrl: NavController,
     private formService: FormularioAplicacionService,
+    private toolbarService: ToolbarService,
   ) {
     this.formularioAplicacion = this.fb.group({
       email: new FormControl(
@@ -329,9 +317,9 @@ export class FormularioAplicacionPage implements OnInit {
         tipo_cuenta_bancaria: 1,
         correo_electronico: this.cliente.email,
         fecha_envio: new Date().toLocaleString(), ///corregir
-        id_chofer: Number(this.cliente.id_cliente)!,  //// corregir
-        id_cliente: Number(this.cliente.id_cliente)!,
-        id_campana: Number(this.campana.id_campana)!,
+        id_chofer: this.cliente.id_cliente!,  //// corregir
+        id_cliente: this.cliente.id_cliente!,  ////////
+        id_campana: this.campana.id_campana!,
       };
       //correo = correoInput
       //cedula = cedulaInput
@@ -433,6 +421,7 @@ export class FormularioAplicacionPage implements OnInit {
     try {
       this.generarApp();
       this.formularioAplicacion.reset();
+      this.toolbarService.setTexto("FORMULARIO DE APLICACIÓN");
     } catch (error) {}
   }
 }

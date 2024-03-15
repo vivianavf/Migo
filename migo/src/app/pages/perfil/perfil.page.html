@@ -1,14 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-barra-navegacion></app-barra-navegacion>
 
-<ion-content [fullscreen]="true">
+<ion-content class="bannerContent" id="perfilContent">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">perfil</ion-title>
-      <img src="../../../assets/images/construccion.jpg"/>
     </ion-toolbar>
   </ion-header>
+
+  <div class="icon-name-email">
+    <ion-img id="user-icon" src="../../../assets/iconos-migo/03.png"></ion-img>
+    <ion-text>NOMBRE APELLIDO</ion-text>
+    <ion-text>example@gmail.com</ion-text>
+  </div>
+
+  <div class="user-information">
+    <ion-item class="info"><ion-text>Información Personal</ion-text> </ion-item>
+    <ion-item class="info"
+      ><ion-text class="label">Número de Cédula</ion-text>
+      <ion-text class="value">099999999</ion-text></ion-item
+    >
+    <ion-item class="info"
+      ><ion-text class="label">Número de Cédula</ion-text>
+      <ion-text class="value">099999999</ion-text></ion-item>
+    <ion-item class="info"
+      ><ion-text class="label">Número de Cédula</ion-text>
+      <ion-text class="value">099999999</ion-text></ion-item
+    >
+    <ion-item class="info"
+      ><ion-text class="label">Número de Cédula</ion-text>
+      <ion-text class="value">099999999</ion-text></ion-item
+    >
+  </div>
+
+  <div class="button-container">
+    <ion-button (click)="modificarContrasena()"
+      >Modificar Contraseña</ion-button
+    >
+    <ion-button (click)="eliminarCuenta()">Eliminar Cuenta</ion-button>
+  </div>
 </ion-content>

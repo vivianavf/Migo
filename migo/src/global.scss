@@ -232,6 +232,10 @@ ion-modal.conductor-modal {
   --background: white;
 }
 
+ion-content.bannerContent::part(background){
+  background: none;
+}ß
+
 .ion-black-text {
   --color: black;
 }

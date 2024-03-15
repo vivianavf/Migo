@@ -8,6 +8,8 @@ import { Client } from 'src/app/interfaces/client';
 import { MarcaVehiculo } from 'src/app/interfaces/marca-vehiculo';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { error } from 'console';
+import { Chofer } from 'src/app/interfaces/chofer';
+import { ChoferService } from 'src/app/providers/chofer.service';
 
 @Component({
   selector: 'app-detalle-vehiculo',
@@ -22,52 +24,40 @@ export class DetalleVehiculoPage implements OnInit {
   marca: string = '-';
   modelo: string = '-';
 
-  conductor!: Client;
-  edadConductor: string = '-';
+  conductorCliente!: Client;
+  chofer!: Chofer;
+  edadconductorCliente: string = '-';
 
   constructor(
     private modalCtrl: ModalController,
     private marcaService: MarcaVehiculoService,
     private modeloService: ModeloVehiculosService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private choferService: ChoferService
   ) {}
 
   ngOnInit() {
-      // this.src = this.vehiculo!.imagen_frontal;
-      this.placa = this.vehiculo.placa;
-      this.src =
-        '../../../../assets/images/vehiculos/' + this.placa + 'frontal.jpg';
+    // this.src = this.vehiculo!.imagen_frontal;
+    this.placa = this.vehiculo.placa;
+    this.src =
+      '../../../../assets/images/vehiculos/' + this.placa + 'frontal.jpg';
 
-      this.marcaService
-        .getMarcabyId(this.vehiculo.id_marca)
-        .subscribe((data) => {
-          this.marca = data.nombre;
-        });
+    this.marcaService.getMarcabyId(this.vehiculo.id_marca).subscribe((data) => {
+      this.marca = data.nombre;
+    });
 
-      this.modeloService
-        .getModelobyId(this.vehiculo.id_modelo)
-        .subscribe((data) => {
-          this.modelo = data.nombre;
-        });
-        
-          this.clienteService
-        .getClientbyId(this.vehiculo.id_cliente)
-        .subscribe((data) => {
-          this.conductor = data;
-          let nacimiento = new Date(data.fecha_nacimiento);
-          let actual = new Date();
+    this.modeloService
+      .getModelobyId(this.vehiculo.id_modelo)
+      .subscribe((data) => {
+        this.modelo = data.nombre;
+      });
 
-          let resta = actual.getTime() - nacimiento.getTime();
-          let dias = Math.round(resta / (1000 * 60 * 60 * 24));
-          let anios = actual.getUTCFullYear() - nacimiento.getUTCFullYear()
-          let meses = actual.getUTCMonth()- nacimiento.getUTCMonth()
-          if(meses <= 0){
-            anios--;
-          }
-          this.edadConductor = anios.toString();
-           
-        });
-    
+      console.log(this.vehiculo);
+
+      this.choferService.getChoferbyId(this.vehiculo.id_chofer).subscribe((data)=>{
+        this.chofer = data;
+        console.log(this.chofer);
+      })
   }
 
   cambiarImagen(lado: string) {

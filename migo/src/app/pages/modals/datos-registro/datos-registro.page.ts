@@ -57,10 +57,10 @@ export class DatosRegistroPage implements OnInit {
           apellido: this.apellidos,
           fecha_nacimiento: this.fechaNacimiento,
           email: this.correo,
-          sexo: Number(this.cliente.sexo),
+          sexo: this.cliente.sexo,
           telefono: this.telefono,
           estado: 1,
-          id_usuario: Number(nuevoID),
+          id_usuario: nuevoID,
     }
 
       this.clienteService.crearCliente(nuevocliente).subscribe((respuesta)=>{
@@ -88,10 +88,10 @@ export class DatosRegistroPage implements OnInit {
     //       apellido: this.apellidos,
     //       fecha_nacimiento: this.fechaNacimiento,
     //       email: this.correo,
-    //       sexo: Number(this.sexo),
+    //       sexo: number(this.sexo),
     //       telefono: this.telefono,
     //       estado: 1,
-    //       id_usuario: Number(nuevoIDUsuario2),
+    //       id_usuario: number(nuevoIDUsuario2),
     // }
     
     // console.log(nuevocliente)

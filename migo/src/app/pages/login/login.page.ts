@@ -34,6 +34,8 @@ export class LoginPage implements OnInit {
   users: User[] = [];
   clients: Client[] = [];
 
+  regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))|([A-Z]{3}[0-9]{3,4})$/
+
   constructor(
     private router: Router,
     public fb: FormBuilder,
@@ -46,7 +48,7 @@ export class LoginPage implements OnInit {
     private tabService: TabsService,
   ) {
     this.formularioLogin = this.fb.group({
-      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)])),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern(this.regex)])),
       password: new FormControl('', Validators.required),
     });
   }
@@ -56,7 +58,7 @@ export class LoginPage implements OnInit {
     var inputEmail = f.email;
     var inputPassword = f.password;
 
-    !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail)?this.emailInvalido = true:this.emailInvalido = false;
+    !this.regex.test(inputEmail)?this.emailInvalido = true:this.emailInvalido = false;
 
     //validar login
     var usuarios = this.users;
@@ -68,11 +70,11 @@ export class LoginPage implements OnInit {
     const busquedaPassword = usuarios.find(
       ({ contrasena }) => contrasena === inputPassword
     );
-    const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
-    if (busquedaEmail && busquedaPassword && clientBusqueda) {
+    // const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
+    if (busquedaEmail && busquedaPassword) {
       console.log(inputPassword)
       this.userService.ingresarUsuario(busquedaEmail);
-      this.clientService.ingresarCliente(clientBusqueda);
+      // this.clientService.ingresarCliente(clientBusqueda);
   
       this.formularioLogin.reset();
       this.mostrarMensaje = false;

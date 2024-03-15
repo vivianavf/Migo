@@ -22,15 +22,15 @@
     <ion-title>Informacion del conductor</ion-title>
   </ion-item-divider>
 
-  <form>
+  <form enctype="multipart/form-data">
     <div class="conductor-form">
       <ion-item [class.invalid-border]="isInvalidField('Nombre')">
-        <ion-label>Nombre del Conductor</ion-label>
+        <ion-label>Nombre</ion-label>
         <ion-input
           class="addVehiculoInput"
           [(ngModel)]="formFields.Nombre"
           name="Nombre"
-          placeholder="  Ingrese el nombre"
+          placeholder="Ingrese el nombre"
           class="rounded-input"
           required
           maxlength="30"
@@ -39,19 +39,68 @@
         ></ion-input>
       </ion-item>
 
-      <ion-item [class.invalid-border]="isInvalidField('Telefono')">
-        <ion-label>Teléfono</ion-label>
+      <ion-item [class.invalid-border]="isInvalidField('Apellido')">
+        <ion-label>Apellido</ion-label>
         <ion-input
-          [(ngModel)]="formFields.Telefono"
-          name="Telefono"
-          placeholder="  Ingrese el teléfono"
+          class="addVehiculoInput"
+          [(ngModel)]="formFields.Apellido"
+          name="Apellido"
+          placeholder="Ingrese el apellido"
+          class="rounded-input"
+          required
+          maxlength="30"
+          pattern="^[a-zA-Z]+$"
+          enterkeyhint="next"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item [class.invalid-border]="isInvalidField('Cedula')">
+        <ion-label>Cédula</ion-label>
+        <ion-input
+          class="addVehiculoInput"
+          [(ngModel)]="formFields.Cedula"
+          name="Cedula"
+          ß
+          placeholder="Ingrese la cédula"
           class="rounded-input"
           required
           maxlength="10"
           pattern="^[0-9]+$"
-          inputmode="numeric"
           enterkeyhint="next"
         ></ion-input>
+      </ion-item>
+
+      <ion-item [class.invalid-border]="isInvalidField('FechaNacimiento')">
+        <ion-label>Fecha de Nacimiento</ion-label>
+        <ion-input
+          type="date"
+          class="addVehiculoInput"
+          [(ngModel)]="formFields.FechaNacimiento"
+          name="FechaNacimiento"
+          placeholder="Fecha de Nacimiento"
+          class="rounded-input"
+          required
+          maxlength="30"
+          enterkeyhint="next"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item [class.invalid-border]="isInvalidField('Sexo')">
+        <ion-label>Sexo</ion-label>
+        <ion-select
+          part="select-sexo-vehiculo"
+          class="never-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          [(ngModel)]="formFields.Sexo"
+          name="Sexo"
+          class="rounded-input"
+          required
+        >
+          <ion-select-option value="1">Masculino</ion-select-option>
+          <ion-select-option value="2">Femenino</ion-select-option>
+          <ion-select-option value="3">Prefiero No Decir</ion-select-option>
+        </ion-select>
       </ion-item>
     </div>
 
@@ -65,7 +114,7 @@
         <ion-input
           [(ngModel)]="formFields.Placa"
           name="Placa"
-          placeholder="  Ingrese la placa. Ejemplo: GXY1234"
+          placeholder="Ingrese la placa. Ejemplo: GXY1234"
           class="rounded-input"
           required
           maxlength="7"
@@ -85,19 +134,9 @@
           placeholder="Ingrese el año"
           class="rounded-input"
           inputmode="numeric"
+          maxlength="4"
           required
         ></ion-input>
-
-        <!-- <ion-popover trigger="año-selector" size="cover">
-          <ng-template>
-            <ion-datetime
-              name="anio"
-              presentation="year"
-              [(ngModel)]="formFields.anio"
-              show-default-buttons="true"
-            ></ion-datetime>
-          </ng-template>
-        </ion-popover> -->
       </ion-item>
 
       <ion-item [class.invalid-border]="isInvalidField('Marca')">
@@ -117,7 +156,6 @@
             value="{{ marca.id_marca }}"
             >{{ marca.nombre }}</ion-select-option
           >
-          <!-- Agrega más opciones según sea necesario -->
         </ion-select>
       </ion-item>
 
@@ -284,6 +322,7 @@
     <div *ngIf="showValidationError" class="validation-error datosincorrectos">
       {{ showValidationError }}
     </div>
+    <ion-text *ngIf="esMayorEdad">Debe ser mayor a 18 años</ion-text>
     <div class="submit-button-container">
       <ion-button expand="default" (click)="submitForm()"
         >Agregar Vehículo</ion-button

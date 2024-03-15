@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
+import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    PerfilPageRoutingModule,
+    BarraNavegacionComponent
   ],
-  declarations: [PerfilPage]
+  declarations: [PerfilPage],
 })
 export class PerfilPageModule {}

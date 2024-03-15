@@ -39,8 +39,20 @@ export class UsersService {
     return this.http.patch(this.baseURL+id, password);
   }
 
-  crearUsuario(usuario: User): Observable<any>{
+  crearUsuario(usuario: any): Observable<any>{
     return this.http.post(this.baseURL, usuario);
+  }
+
+  getIDNuevoUsuario(): number{
+    this.getUsers().subscribe((response)=>{});
+    let ultimoID = this.usersObtenidos[this.usersObtenidos.length - 1].id_usuario
+    var nuevoID = ultimoID+1;
+    var busquedaID = this.usersObtenidos.find(({ id_usuario }) => id_usuario === nuevoID);
+    while(busquedaID){
+      busquedaID = this.usersObtenidos.find(({ id_usuario }) => id_usuario === nuevoID+1);
+      nuevoID++;
+    }
+    return nuevoID;
   }
 
   ingresarUsuario(user: any){
