@@ -112,6 +112,18 @@ export class LoginPage implements OnInit {
     console.log('logearse: ', this.logearse);
     if (this.logearse) {
       console.log('entro');
+      var tempToken = localStorage.getItem('token_notificacion')
+      var tempId = Number(localStorage.getItem('usuario_id'));
+      console.log('antes de los logs')
+      console.log('tempToken: ', tempToken);
+      console.log('tempId: ', tempId);
+      if (tempToken !== null && tempId !== null) {
+        console.log('entro al if')
+        this.userService.enviarToken(tempToken, tempId).subscribe((data) => {
+          console.log('data: ', data);
+        });
+      }
+      console.log('se paso de los logs')
       this.tabService.showTabs();
       this.navCtrl.navigateRoot('/home');
     }

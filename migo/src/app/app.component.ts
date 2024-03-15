@@ -38,7 +38,9 @@ export class AppComponent implements OnInit{
   addListeners = async () => {
     await PushNotifications.addListener('registration', (token) => {
       console.info('Registration token: ', token.value);
-      localStorage.setItem("token_fcm", token.value)
+      console.log('antes del local storage');
+      localStorage.setItem('token_notificacion', token.value)
+      console.log('despues del local storage');
     });
 
     await PushNotifications.addListener('registrationError', (err) => {

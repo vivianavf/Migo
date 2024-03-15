@@ -73,14 +73,15 @@ export class UsersService {
       localStorage.setItem('usuario_placa', user.placa);
       localStorage.setItem('usuario_contrasena', user.contrasena);
       localStorage.setItem('usuario_fecha_creacion', user.fecha_creacion);
-      localStorage.setItem(
-        'usuario_fecha_modificacion',
-        user.fecha_modificacion
-      );
+      localStorage.setItem('usuario_fecha_modificacion', user.fecha_modificacion);
       localStorage.setItem('usuario_rol', user.rol_usuario.toString());
-      localStorage.setItem("token_fcm", user.token_fcm)
     }
   }
+
+  enviarToken(token: string, id: number): Observable<any> {
+    return this.http.put(this.baseURL + id, { 'email':localStorage.getItem('usuario_email'), 'contrasena':localStorage.getItem('usuario_contrasena'), 'rol_usuario':localStorage.getItem('usuario_rol') , 'token_notificacion': token});
+  }
+
   usuarioActivo() {
     const usuarioactivo = {
       id_usuario: Number(localStorage.getItem('usuario_id')),
@@ -91,6 +92,7 @@ export class UsersService {
       fecha_creacion: localStorage.getItem('usuario_fecha_creacion'),
       fecha_modificacion: localStorage.getItem('usuario_fecha_modificacion'),
       rol_usuario: Number(localStorage.getItem('usuario_rol')),
+      token_notificacion: localStorage.getItem('token_notificacion')
     };
     return usuarioactivo;
     // return this.user;
