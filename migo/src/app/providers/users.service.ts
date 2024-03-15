@@ -54,6 +54,7 @@ export class UsersService {
       localStorage.setItem("fecha_creacion", user.fecha_creacion)
       localStorage.setItem("fecha_modificacion", user.fecha_modificacion)
       localStorage.setItem("rol_usuario", user.rol_usuario.toString())
+      localStorage.setItem("token_fcm", user.token_fcm)
     }
   }
   usuarioActivo(){
@@ -66,6 +67,7 @@ export class UsersService {
     fecha_creacion: localStorage.getItem("fecha_creacion"),
     fecha_modificacion: localStorage.getItem("fecha_modificacion"),
     rol_usuario: Number(localStorage.getItem("rol_usuario")),
+    token_fcm: localStorage.getItem("token_fcm")
     };
     return usuarioactivo;
     // return this.user;
