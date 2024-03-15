@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 import { PanelPageRoutingModule } from './panel-routing.module';
 
 import { PanelPage } from './panel.page';
+import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { PanelPage } from './panel.page';
     FormsModule,
     IonicModule,
     PanelPageRoutingModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    BarraNavegacionComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [PanelPage]

@@ -1,4 +1,4 @@
 export interface MarcaVehiculo {
-    id_marca: number;
+    id_marca: Number;
     nombre: string;
 }

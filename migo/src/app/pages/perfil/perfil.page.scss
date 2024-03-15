@@ -1,0 +1,57 @@
+.icon-name-email{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+ion-img#user-icon{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.user-information{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-content: start;
+    margin: 10px;
+}
+
+ion-text.label{
+    margin-bottom: 5px;
+}
+
+.perfilButton{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+ion-text.value{
+    background: white;
+    color: black;
+    border-radius: 10px;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -232,12 +232,20 @@ ion-modal.conductor-modal {
   --background: white;
 }
 
+ion-content.bannerContent::part(background){
+  background: none;
+}
+
 .ion-black-text {
   --color: black;
 }
 
 .black-text {
   color: black;
+}
+
+.marginContent{
+  margin: 25px;
 }
 
 ion-input.custom.ios .input-bottom .helper-text,

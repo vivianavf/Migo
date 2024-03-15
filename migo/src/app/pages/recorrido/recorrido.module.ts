@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RecorridoPageRoutingModule } from './recorrido-routing.module';
 
 import { RecorridoPage } from './recorrido.page';
+import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecorridoPageRoutingModule
+    RecorridoPageRoutingModule,
+    BarraNavegacionComponent,
   ],
   declarations: [RecorridoPage]
 })

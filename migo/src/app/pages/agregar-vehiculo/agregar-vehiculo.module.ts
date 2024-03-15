@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
 import { AgregarVehiculoPageRoutingModule } from './agregar-vehiculo-routing.module';
 
 import { AgregarVehiculoPage } from './agregar-vehiculo.page';
@@ -13,8 +12,10 @@ import { AgregarVehiculoPage } from './agregar-vehiculo.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AgregarVehiculoPageRoutingModule
+    AgregarVehiculoPageRoutingModule,
+    ReactiveFormsModule,
   ],
-  declarations: [AgregarVehiculoPage]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [AgregarVehiculoPage],
 })
 export class AgregarVehiculoPageModule {}

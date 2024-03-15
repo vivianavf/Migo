@@ -1,0 +1,56 @@
+.solicitudesCard{
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+ion-text{
+    color: black;
+    --color: black;
+}
+
+.fecha{
+    font-size: x-small;
+    text-align: end;
+}
+
+.fechaString{
+    color: #776f6f;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.informacion{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+}
+
+.infoTexto{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+ion-img{
+    border-radius: 100%;
+    height: 40px;
+}
+
+.content-divider{
+    border-bottom: 1px #ffffff82 solid;
+}
+
+.solicitudesTitle{
+    width: 100%;
+    text-align: start;
+    padding: 0;
+    font-size: large;
+    margin-bottom: 7px;
+    margin-top: 15px;
+}

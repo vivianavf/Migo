@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-img class="foto-grande" [src]="src"></ion-img>
 
   <div class="previews">
@@ -73,34 +73,11 @@
   <div class="info-columns">
     <div>
       <ion-text class="bold-text label">Nombre(s)</ion-text>
-      <ion-text *ngIf="conductor" class="info">{{conductor.nombre}}</ion-text>
+      <ion-text *ngIf="nombre" class="info">{{nombre}}</ion-text>
     </div>
     <div>
       <ion-text class="bold-text label">Apellido(s)</ion-text>
-      <ion-text *ngIf="conductor" class="info">{{conductor.apellido}}</ion-text>
-    </div>
-    <div>
-      <ion-text class="bold-text label">Sexo</ion-text>
-      <ion-text *ngIf="conductor" class="info">{{conductor.sexo}}</ion-text>
-    </div>
-    <div>
-      <ion-text class="bold-text label">Edad</ion-text>
-      <ion-text  *ngIf="conductor" class="info">{{edadConductor}} años</ion-text>
-    </div>
-  </div>
-
-  <div class="title uppercase-text bold-text">
-    <ion-text><br />Datos de Contacto<br /></ion-text>
-  </div>
-
-  <div class="info-columns">
-    <div>
-      <ion-text class="bold-text label">Email</ion-text>
-      <ion-text *ngIf="conductor" class="info">{{conductor.email}}</ion-text>
-    </div>
-    <div>
-      <ion-text class="bold-text label">Teléfono</ion-text>
-      <ion-text href="tel:+1-1800-555-5555" class="info">{{vehiculo.telefono_conductor}}</ion-text>
+      <ion-text *ngIf="apellido" class="info">{{apellido}}</ion-text>
     </div>
   </div>
 </ion-content>

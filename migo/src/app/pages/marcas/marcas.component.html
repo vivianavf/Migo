@@ -1,10 +1,10 @@
 <div class="root">
   <ion-progress-bar *ngIf="empresas.length === 0" type="indeterminate"></ion-progress-bar>
-<div class="content">
+<div class="content marginContent">
   <ion-card *ngFor="let empresa of empresas">
     <div class="banner-empresa ad">
       <ion-img
-    src="../../../assets/banners/{{empresa.id_empresa}}.jpg"
+    src="../../../assets/images/empresas/banners/{{empresa.id_empresa}}.jpg"
     alt="Banner de la empresa"
     class="img-empresa"
     id="{{empresa.id_empresa}}"

@@ -200,6 +200,10 @@ const routes: Routes = [
     path: 'registro-conductor',
     loadChildren: () => import('./pages/registro-conductor/registro-conductor.module').then( m => m.RegistroConductorPageModule)
   },
+  {
+    path: 'solicitudes',
+    loadChildren: () => import('./pages/solicitudes/solicitudes.module').then( m => m.SolicitudesPageModule)
+  },
 
 
 

@@ -29,11 +29,6 @@ ion-icon.menu{
 // .ad p {
 //   margin: 0; /* Elimina el margen por defecto del párrafo */
 // }
-
-.img-ad{
-  object-position: -0px -32px;
-}
-
 //modal
 .menu{
     --min-width: 100%;
@@ -70,7 +65,7 @@ ion-card-content{
   display: flex;
   justify-content: center; /* Alineación horizontal al centro */
   align-items: center; /* Alineación vertical al centro */
-  height: 70px; /* Altura del contenedor, ajusta según tus necesidades */
+  height: 90px; /* Altura del contenedor, ajusta según tus necesidades */
 }
 
 p.correo{

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormularioAplicacionPageRoutingModule } from './formulario-aplicacion-routing.module';
 
 import { FormularioAplicacionPage } from './formulario-aplicacion.page';
+import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { FormularioAplicacionPage } from './formulario-aplicacion.page';
     IonicModule,
     FormularioAplicacionPageRoutingModule,
     ReactiveFormsModule,
+    BarraNavegacionComponent,
   ],
   declarations: [FormularioAplicacionPage]
 })

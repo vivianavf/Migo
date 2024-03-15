@@ -57,10 +57,10 @@ export class DatosRegistroPage implements OnInit {
           apellido: this.apellidos,
           fecha_nacimiento: this.fechaNacimiento,
           email: this.correo,
-          sexo: Number(this.cliente.sexo),
+          sexo: this.cliente.sexo,
           telefono: this.telefono,
           estado: 1,
-          id_usuario: Number(nuevoID),
+          id_usuario: nuevoID,
     }
 
       this.clienteService.crearCliente(nuevocliente).subscribe((respuesta)=>{
@@ -70,41 +70,8 @@ export class DatosRegistroPage implements OnInit {
 
     this.clienteService.ingresarCliente(nuevocliente)
 
-    // const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
-    // if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
-
     })
 
-    // this.userService.ingresarUsuario(actualUsuario)
-
-    // var nuevoIDUsuario2 = localStorage.getItem("id_usuario")
-    // console.log(this.nuevoID);
-    // console.log(this.usuario)
-    // console.log(this.sexo) //Femenino
-
-    // var nuevocliente = <any>{ 
-    //       cedula_cliente: this.cedula,
-    //       nombre: this.nombres,
-    //       apellido: this.apellidos,
-    //       fecha_nacimiento: this.fechaNacimiento,
-    //       email: this.correo,
-    //       sexo: Number(this.sexo),
-    //       telefono: this.telefono,
-    //       estado: 1,
-    //       id_usuario: Number(nuevoIDUsuario2),
-    // }
-    
-    // console.log(nuevocliente)
-
-    // this.clienteService.crearCliente(nuevocliente).subscribe((respuesta)=>{
-    //   console.log(respuesta)
-    // })
-    // this.clienteService.ingresarCliente(nuevocliente)
-
-    //buscar el nuevo cliente en la database
-    // const clientBusqueda = this.clientes.find(({ email }) => email === this.correo);
-    // if(clientBusqueda){this.clienteService.ingresarCliente(clientBusqueda) }
-    
     this.formularioRegistro.reset();
 
     this.navCtrl.navigateRoot('/home')

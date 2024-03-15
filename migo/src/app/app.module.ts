@@ -13,6 +13,7 @@ import { MarcasComponent } from './pages/marcas/marcas.component';
 import { TabsPageModule } from './pages/tabs/tabs.module';
 
 import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { BarraNavegacionComponent } from './pages/barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    BarraNavegacionComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
