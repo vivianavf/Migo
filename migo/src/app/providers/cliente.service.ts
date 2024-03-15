@@ -37,30 +37,30 @@ export class ClienteService {
   ingresarCliente(cliente: Client) {
     if (cliente) {
       if(cliente.id_cliente){
-        localStorage.setItem('id_cliente', cliente.id_cliente.toString());
+        localStorage.setItem('cliente_id', cliente.id_cliente.toString());
       }
-      localStorage.setItem('cedula_cliente', cliente.cedula_cliente);
-      localStorage.setItem('nombre', cliente.nombre);
-      localStorage.setItem('apellido', cliente.apellido);
-      localStorage.setItem('fecha_nacimiento', cliente.fecha_nacimiento);
-      localStorage.setItem('email_cliente', cliente.email);
-      localStorage.setItem('sexo', cliente.sexo.toString());
-      localStorage.setItem('telefono', cliente.telefono);
-      localStorage.setItem('estado', cliente.estado.toString());
+      localStorage.setItem('cliente_cedula', cliente.cedula_cliente);
+      localStorage.setItem('cliente_nombre', cliente.nombre);
+      localStorage.setItem('cliente_apellido', cliente.apellido);
+      localStorage.setItem('cliente_fecha_nacimiento', cliente.fecha_nacimiento);
+      localStorage.setItem('cliente_email', cliente.email);
+      localStorage.setItem('cliente_sexo', cliente.sexo.toString());
+      localStorage.setItem('cliente_telefono', cliente.telefono);
+      localStorage.setItem('cliente_estado', cliente.estado.toString());
     }
   }
   clienteActivo() {
     const clienteactivo = <Client>{
-      id_cliente: Number(localStorage.getItem('id_cliente')),
-      cedula_cliente: localStorage.getItem('cedula_cliente'),
-      nombre: localStorage.getItem('nombre'),
-      apellido: localStorage.getItem('apellido'),
-      fecha_nacimiento: localStorage.getItem('fecha_nacimiento'),
-      email: localStorage.getItem('email_cliente'),
-      sexo: Number(localStorage.getItem('sexo')),
-      telefono: localStorage.getItem('telefono'),
-      estado: Number(localStorage.getItem('estado')),
-      id_usuario: Number(localStorage.getItem('id_usuario')),
+      id_cliente: Number(localStorage.getItem('cliente_id')),
+      cedula_cliente: localStorage.getItem('cliente_cedula'),
+      nombre: localStorage.getItem('cliente_nombre'),
+      apellido: localStorage.getItem('cliente_apellido'),
+      fecha_nacimiento: localStorage.getItem('cliente_fecha_nacimiento'),
+      email: localStorage.getItem('cliente_email'),
+      sexo: Number(localStorage.getItem('cliente_sexo')),
+      telefono: localStorage.getItem('cliente_telefono'),
+      estado: Number(localStorage.getItem('cliente_estado')),
+      id_usuario: Number(localStorage.getItem('usuario_id')),
     };
     return clienteactivo;
   }

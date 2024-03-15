@@ -4,9 +4,9 @@
     align-items: center;
 }
 
-#user-icon{
-    width: 250px;
-    height: 250px;
+ion-img#user-icon{
+    width: 150px;
+    height: 150px;
 }
 
 .user-information{
@@ -20,16 +20,19 @@
     align-items: center;
 }
 
-.info{
+ion-item.info::part(native){
     display: flex;
     flex-direction: column;
+    align-content: start;
 }
 
-.label{
+ion-text.label{
 
 }
 
-.value{
+ion-text.value{
     background: white;
     color: black;
+    border-radius: 10px;
+    width: 100%;
 }

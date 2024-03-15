@@ -13,11 +13,7 @@ export class PerfilPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.toolbarService.setTexto("PERFIL");
-  }
-
-  ionViewWillEnter() {
-    this.toolbarService.setTexto("PERFIL");
+    this.toolbarService.setTexto("MI PERFIL");
   }
 
   modificarContrasena(){}

@@ -117,10 +117,8 @@ export class AppComponent implements OnInit{
     this.clientService.getClients().subscribe((data)=>{})
     this.campanaService.getCampanas().subscribe((data)=>{})
 
-    let userExists = localStorage.getItem('email_usuario');
+    let userExists = localStorage.getItem('usuario_email');
     if(userExists){
-      // Set HomePage as Root
-      // this.router.navigate(['/home']);
       this.navCtrl.navigateRoot('/home');
       //aqui se renderiza el tabs
       

@@ -10,6 +10,7 @@ import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { error } from 'console';
 import { Chofer } from 'src/app/interfaces/chofer';
 import { ChoferService } from 'src/app/providers/chofer.service';
+import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
   selector: 'app-detalle-vehiculo',
@@ -24,16 +25,16 @@ export class DetalleVehiculoPage implements OnInit {
   marca: string = '-';
   modelo: string = '-';
 
-  conductorCliente!: Client;
-  chofer!: Chofer;
-  edadconductorCliente: string = '-';
+  nombre = "";
+  apellido = "";
 
   constructor(
     private modalCtrl: ModalController,
     private marcaService: MarcaVehiculoService,
     private modeloService: ModeloVehiculosService,
     private clienteService: ClienteService,
-    private choferService: ChoferService
+    private choferService: ChoferService,
+    private userService: UsersService,
   ) {}
 
   ngOnInit() {
@@ -52,12 +53,16 @@ export class DetalleVehiculoPage implements OnInit {
         this.modelo = data.nombre;
       });
 
-      console.log(this.vehiculo);
-
-      this.choferService.getChoferbyId(this.vehiculo.id_chofer).subscribe((data)=>{
-        this.chofer = data;
-        console.log(this.chofer);
-      })
+    switch(this.userService.usuarioActivo().rol_usuario){
+      case 2: //es chofer
+        this.nombre = this.choferService.choferActivo().nombre.toString();
+        this.apellido = this.choferService.choferActivo().apellido.toString();
+        break;
+      case 5: // es cliente
+        this.nombre = this.clienteService.clienteActivo().nombre.toString();
+        this.apellido = this.clienteService.clienteActivo().apellido.toString();
+        break;
+    }
   }
 
   cambiarImagen(lado: string) {
