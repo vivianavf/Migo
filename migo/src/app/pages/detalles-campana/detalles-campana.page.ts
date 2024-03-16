@@ -181,7 +181,7 @@ export class DetallesCampanaPage implements OnInit {
   ngOnInit() {
     try {
       this.generarDatos();
-      this.toolbarService.setTexto('DETALLES DE CAMPANA');
+      this.toolbarService.setTexto('DETALLES DE CAMPAÑA');
       // this.crearSectores();
       // this.createMap();
     } catch (error) {

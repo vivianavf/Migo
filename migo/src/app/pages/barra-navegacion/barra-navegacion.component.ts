@@ -7,13 +7,14 @@ import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   standalone: true,
   selector: 'app-barra-navegacion',
   templateUrl: './barra-navegacion.component.html',
   styleUrls: ['./barra-navegacion.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule,]
+  imports: [CommonModule,],
 })
 export class BarraNavegacionComponent implements OnInit {
   mostrarBotonFiltro = false;
@@ -25,7 +26,6 @@ export class BarraNavegacionComponent implements OnInit {
     private modalController: ModalController,
     private userService: UsersService,
     private clienteService: ClienteService,
-    private popOverCtrl: PopoverController,
     private toolbarService: ToolbarService,
   ) {
     
@@ -33,8 +33,20 @@ export class BarraNavegacionComponent implements OnInit {
 
   //Solo activa el ON INIT
   ngOnInit() {
-    this.imgBanner = this.generarNumeroBanner();
-    this.textoToolbar = this.toolbarService.getTexto();
+    // Obtener imagenes para el banner desde el server (http://migoadvs.pythonanywhere.com/Database/Database/publicidades/)
+    var autoSaveInterval = setInterval(() => {
+      this.imgBanner = this.generarNumeroBanner();
+    }, 7000);
+
+    if(this.toolbarService.getTexto() == "HOME"){
+      this.mostrarTitulo = false;
+      this.mostrarBotonFiltro = true;
+      this.textoToolbar = this.toolbarService.getTexto();
+    }else{
+      this.mostrarTitulo = true;
+      this.mostrarBotonFiltro = false;
+      this.textoToolbar = this.toolbarService.getTexto();
+    }
   }
 
   generarNumeroBanner() {
@@ -82,4 +94,5 @@ export class BarraNavegacionComponent implements OnInit {
     this.mostrarBotonFiltro = true;
     console.log(this.mostrarBotonFiltro);
   }
+
 }

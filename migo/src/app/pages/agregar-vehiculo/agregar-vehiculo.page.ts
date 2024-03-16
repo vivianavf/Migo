@@ -176,11 +176,7 @@ export class AgregarVehiculoPage implements OnInit {
         ', '
       )}.`;
       return;
-    } else if (
-      this.fechaService.esMayordeEdad(this.formFields.FechaNacimiento)
-    ) {
-      this.esMayorEdad = true;
-    } else {
+    }else {
       var userRequest = {
         id_usuario: this.nuevoIDUsuario,
         email: this.formFields.Placa,
@@ -194,51 +190,53 @@ export class AgregarVehiculoPage implements OnInit {
         rol_usuario: 2, //chofer
       };
 
-      this.userService.crearUsuario(userRequest).subscribe((response) => {
-        console.log(response)
-        if(response){
-          this.nuevoIDUsuario = this.userService.getIDNuevoUsuario();
-          console.log(this.nuevoIDUsuario);
+      // this.userService.crearUsuario(userRequest).subscribe((response) => {
+      //   console.log(response)
+      //   if(response){
+      //     this.nuevoIDUsuario = this.userService.getIDNuevoUsuario();
+      //     console.log(this.nuevoIDUsuario);
 
-          var choferRequest = {
-            cedula_chofer: this.formFields.Cedula.toString(),
-            nombre: this.formFields.Nombre,
-            apellido: this.formFields.Apellido,
-            fecha_nacimiento: this.formFields.FechaNacimiento,
-            sexo: this.formFields.Sexo,
-            estado: 1,
-            id_usuario: this.nuevoIDUsuario,
-          };
+      //     var choferRequest = {
+      //       cedula_chofer: this.formFields.Cedula.toString(),
+      //       nombre: this.formFields.Nombre,
+      //       apellido: this.formFields.Apellido,
+      //       fecha_nacimiento: this.formFields.FechaNacimiento,
+      //       sexo: this.formFields.Sexo,
+      //       estado: 1,
+      //       id_usuario: this.nuevoIDUsuario,
+      //     };
 
-          this.choferService.crearChofer(choferRequest).subscribe((response) => {
-            console.log(response);
-          });
+      //     // this.choferService.crearChofer(choferRequest).subscribe((response) => {
+      //     //   console.log(response);
+      //     // });
 
-          var idChoferActual = this.choferService.getIDNuevoChofer()-1;
+      //     // var idChoferActual = this.choferService.getIDNuevoChofer()-1;
 
-          var vehiculoRequest = {
-            id_vehiculo: this.vehiculoService.getIDNuevoVehiculo(),
-            telefono_conductor: 9999999999,
-            placa: this.formFields.Placa,
-            anio: parseInt(this.formFields.anio),
-            categoria_vehiculo: 'suv', ///////// agregar como ion-select
-            color_vehiculo: 'Negro', //////////// agregar como ion-select
-            imagen_izq: this.formFields.FotoIzquierda,
-            imagen_der: this.formFields.FotoDerecha,
-            imagen_frontal: this.formFields.FotoFrontal,
-            imagen_trasera: this.formFields.FotoTrasera,
-            imagen_techo: this.formFields.FotoTecho,
-            estado: 1,
-            id_chofer: idChoferActual, // 
-            id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
-            id_marca: this.formFields.Marca,
-            id_modelo: this.formFields.Modelo,
-          };
+      //     var vehiculoRequest = {
+      //       id_vehiculo: this.vehiculoService.getIDNuevoVehiculo(),
+      //       telefono_conductor: 9999999999,
+      //       placa: this.formFields.Placa,
+      //       anio: parseInt(this.formFields.anio),
+      //       categoria_vehiculo: 'suv', ///////// agregar como ion-select
+      //       color_vehiculo: 'Negro', //////////// agregar como ion-select
+      //       imagen_izq: this.formFields.FotoIzquierda,
+      //       imagen_der: this.formFields.FotoDerecha,
+      //       imagen_frontal: this.formFields.FotoFrontal,
+      //       imagen_trasera: this.formFields.FotoTrasera,
+      //       imagen_techo: this.formFields.FotoTecho,
+      //       estado: 1,
+      //       id_chofer: idChoferActual, // 
+      //       id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
+      //       id_marca: this.formFields.Marca,
+      //       id_modelo: this.formFields.Modelo,
+      //     };
 
-          this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((data)=>{console.log(data)});
-        }
-      });
+      //     // this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((data)=>{console.log(data)});
+      //   }
+      // });
 
+      HTMLIonLoadingElement
+      
       // enviar una notificacion
     }
 

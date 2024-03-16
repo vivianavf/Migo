@@ -1,108 +1,95 @@
+/* ION TOOLBAR */
 
-ion-toolbar{
-  padding-top: 20px;
-  padding-bottom: 14px;
+ion-toolbar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  --background: none;
 }
 
-ion-button.notificaciones{
-  padding-right: 12px;
+ion-button.notificaciones {
+  --min-width: 100%;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
 }
 
-// ion-select{
-//   --background: white;
-//   --border-radius:  50px;
-//   --highlight-color-focused: transparent;
-//   --placeholder-color: black;
-//   margin-left: 7%; 
-// }
+ion-buttons#menuButtons{
+  margin-left: 0;
+  width: 40px;
+  height: 40px;
+}
+
+ion-buttons#notifButtons{
+  margin-right: 0;
+  object-position: inherit;
+  display: flex;
+  justify-content: center;
+}
+
+ion-title#toolbarTitle{
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
 
 //filter options con ion-button y ion-list
-ion-text.filtrar-por{
+ion-text.filtrar-por {
   color: black;
   margin-right: auto;
   margin-left: 20px;
   font-size: 16px;
 }
-ion-button#filtro{
+ion-button#filtro {
   display: flex;
   --border-radius: 50px;
   width: 85%;
   margin-left: auto;
   margin-right: auto;
 }
-.end-of-line{
+.end-of-line {
   margin-left: auto;
   margin-right: 15px;
 }
 //select
-ion-item.select-option{
+ion-item.select-option {
   background-color: white;
   color: black;
   font-size: 18px;
 }
-ion-icon.end-of-line{
-  align-self:flex-end;
+ion-icon.end-of-line {
+  align-self: flex-end;
   color: black;
 }
-ion-content::part(scroll){
-  border-radius: 20px;
-  margin-top: 5px;
-}
-.item-icon{
+ß .item-icon {
   width: 25px;
   height: 25px;
 }
 
 /** Filter Options Root Select **/
-ion-content.filter-options::part(scroll){
+ion-content.filter-options::part(scroll) {
   padding: 0;
   background-color: white;
 }
 
-ion-list.list-options{
+ion-list.list-options {
   padding: 0;
-  background-color: white; 
-}
-
-ion-item.select-option::part(native){
   background-color: white;
 }
 
-/** Shadow Root Select **/
+ion-item.select-option::part(native) {
+  background-color: white;
+}
 
-// ion-select::part(placeholder){
-//   color: black;
-//   padding-right: 130px;
-//   padding-left: 20px;
-// }
-
-// ion-select::part(icon) {
-//   content: url('../../../assets/iconos-migo/chevron-down-outline.svg');
-//   height: 25px;
-//   width: 30%;
-// }
-
-// .filtro{
-//   min-height: 40px;
-//   width: 220px;
-// }
-
-// ion-select::part(container){
-//   width: 100%;
-// }
-
-// ion-select::part(text){
-//   color: black;
-//   padding-left: 20px;
-// }
-
-/** Shadow Root Select **/
-
-ion-button::part(native){
+ion-button::part(native) {
   padding: 0;
 }
 
-ion-icon.menu{
+ion-icon.menu {
   height: 40px;
   width: 40px;
   padding: 0;
@@ -136,11 +123,11 @@ ion-icon.menu{
   text-decoration: none;
 }
 
-.menu{
+.menu {
   --min-width: 100%;
 }
 
-.notificaciones{
+.notificaciones {
   --min-width: 100%;
 }
 
@@ -155,26 +142,26 @@ ion-icon.menu{
 //   margin: 0; /* Elimina el margen por defecto del párrafo */
 // }
 
-.section-toolbar{
+.section-toolbar {
   padding: 0;
   background-color: #b7b7b7;
 }
 
-.app-campana{
+.app-campana {
   display: flex;
   justify-content: center;
 }
 
-ion-label.toolbar{
+ion-label.toolbar {
   color: white;
 }
 
-ion-segment-button{
+ion-segment-button {
   display: flex;
   flex-direction: row;
 }
 
-.segment-container{
+.segment-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -182,13 +169,13 @@ ion-segment-button{
   padding-left: 15%;
 }
 
-.toolbar-icon{
+.toolbar-icon {
   width: 20px;
   height: 20px;
   margin-right: 15px;
   color: white;
 }
 
-ion-segment-button::part(indicator-background){
+ion-segment-button::part(indicator-background) {
   background-color: transparent;
 }

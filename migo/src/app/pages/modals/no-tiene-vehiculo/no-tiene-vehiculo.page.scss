@@ -1,0 +1,32 @@
+ion-icon{
+    width: 100px;
+    height: 100px;
+    color: red;
+}
+
+ion-text{
+    color: black;
+    font-size: x-large;
+}
+
+ion-content{
+    background: white;
+}
+
+ion-content::part(background){
+    background: white;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+ion-button{
+    padding: 20px;
+}

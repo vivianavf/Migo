@@ -225,6 +225,13 @@ ion-modal.conductor-modal {
   --background: white;
 }
 
+ion-modal.no-tiene-vehiculo{
+  --height: 300px;
+  --width: 90%;
+  --border-radius: 20px;
+  --background: white;
+}
+
 .qr-modal {
   --height: 75%;
   --width: 90%;
@@ -232,7 +239,7 @@ ion-modal.conductor-modal {
   --background: white;
 }
 
-ion-content.bannerContent::part(background){
+ion-content.withoutBackground::part(background){
   background: none;
 }
 
@@ -272,7 +279,6 @@ ion-input.custom.md .input-bottom .counter {
   // color: black;
   text-align: center;
   overflow: hidden;
-  height: 100px;
 }
 
 .img-ad {
@@ -304,8 +310,16 @@ ion-list.sc-ion-select-popover-md {
 }
 
 .segment-button-checked {
-  background-color: rgba(111, 111, 111, 1);
+  background: linear-gradient(0deg, rgba(45,45,45,1) 0%, rgba(129,129,129,1) 63%, rgba(184,184,184,1) 100%);
 }
+
+ion-segment-button{
+  background: #787878;
+}
+
+// ion-segment-button:host(.in-toolbar:not(.in-segment-color)){
+//   background: #5e5e5e;
+// }
 
 //alert in change password
 ion-alert.passwordAlert {

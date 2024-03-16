@@ -39,7 +39,7 @@ export class VehiculoService {
   var formData = new FormData();
   formData.append('data', JSON.stringify(vehiculo));
 
-    return this.http.post(this.baseURL, formData, config);
+    return this.http.post(this.baseURL, formData);
   }
 
   getIDNuevoVehiculo(): number {

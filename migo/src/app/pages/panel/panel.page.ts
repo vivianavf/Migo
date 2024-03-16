@@ -6,6 +6,8 @@ import { MenuPage } from '../modals/menu/menu.page';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
+import { SectorService } from 'src/app/providers/sector.service';
+import { Sector } from 'src/app/interfaces/sector';
 
 @Component({
   selector: 'app-panel',
@@ -21,12 +23,16 @@ export class PanelPage implements OnInit {
   userService: any;
   clientService: any;
 
+  sectores: Sector[] = [];
+  sector?: Sector;
+
   @ViewChild('map') mapRef!: google.maps.Map;
+  map?: google.maps.Map;
   center: google.maps.LatLngLiteral = {
     lat: -2.18982299999999,
     lng: -79.88775,
   };
-  zoom = 15;
+  zoom = 12;
 
   source!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
@@ -34,11 +40,20 @@ export class PanelPage implements OnInit {
   ds!: google.maps.DirectionsService;
   dr!: google.maps.DirectionsRenderer;
 
-  constructor(private toolbarService: ToolbarService) {}
+  constructor(
+    private toolbarService: ToolbarService,
+    private sectorService: SectorService
+  ) {}
+
+  ngOnInit() {
+    //aqui nada
+    this.toolbarService.setTexto('PANEL DE CONTROL');
+  }
 
   ionViewWillEnter() {
     try {
       this.createMap();
+      this.crearSectores();
       this.toolbarService.setTexto('PANEL');
     } catch (error) {
       console.log(error);
@@ -46,16 +61,17 @@ export class PanelPage implements OnInit {
   }
 
   createMap() {
-    this.ds = new google.maps.DirectionsService();
-    this.dr = new google.maps.DirectionsRenderer({
-      map: null,
-      suppressMarkers: true,
-    });
-
-    this.source = { lat: -2.18982299999999, lng: -79.88775 };
-    this.destination = { lat: -2.189466004877741, lng: -79.89271528225697 };
-
-    this.setPolyline();
+    var mapOptions = {
+      zoom: this.zoom,
+      center: this.center,
+      disableDefaultUI: true,
+      fullscreenControl: true,
+    };
+    var mapCreado = new google.maps.Map(
+      document.getElementById('map-panel')!,
+      mapOptions
+    );
+    this.map = mapCreado;
   }
 
   setPolyline() {
@@ -110,8 +126,40 @@ export class PanelPage implements OnInit {
     return await modal.present();
   }
 
-  ngOnInit() {
-    //aqui nada
-    this.toolbarService.setTexto('PANEL DE CONTROL');
+  crearSectores() {
+    this.sectorService.getSectores().subscribe((data) => {
+      this.sectores = data;
+      data.forEach((sectorX) => {
+        if (sectorX.id_sector == 19) {
+          this.sector = sectorX;
+          this.crearCercos();
+        }
+      });
+    });
+    // this.crearMapa(-2.189822999999990, -79.88775);
+  }
+
+  async crearCercos() {
+    if (this.sector) {
+      let createdPolygon: any;
+
+      this.sector.cerco_virtual.forEach((cerco) => {
+        console.log(cerco);
+        if (cerco) {
+          createdPolygon = new google.maps.Polygon({
+            paths: [cerco],
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+          });
+
+          createdPolygon.setMap(this.map);
+        }
+      });
+
+      // console.log(createdPolygon)
+    }
   }
 }

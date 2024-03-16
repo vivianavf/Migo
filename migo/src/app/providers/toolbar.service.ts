@@ -9,7 +9,8 @@ export class ToolbarService {
   mostrarFiltro = false;
   toolbarText = ""
 
-  constructor() { }
+  constructor(
+  ) { }
 
   setTexto(texto: string){
     this.toolbarText = texto;

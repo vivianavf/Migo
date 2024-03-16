@@ -204,6 +204,10 @@ const routes: Routes = [
     path: 'solicitudes',
     loadChildren: () => import('./pages/solicitudes/solicitudes.module').then( m => m.SolicitudesPageModule)
   },
+  {
+    path: 'no-tiene-vehiculo',
+    loadChildren: () => import('./pages/modals/no-tiene-vehiculo/no-tiene-vehiculo.module').then( m => m.NoTieneVehiculoPageModule)
+  },
 
 
 

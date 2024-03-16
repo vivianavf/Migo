@@ -3,7 +3,8 @@ ion-toolbar{
     padding-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
-  }
+    --background: none;
+}
   
   ion-text.filtrar-por{
     color: black;
@@ -31,6 +32,9 @@ ion-toolbar{
 
   ion-buttons#notifButtons{
     margin-right: 0;
+    object-position: inherit;
+    display: flex;
+    justify-content: center;
   }
 
   ion-title#toolbarTitle{
@@ -120,8 +124,8 @@ ion-button::part(native){
   
   ion-button.notificaciones{
     --min-width: 100%;
-    width: 100%;
-    height: 100%;
+    width: 30px;
+    height: 30px;
     margin: 0;
     padding: 0;
   }

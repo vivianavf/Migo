@@ -6,10 +6,10 @@
       icon="chevron-back"
     ></ion-back-button>
   </ion-buttons>
-  <ion-title>NUEVO VEHICULO</ion-title>
+  <ion-title>NUEVO VEHÍCULO</ion-title>
 </ion-toolbar>
 
-<ion-content>
+<ion-content class="withoutBackground">
   <div class="ad">
     <ion-img
       src="../../../assets/images/banner3.jpeg"
@@ -19,10 +19,10 @@
   </div>
 
   <ion-item-divider color="primary">
-    <ion-title>Informacion del conductor</ion-title>
+    <ion-title>Información del conductor</ion-title>
   </ion-item-divider>
 
-  <form enctype="multipart/form-data">
+  <form>
     <div class="conductor-form">
       <ion-item [class.invalid-border]="isInvalidField('Nombre')">
         <ion-label>Nombre</ion-label>
@@ -106,7 +106,7 @@
 
     <div class="vehiculo-form">
       <ion-item-divider color="primary">
-        <ion-title>Informacion del vehículo</ion-title>
+        <ion-title>Información del vehículo</ion-title>
       </ion-item-divider>
 
       <ion-item [class.invalid-border]="isInvalidField('Placa')">

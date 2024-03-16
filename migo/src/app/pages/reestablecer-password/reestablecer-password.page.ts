@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { UsersService } from 'src/app/providers/users.service';
+import { sha256 } from 'js-sha256';
 
 
 @Component({
@@ -39,9 +40,12 @@ export class ReestablecerPasswordPage implements OnInit {
       const usuarioModificar = this.users.find(({ email }) => email === this.emailUser);
       if(usuarioModificar){
         const idUsuario = usuarioModificar.id_usuario
+        //transformar con SHA256
+        this.inputValue = this.encriptarSHA256(this.inputValue);
         const requestBody = {"contrasena": this.inputValue}
+
         this.userService.actualizarPassword(idUsuario, requestBody).subscribe((respuesta)=>{
-          // console.log(respuesta)
+          console.log(respuesta)
         })
 
         const alert = await this.alertController.create({
@@ -62,6 +66,10 @@ export class ReestablecerPasswordPage implements OnInit {
       this.noCoincide = true;
     }
     
+  }
+
+  encriptarSHA256(inputPassword: any) {
+    return sha256(inputPassword);
   }
 
   irAHome(){

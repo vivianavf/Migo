@@ -14,6 +14,7 @@ import { Marca } from 'src/app/interfaces/marca';
 import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
 import { CampanaComponent } from '../campana/campana.component';
 import { TabsService } from 'src/app/providers/tabs.service';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,8 @@ import { TabsService } from 'src/app/providers/tabs.service';
 })
 export class HomePage implements OnInit {
   // backButton: Subscription = new Subscription();
+
+  imgBanner: number = 1;
 
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
@@ -44,7 +47,17 @@ export class HomePage implements OnInit {
     private popOverCtrl: PopoverController,
     private campanaComponent: CampanaComponent,
     private tabService: TabsService,
+    private toolbarService: ToolbarService,
   ) {}
+
+  ngOnInit() {
+    var autoSaveInterval = setInterval(() => {
+      this.imgBanner = this.generarNumeroBanner();
+    }, 7000);
+
+    this.toolbarService.setTexto("HOME");
+    this.tabService.showTabs();
+  }
 
   actualizarOrden(orden: string) {
     this.popOverCtrl.dismiss();
@@ -113,7 +126,16 @@ export class HomePage implements OnInit {
      return await modal.present();
   }
 
-  ngOnInit() {
-    this.tabService.showTabs();
+  generarNumeroBanner() {
+    const numeroAleatorio = Math.random();
+    // Multiplica por 10 para obtener un número entre 0 (inclusive) y 10 (exclusivo)
+    const numeroEntre0Y10 = numeroAleatorio * 15;
+
+    // Añade 1 para obtener un número entre 1 (inclusive) y 11 (exclusivo)
+    const numeroEntre1Y11 = numeroEntre0Y10 + 1;
+
+    // Utiliza Math.floor para redondear hacia abajo y obtener un número entero entre 1 y 10
+    const numeroFinal = Math.floor(numeroEntre1Y11);
+    return numeroFinal;
   }
 }

@@ -122,7 +122,8 @@ export class RegistroPage implements OnInit {
             fecha_creacion: new Date().toISOString().split('T')[0],
             fecha_modificacion: new Date().toISOString().split('T')[0],
             estado: 1,
-            rol_usuario: 2, //chofer
+            rol_usuario: 5, //chofer,
+            token_notificacion : "eujClc4dQKWglcbqqy_pbj:APA91bEEB78NUOs1ddq23aJ4baILdMDd1CUYiwndetmJhWtUpb2rvMkz048BYqhs2uepxyvMW2mOhoY-W6hrnnblX2hq4d1UU00HNj4u2LGDbiW2yVQU6Iy2B_q-Lv1RfU7sXEXpHNm",
           };
 
           this.cliente = {
@@ -149,7 +150,7 @@ export class RegistroPage implements OnInit {
             fecha_creacion: new Date().toISOString().split('T')[0],
             fecha_modificacion: new Date().toISOString().split('T')[0],
             estado: 1,
-            rol_usuario: 2, //chofer
+            rol_usuario: 2, //cliente
           };
           this.regConductorService.setConductor(this.usuario);
           this.router.navigate(['/registro-conductor']);

@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
+import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MarcasComponent } from '../marcas/marcas.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    BarraNavegacionComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[MarcasComponent,],
