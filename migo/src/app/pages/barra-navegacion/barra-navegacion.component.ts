@@ -36,7 +36,7 @@ export class BarraNavegacionComponent implements OnInit {
     // Obtener imagenes para el banner desde el server (http://migoadvs.pythonanywhere.com/Database/Database/publicidades/)
     var autoSaveInterval = setInterval(() => {
       this.imgBanner = this.generarNumeroBanner();
-    }, 7000);
+    }, 5000);
 
     if(this.toolbarService.getTexto() == "HOME"){
       this.mostrarTitulo = false;

@@ -46,10 +46,15 @@
         </div>
         <div class="talleres">
           <div class="talleres-direccion">
-            <p>Talleres disponibles:</p>
             <div class="taller-direccion">
-              <p>{{campana.taller_brandeo}}</p>
-              <p>Cdla. Atarazana Manzana 56 Solar 122</p>
+              <ion-accordion-group>
+                <ion-accordion value="first">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Talleres Disponibles</ion-label>
+                  </ion-item>
+                  <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content">{{taller.nombre}}<a class="maps-link" [href]="taller.referencia"><ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png"></ion-img></a></div>
+                </ion-accordion>
+              </ion-accordion-group>
             </div>
           </div>
           <div class="vehiculo-tipo">

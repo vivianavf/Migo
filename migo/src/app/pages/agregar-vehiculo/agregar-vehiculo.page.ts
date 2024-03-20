@@ -235,7 +235,7 @@ export class AgregarVehiculoPage implements OnInit {
       //   }
       // });
 
-      HTMLIonLoadingElement
+      // HTMLIonLoadingElement
       
       // enviar una notificacion
     }
@@ -339,65 +339,76 @@ export class AgregarVehiculoPage implements OnInit {
   cameraImage?: File;
 
   async takePhoto(label: string): Promise<void> {
-    try {
-      const image = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Camera,
-        quality: 100,
-      });
 
-      // this.guardarFoto(image);
-      // GQB720
+    const permisosCamara = await (await Camera.checkPermissions()).camera;
+    const permisosFoto = await (await Camera.checkPermissions()).photos;
 
-      switch (label) {
-        case 'Aerea':
-          if (image.webPath) {
-            this.fotoAereaTomada = true;
-            this.srcAerea = image.webPath!.toString();
-            this.srcMostrarFoto = image.webPath!.toString();
-            this.formFields.FotoTecho = image;
-          }
-          break;
-
-        case 'Frontal':
-          if (image.webPath) {
-            this.fotoFrontalTomada = true;
-            this.srcFrontal = image.webPath!.toString();
-            this.srcMostrarFoto = image.webPath!.toString();
-            this.formFields.FotoFrontal = image;
-          }
-          break;
-
-        case 'Trasera':
-          if (image.webPath) {
-            this.fotoTraseraTomada = true;
-            this.srcTrasera = image.webPath!.toString();
-            this.srcMostrarFoto = image.webPath!.toString();
-            this.formFields.FotoTrasera = image;
-          }
-          break;
-
-        case 'Derecha':
-          if (image.webPath) {
-            this.fotoDerechaTomada = true;
-            this.srcDerecha = image.webPath!.toString();
-            this.srcMostrarFoto = image.webPath!.toString();
-            this.formFields.FotoDerecha = image;
-          }
-          break;
-
-        case 'Izquierda':
-          if (image.webPath) {
-            this.fotoIzquierdaTomada = true;
-            this.srcIzquierda = image.webPath!.toString();
-            this.srcMostrarFoto = image.webPath!.toString();
-            this.formFields.FotoIzquierda = image;
-          }
-          break;
+    if(permisosCamara=="granted"|| permisosFoto=="granted"){
+      try {
+        const image = await Camera.getPhoto({
+          resultType: CameraResultType.Uri,
+          source: CameraSource.Camera,
+          quality: 100,
+        });
+  
+        // this.guardarFoto(image);
+        // GQB720
+  
+        var reader = new FileReader();
+        reader.readAsDataURL(image.exif);
+  
+  
+        switch (label) {
+          case 'Aerea':
+            if (image.webPath) {
+              this.fotoAereaTomada = true;
+              this.srcAerea = image.webPath!.toString();
+              this.srcMostrarFoto = image.webPath!.toString();
+              this.formFields.FotoTecho = image;
+            }
+            break;
+  
+          case 'Frontal':
+            if (image.webPath) {
+              this.fotoFrontalTomada = true;
+              this.srcFrontal = image.webPath!.toString();
+              this.srcMostrarFoto = image.webPath!.toString();
+              this.formFields.FotoFrontal = image;
+            }
+            break;
+  
+          case 'Trasera':
+            if (image.webPath) {
+              this.fotoTraseraTomada = true;
+              this.srcTrasera = image.webPath!.toString();
+              this.srcMostrarFoto = image.webPath!.toString();
+              this.formFields.FotoTrasera = image;
+            }
+            break;
+  
+          case 'Derecha':
+            if (image.webPath) {
+              this.fotoDerechaTomada = true;
+              this.srcDerecha = image.webPath!.toString();
+              this.srcMostrarFoto = image.webPath!.toString();
+              this.formFields.FotoDerecha = image;
+            }
+            break;
+  
+          case 'Izquierda':
+            if (image.webPath) {
+              this.fotoIzquierdaTomada = true;
+              this.srcIzquierda = image.webPath!.toString();
+              this.srcMostrarFoto = image.webPath!.toString();
+              this.formFields.FotoIzquierda = image;
+            }
+            break;
+        }
+      } catch (error) {
+        console.error('Error capturing photo', error);
       }
-    } catch (error) {
-      console.error('Error capturing photo', error);
     }
+    
   }
 
   marcaChange(event: any) {

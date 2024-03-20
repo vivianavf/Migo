@@ -28,6 +28,8 @@ import { Sector } from 'src/app/interfaces/sector';
 import { SectorService } from 'src/app/providers/sector.service';
 import { GoogleMapsModule, MapPolygon } from '@angular/google-maps';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
+import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
+import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -42,6 +44,7 @@ export class DetallesCampanaPage implements OnInit {
   clientes: Client[] = [];
   sectores: Sector[] = [];
   sector?: Sector;
+  talleresBrandeo: TallerBrandeo[] = [];
   empresaSeleccionada!: Empresa;
   nombreEmpresa = '-';
   correoEncargado = '--@--';
@@ -74,7 +77,8 @@ export class DetallesCampanaPage implements OnInit {
     private empresaService: EmpresaService,
     private sectorService: SectorService,
     private navCtrl: NavController,
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
+    private tallerBService: TallerBrandeoService,
   ) {}
 
   async mostrarNotificaciones() {
@@ -113,6 +117,9 @@ export class DetallesCampanaPage implements OnInit {
       if (busquedaEmpresa) this.nombreEmpresa = busquedaEmpresa.nombre;
     });
 
+    this.tallerBService.getTalleres().subscribe((data)=>{
+      this.talleresBrandeo = data;
+    })
     // this.crearSectores();
   }
 
@@ -150,7 +157,6 @@ export class DetallesCampanaPage implements OnInit {
         }
       });
 
-      // console.log(createdPolygon)
     }
   }
 

@@ -53,7 +53,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     var autoSaveInterval = setInterval(() => {
       this.imgBanner = this.generarNumeroBanner();
-    }, 7000);
+    }, 5000);
 
     this.toolbarService.setTexto("HOME");
     this.tabService.showTabs();

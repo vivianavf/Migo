@@ -136,6 +136,31 @@ capacitor-google-map {
   align-items: center;
 }
 
+.taller-direccion{
+  width: 100%;
+}
+
+.accordion-element{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+
+}
+
+.maps-icon{
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.maps-icon::part(image){
+  max-width: 20px;
+  max-height: 20px;
+}
+
+.maps-link{
+  margin-right: 15px;
+}
+
 .button-container{
   margin-top: 25px;
   text-align: center;
