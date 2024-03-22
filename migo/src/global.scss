@@ -381,3 +381,20 @@ ion-input.addVehiculoInput > input {
   --pading-top: 0px;
   --padding-bottom: 0px;
 }
+
+
+/** popOvers REGISTRO **/
+.sexo-popover{
+  .hydrated{
+    --background: none;
+    --box-shadow: none;
+  }
+}
+
+.sexo-popover{
+  ion-select-popover{
+    ion-list{
+      border-radius: 15px;
+    }
+  }
+}

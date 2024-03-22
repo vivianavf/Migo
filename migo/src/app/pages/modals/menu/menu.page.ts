@@ -71,7 +71,7 @@ export class MenuPage implements OnInit {
     localStorage.clear();
     sessionStorage.clear();
     this.modalController.dismiss();
-    this.router.navigate(['/login']);
+    this.navCtrl.navigateRoot(['/login']);
   }
 
   ngOnInit() {

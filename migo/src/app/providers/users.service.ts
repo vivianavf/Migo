@@ -75,6 +75,8 @@ export class UsersService {
       localStorage.setItem('usuario_fecha_creacion', user.fecha_creacion);
       localStorage.setItem('usuario_fecha_modificacion', user.fecha_modificacion);
       localStorage.setItem('usuario_rol', user.rol_usuario.toString());
+      localStorage.setItem('usuario_id_pais', user.id_pais.toString());
+      localStorage.setItem('usuario_id_ciudad', user.id_ciudad.toString());
     }
   }
 
@@ -92,7 +94,9 @@ export class UsersService {
       fecha_creacion: localStorage.getItem('usuario_fecha_creacion'),
       fecha_modificacion: localStorage.getItem('usuario_fecha_modificacion'),
       rol_usuario: Number(localStorage.getItem('usuario_rol')),
-      token_notificacion: localStorage.getItem('token_notificacion')
+      token_notificacion: localStorage.getItem('token_notificacion'),
+      id_ciudad: Number(localStorage.getItem('usuario_id_pais')),
+      id_pais: Number(localStorage.getItem('usuario_id_ciudad')),
     };
     return usuarioactivo;
     // return this.user;

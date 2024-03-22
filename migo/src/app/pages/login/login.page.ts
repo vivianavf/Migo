@@ -163,7 +163,7 @@ export class LoginPage implements OnInit {
     return await modal.present();
   }
 
-  ngOnInit() {
+  generarDatos(){
     this.tabService.hideTabs();
 
     this.userService.getUsers().subscribe((data) => {
@@ -177,5 +177,13 @@ export class LoginPage implements OnInit {
     this.choferService.getChoferes().subscribe((data) => {
       this.choferes = data;
     });
+  }
+
+  ionViewWillEnter() {
+    this.generarDatos();
+  }
+
+  ngOnInit() {
+    this.generarDatos();
   }
 }

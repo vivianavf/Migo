@@ -64,6 +64,8 @@ export class ChoferService {
       localStorage.setItem('chofer_fecha_nacimiento', chofer.fecha_nacimiento.toString());
       localStorage.setItem('chofer_sexo', chofer.sexo.toString());
       localStorage.setItem('chofer_estado', chofer.estado.toString());
+      localStorage.setItem('chofer_id_ciudad', chofer.id_ciudad.toString());
+      localStorage.setItem('chofer_id_pais', chofer.id_pais.toString());
     }
   }
   choferActivo() {
@@ -76,6 +78,8 @@ export class ChoferService {
       sexo: Number(localStorage.getItem('chofer_sexo')),
       estado: Number(localStorage.getItem('chofer_estado')),
       id_usuario: Number(localStorage.getItem('usuario_id')),
+      id_ciudad: Number(localStorage.getItem('chofer_id_ciudad')),
+      id_pais: Number(localStorage.getItem('chofer_id_pais')),
     };
     return choferactivo;
   }

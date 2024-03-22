@@ -16,6 +16,10 @@ import { DatosRegistroPage } from '../modals/datos-registro/datos-registro.page'
 import { Client } from 'src/app/interfaces/client';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { RegistroConductorService } from 'src/app/providers/registro-conductor.service';
+import { Pais } from 'src/app/interfaces/pais';
+import { Ciudad } from 'src/app/interfaces/ciudad';
+import { PaisService } from 'src/app/providers/pais.service';
+import { CiudadService } from 'src/app/providers/ciudad.service';
 
 @Component({
   selector: 'app-registro',
@@ -57,9 +61,14 @@ export class RegistroPage implements OnInit {
   correoInput: string = '';
   telefonoInput: string = '';
   sexoInput: string = '';
+  paisInput: string = '';
+  ciudadInput: string = '';
 
   users: User[] = [];
   clientes: Client[] = [];
+  paises: Pais[] = [];
+  ciudades: Ciudad[] = [];
+  ciudadesFiltradas: Ciudad[] = [];
   usuario: any;
   cliente: any;
 
@@ -70,6 +79,8 @@ export class RegistroPage implements OnInit {
     private clienteService: ClienteService,
     private modalController: ModalController,
     private regConductorService: RegistroConductorService,
+    private paisService: PaisService,
+    private ciudadService: CiudadService,
   ) {
     this.formularioRegistro = this.fb.group({
       cedula: new FormControl('', [Validators.required]),
@@ -82,6 +93,16 @@ export class RegistroPage implements OnInit {
       telefono: new FormControl('', Validators.required),
       sexoInput: new FormControl('', Validators.required),
     });
+  }
+
+  filtrarCiudades() {
+    this.ciudadesFiltradas = [];
+    this.ciudades.forEach((ciudad)=>{
+      if(ciudad.id_pais == Number(this.paisInput)){
+        this.ciudadesFiltradas.push(ciudad);
+      }
+    })
+    // this.ciudadesFiltradas = [];
   }
 
   cancelar() {
@@ -124,6 +145,8 @@ export class RegistroPage implements OnInit {
             estado: 1,
             rol_usuario: 5, //chofer,
             token_notificacion : "eujClc4dQKWglcbqqy_pbj:APA91bEEB78NUOs1ddq23aJ4baILdMDd1CUYiwndetmJhWtUpb2rvMkz048BYqhs2uepxyvMW2mOhoY-W6hrnnblX2hq4d1UU00HNj4u2LGDbiW2yVQU6Iy2B_q-Lv1RfU7sXEXpHNm",
+            id_pais: Number(this.paisInput),
+            id_ciudad: Number(this.ciudadInput),
           };
 
           this.cliente = {
@@ -132,10 +155,12 @@ export class RegistroPage implements OnInit {
             apellido: this.apellidosInput,
             fecha_nacimiento: this.fechaInput,
             email: this.correoInput,
-            sexo: +this.sexoInput,
+            sexo: this.sexoInput,
             telefono: this.telefonoInput,
             estado: 1,
             id_usuario: nuevoIDusuario,
+            id_pais: Number(this.paisInput),
+            id_ciudad: Number(this.ciudadInput),
           };
           this.mostrarDatos();
           break;
@@ -322,6 +347,8 @@ export class RegistroPage implements OnInit {
         usuario: this.usuario,
         cliente: this.cliente,
         formularioRegistro: this.formularioRegistro,
+        pais: Number(this.paisInput),
+        ciudad: Number(this.ciudadInput),
       },
     });
     return await modal.present();
@@ -331,5 +358,7 @@ export class RegistroPage implements OnInit {
     this.users = this.userService.usersObtenidos;
     this.clientes = this.clienteService.clientesObtenidos;
     this.formularioRegistro.reset();
+    this.ciudadService.getCiudades().subscribe((data)=>{this.ciudades = data;})
+    this.paisService.getPaises().subscribe((data)=>{this.paises = data;})
   }
 }
