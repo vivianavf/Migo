@@ -1,6 +1,6 @@
 <div class="root">
   <ion-progress-bar *ngIf="campanas.length === 0" type="indeterminate"></ion-progress-bar>
-  <ion-text class="helperText" *ngIf="campanas.length !== 0">Campañas disponibles en Bogotá</ion-text>
+  <ion-text class="helperText" *ngIf="campanas.length !== 0">Campañas disponibles en {{ciudadActiva?.nombre}}</ion-text>
 <div class="marginContent content white-background">
   <ion-card *ngFor="let campana of campanas">
     <ion-card-content class="black-text">

@@ -95,8 +95,8 @@ export class UsersService {
       fecha_modificacion: localStorage.getItem('usuario_fecha_modificacion'),
       rol_usuario: Number(localStorage.getItem('usuario_rol')),
       token_notificacion: localStorage.getItem('token_notificacion'),
-      id_ciudad: Number(localStorage.getItem('usuario_id_pais')),
-      id_pais: Number(localStorage.getItem('usuario_id_ciudad')),
+      id_pais: Number(localStorage.getItem('usuario_id_pais')),
+      id_ciudad: Number(localStorage.getItem('usuario_id_ciudad')),
     };
     return usuarioactivo;
     // return this.user;
