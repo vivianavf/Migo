@@ -1,24 +1,6 @@
 @import url('../../../theme/variables.scss');
 
 //toolbar
-ion-toolbar{
-    padding-top: 20px;
-    padding-bottom: 14px;
-  }
-  
-  ion-button.notificaciones{
-    padding-right: 12px;
-  }
-  
-  ion-button::part(native){
-    padding: 0;
-  }
-  
-  ion-icon.menu{
-    height: 40px;
-    width: 40px;
-    padding: 0;
-  }
 
   ion-title.toolbar-text{
     font-size: 16px;

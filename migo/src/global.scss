@@ -147,7 +147,7 @@ ion-button {
 }
 
 ion-toolbar {
-  padding-top: 2%;
+  padding-top: 20px;
   display: flex;
   text-align: center;
 }
@@ -397,4 +397,9 @@ ion-input.addVehiculoInput > input {
       border-radius: 15px;
     }
   }
+}
+
+/** APP CAMPANA **/
+app-campana{
+  width: 100%;
 }

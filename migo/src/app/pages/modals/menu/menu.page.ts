@@ -6,6 +6,7 @@ import { ChoferService } from 'src/app/providers/chofer.service';
 // import { AppComponent } from 'src/app/app.component';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { TabsService } from 'src/app/providers/tabs.service';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class MenuPage implements OnInit {
     private userService: UsersService,
     private clientService: ClienteService,
     private tabService: TabsService,
-    private choferService: ChoferService
+    private choferService: ChoferService,
+    private toolbarService: ToolbarService,
   ) {}
 
   cerrarModal() {
@@ -77,6 +79,9 @@ export class MenuPage implements OnInit {
   ngOnInit() {
     // console.log(this.user)
     // console.log(this.client)
+    this.toolbarService.setTexto("MENÚ");
+    this.toolbarService.showAds(false);
+
     switch (this.user.rol_usuario) {
       case 2: // es chofer
         this.nombreUsuario = this.choferService.choferActivo().nombre.toString() + " " + this.choferService.choferActivo().apellido.toString();

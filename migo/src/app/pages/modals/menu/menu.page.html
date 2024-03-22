@@ -1,11 +1,12 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar part="toolbar">
     <ion-buttons slot="start">
       <ion-back-button icon="chevron-back" (click)="cerrarModal()" default-href=""></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">MENÚ DE OPCIONES</ion-title>
+    <ion-title id="toolbarTitle">MENÚ</ion-title>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content class="withoutBackground">
   <div class="container">

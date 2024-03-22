@@ -15,6 +15,7 @@ import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page
 import { CampanaComponent } from '../campana/campana.component';
 import { TabsService } from 'src/app/providers/tabs.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
+import { MarcasComponent } from '../marcas/marcas.component';
 
 @Component({
   selector: 'app-home',
@@ -46,11 +47,18 @@ export class HomePage implements OnInit {
     private navCtrl: NavController,
     private popOverCtrl: PopoverController,
     private campanaComponent: CampanaComponent,
+    private marcaComponent: MarcasComponent,
     private tabService: TabsService,
     private toolbarService: ToolbarService,
   ) {}
 
+  ionViewDidEnter(){
+    // this.campanaComponent.cleanDatos();
+    // this.marcaComponent.cleanDatos();
+  }
+
   ngOnInit() {
+    console.log("ON INIT");
     var autoSaveInterval = setInterval(() => {
       this.imgBanner = this.generarNumeroBanner();
     }, 5000);

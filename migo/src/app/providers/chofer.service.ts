@@ -29,8 +29,8 @@ export class ChoferService {
   getIDNuevoChofer(): number{
     this.getChoferes().subscribe((response)=>{});
     
-    console.log(this.choferesObtenidos)
-    console.log(this.choferesObtenidos[this.choferesObtenidos.length - 1])
+    // console.log(this.choferesObtenidos)
+    // console.log(this.choferesObtenidos[this.choferesObtenidos.length - 1])
     // let ultimoID = this.choferesObtenidos[this.choferesObtenidos.length - 1].id_chofer;
 
     // if(ultimoID){

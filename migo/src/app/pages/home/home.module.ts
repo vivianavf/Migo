@@ -21,6 +21,6 @@ import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.c
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[MarcasComponent,],
   declarations: [HomePage,CampanaComponent,MarcasComponent],
-  providers: [CampanaComponent],
+  providers: [CampanaComponent, MarcasComponent,],
 })
 export class HomePageModule {}

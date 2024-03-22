@@ -1,6 +1,6 @@
 <div class="root">
   <ion-progress-bar *ngIf="empresas.length === 0" type="indeterminate"></ion-progress-bar>
-  <ion-text class="helperText" *ngIf="campanas.length !== 0">Marcas disponibles en {{pais?.nombre}}</ion-text>
+  <ion-text class="helperText" *ngIf="campanas.length !== 0">Marcas inscritas en {{pais?.nombre}}</ion-text>
 <div class="content marginContent">
   <ion-card *ngFor="let empresa of empresas">
     <div class="banner-empresa ad">

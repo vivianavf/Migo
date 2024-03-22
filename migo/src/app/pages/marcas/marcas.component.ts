@@ -72,7 +72,28 @@ export class MarcasComponent  implements OnInit {
 
   }
 
-  ngOnInit() {
+  cleanDatos(){
+    var paisUsuario = 0;
+    var ciudadUsuario = 0;
+
+    this.paisService.getPaisbyId(paisUsuario).subscribe((pais)=>{this.pais = pais})
+    this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad)=>{this.ciudad = ciudad})
+    
+    this.empresaService.getEmpresas().subscribe((data=>{
+      data.forEach((empresa)=>{
+        if(empresa.id_pais === paisUsuario){
+          this.empresas.push(empresa);
+        }
+      })
+      })
+    )
+    this.campanas = this.campanaService.campanasObtenidas;
+
+    this.empresas = [];
+    this.campanas = [];
+  }
+
+  generarDatos(){
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
 
@@ -88,6 +109,14 @@ export class MarcasComponent  implements OnInit {
       })
     )
     this.campanas = this.campanaService.campanasObtenidas;
+  }
+  
+  ionViewDidEnter(){
+    this.generarDatos();
+  }
+
+  ngOnInit() {
+    this.generarDatos();
   }
 
 }

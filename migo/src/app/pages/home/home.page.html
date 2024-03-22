@@ -5,7 +5,7 @@
     </ion-button>
   </ion-buttons>
 
-  <ion-button id="filtro">
+  <ion-button *ngIf="mostrarBotonFiltro" id="filtro">
     <ion-text class="capitalize filtrar-por" >Ordenar Por</ion-text>
     <ion-icon
         id="icon-filtrar"

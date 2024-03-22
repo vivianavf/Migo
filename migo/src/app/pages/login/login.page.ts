@@ -112,7 +112,6 @@ export class LoginPage implements OnInit {
       this.logearse = true;
     } else {
       this.mostrarMensaje = true;
-      console.log(inputPassword);
     }
     console.log('logearse: ', this.logearse);
     if (this.logearse) {

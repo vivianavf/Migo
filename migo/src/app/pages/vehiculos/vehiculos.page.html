@@ -6,38 +6,44 @@
       icon="chevron-back"
     ></ion-back-button>
   </ion-buttons>
-  <ion-title>MIS VEHÍCULOS</ion-title>
+  <ion-title id="vehiculoTitle">MIS VEHÍCULOS</ion-title>
 </ion-toolbar>
 
-<ion-content class="ion-padding">
-  <div class="ad">
-    <ion-img
-      src="../../../assets/images/banner-bcoguayaquil.png"
-      alt="Banner Publicitario"
-      class="img-ad"
-    ></ion-img>
-  </div>
+<div class="ad">
+  <ion-img
+    src="../../../assets/images/banner-bcoguayaquil.png"
+    alt="Banner Publicitario"
+    class="img-ad"
+  ></ion-img>
+</div>
 
+<ion-content class="ion-padding">
   <div class="divisor first-divisor">
     <div class="img-placa">
       <img
         class="primary-car-img"
         src="../../../assets/images/vehiculos/{{vehiculoPrincipal?.id_vehiculo}}.jpg"
       />
-      <ion-text class="bold-text">{{vehiculoPrincipal?.placa}}</ion-text>
-      <ion-button
-        class="bold-text contrast-button ver-detalle"
-        (click)="verMas(vehiculoPrincipal)"
+      <ion-text class="placaPrincipal bold-text"
+        >{{vehiculoPrincipal?.placa}}</ion-text
       >
-        Ver Más
-      </ion-button>
     </div>
-    <ion-list>
-      <ion-item> {{marcaPrincipal}} </ion-item>
-      <ion-item> {{modeloPrincipal}} </ion-item>
-      <ion-item> {{vehiculoPrincipal?.color_vehiculo}} </ion-item>
-      <ion-item> {{vehiculoPrincipal?.anio}} </ion-item>
-    </ion-list>
+    <div class="info-primary-car">
+      <ion-list>
+        <ion-item> {{marcaPrincipal}} </ion-item>
+        <ion-item> {{modeloPrincipal}} </ion-item>
+        <ion-item> {{vehiculoPrincipal?.color_vehiculo}} </ion-item>
+        <ion-item> {{vehiculoPrincipal?.anio}} </ion-item>
+      </ion-list>
+      <div class="verMasPrincipal">
+        <ion-button
+          class="bold-text contrast-button ver-detalle"
+          (click)="verMas(vehiculoPrincipal)"
+        >
+          Ver Detalles
+        </ion-button>
+      </div>
+    </div>
   </div>
 
   <div class="divisor second-divisor">
@@ -59,24 +65,25 @@
           {{vehiculoSecundario?.anio}}
         </div>
         <div class="secondary-car-buttons">
-          <ion-icon
-            id="open-modal-confirmation"
-            class="trash"
-            name="trash"
-            color="danger"
-            (click)="eliminarVehiculo(vehiculoSecundario)"
-          ></ion-icon>
-          <ion-button
-            class="bold-text contrast-button ver-detalle"
-            (click)="verMas(vehiculoSecundario)"
-          >
-            Ver Más
-          </ion-button>
+          <div class="icon-button">
+            <ion-icon
+              id="open-modal-confirmation"
+              class="trash"
+              name="trash"
+              color="danger"
+              (click)="eliminarVehiculo(vehiculoSecundario)"
+            ></ion-icon>
+          </div>
+          <div class="detalle-button">
+            <ion-button
+              class="bold-text contrast-button ver-detalle-secundario"
+              (click)="verMas(vehiculoSecundario)"
+            >
+              Ver Detalles
+            </ion-button>
+          </div>
         </div>
       </ion-card-content>
-
-      
-
     </ion-card>
     <div class="button-container">
       <ion-button
@@ -107,12 +114,13 @@
           <ion-button id="boton-cancelar" (click)="deleteConfirmation.dismiss()"
             >cancelar</ion-button
           >
-          <ion-button id="boton-eliminar" (click)="eliminarVehiculoDefinitivamente()"
+          <ion-button
+            id="boton-eliminar"
+            (click)="eliminarVehiculoDefinitivamente()"
             >eliminar</ion-button
           >
         </div>
       </ion-content>
     </ng-template>
   </ion-modal>
-
 </ion-content>

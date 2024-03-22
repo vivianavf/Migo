@@ -5,163 +5,206 @@
 //     height: 75px; /* Altura del contenedor, ajusta según tus necesidades */
 //   }
 
-.divisor{
-    display: flex;
+ion-buttons {
+  width: 48px;
+  height: 48px;
 }
 
-.first-divisor{
-    flex-direction: row;
-    margin-bottom: 7%;
-    margin-top: 1%;
+#vehiculoTitle {
+  padding-left: 0px;
+  padding-right: 48px;
 }
 
-.second-divisor{
-    flex-direction: column;
+.divisor {
+  display: flex;
 }
 
-  .img-placa{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    align-items: center;
-    text-align: center;
+.first-divisor {
+  flex-direction: row;
+  margin-bottom: 7%;
+  margin-top: 1%;
+}
+
+.second-divisor {
+  flex-direction: column;
+}
+
+.img-placa {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  text-align: center;
   justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-  ion-item{
-    border-bottom: 1px solid white;
-    background-color: transparent;
-    width: auto;
-    height: 40px;
-  }
+ion-item {
+  border-bottom: 1px solid white;
+  background-color: transparent;
+  width: auto;
+  height: 40px;
+}
 
-  ion-item::part(native){
-    background-color: transparent;
-  }
+ion-item::part(native) {
+  background-color: transparent;
+}
 
-  ion-list{
-    background-color: transparent;
-    width: 50%;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    margin-right: 30px;
-  }
+.info-primary-car{
+  width: 50%;
+  padding-left: 10px;
+  padding-right: 20px;
+}
 
-  
+.placaPrincipal{
+  padding-top: 10px;
+}
 
-  ion-card{
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border-radius: 20px;
-    max-height: 130px;
-    display: flex;
-  }
+ion-list {
+  background-color: transparent;
+  // padding-bottom: 20px;
+  // padding-top: 0px;
+  // margin-right: 30px;
+}
 
-  ion-card-content{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    align-items: center;
-  }
+.verMasPrincipal{
+  display: flex;
+  flex-direction: row-reverse;
+  padding-left: 25%;
+}
 
-  .secondary-car-info{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    display: flex;
-  }
+ion-card {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  max-height: 130px;
+  display: flex;
+}
 
-  .secondary-car-buttons{
-    display: flex;
-    flex-direction: column;
-    align-items:flex-end;
-    justify-content: center;
-  }
+ion-card-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
 
-  .secondary-car-img{
-    max-width: 90px;
-    max-height: 90px;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-right: 15px;
-  }
+.secondary-car-info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  display: flex;
+}
 
-  .primary-car-img{
-    width: 150px;
-    height: 150px;
-    
-  }
+.secondary-car-buttons {
+  display: flex;
+  flex-direction: column;
+  // align-items: flex-end;
+  // justify-content: center;
+}
 
-  ion-button.ver-detalle{
-    border-radius: 20px;
-    width: 60px;
-    white-space: pre-line;
-  }
+.secondary-car-img {
+  max-width: 90px;
+  max-height: 90px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-right: 15px;
+}
 
-  ion-icon.trash{
-    margin-bottom: 10px;
-    height: 20px;
-    width: 20px;
-  }
+.primary-car-img {
+  width: 100%;
+  height: 150px;
+}
 
-  .button-container{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
+.icon-button{
+  height: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
 
-  ion-button.agregar-vehiculo{
-    width: 50%;
-  }
+.detalle-button{
+  height: 50%;
+}
 
-  /* MODAL */
+ion-button.ver-detalle {
+  border-radius: 20px;
+  width: 100%;
+  // white-space: pre-line;
+}
 
-  .confirmationPage::part(background){
-    background:white;
-  }
+ion-button.ver-detalle-secundario{
+  font-size: xx-small;
+  min-height: 25px;
+}
 
-  ion-icon#warning{
-    height: 100px;
-    width: 100px;
-    color: red;
-  }
+ion-button.ver-detalle-secundario::part(native){
+  // padding: 0;
+}
 
-  .texts{
-    display: flex;
-    flex-direction: column;
-  }
+ion-icon.trash {
+  margin-bottom: 10px;
+  height: 20px;
+  width: 20px;
+}
 
-  .texts:first-child {
-    color: black;
-    font-size: x-large;
-  }
+.button-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
 
-  .texts:last-child {
-    color: red;
-  }
+ion-button.agregar-vehiculo {
+  width: 50%;
+}
 
-  .buttons{
-    display: flex;
-    flex-direction: row;
-  }
+/* MODAL */
 
-  #boton-cancelar{
-    --box-shadow: none;
-    --background: transparent;
-  }
+.confirmationPage::part(background) {
+  background: white;
+}
 
-  #boton-eliminar{
-    --background: red; 
-  }
+ion-icon#warning {
+  height: 100px;
+  width: 100px;
+  color: red;
+}
 
-  .confirmationPage{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
+.texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.texts:first-child {
+  color: black;
+  font-size: x-large;
+}
+
+.texts:last-child {
+  color: red;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+#boton-cancelar {
+  --box-shadow: none;
+  --background: transparent;
+}
+
+#boton-eliminar {
+  --background: red;
+}
+
+.confirmationPage {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
