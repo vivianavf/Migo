@@ -36,6 +36,12 @@
       <ion-text class="datosincorrectos" *ngIf="emailInvalido">
         Email no válido<br />
       </ion-text>
+      <ion-text class="datosincorrectos" *ngIf="usuarioDesactivado">
+        Su usuario ha sido desactivado.<br>Por favor, comuníquese con el administrador<br />
+      </ion-text>
+      <ion-text class="datosincorrectos" *ngIf="usuarioEliminado">
+        Su usuario ha sido eliminado.<br>Por favor, comuníquese con el administrador<br />
+      </ion-text>
       <ion-text>
         <a (click)="recuperarPassword()" class="normal-link">¿Olvidaste tu contraseña?</a><br />
       </ion-text>

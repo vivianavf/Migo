@@ -83,24 +83,12 @@ export class HomePage implements OnInit {
     }
   }
 
-  // ionViewDidEnter() {
-  //   this.backButton = this.platform.backButton.subscribeWithPriority(9999, () => {
-  //     // No hagas nada para evitar la navegación hacia atrás
-  //   });
-  // }
-
-  // ionViewWillLeave() {
-  //   this.backButton.unsubscribe();
-  // }
-
   borrarFiltro(){
     this.mostrarBotonFiltro = false;
-    console.log(this.mostrarBotonFiltro)
   }
 
   mostrarFiltro(){
     this.mostrarBotonFiltro = true;
-    console.log(this.mostrarBotonFiltro)
   }
 
   async mostrarMenu() {

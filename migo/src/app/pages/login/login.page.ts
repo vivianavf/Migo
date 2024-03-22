@@ -40,6 +40,8 @@ export class LoginPage implements OnInit {
   users: User[] = [];
   clients: Client[] = [];
   choferes: Chofer[] = [];
+  usuarioDesactivado = false;
+  usuarioEliminado = false;
 
   regex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))|([A-Z]{3}[0-9]{3,4})$/;
@@ -81,11 +83,14 @@ export class LoginPage implements OnInit {
     var usuarios = this.users;
     const busquedaEmail = usuarios.find(({ email }) => email === inputEmail);
 
+    busquedaEmail?.estado===0?this.usuarioDesactivado=true:this.usuarioDesactivado=false;
+    busquedaEmail?.estado===3?this.usuarioEliminado=true:this.usuarioEliminado=false;
+
     //transformar con SHA256
     inputPassword = this.encriptarSHA256(inputPassword);
 
     // const clientBusqueda = this.clients.find(({ email }) => email === inputEmail);
-    if (busquedaEmail && (busquedaEmail.contrasena === inputPassword)) {
+    if (busquedaEmail && (busquedaEmail.contrasena === inputPassword) && busquedaEmail.estado===1) {
       this.userService.ingresarUsuario(busquedaEmail);
       switch (busquedaEmail.rol_usuario) {
         case 2: //es chofer
