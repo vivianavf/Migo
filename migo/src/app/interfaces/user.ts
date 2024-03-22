@@ -8,4 +8,6 @@ export interface User {
     fecha_modificacion: string,
     rol_usuario: number,
     token_notificacion: string,
+    id_pais: number,
+    id_ciudad: number,
 }

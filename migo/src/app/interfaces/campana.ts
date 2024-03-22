@@ -32,4 +32,6 @@ export interface Campana {
     camioneta_admisible: boolean,
     bus_admisible: boolean,
     id_empresa: number,
+    id_pais: number,
+    id_ciudad: number,
 }

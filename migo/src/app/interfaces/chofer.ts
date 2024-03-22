@@ -6,5 +6,7 @@ export interface Chofer {
     fecha_nacimiento: Date,
     sexo: number,
     estado: number,
-    id_usuario: number
+    id_usuario: number,
+    id_pais: number,
+    id_ciudad: number,
 }

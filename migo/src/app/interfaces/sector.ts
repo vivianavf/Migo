@@ -9,4 +9,6 @@ export interface Sector {
   zoom: number;
   fecha_modificacion: string;
   estado: number;
+  id_pais: number;
+  id_ciudad: number;
 }

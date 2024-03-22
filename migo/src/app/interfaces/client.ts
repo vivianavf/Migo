@@ -11,4 +11,6 @@ export interface Client {
     id_usuario?: number,
     id_empresa?: number,
     id_campana?: number,
+    id_pais: number,
+    id_ciudad: number,
 }

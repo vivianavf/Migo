@@ -6,6 +6,8 @@ export interface TallerBrandeo {
     telefono: string,
     estado?: null,
     fecha_creacion?: null,
-    fecha_modificacion?: null
+    fecha_modificacion?: null,
+    id_pais: number,
+    id_ciudad: number,
 }
 

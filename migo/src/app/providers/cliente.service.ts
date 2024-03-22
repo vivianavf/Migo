@@ -47,6 +47,8 @@ export class ClienteService {
       localStorage.setItem('cliente_sexo', cliente.sexo.toString());
       localStorage.setItem('cliente_telefono', cliente.telefono);
       localStorage.setItem('cliente_estado', cliente.estado.toString());
+      localStorage.setItem('cliente_id_ciudad', cliente.id_ciudad.toString());
+      localStorage.setItem('cliente_id_pais', cliente.id_pais.toString());
     }
   }
   clienteActivo() {
@@ -61,6 +63,8 @@ export class ClienteService {
       telefono: localStorage.getItem('cliente_telefono'),
       estado: Number(localStorage.getItem('cliente_estado')),
       id_usuario: Number(localStorage.getItem('usuario_id')),
+      id_ciudad: Number(localStorage.getItem('cliente_id_ciudad')),
+      id_pais: Number(localStorage.getItem('cliente_id_pais')),
     };
     return clienteactivo;
   }
