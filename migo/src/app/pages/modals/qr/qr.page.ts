@@ -59,7 +59,7 @@ export class QrPage implements OnInit {
       content: [
         { text: 'Migo Ads - Orden de Brandeo', style: 'header' },
         { text: 'Generado en: 8/01/2024', style: 'subheader' },
-        { text: '\nTaller ' + this.campana.taller_brandeo, style: 'header' },
+        { text: '\nTaller ' + "this.campana.taller_brandeo", style: 'header' },
         { text: 'Direccion del taller', style: 'subheader' },
         { text: '\nDatos de Cliente y Vehiculo', style: 'header' },
         {

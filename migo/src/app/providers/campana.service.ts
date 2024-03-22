@@ -26,8 +26,8 @@ export class CampanaService {
     return respuesta;
   }
 
-  getCampanabyId(id: number):Observable<Campana[]>{
-    return this.http.get<Campana[]>(this.baseURL+id+"/"+this.formato);
+  getCampanabyId(id: number):Observable<Campana>{
+    return this.http.get<Campana>(this.baseURL+id+"/"+this.formato);
   }
 
   crearCampana(campana: Campana): Observable<any>{

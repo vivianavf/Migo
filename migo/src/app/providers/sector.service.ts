@@ -25,8 +25,8 @@ export class SectorService {
     return respuesta;
   }
 
-  getSectorbyId(id: number):Observable<Sector[]>{
-    return this.http.get<Sector[]>(this.baseURL+id+"/"+this.formato)
+  getSectorbyId(id: number):Observable<Sector>{
+    return this.http.get<Sector>(this.baseURL+id+"/"+this.formato)
   }
   
 }

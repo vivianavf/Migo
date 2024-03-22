@@ -52,38 +52,21 @@
                   <ion-item slot="header" color="light">
                     <ion-label>Talleres Disponibles</ion-label>
                   </ion-item>
-                  <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content">{{taller.nombre}}<a class="maps-link" [href]="taller.referencia"><ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png"></ion-img></a></div>
+                  <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content"><a class="maps-link" [href]="taller.referencia">{{taller.nombre}}<ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png"></ion-img></a></div>
                 </ion-accordion>
               </ion-accordion-group>
             </div>
           </div>
           <div class="vehiculo-tipo">
-            <p>Tipo de Vehículos:</p>
-            <div class="vehiculosContainer">
-              <ion-img
-                *ngIf="campana.sedan_admisible"
-                class="vehiculoType"
-                src="../../../assets/autos/1.png"
-                alt="Vehiculo"
-              ></ion-img>
-              <ion-img
-                *ngIf="campana.bus_admisible"
-                class="vehiculoType"
-                src="../../../assets/autos/2.png"
-                alt="Vehiculo"
-              ></ion-img>
-              <ion-img
-                *ngIf="campana.camion_admisible"
-                class="vehiculoType"
-                src="../../../assets/autos/3.png"
-                alt="Vehiculo"
-              ></ion-img>
-              <ion-img
-                *ngIf="campana.camioneta_admisible"
-                class="vehiculoType"
-                src="../../../assets/autos/4.png"
-                alt="Vehiculo"
-              ></ion-img>
+            <div class="taller-direccion">
+              <ion-accordion-group>
+                <ion-accordion value="first">
+                  <ion-item slot="header" color="light">
+                    <ion-label>Vehículos Admisibles</ion-label>
+                  </ion-item>
+                  <div *ngFor="let admisible of vehiculosAdmisibles" class="ion-padding accordion-element capitalize" slot="content">{{admisible}}<ion-img class="admisible-icon" src="../../../assets/autos/{{admisible}}.png"></ion-img></div>
+                </ion-accordion>
+              </ion-accordion-group>
             </div>
           </div>
         </div>

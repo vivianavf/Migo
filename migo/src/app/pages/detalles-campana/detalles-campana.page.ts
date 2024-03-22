@@ -45,17 +45,18 @@ export class DetallesCampanaPage implements OnInit {
   sectores: Sector[] = [];
   sector?: Sector;
   talleresBrandeo: TallerBrandeo[] = [];
+  vehiculosAdmisibles : string[] = [];
   empresaSeleccionada!: Empresa;
   nombreEmpresa = '-';
   correoEncargado = '--@--';
 
   @ViewChild('map') mapRef!: google.maps.Map;
   map?: google.maps.Map;
-  center: google.maps.LatLngLiteral = {
-    lat: -2.18982299999999,
-    lng: -79.88775,
-  };
-  zoom = 12;
+  // center: google.maps.LatLngLiteral = {
+  //   lat: -2.18982299999999,
+  //   lng: -79.88775,
+  // };
+  // zoom = 12;
 
   source!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
@@ -108,6 +109,8 @@ export class DetallesCampanaPage implements OnInit {
 
   generarDatos() {
     this.campana = this.campanaService.getCampanaActual();
+    this.consultarVehiculosAdmisibles(this.campana);
+    this.consultarTalleres(this.campana);
     var idEmpresa = this.campana.id_empresa;
     this.empresaService.getEmpresas().subscribe((data) => {
       this.empresas = data;
@@ -117,24 +120,68 @@ export class DetallesCampanaPage implements OnInit {
       if (busquedaEmpresa) this.nombreEmpresa = busquedaEmpresa.nombre;
     });
 
-    this.tallerBService.getTalleres().subscribe((data)=>{
-      this.talleresBrandeo = data;
+    
+    
+  }
+
+  consultarTalleres(campana: Campana){
+    while(this.talleresBrandeo.length !=0){
+      this.talleresBrandeo.pop();
+    }
+
+    this.tallerBService.getTalleres().subscribe((talleresBrandeoData)=>{
+      campana.id_talleres.forEach((id_tallercampana)=>{
+        const tallerCampana = talleresBrandeoData.find(({id_taller}) => id_taller === id_tallercampana)!;
+        const tallerRepetido = this.talleresBrandeo.find(({id_taller})=> id_taller === id_tallercampana);
+        if(!tallerRepetido){
+          this.talleresBrandeo.push(tallerCampana!);
+        }
+      })
     })
-    // this.crearSectores();
+  }
+
+  consultarVehiculosAdmisibles(campana: Campana){
+
+    while(this.vehiculosAdmisibles.length !=0){
+      this.vehiculosAdmisibles.pop();
+    }
+
+    if(campana.sedan_admisible){
+      this.vehiculosAdmisibles.push("sedan");
+    }
+    
+    if(campana.suv_admisible){
+      this.vehiculosAdmisibles.push("suv");
+    }
+    
+    if(campana.camion_admisible){
+      this.vehiculosAdmisibles.push("camion");
+    }
+    
+    if(campana.camioneta_admisible){
+      this.vehiculosAdmisibles.push("camioneta");
+    }
+    
+    if(campana.bus_admisible){
+      this.vehiculosAdmisibles.push("bus");
+    }
+
+    if(this.vehiculosAdmisibles.length == 0){
+      this.vehiculosAdmisibles.push("No hay vehiculos admisibles")
+    }
   }
 
   crearSectores() {
-    this.sectorService.getSectores().subscribe((data) => {
+    this.sectorService.getSectores().subscribe((data)=>{
       this.sectores = data;
       this.campana = this.campanaService.getCampanaActual();
-      data.forEach((sectorX) => {
-        if (sectorX.id_sector == 19) {
-          this.sector = sectorX;
-          this.crearCercos();
+      data.forEach((sectorObtenido) =>{
+        if(sectorObtenido.id_campana == this.campana.id_campana){
+          this.sector = sectorObtenido;
+          this.createMap();
         }
-      });
-    });
-    // this.crearMapa(-2.189822999999990, -79.88775);
+      })
+    })
   }
 
   async crearCercos() {
@@ -142,7 +189,6 @@ export class DetallesCampanaPage implements OnInit {
       let createdPolygon: any;
 
       this.sector.cerco_virtual.forEach((cerco) => {
-        console.log(cerco);
         if (cerco) {
           createdPolygon = new google.maps.Polygon({
             paths: [cerco],
@@ -163,8 +209,8 @@ export class DetallesCampanaPage implements OnInit {
   ionViewWillEnter() {
     try {
       this.generarDatos();
-      this.createMap();
       this.crearSectores();
+      // this.createMap();
     } catch (error) {
       console.log(error);
     }
@@ -172,9 +218,9 @@ export class DetallesCampanaPage implements OnInit {
 
   createMap() {
     var mapOptions = {
-      zoom: this.zoom,
-      center: this.center,
-      disableDefaultUI: true,
+      zoom: this.sector?.zoom,
+      center: this.sector?.centro,
+      disableDefaultUI: false,
       fullscreenControl: true,
     };
     var mapCreado = new google.maps.Map(
@@ -182,13 +228,15 @@ export class DetallesCampanaPage implements OnInit {
       mapOptions
     );
     this.map = mapCreado;
+
+    this.crearCercos();
   }
 
   ngOnInit() {
     try {
       this.generarDatos();
       this.toolbarService.setTexto('DETALLES DE CAMPAÑA');
-      // this.crearSectores();
+      this.crearSectores();
       // this.createMap();
     } catch (error) {
       console.log(error);

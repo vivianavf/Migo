@@ -1,5 +1,6 @@
 <div class="root">
   <ion-progress-bar *ngIf="campanas.length === 0" type="indeterminate"></ion-progress-bar>
+  <ion-text class="helperText" *ngIf="campanas.length !== 0">Campañas disponibles en Bogotá</ion-text>
 <div class="marginContent content white-background">
   <ion-card *ngFor="let campana of campanas">
     <ion-card-content class="black-text">
@@ -10,7 +11,7 @@
       <div class="sector-tarifa">
         <div class="divisor">
           <ion-icon class="orange-color-contrast" name="location"></ion-icon>
-          <ion-text class="sector black-text">Sector, Sectores</ion-text>
+          <ion-text class="sector black-text" [innerHTML]="obtenerNombreSector(campana.id_sector)" ></ion-text>
         </div>
         <div class="divisor">
           <ion-icon class="orange-color-contrast" name="logo-usd"></ion-icon>

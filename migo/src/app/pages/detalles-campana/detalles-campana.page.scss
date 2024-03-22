@@ -134,6 +134,7 @@ capacitor-google-map {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 15px;
 }
 
 .taller-direccion{
@@ -143,13 +144,14 @@ capacitor-google-map {
 .accordion-element{
   display: flex;
   flex-direction: row-reverse;
-  justify-content: start;
+  justify-content: flex-end;
 
 }
 
 .maps-icon{
   max-width: 20px;
   max-height: 20px;
+  margin-right: 15px;
 }
 
 .maps-icon::part(image){
@@ -159,6 +161,14 @@ capacitor-google-map {
 
 .maps-link{
   margin-right: 15px;
+  color: black;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.admisible-icon{
+  max-width: 35px;
+  margin-right: 10px;
 }
 
 .button-container{

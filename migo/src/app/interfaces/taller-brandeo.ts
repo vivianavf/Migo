@@ -1,4 +1,5 @@
 export interface TallerBrandeo {
+    id_taller?: number,
     nombre: string,
     direccion: string,
     referencia: string,

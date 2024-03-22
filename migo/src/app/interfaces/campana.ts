@@ -15,7 +15,7 @@ export interface Campana {
     hora_monetizable_fin: string,
     cobro_minimo: number,
     tipo_brandeo: string,
-    taller_brandeo: string,
+    id_talleres: number[],
     carroceria_capo: boolean,
     puerta_conductor: boolean,
     puerta_pasajero: boolean,
