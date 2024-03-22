@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Campana } from 'src/app/interfaces/campana';
+import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Empresa } from 'src/app/interfaces/empresa';
+import { Pais } from 'src/app/interfaces/pais';
 import { CampanaService } from 'src/app/providers/campana.service';
+import { CiudadService } from 'src/app/providers/ciudad.service';
 import { EmpresaService } from 'src/app/providers/empresa.service';
+import { PaisService } from 'src/app/providers/pais.service';
+import { UsersService } from 'src/app/providers/users.service';
 
 @Component({
   selector: 'app-marcas',
@@ -13,10 +18,16 @@ export class MarcasComponent  implements OnInit {
 
   empresas: Empresa[] = [];
   campanas: Campana[] = [];
+  
+  pais?: Pais;
+  ciudad?: Ciudad;
 
   constructor(
     private empresaService: EmpresaService,
     private campanaService: CampanaService,
+    private userService: UsersService,
+    private paisService: PaisService,
+    private ciudadService: CiudadService,
   ) { }
 
   verMas(empresa: Empresa){
@@ -62,8 +73,18 @@ export class MarcasComponent  implements OnInit {
   }
 
   ngOnInit() {
+    var paisUsuario = this.userService.usuarioActivo().id_pais;
+    var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
+
+    this.paisService.getPaisbyId(paisUsuario).subscribe((pais)=>{this.pais = pais})
+    this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad)=>{this.ciudad = ciudad})
+    
     this.empresaService.getEmpresas().subscribe((data=>{
-      this.empresas = data;
+      data.forEach((empresa)=>{
+        if(empresa.id_pais === paisUsuario){
+          this.empresas.push(empresa);
+        }
+      })
       })
     )
     this.campanas = this.campanaService.campanasObtenidas;

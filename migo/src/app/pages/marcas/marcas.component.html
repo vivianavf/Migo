@@ -1,6 +1,6 @@
 <div class="root">
   <ion-progress-bar *ngIf="empresas.length === 0" type="indeterminate"></ion-progress-bar>
-  <ion-text class="helperText" *ngIf="campanas.length !== 0">Marcas disponibles en Bogotá</ion-text>
+  <ion-text class="helperText" *ngIf="campanas.length !== 0">Marcas disponibles en {{pais?.nombre}}</ion-text>
 <div class="content marginContent">
   <ion-card *ngFor="let empresa of empresas">
     <div class="banner-empresa ad">
@@ -17,13 +17,13 @@
         <p>Campañas Activas: {{contarCampanasActivas(empresa.id_empresa)}}</p>
         <p>Vehículos:</p>
         <div class="vehiculosContainer">
-          <ion-img class="vehiculoType" src="../../../assets/autos/1.png"
+          <ion-img class="vehiculoType" src="../../../assets/autos/bus.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/2.png"
+    <ion-img class="vehiculoType" src="../../../assets/autos/camion.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/3.png"
+    <ion-img class="vehiculoType" src="../../../assets/autos/camioneta.png"
     alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/4.png"
+    <ion-img class="vehiculoType" src="../../../assets/autos/suv.png"
     alt="Vehiculo"></ion-img>
         </div>
       </div>
