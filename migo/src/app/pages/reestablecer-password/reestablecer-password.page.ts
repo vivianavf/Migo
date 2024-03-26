@@ -42,9 +42,9 @@ export class ReestablecerPasswordPage implements OnInit {
         const idUsuario = usuarioModificar.id_usuario
         //transformar con SHA256
         this.inputValue = this.encriptarSHA256(this.inputValue);
-        const requestBody = {"contrasena": this.inputValue}
+        // const requestBody = {"contrasena": this.inputValue}
 
-        this.userService.actualizarPassword(idUsuario, requestBody).subscribe((respuesta)=>{
+        this.userService.actualizarPassword(idUsuario, this.inputValue).subscribe((respuesta)=>{
           console.log(respuesta)
         })
 

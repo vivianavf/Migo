@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import {
   ModalController,
   NavController,
@@ -50,20 +50,26 @@ export class HomePage implements OnInit {
     private marcaComponent: MarcasComponent,
     private tabService: TabsService,
     private toolbarService: ToolbarService,
+    private ngZone: NgZone,
   ) {}
 
-  ionViewDidEnter(){
-    // this.campanaComponent.cleanDatos();
-    // this.marcaComponent.cleanDatos();
+  ionViewDidEnter() {
+    console.log('DID ENTER HOME');
+    this.ngZone.run(() => {
+      this.campanaComponent.ionViewDidEnter();
+      this.marcaComponent.ionViewDidEnter();
+      console.log('force update the screen HOME');
+    });
+    // this.campanaComponent.handleRefresh();
+    // this.marcaComponent.handleRefresh();
   }
 
   ngOnInit() {
-    console.log("ON INIT");
     var autoSaveInterval = setInterval(() => {
       this.imgBanner = this.generarNumeroBanner();
     }, 5000);
 
-    this.toolbarService.setTexto("HOME");
+    this.toolbarService.setTexto('HOME');
     this.tabService.showTabs();
   }
 
@@ -83,19 +89,19 @@ export class HomePage implements OnInit {
         this.campanaComponent.ordenarDescendente();
         break;
       case 'sect-ascendente':
-          this.campanaComponent.ordenarSectorAscendente();
-          break;
+        this.campanaComponent.ordenarSectorAscendente();
+        break;
       case 'sect-descendente':
-          this.campanaComponent.ordenarSectorDescendente();
-          break;
+        this.campanaComponent.ordenarSectorDescendente();
+        break;
     }
   }
 
-  borrarFiltro(){
+  borrarFiltro() {
     this.mostrarBotonFiltro = false;
   }
 
-  mostrarFiltro(){
+  mostrarFiltro() {
     this.mostrarBotonFiltro = true;
   }
 
@@ -119,7 +125,7 @@ export class HomePage implements OnInit {
       cssClass: 'notificaciones',
     });
 
-     return await modal.present();
+    return await modal.present();
   }
 
   generarNumeroBanner() {

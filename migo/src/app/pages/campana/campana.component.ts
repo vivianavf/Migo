@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { EmpresaService } from 'src/app/providers/empresa.service';
@@ -40,7 +40,8 @@ export class CampanaComponent implements OnInit {
     private sectorService: SectorService,
     private paisService: PaisService,
     private ciudadService: CiudadService,
-    private userService: UsersService
+    private userService: UsersService,
+    private ngZone: NgZone // private viewCtrl: View
   ) {}
 
   registrarse(campana: Campana) {
@@ -105,7 +106,7 @@ export class CampanaComponent implements OnInit {
 
   ordenarSectorDescendente() {}
 
-  cleanDatos(){
+  cleanDatos() {
     var paisUsuario = 0;
     var ciudadUsuario = 0;
 
@@ -117,16 +118,16 @@ export class CampanaComponent implements OnInit {
       this.paisActivo = pais;
     });
 
-    this.campanaService.campanasObtenidas.forEach((campana)=>{
-      if(campana.id_ciudad === ciudadUsuario){
-        this.campanas.push(campana)
+    this.campanaService.campanasObtenidas.forEach((campana) => {
+      if (campana.id_ciudad === ciudadUsuario) {
+        this.campanas.push(campana);
       }
-    })
+    });
 
     this.empresaService.getEmpresas().subscribe((data) => {
       // this.empresas = data;
       data.forEach((empresa) => {
-        if(empresa.id_pais === paisUsuario){
+        if (empresa.id_pais === paisUsuario) {
           this.empresas.push(empresa);
           this.empresas_nombres[empresa.id_empresa] = empresa.nombre;
         }
@@ -135,11 +136,11 @@ export class CampanaComponent implements OnInit {
 
     this.sectorService.getSectores().subscribe((data) => {
       // this.sectores = data;
-      data.forEach((sector)=>{
-        if(sector.id_ciudad === ciudadUsuario){
+      data.forEach((sector) => {
+        if (sector.id_ciudad === ciudadUsuario) {
           this.sectores.push(sector);
         }
-      })
+      });
     });
 
     this.campanas = [];
@@ -147,7 +148,23 @@ export class CampanaComponent implements OnInit {
     this.sectores = [];
   }
 
-  generarDatos(){
+  handleRefresh() {
+    this.ngZone.run(() => {
+      console.log('force update the screen CAMPANAS');
+      this.generarDatos();
+    });
+  }
+
+  ionViewDidEnter() {
+    this.ngZone.run(() => {
+      console.log('DID Enter CAMPANAS');
+      this.generarDatos();
+    });
+    
+    // this.generarDatos();
+  }
+
+  generarDatos() {
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
 
@@ -159,16 +176,16 @@ export class CampanaComponent implements OnInit {
       this.paisActivo = pais;
     });
 
-    this.campanaService.campanasObtenidas.forEach((campana)=>{
-      if(campana.id_ciudad === ciudadUsuario){
-        this.campanas.push(campana)
+    this.campanaService.campanasObtenidas.forEach((campana) => {
+      if (campana.id_ciudad === ciudadUsuario) {
+        this.campanas.push(campana);
       }
-    })
+    });
 
     this.empresaService.getEmpresas().subscribe((data) => {
       // this.empresas = data;
       data.forEach((empresa) => {
-        if(empresa.id_pais === paisUsuario){
+        if (empresa.id_pais === paisUsuario) {
           this.empresas.push(empresa);
           this.empresas_nombres[empresa.id_empresa] = empresa.nombre;
         }
@@ -177,11 +194,11 @@ export class CampanaComponent implements OnInit {
 
     this.sectorService.getSectores().subscribe((data) => {
       // this.sectores = data;
-      data.forEach((sector)=>{
-        if(sector.id_ciudad === ciudadUsuario){
+      data.forEach((sector) => {
+        if (sector.id_ciudad === ciudadUsuario) {
           this.sectores.push(sector);
         }
-      })
+      });
     });
 
     // campanasCargadas = document.getElementById('')
@@ -198,11 +215,8 @@ export class CampanaComponent implements OnInit {
     }
   }
 
-  ionViewDidEnter(){
-    this.generarDatos();
-  }
-
   ngOnInit() {
+    console.log('ON INIT CAMPANA');
     this.generarDatos();
   }
 }

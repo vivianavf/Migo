@@ -40,7 +40,24 @@ export class UsersService {
   }
 
   actualizarPassword(id: number, password: any): Observable<any> {
-    return this.http.patch(this.baseURL + id, password);
+    const body = {
+      "contrasena": password,
+    }
+    return this.http.patch(this.baseURL + id, body);
+  }
+
+  actualizarPais(id: number, id_pais: number): Observable<any> {
+    const body = {
+      "id_pais": id_pais,
+    }
+    return this.http.patch(this.baseURL + id, body);
+  }
+  
+  actualizarCiudad(id:number, id_ciudad: number): Observable<any>{
+    const body = {
+      "id_ciudad": id_ciudad,
+    }
+    return this.http.patch(this.baseURL + id, body);
   }
 
   crearUsuario(usuario: any): Observable<any> {
@@ -78,6 +95,14 @@ export class UsersService {
       localStorage.setItem('usuario_id_pais', user.id_pais.toString());
       localStorage.setItem('usuario_id_ciudad', user.id_ciudad.toString());
     }
+  }
+
+  ingresarPais(id_pais: string){
+    localStorage.setItem('usuario_id_pais', id_pais.toString());
+  }
+
+  ingresarCiudad(id_ciudad: string){
+    localStorage.setItem('usuario_id_ciudad', id_ciudad.toString());
   }
 
   enviarToken(token: string, id: number): Observable<any> {
