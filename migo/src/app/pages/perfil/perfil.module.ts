@@ -10,7 +10,7 @@ import { PerfilPageRoutingModule } from './perfil-routing.module';
 
 import { PerfilPage } from './perfil.page';
 import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
-import { MapaCambiarUbicacionComponent } from 'src/app/mapa-cambiar-ubicacion/mapa-cambiar-ubicacion.component';
+import { MapaCambiarUbicacionComponent } from 'src/app/pages/mapa-cambiar-ubicacion/mapa-cambiar-ubicacion.component';
 
 @NgModule({
   imports: [

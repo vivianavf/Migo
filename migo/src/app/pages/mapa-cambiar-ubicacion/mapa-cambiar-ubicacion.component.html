@@ -1,0 +1,13 @@
+<div class="content">
+  <ion-text>País</ion-text>
+  <ion-select (ionChange)="paisChange($event)" aria-label="Pais" interface="popover" placeholder="Seleccionar Pais">
+    <ion-select-option *ngFor="let pais of paises" [value]="pais.id_pais">{{pais.nombre}}</ion-select-option>
+  </ion-select>
+
+  <ion-text>Ciudad</ion-text>
+  <ion-select (ionChange)="ciudadChange($event)" aria-label="Ciudad" interface="popover" placeholder="Seleccionar Ciudad">
+    <ion-select-option *ngFor="let ciudad of ciudadesFiltradas" [value]="ciudad.id_ciudad">{{ciudad.nombre}}</ion-select-option>
+  </ion-select>
+
+  <ion-button (click)="cambiarUbicacion()">Cambiar Ubicación</ion-button>
+</div>
