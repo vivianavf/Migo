@@ -63,6 +63,10 @@ ion-text.value{
     --color: black;
 }
 
+ion-modal{
+    --backdrop-opacity: 1;
+}
+
 
 /** MAPA **/
 
@@ -75,4 +79,4 @@ ion-text.value{
 
 app-mapa-cambiar-ubicacion{
     height: 100%;
-  }
+}
