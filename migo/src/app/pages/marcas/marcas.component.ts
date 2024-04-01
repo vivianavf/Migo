@@ -112,18 +112,9 @@ export class MarcasComponent implements OnInit {
     this.campanas = this.campanaService.campanasObtenidas;
   }
 
-  ionViewDidEnter() {
-    this.ngZone.run(() => {
-      console.log('DID Enter MARCA');
-      this.generarDatos();
-    });
-    this.generarDatos();
-  }
-
   handleRefresh() {}
 
   ngOnInit() {
-    console.log('ON INIT MARCAS');
     this.generarDatos();
   }
 }

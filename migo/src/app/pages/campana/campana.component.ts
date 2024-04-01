@@ -216,7 +216,6 @@ export class CampanaComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ON INIT CAMPANA');
     this.generarDatos();
   }
 }

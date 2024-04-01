@@ -29,7 +29,7 @@ import { QrPage } from '../modals/qr/qr.page';
 import { Campana } from 'src/app/interfaces/campana';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
-
+import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -37,22 +37,6 @@ import { ToolbarService } from 'src/app/providers/toolbar.service';
   styleUrls: ['./formulario-aplicacion.page.scss'],
 })
 export class FormularioAplicacionPage implements OnInit {
-  // formFields: FormFields = {
-  //   Teléfono: 0,
-  //   Licencia: '',
-  //   Matrícula: '',
-  //   Cuenta_Bancaria: '',
-  //   Cédula: '',
-  //   Entidad_Bancaria: 0,
-  //   Tipo_Cuenta: 0,
-  //   Email: '',
-  // };
-
-  // attemptedSubmit: boolean = false;
-  // showValidationError: string = '';
-  // valoresMarcas: MarcaVehiculo[] = [];
-  // valoresModelos: ModeloVehiculo[] = [];
-
   formularioAplicacion: FormGroup;
   mostrarMensaje: boolean = false;
   cliente!: Client;
@@ -60,10 +44,10 @@ export class FormularioAplicacionPage implements OnInit {
   campana!: Campana;
   vehiculos: Vehiculo[] = [];
   vehiculosUsuario: Vehiculo[] = [];
-  archivoLicencia = '';
-  archivoMatricula = '';
+  archivoLicencia!: File;
+  archivoMatricula!: File;
   showLicencia = true;
-  showMatricula= true;
+  showMatricula = true;
 
   entidadBancaria = 'Entidad Bancaria';
   tipoCuenta = 'Tipo de Cuenta';
@@ -75,6 +59,16 @@ export class FormularioAplicacionPage implements OnInit {
   file!: File;
 
   //form
+  telefono_conductor: string = '';
+  licencia!: File;
+  matricula!: File;
+  entidad: string = '';
+  tipocuenta: string = '';
+  fecha_envio: string = '';
+  id_chofer!: number;
+  id_cliente!: number;
+  id_campana!: number;
+
   correoInput: string = '';
   cedulaInput: string = '';
   numeroCuentaInput: string = '';
@@ -146,22 +140,21 @@ export class FormularioAplicacionPage implements OnInit {
     private modeloVehiculoService: ModeloVehiculosService,
     private navCtrl: NavController,
     private formService: FormularioAplicacionService,
-    private toolbarService: ToolbarService,
+    private toolbarService: ToolbarService
   ) {
     this.formularioAplicacion = this.fb.group({
-      email: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          ),
-        ])
-      ),
+      telefono_conductor: new FormControl('', Validators.required),
+      licencia: new FormControl(null, Validators.required),
+      matricula: new FormControl(null, Validators.required),
+      Numerocuenta: new FormControl('', Validators.required),
       cedula: new FormControl('', Validators.required),
       entidad: new FormControl('', Validators.required),
       tipocuenta: new FormControl('', Validators.required),
-      cuenta: new FormControl('', Validators.required),
+      email: ['', [Validators.required, Validators.email]],
+      fecha_envio: new FormControl('', Validators.required),
+      id_chofer: new FormControl('', Validators.required),
+      id_cliente: new FormControl('', Validators.required),
+      id_campana: new FormControl('', Validators.required),
     });
   }
 
@@ -256,17 +249,16 @@ export class FormularioAplicacionPage implements OnInit {
 
   onFileChange(fileChangeEvent: any, tipo: string) {
     this.file = fileChangeEvent.target.files[0];
-    switch(tipo){
+    switch (tipo) {
       case 'licencia':
-        this.archivoLicencia = this.file.name;
+        this.archivoLicencia = this.file;
         this.showLicencia = false;
         break;
       case 'matricula':
-        this.archivoMatricula = this.file.name;
+        this.archivoMatricula = this.file;
         this.showMatricula = false;
         break;
-    }    
-    
+    }
   }
 
   handleInput(event: any) {
@@ -300,36 +292,39 @@ export class FormularioAplicacionPage implements OnInit {
       !this.entidadBancariaVacio &&
       !this.tipodeCuentaVacio &&
       !this.numeroCuentaVacio &&
-      this.seleccionoVehiculo
+      this.seleccionoVehiculo &&
+      this.vehiculoSeleccionado
     ) {
       console.log('puede registrarse');
       // this.navCtrl.navigateRoot('/home');
 
-      this.mostrarQR();
+      // this.mostrarQR();
 
       var body = {
         telefono_conductor: parseInt(this.cliente.telefono)!,
-        licencia: 'File | string',
-        matricula: 'File | string',
+        licencia: this.archivoLicencia,
+        matricula: this.archivoMatricula,
         numero_cuenta_bancaria: this.numeroCuentaInput,
         cedula: this.cliente.cedula_cliente,
         entidad_bancaria: 1,
         tipo_cuenta_bancaria: 1,
         correo_electronico: this.cliente.email,
-        fecha_envio: new Date().toLocaleString(), ///corregir
-        id_chofer: this.cliente.id_cliente!,  //// corregir
-        id_cliente: this.cliente.id_cliente!,  ////////
+        fecha_envio: new Date().toISOString().split('T')[0],
+        id_usuario: this.userService.usuarioActivo().id_usuario,
+        id_ciudad: this.userService.usuarioActivo().id_ciudad,
+        id_pais: this.userService.usuarioActivo().id_pais,
         id_campana: this.campana.id_campana!,
+        estado_solicitud: 'pendiente',
+        id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
       };
-      //correo = correoInput
-      //cedula = cedulaInput
-      //logica de registro a campaña
-      //recoger todos los datos
-      //enviarlos al server
 
-      this.formService.crearFormulario(body).subscribe((response)=>{
-        console.log(response);
-      })
+      this.formService.crearFormulario(body).subscribe((response) => {
+        if (response) {
+          console.log(response);
+          console.log('BODY', body);
+          this.navCtrl.navigateRoot('/solicitudes');
+        }
+      });
       //mostrar pantalla de registro exitoso
     } else {
       console.log('No puede registrarse');
@@ -362,14 +357,14 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   archivoExiste() {
-    this.archivoLicencia.length > 0
+    this.archivoLicencia.name.length > 0
       ? (this.archivoVacio = false)
       : (this.archivoVacio = true);
     return this.archivoVacio;
   }
 
   entidadVacio() {
-    console.log(this.entidadBancaria);
+    console.log('Entidad Bancaria', this.entidadBancaria);
     this.entidadBancaria != 'Entidad Bancaria'
       ? (this.entidadBancariaVacio = false)
       : (this.entidadBancariaVacio = true);
@@ -384,7 +379,7 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   numeroCuentaExiste() {
-    console.log(this.numeroCuentaInput);
+    console.log('Numero Cuenta', this.numeroCuentaInput);
     !this.numeroCuentaInput
       ? (this.numeroCuentaVacio = true)
       : (this.numeroCuentaVacio = false);
@@ -421,7 +416,9 @@ export class FormularioAplicacionPage implements OnInit {
     try {
       this.generarApp();
       this.formularioAplicacion.reset();
-      this.toolbarService.setTexto("FORMULARIO DE APLICACIÓN");
-    } catch (error) {}
+      this.toolbarService.setTexto('FORMULARIO DE APLICACIÓN');
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

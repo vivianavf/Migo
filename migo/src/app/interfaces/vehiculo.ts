@@ -2,6 +2,7 @@ import { Photo } from "@capacitor/camera";
 
 export interface Vehiculo {
     id_cliente?: number,
+    id_usuario?: number,
     id_vehiculo?: number,
     telefono_conductor: number,
     placa: string,

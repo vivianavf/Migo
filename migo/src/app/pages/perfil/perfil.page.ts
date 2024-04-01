@@ -64,6 +64,8 @@ export class PerfilPage implements OnInit {
   eliminarCuenta() {}
 
   async cambiarUbicacion() {
+    console.log("PAIS", this.paisInput);
+    console.log("CIUDAD", this.ciudadInput);
     const id_usuario = this.userService.usuarioActivo().id_usuario;
 
     this.userService

@@ -8,13 +8,20 @@
     width: 100%;
 }
 
+ion-text#nohaySolicitud{
+    color: white;
+    --color: white;
+    display: flex;
+    justify-content: center;
+}
+
 ion-text{
     color: black;
     --color: black;
 }
 
 .fecha{
-    font-size: x-small;
+    font-size: small;
     text-align: end;
 }
 
@@ -40,7 +47,7 @@ ion-text{
 ion-img{
     border-radius: 20px;
     // height: 40px;
-    width: 96px;
+    width: 70px;
     margin-left: 5px;
     margin-bottom: 5px;
 }

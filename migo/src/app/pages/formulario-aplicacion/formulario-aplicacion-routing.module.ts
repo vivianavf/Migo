@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'home',
     component: HomePage
   },
+  {
+    path: 'solicitudes',
+    component: HomePage
+  },
 ];
 
 @NgModule({

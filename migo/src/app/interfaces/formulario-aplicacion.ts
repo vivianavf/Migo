@@ -1,4 +1,5 @@
 export interface FormularioAplicacion {
+    id_formulario?: number,
     telefono_conductor: number,
     licencia: File | string,
     matricula: File | string,
@@ -8,7 +9,10 @@ export interface FormularioAplicacion {
     tipo_cuenta_bancaria: number,
     correo_electronico: string,
     fecha_envio: Date | string,
-    id_chofer: number,
-    id_cliente: number,
-    id_campana: number
+    id_usuario: number,
+    id_ciudad: number,
+    id_pais: number,
+    id_vehiculo: number,
+    id_campana: number,
+    estado_solicitud: string,
 }

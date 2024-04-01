@@ -208,6 +208,14 @@ const routes: Routes = [
     path: 'no-tiene-vehiculo',
     loadChildren: () => import('./pages/modals/no-tiene-vehiculo/no-tiene-vehiculo.module').then( m => m.NoTieneVehiculoPageModule)
   },
+  {
+    path: 'confirmacion',
+    loadChildren: () => import('./pages/modals/confirmacion/confirmacion.module').then( m => m.ConfirmacionPageModule)
+  },
+  {
+    path: 'campana-activa',
+    loadChildren: () => import('./pages/campana-activa/campana-activa.module').then( m => m.CampanaActivaPageModule)
+  },
 
 
 

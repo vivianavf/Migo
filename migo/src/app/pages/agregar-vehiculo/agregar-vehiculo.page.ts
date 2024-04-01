@@ -122,7 +122,6 @@ export class AgregarVehiculoPage implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.route.params.subscribe((params) => {
       const photoPath = params['photoPath'];
       // Use the photoPath as needed (e.g., display or store it)
@@ -176,7 +175,7 @@ export class AgregarVehiculoPage implements OnInit {
         ', '
       )}.`;
       return;
-    }else {
+    } else {
       var userRequest = {
         id_usuario: this.nuevoIDUsuario,
         email: this.formFields.Placa,
@@ -212,31 +211,31 @@ export class AgregarVehiculoPage implements OnInit {
 
       //     // var idChoferActual = this.choferService.getIDNuevoChofer()-1;
 
-      //     var vehiculoRequest = {
-      //       id_vehiculo: this.vehiculoService.getIDNuevoVehiculo(),
-      //       telefono_conductor: 9999999999,
-      //       placa: this.formFields.Placa,
-      //       anio: parseInt(this.formFields.anio),
-      //       categoria_vehiculo: 'suv', ///////// agregar como ion-select
-      //       color_vehiculo: 'Negro', //////////// agregar como ion-select
-      //       imagen_izq: this.formFields.FotoIzquierda,
-      //       imagen_der: this.formFields.FotoDerecha,
-      //       imagen_frontal: this.formFields.FotoFrontal,
-      //       imagen_trasera: this.formFields.FotoTrasera,
-      //       imagen_techo: this.formFields.FotoTecho,
-      //       estado: 1,
-      //       id_chofer: idChoferActual, // 
-      //       id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
-      //       id_marca: this.formFields.Marca,
-      //       id_modelo: this.formFields.Modelo,
-      //     };
+      var vehiculoRequest = {
+        id_vehiculo: this.vehiculoService.getIDNuevoVehiculo(),
+        telefono_conductor: 9999999999,
+        placa: this.formFields.Placa,
+        anio: parseInt(this.formFields.anio),
+        categoria_vehiculo: 'suv', ///////// agregar como ion-select
+        color_vehiculo: 'Negro', //////////// agregar como ion-select
+        imagen_izq: this.formFields.FotoIzquierda,
+        imagen_der: this.formFields.FotoDerecha,
+        imagen_frontal: this.formFields.FotoFrontal,
+        imagen_trasera: this.formFields.FotoTrasera,
+        imagen_techo: this.formFields.FotoTecho,
+        estado: 1,
+        id_chofer: 1, //
+        id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
+        id_marca: this.formFields.Marca,
+        id_modelo: this.formFields.Modelo,
+      };
 
-      //     // this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((data)=>{console.log(data)});
+      this.vehiculoService.crearVehiculo(vehiculoRequest);
       //   }
       // });
 
       // HTMLIonLoadingElement
-      
+
       // enviar una notificacion
     }
 
@@ -339,76 +338,58 @@ export class AgregarVehiculoPage implements OnInit {
   cameraImage?: File;
 
   async takePhoto(label: string): Promise<void> {
+    const image = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100,
+    });
 
-    const permisosCamara = await (await Camera.checkPermissions()).camera;
-    const permisosFoto = await (await Camera.checkPermissions()).photos;
-
-    if(permisosCamara=="granted"|| permisosFoto=="granted"){
-      try {
-        const image = await Camera.getPhoto({
-          resultType: CameraResultType.Uri,
-          source: CameraSource.Camera,
-          quality: 100,
-        });
-  
-        // this.guardarFoto(image);
-        // GQB720
-  
-        var reader = new FileReader();
-        reader.readAsDataURL(image.exif);
-  
-  
-        switch (label) {
-          case 'Aerea':
-            if (image.webPath) {
-              this.fotoAereaTomada = true;
-              this.srcAerea = image.webPath!.toString();
-              this.srcMostrarFoto = image.webPath!.toString();
-              this.formFields.FotoTecho = image;
-            }
-            break;
-  
-          case 'Frontal':
-            if (image.webPath) {
-              this.fotoFrontalTomada = true;
-              this.srcFrontal = image.webPath!.toString();
-              this.srcMostrarFoto = image.webPath!.toString();
-              this.formFields.FotoFrontal = image;
-            }
-            break;
-  
-          case 'Trasera':
-            if (image.webPath) {
-              this.fotoTraseraTomada = true;
-              this.srcTrasera = image.webPath!.toString();
-              this.srcMostrarFoto = image.webPath!.toString();
-              this.formFields.FotoTrasera = image;
-            }
-            break;
-  
-          case 'Derecha':
-            if (image.webPath) {
-              this.fotoDerechaTomada = true;
-              this.srcDerecha = image.webPath!.toString();
-              this.srcMostrarFoto = image.webPath!.toString();
-              this.formFields.FotoDerecha = image;
-            }
-            break;
-  
-          case 'Izquierda':
-            if (image.webPath) {
-              this.fotoIzquierdaTomada = true;
-              this.srcIzquierda = image.webPath!.toString();
-              this.srcMostrarFoto = image.webPath!.toString();
-              this.formFields.FotoIzquierda = image;
-            }
-            break;
+    switch (label) {
+      case 'Aerea':
+        if (image.webPath) {
+          this.fotoAereaTomada = true;
+          this.srcAerea = image.webPath!.toString();
+          this.srcMostrarFoto = image.webPath!.toString();
+          this.formFields.FotoTecho = image;
         }
-      } catch (error) {
-        console.error('Error capturing photo', error);
-      }
+        break;
+
+      case 'Frontal':
+        if (image.webPath) {
+          this.fotoFrontalTomada = true;
+          this.srcFrontal = image.webPath!.toString();
+          this.srcMostrarFoto = image.webPath!.toString();
+          this.formFields.FotoFrontal = image;
+        }
+        break;
+
+      case 'Trasera':
+        if (image.webPath) {
+          this.fotoTraseraTomada = true;
+          this.srcTrasera = image.webPath!.toString();
+          this.srcMostrarFoto = image.webPath!.toString();
+          this.formFields.FotoTrasera = image;
+        }
+        break;
+
+      case 'Derecha':
+        if (image.webPath) {
+          this.fotoDerechaTomada = true;
+          this.srcDerecha = image.webPath!.toString();
+          this.srcMostrarFoto = image.webPath!.toString();
+          this.formFields.FotoDerecha = image;
+        }
+        break;
+
+      case 'Izquierda':
+        if (image.webPath) {
+          this.fotoIzquierdaTomada = true;
+          this.srcIzquierda = image.webPath!.toString();
+          this.srcMostrarFoto = image.webPath!.toString();
+          this.formFields.FotoIzquierda = image;
+        }
+        break;
     }
-    
   }
 
   marcaChange(event: any) {

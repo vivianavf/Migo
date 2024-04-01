@@ -13,6 +13,7 @@ export class CampanaService {
   private formato = '?format=json'
   private campana : any;
   public campanasObtenidas: Campana[] = [];
+  public campanaActiva!: Campana;
 
   constructor(
     private http: HttpClient,
@@ -40,6 +41,16 @@ export class CampanaService {
 
   getCampanaActual(): Campana{
     return this.campana;
+  }
+
+  setInfoCampanaActiva(id_campana: number){
+    this.getCampanabyId(id_campana).subscribe((campana)=>{
+      this.campanaActiva = campana;
+    })
+  }
+
+  getInfoCampanaActiva():Campana{
+    return this.campanaActiva;
   }
 
 }
