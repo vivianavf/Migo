@@ -122,7 +122,6 @@ export class CampanaComponent implements OnInit {
           this.campanas.push(campana);
         }
       });
-      console.log(this.campanas)
     });
 
     this.empresaService.getEmpresas().subscribe((data) => {

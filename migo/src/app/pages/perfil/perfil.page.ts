@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { ChoferService } from 'src/app/providers/chofer.service';
 import { ClienteService } from 'src/app/providers/cliente.service';
@@ -25,6 +25,7 @@ export class PerfilPage implements OnInit {
   paisInput: string = '';
   ciudadInput: string = '';
 
+
   constructor(
     private toolbarService: ToolbarService,
     private userService: UsersService,
@@ -37,6 +38,10 @@ export class PerfilPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.generarDatos();
+  }
+
+  generarDatos(){
     this.toolbarService.setTexto('MI PERFIL');
 
     this.paisService.getPaises().subscribe((data) => {
@@ -64,9 +69,8 @@ export class PerfilPage implements OnInit {
   eliminarCuenta() {}
 
   async cambiarUbicacion() {
-    console.log("PAIS", this.paisInput);
-    console.log("CIUDAD", this.ciudadInput);
-    const id_usuario = this.userService.usuarioActivo().id_usuario;
+    if(this.paisInput && this.ciudadInput){
+      const id_usuario = this.userService.usuarioActivo().id_usuario;
 
     this.userService
       .actualizarPais(id_usuario, Number(this.paisInput))
@@ -81,5 +85,8 @@ export class PerfilPage implements OnInit {
 
     this.modalCtrl.dismiss();
     this.navCtrl.navigateRoot('/home');
+    }    else{
+      this.modalCtrl.dismiss();
+    }
   }
 }

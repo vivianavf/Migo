@@ -26,7 +26,6 @@ import { Sector } from 'src/app/interfaces/sector';
 
 // import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { SectorService } from 'src/app/providers/sector.service';
-import { GoogleMapsModule, MapPolygon } from '@angular/google-maps';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';

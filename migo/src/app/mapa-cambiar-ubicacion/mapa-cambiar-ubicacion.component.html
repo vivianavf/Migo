@@ -1,0 +1,46 @@
+<div class="content">
+  <!-- <div class="input-container">
+    <ion-label>Pais</ion-label>
+    <ion-select
+      part="my-select"
+      name="paisInput"
+      [(ngModel)]="paisInput"
+      class="never-flip"
+      toggleIcon="caret-down-sharp"
+      interface="popover"
+      aria-label="pais"
+      placeholder="Seleccionar"
+      (ionChange)="filtrarCiudades()"
+    >
+      <ion-select-option
+        *ngFor="let pais of paises"
+        value="{{pais.id_pais}}"
+        >{{pais.nombre}}</ion-select-option
+      >
+    </ion-select>
+  </div>
+  <div class="input-container">
+    <ion-label>Ciudad</ion-label>
+    <ion-select
+      part="my-select"
+      name="ciudadInput"
+      [(ngModel)]="ciudadInput"
+      class="never-flip"
+      toggleIcon="caret-down-sharp"
+      interface="popover"
+      aria-label="ciudad"
+      placeholder="Seleccionar"
+    >
+      <ion-select-option
+        *ngFor="let ciudad of ciudadesFiltradas"
+        value="{{ ciudad.id_ciudad}}"
+        >{{ciudad.nombre}}</ion-select-option
+      >
+    </ion-select>
+  </div> -->
+
+  <div id="cambiarUbiMap">
+    <div id="map-cambiar-ubi" style="float:left;width:100%;height:100%"></div>
+  </div>
+  <ion-button class="perfilButton" (click)="cambiarUbicacion()">Aceptar</ion-button>
+</div>

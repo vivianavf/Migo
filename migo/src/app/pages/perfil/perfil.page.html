@@ -42,53 +42,12 @@
   </div>
 
   <ion-modal
-    #deleteConfirmation
     trigger="cambiar-ubicacion"
     class="cambiarUbicacion"
+    [initialBreakpoint]="0.85" [breakpoints]="[0, 0.5, 0.75]"
   >
     <ng-template>
-      <ion-content class="ion-padding confirmationPage">
-        <div class="input-container">
-          <ion-label>Pais</ion-label>
-          <ion-select
-            part="my-select"
-            name="paisInput"
-            [(ngModel)]="paisInput"
-            class="never-flip"
-            toggleIcon="caret-down-sharp"
-            interface="popover"
-            aria-label="pais"
-            placeholder="Seleccionar"
-            (ionChange)="filtrarCiudades()"
-          >
-            <ion-select-option
-              *ngFor="let pais of paises"
-              value="{{pais.id_pais}}"
-              >{{pais.nombre}}</ion-select-option
-            >
-          </ion-select>
-        </div>
-        <div class="input-container">
-          <ion-label>Ciudad</ion-label>
-          <ion-select
-            part="my-select"
-            name="ciudadInput"
-            [(ngModel)]="ciudadInput"
-            class="never-flip"
-            toggleIcon="caret-down-sharp"
-            interface="popover"
-            aria-label="ciudad"
-            placeholder="Seleccionar"
-          >
-            <ion-select-option
-              *ngFor="let ciudad of ciudadesFiltradas"
-              value="{{ ciudad.id_ciudad}}"
-              >{{ciudad.nombre}}</ion-select-option
-            >
-          </ion-select>
-        </div>
-        <ion-button class="perfilButton" (click)="cambiarUbicacion()">Aceptar</ion-button>
-      </ion-content>
+      <app-mapa-cambiar-ubicacion></app-mapa-cambiar-ubicacion>
     </ng-template>
   </ion-modal>
 
