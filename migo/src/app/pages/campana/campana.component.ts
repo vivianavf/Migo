@@ -106,64 +106,6 @@ export class CampanaComponent implements OnInit {
 
   ordenarSectorDescendente() {}
 
-  cleanDatos() {
-    var paisUsuario = 0;
-    var ciudadUsuario = 0;
-
-    this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
-      this.ciudadActiva = ciudad;
-    });
-
-    this.paisService.getPaisbyId(paisUsuario).subscribe((pais) => {
-      this.paisActivo = pais;
-    });
-
-    this.campanaService.campanasObtenidas.forEach((campana) => {
-      if (campana.id_ciudad === ciudadUsuario) {
-        this.campanas.push(campana);
-      }
-    });
-
-    this.empresaService.getEmpresas().subscribe((data) => {
-      // this.empresas = data;
-      data.forEach((empresa) => {
-        if (empresa.id_pais === paisUsuario) {
-          this.empresas.push(empresa);
-          this.empresas_nombres[empresa.id_empresa] = empresa.nombre;
-        }
-      });
-    });
-
-    this.sectorService.getSectores().subscribe((data) => {
-      // this.sectores = data;
-      data.forEach((sector) => {
-        if (sector.id_ciudad === ciudadUsuario) {
-          this.sectores.push(sector);
-        }
-      });
-    });
-
-    this.campanas = [];
-    this.empresas = [];
-    this.sectores = [];
-  }
-
-  handleRefresh() {
-    this.ngZone.run(() => {
-      console.log('force update the screen CAMPANAS');
-      this.generarDatos();
-    });
-  }
-
-  ionViewDidEnter() {
-    this.ngZone.run(() => {
-      console.log('DID Enter CAMPANAS');
-      this.generarDatos();
-    });
-    
-    // this.generarDatos();
-  }
-
   generarDatos() {
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
@@ -176,10 +118,12 @@ export class CampanaComponent implements OnInit {
       this.paisActivo = pais;
     });
 
-    this.campanaService.campanasObtenidas.forEach((campana) => {
-      if (campana.id_ciudad === ciudadUsuario) {
-        this.campanas.push(campana);
-      }
+    this.campanaService.getCampanas().subscribe((campanasArray) => {
+      campanasArray.forEach((campana) => {
+        if (campana.id_ciudad === ciudadUsuario) {
+          this.campanas.push(campana);
+        }
+      });
     });
 
     this.empresaService.getEmpresas().subscribe((data) => {
@@ -199,6 +143,8 @@ export class CampanaComponent implements OnInit {
           this.sectores.push(sector);
         }
       });
+
+      console.log(this.sectores)
     });
 
     // campanasCargadas = document.getElementById('')
