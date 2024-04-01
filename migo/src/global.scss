@@ -239,8 +239,15 @@ ion-modal.no-tiene-vehiculo{
   --background: white;
 }
 
-ion-modal.cambiarUbicacion{
-  
+ion-modal.solicitudConfirmar{
+  --height: 30%;
+  --width: 90%;
+  --border-radius: 40px;
+  --background: white;
+}
+
+ion-modal.solicitudConfirmar::part(backdrop) {
+  opacity: 1;
 }
 
 ion-content.withoutBackground::part(background){

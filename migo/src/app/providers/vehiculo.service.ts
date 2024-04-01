@@ -23,8 +23,8 @@ export class VehiculoService {
     return respuesta;
   }
 
-  getVehiculobyId(id: number): Observable<Vehiculo[]> {
-    return this.http.get<Vehiculo[]>(this.baseURL + id + '/' + this.formato);
+  getVehiculobyId(id: number): Observable<Vehiculo> {
+    return this.http.get<Vehiculo>(this.baseURL + id + '/' + this.formato);
   }
 
   crearVehiculo(vehiculo: Vehiculo) {

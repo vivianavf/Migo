@@ -1,0 +1,18 @@
+ion-card-content{
+    color: black;
+    font-size: large;
+}
+
+ion-content::part(scroll){
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 20px;
+}
+
+.button-Container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}

@@ -4,7 +4,7 @@ import { Client } from 'src/app/interfaces/client';
 import { User } from 'src/app/interfaces/user';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
@@ -36,9 +36,11 @@ export class QrPage implements OnInit {
     private http: HttpClient,
     private fileOpener: FileOpener,
     private vehiculoElegidoService: ElegirVehiculoService,
+    private modal: ModalController,
   ) {}
 
   crearQR() {
+    if(this.datos) return
     this.datos = 'MIGO ADS _ INFO';
     this.loadLocalAssetToBase64();
     this.crearPDF();
@@ -144,6 +146,10 @@ export class QrPage implements OnInit {
         };
         reader.readAsDataURL(res);
       });
+  }
+
+  aceptar(){
+    this.modal.dismiss();
   }
 
   ngOnInit() {}

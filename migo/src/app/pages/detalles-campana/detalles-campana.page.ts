@@ -51,23 +51,6 @@ export class DetallesCampanaPage implements OnInit {
 
   @ViewChild('map') mapRef!: google.maps.Map;
   map?: google.maps.Map;
-  // center: google.maps.LatLngLiteral = {
-  //   lat: -2.18982299999999,
-  //   lng: -79.88775,
-  // };
-  // zoom = 12;
-
-  source!: google.maps.LatLngLiteral;
-  destination!: google.maps.LatLngLiteral;
-
-  ds!: google.maps.DirectionsService;
-  dr!: google.maps.DirectionsRenderer;
-
-  //Mapa de Google Maps
-  // polygon: any;
-  // map!: GoogleMap;
-  // @ViewChild('mapElement') mapRef!: ElementRef<HTMLElement>;
-  // polygonId?: string;
 
   constructor(
     private campanaService: CampanaService,

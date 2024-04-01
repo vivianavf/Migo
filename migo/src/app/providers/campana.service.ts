@@ -13,7 +13,8 @@ export class CampanaService {
   private formato = '?format=json'
   private campana : any;
   public campanasObtenidas: Campana[] = [];
-  public campanaActiva!: Campana;
+  private campanaActiva!: Campana;
+  private solicitud: any;
 
   constructor(
     private http: HttpClient,
@@ -43,14 +44,13 @@ export class CampanaService {
     return this.campana;
   }
 
-  setInfoCampanaActiva(id_campana: number){
-    this.getCampanabyId(id_campana).subscribe((campana)=>{
-      this.campanaActiva = campana;
-    })
+  setInfoCampanaActiva(campana: Campana, solicitud: any){
+    this.campanaActiva = campana;
+    this.solicitud = solicitud;
   }
 
-  getInfoCampanaActiva():Campana{
-    return this.campanaActiva;
+  getInfoCampanaActiva():any{
+    return [this.campanaActiva, this.solicitud];
   }
 
 }

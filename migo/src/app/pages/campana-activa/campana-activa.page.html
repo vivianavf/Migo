@@ -1,6 +1,82 @@
 <app-barra-navegacion></app-barra-navegacion>
 
-<ion-content class="withoutBackground">
-
-
-</ion-content>
+<ion-content  class="withoutBackground">
+    <ion-card id="card-container">
+      <ion-card-content class="campana-content">
+        <div class="banner-empresa ad">
+          <ion-img
+            src="../../../assets/images/empresas/banners/{{campana.id_empresa}}.jpg"
+            alt="Banner de la empresa"
+            class="img-empresa"
+          ></ion-img>
+        </div>
+        <div class="info-container">
+          <div class="header-campana">
+            <h2 class="uppercase-text bold-text">{{campana.nombre_campana}}</h2>
+            <p class="capitalize">{{nombreEmpresa}}</p>
+            <p class="capitalize">Responsable: {{campana.nombre_responsable}}</p>
+            <div class="correo-container">
+              <ion-icon name="mail"></ion-icon>
+              <p class="correo">{{campana.correo_responsable}}</p>
+            </div>
+          </div>
+          <div class="info-campana">
+            <div class="titulos-info bold-text">
+              <p>Tarifa por kilometraje:</p>
+              <p>Horario Monetizable:</p>
+              <p>Cobro mínimo:</p>
+              <p>Tipo de Brandeo disponible:</p>
+            </div>
+            <div class="variables-info">
+              <p>${{campana.tarifa_min}} - ${{campana.tarifa_max}}</p>
+              <p>
+                {{campana.hora_monetizable_inicio}} -
+                {{campana.hora_monetizable_fin}}
+              </p>
+              <p>${{campana.cobro_minimo}}</p>
+              <p>{{campana.tipo_brandeo}}</p>
+            </div>
+          </div>
+          <div class="mapa bold-text">
+            <p>Sector monetizable:</p>
+            <div id="mapCampanaActiva">
+              <div id="campanaActiva" style="float:left;width:100%;height:100%"></div>
+            </div>
+          </div>
+          <div class="talleres">
+            <div class="talleres-direccion">
+              <div class="taller-direccion">
+                <ion-accordion-group>
+                  <ion-accordion value="first">
+                    <ion-item slot="header" color="light">
+                      <ion-label>Talleres Disponibles</ion-label>
+                    </ion-item>
+                    <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content"><a class="maps-link" [href]="taller.referencia">{{taller.nombre}}<ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png"></ion-img></a></div>
+                  </ion-accordion>
+                </ion-accordion-group>
+              </div>
+            </div>
+            <div class="vehiculo-tipo">
+              <div class="taller-direccion">
+                <ion-accordion-group>
+                  <ion-accordion value="first">
+                    <ion-item slot="header" color="light">
+                      <ion-label>Vehículos Admisibles</ion-label>
+                    </ion-item>
+                    <div *ngFor="let admisible of vehiculosAdmisibles" class="ion-padding accordion-element capitalize" slot="content">{{admisible}}<ion-img class="admisible-icon" src="../../../assets/autos/{{admisible}}.png"></ion-img></div>
+                  </ion-accordion>
+                </ion-accordion-group>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-container">
+            <ion-button
+              class="formulario capitalize"
+              (click)="brandearVehiculo()"
+              >Brandear mi vehículo</ion-button
+            >
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

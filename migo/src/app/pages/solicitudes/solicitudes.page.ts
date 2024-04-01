@@ -38,7 +38,7 @@ export class SolicitudesPage implements OnInit {
   async aceptarSolicitud(solicitud: FormularioAplicacion) {
     const modal = await this.modalCtrl.create({
       component: ConfirmacionPage,
-      cssClass: 'confirmar-solicitud',
+      cssClass: 'solicitudConfirmar',
       componentProps: {
         solicitud: solicitud,
       },
@@ -48,8 +48,11 @@ export class SolicitudesPage implements OnInit {
   }
 
   irCampanaActiva(solicitud: IngresoConductorCampana) {
-    this.campanaService.setInfoCampanaActiva(solicitud.id_campana);
-    this.navCtrl.navigateRoot('/campana-activa');
+    this.campanaService.getCampanabyId(solicitud.id_campana).subscribe((response)=>{
+      this.campanaService.setInfoCampanaActiva(response, solicitud);
+      this.navCtrl.navigateRoot('/campana-activa');
+    })
+    
   }
 
   getCampana(id: number): string {
@@ -60,8 +63,7 @@ export class SolicitudesPage implements OnInit {
   }
 
   generarDatos() {
-    this.toolbarService.setTexto('SOLICITUDES');
-
+  
     this.ingresoService.getIngresos().subscribe((data) => {
       data.forEach((solicitudActiva) => {
         if (
@@ -114,6 +116,7 @@ export class SolicitudesPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.toolbarService.setTexto('SOLICITUDES');
     this.generarDatos();
   }
 
@@ -122,5 +125,6 @@ export class SolicitudesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('SOLICITUDES');
   }
 }
