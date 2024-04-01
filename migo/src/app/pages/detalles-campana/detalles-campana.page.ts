@@ -119,8 +119,6 @@ export class DetallesCampanaPage implements OnInit {
       );
       if (busquedaEmpresa) this.nombreEmpresa = busquedaEmpresa.nombre;
     });
-
-    
     
   }
 
@@ -178,6 +176,7 @@ export class DetallesCampanaPage implements OnInit {
       data.forEach((sectorObtenido) =>{
         if(sectorObtenido.id_campana == this.campana.id_campana){
           this.sector = sectorObtenido;
+          console.log(this.sector)
           this.createMap();
         }
       })
@@ -215,13 +214,12 @@ export class DetallesCampanaPage implements OnInit {
       console.log(error);
     }
   }
-
+  
   createMap() {
     var mapOptions = {
-      zoom: this.sector?.zoom,
-      center: this.sector?.centro,
-      disableDefaultUI: false,
-      fullscreenControl: true,
+      zoom: this.sector!.zoom+2,
+      center: this.sector!.centro,
+      streetViewControl: true,
     };
     var mapCreado = new google.maps.Map(
       document.getElementById('map-campana')!,
