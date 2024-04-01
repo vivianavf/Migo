@@ -140,7 +140,6 @@ export class AgregarVehiculoPage implements OnInit {
   }
 
   async abrirModal() {
-    console.log('ABRIRMODAL', this.srcMostrarFoto);
     const modal = await this.modalCtrl.create({
       component: FotopreviewPage,
       cssClass: 'fotopreview',

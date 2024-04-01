@@ -53,16 +53,6 @@ export class HomePage implements OnInit {
     private ngZone: NgZone,
   ) {}
 
-  ionViewDidEnter() {
-    // console.log('DID ENTER HOME');
-    // this.ngZone.run(() => {
-    //   this.campanaComponent.ionViewDidEnter();
-    //   this.marcaComponent.ionViewDidEnter();
-    //   console.log('force update the screen HOME');
-    // });
-    // this.campanaComponent.handleRefresh();
-    // this.marcaComponent.handleRefresh();
-  }
 
   ngOnInit() {
     var autoSaveInterval = setInterval(() => {

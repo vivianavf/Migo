@@ -91,7 +91,6 @@ export class CampanaComponent implements OnInit {
   }
 
   ordenarSectorAscendente() {
-    console.log(this.sectores);
     this.campanas.sort((a, b) => {
       const sectorA = this.sectores.find(
         (sector) => sector.id_sector === a.id_sector
@@ -99,7 +98,6 @@ export class CampanaComponent implements OnInit {
       const sectorB = this.sectores.find(
         (sector) => sector.id_sector === b.id_sector
       )?.nombre!;
-      console.log(this.sectores);
       return sectorA.localeCompare(sectorB);
     });
   }
@@ -143,8 +141,6 @@ export class CampanaComponent implements OnInit {
           this.sectores.push(sector);
         }
       });
-
-      console.log(this.sectores)
     });
 
     // campanasCargadas = document.getElementById('')

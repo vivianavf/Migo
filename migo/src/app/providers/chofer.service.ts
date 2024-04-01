@@ -21,27 +21,11 @@ export class ChoferService {
       this.choferesObtenidos = choferes;
     })
 
-    console.log(this.choferesObtenidos);
-    console.log(respuesta)
     return respuesta;
   }
 
   getIDNuevoChofer(): number{
     this.getChoferes().subscribe((response)=>{});
-    
-    // console.log(this.choferesObtenidos)
-    // console.log(this.choferesObtenidos[this.choferesObtenidos.length - 1])
-    // let ultimoID = this.choferesObtenidos[this.choferesObtenidos.length - 1].id_chofer;
-
-    // if(ultimoID){
-    // var nuevoID = ultimoID+1;
-    // var busquedaID = this.choferesObtenidos.find(({ id_chofer }) => id_chofer === nuevoID);
-    // while(busquedaID){
-    //   busquedaID = this.choferesObtenidos.find(({ id_chofer }) => id_chofer === nuevoID+1);
-    //   nuevoID++;
-    // }
-    // return nuevoID;}
-
     return 1;
   }
 
