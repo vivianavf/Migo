@@ -10,15 +10,11 @@ ion-card#card-container{
   color: black;
 }
 
-ion-card-content{
-  padding-left: 0;
-  padding-right: 0;
+ion-card-content.campana-content{
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-//banner de empresa
-.img-empresa{
-  // object-position: -0px 25px;
-}
 
 .banner-empresa{
   margin-top: 20px;
@@ -36,6 +32,8 @@ p.correo{
 .info-container{
   padding-left: 0;
   padding-right: 0;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .header-campana{
