@@ -14,6 +14,7 @@ import { ComunicationService } from 'src/app/providers/comunication.service';
 import { ModalController } from '@ionic/angular';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { Client } from 'src/app/interfaces/client';
+import { Location } from "@angular/common";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class RecuperarPasswordPage implements OnInit {
     private communicationService : ComunicationService,
     private clientService: ClienteService,
     private modalController: ModalController,
+    private location: Location,
   ) {
     this.formularioCorreo = this.fb.group({
       email: new FormControl(
@@ -49,6 +51,10 @@ export class RecuperarPasswordPage implements OnInit {
         ])
       ),
     });
+  }
+
+  myBackButton(){
+    this.location.back();
   }
 
   cancelar() {

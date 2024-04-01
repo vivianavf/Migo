@@ -16,6 +16,7 @@ import { CampanaComponent } from '../campana/campana.component';
 import { TabsService } from 'src/app/providers/tabs.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { MarcasComponent } from '../marcas/marcas.component';
+import { GlobalServiceService } from 'src/app/providers/global-service.service';
 
 @Component({
   selector: 'app-home',
@@ -50,11 +51,13 @@ export class HomePage implements OnInit {
     private marcaComponent: MarcasComponent,
     private tabService: TabsService,
     private toolbarService: ToolbarService,
-    private ngZone: NgZone,
+    private globalService: GlobalServiceService,
   ) {}
 
 
   ngOnInit() {
+    this.globalService.getObservable().subscribe((data)=>{console.log(data)})
+
     var autoSaveInterval = setInterval(() => {
       this.imgBanner = this.generarNumeroBanner();
     }, 5000);

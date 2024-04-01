@@ -18,7 +18,6 @@ import { SolicitudesPageModule } from './solicitudes.module';
   styleUrls: ['./solicitudes.page.scss'],
 })
 export class SolicitudesPage implements OnInit {
-
   solicitudes: FormularioAplicacion[] = [];
   solicitudesAceptadas: FormularioAplicacion[] = [];
   solicitudesRechazadas: FormularioAplicacion[] = [];
@@ -33,11 +32,10 @@ export class SolicitudesPage implements OnInit {
     private userService: UsersService,
     private modalCtrl: ModalController,
     private ingresoService: IngresoConductorCampanaService,
-    private navCtrl: NavController,
-  ) { }
+    private navCtrl: NavController
+  ) {}
 
   async aceptarSolicitud(solicitud: FormularioAplicacion) {
-
     const modal = await this.modalCtrl.create({
       component: ConfirmacionPage,
       cssClass: 'confirmar-solicitud',
@@ -49,59 +47,65 @@ export class SolicitudesPage implements OnInit {
     modal.present();
   }
 
-  irCampanaActiva(solicitud: IngresoConductorCampana){
+  irCampanaActiva(solicitud: IngresoConductorCampana) {
     this.campanaService.setInfoCampanaActiva(solicitud.id_campana);
     this.navCtrl.navigateRoot('/campana-activa');
   }
 
-  getCampana(id:number): string{
-    var campana = this.campanas.find(
-      ({id_campana}) => id_campana === id
-    )
-    const resultado = campana ? campana.nombre_campana : "...";
+  getCampana(id: number): string {
+    var campana = this.campanas.find(({ id_campana }) => id_campana === id);
+    const resultado = campana ? campana.nombre_campana : '...';
 
-    return resultado
+    return resultado;
   }
 
-  generarDatos(){
-    this.toolbarService.setTexto("SOLICITUDES")
+  generarDatos() {
+    this.toolbarService.setTexto('SOLICITUDES');
 
-    this.ingresoService.getIngresos().subscribe((data)=>{
-      
-      data.forEach((solicitudActiva)=>{
-        if(solicitudActiva.id_ciudad === this.userService.usuarioActivo().id_ciudad &&
-        solicitudActiva.id_usuario === this.userService.usuarioActivo().id_usuario){
-          this.solicitudesActivas.push(solicitudActiva)
+    this.ingresoService.getIngresos().subscribe((data) => {
+      data.forEach((solicitudActiva) => {
+        if (
+          solicitudActiva.id_ciudad ===
+            this.userService.usuarioActivo().id_ciudad &&
+          solicitudActiva.id_usuario ===
+            this.userService.usuarioActivo().id_usuario
+        ) {
+          this.solicitudesActivas.push(solicitudActiva);
         }
-      })
+      });
     });
 
-    this.formService.getFormularios().subscribe((data)=>{
-      data.forEach((solicitudData)=>{
-        if(solicitudData.id_usuario === this.userService.usuarioActivo().id_usuario &&
-        solicitudData.id_ciudad === this.userService.usuarioActivo().id_ciudad){
-          this.solicitudes.push(solicitudData)
+    this.formService.getFormularios().subscribe((data) => {
+      data.forEach((solicitudData) => {
+        if (
+          solicitudData.id_usuario ===
+            this.userService.usuarioActivo().id_usuario &&
+          solicitudData.id_ciudad === this.userService.usuarioActivo().id_ciudad
+        ) {
+          this.solicitudes.push(solicitudData);
         }
-      })
-      this.solicitudes.forEach((solicitud)=>{
-        switch(solicitud.estado_solicitud){
+      });
+      this.solicitudes.forEach((solicitud) => {
+        switch (solicitud.estado_solicitud) {
           case 'pendiente':
-            this.solicitudesPendientes.push(solicitud)
+            this.solicitudesPendientes.push(solicitud);
             break;
           case 'aceptada':
-            this.solicitudesAceptadas.push(solicitud)
+            this.solicitudesAceptadas.push(solicitud);
             break;
           case 'rechazada':
-            this.solicitudesRechazadas.push(solicitud)
+            this.solicitudesRechazadas.push(solicitud);
             break;
         }
-      })
-    })
+      });
+    });
 
-  this.campanaService.getCampanas().subscribe((data)=>{this.campanas = data})
+    this.campanaService.getCampanas().subscribe((data) => {
+      this.campanas = data;
+    });
   }
 
-  resetDatos(){
+  resetDatos() {
     this.solicitudes = [];
     this.solicitudesAceptadas = [];
     this.solicitudesRechazadas = [];
@@ -110,12 +114,13 @@ export class SolicitudesPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.resetDatos();
     this.generarDatos();
   }
 
-  ngOnInit() {
+  ionViewDidLeave() {
     this.resetDatos();
-    this.generarDatos();
+  }
+
+  ngOnInit() {
   }
 }

@@ -9,6 +9,8 @@ import { CiudadService } from 'src/app/providers/ciudad.service';
 import { Pais } from 'src/app/interfaces/pais';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { User } from 'src/app/interfaces/user';
+import { ComunicationService } from 'src/app/providers/comunication.service';
+import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
 
 @Component({
   selector: 'app-perfil',
@@ -25,7 +27,6 @@ export class PerfilPage implements OnInit {
   paisInput: string = '';
   ciudadInput: string = '';
 
-
   constructor(
     private toolbarService: ToolbarService,
     private userService: UsersService,
@@ -35,6 +36,7 @@ export class PerfilPage implements OnInit {
     private paisService: PaisService,
     private ciudadService: CiudadService,
     private navCtrl: NavController,
+    private communicationService: ComunicationService,
   ) {}
 
   ngOnInit() {
@@ -64,7 +66,10 @@ export class PerfilPage implements OnInit {
     // this.ciudadesFiltradas = [];
   }
 
-  modificarContrasena() {}
+  modificarContrasena() {
+    this.communicationService.sendVariable([this.userService.usuarioActivo().email, 1234]);
+    this.navCtrl.navigateRoot('/reestablecer-password');
+  }
 
   eliminarCuenta() {}
 

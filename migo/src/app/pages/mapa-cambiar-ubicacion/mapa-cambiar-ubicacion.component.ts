@@ -8,6 +8,7 @@ import { UsersService } from 'src/app/providers/users.service';
 import { FormsModule } from '@angular/forms';
 import { PaisService } from 'src/app/providers/pais.service';
 import { CiudadService } from 'src/app/providers/ciudad.service';
+import { GlobalServiceService } from 'src/app/providers/global-service.service';
 
 interface Position {
   lat: number;
@@ -16,6 +17,7 @@ interface Position {
 
 @Component({
   selector: 'app-mapa-cambiar-ubicacion',
+
   templateUrl: './mapa-cambiar-ubicacion.component.html',
   styleUrls: ['./mapa-cambiar-ubicacion.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -38,6 +40,7 @@ export class MapaCambiarUbicacionComponent implements OnInit {
     private navCtrl: NavController,
     private paisService: PaisService,
     private ciudadService: CiudadService,
+    private globalService: GlobalServiceService,
   ) {}
 
   ngOnInit() {
@@ -70,6 +73,7 @@ export class MapaCambiarUbicacionComponent implements OnInit {
 
       this.modalCtrl.dismiss();
       this.navCtrl.navigateRoot('/home');
+
     } else {
       this.modalCtrl.dismiss();
     }

@@ -82,7 +82,9 @@ export class ReestablecerPasswordPage implements OnInit {
       this.emailUser = data[0]
     })
 
-    this.users = this.userService.usersObtenidos;
+    this.userService.getUsers().subscribe((data)=>{
+      this.users = data;
+    });
   }
 
 }

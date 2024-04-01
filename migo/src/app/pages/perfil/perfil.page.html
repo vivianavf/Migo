@@ -9,46 +9,53 @@
 
   <div class="icon-name-email">
     <ion-img id="user-icon" src="../../../assets/iconos-migo/03.png"></ion-img>
-    <ion-text class="capitalize">{{perfil.nombre}} {{perfil.apellido}}</ion-text>
+    <ion-text class="capitalize"
+      >{{perfil.nombre}} {{perfil.apellido}}</ion-text
+    >
     <ion-text>{{perfil.email}}</ion-text>
   </div>
 
   <div class="user-information">
-    <div class="info"><ion-text>Información Personal</ion-text> </div>
-    <div class="info"
-      ><ion-text class="label">Cédula</ion-text>
-      <ion-text class="value">{{perfil.cedula}}</ion-text></div
-    >
-    <div class="info"
-      ><ion-text class="label">Teléfono</ion-text>
-      <ion-text class="value">{{perfil.telefono}}</ion-text></div
-    >
-    <div class="info"
-      ><ion-text class="label">Sexo</ion-text>
-      <ion-text class="value">{{perfil.sexo}}</ion-text></div
-    >
-    <div class="info"
-      ><ion-text class="label">Fecha de Creación</ion-text>
-      <ion-text class="value">{{perfil.fecha_creacion}}</ion-text></div
-    >
+    <div class="info"><ion-text>Información Personal</ion-text></div>
+    <div class="info">
+      <ion-text class="label">Cédula</ion-text>
+      <ion-text class="value">{{perfil.cedula}}</ion-text>
+    </div>
+    <div class="info">
+      <ion-text class="label">Teléfono</ion-text>
+      <ion-text class="value">{{perfil.telefono}}</ion-text>
+    </div>
+    <div class="info">
+      <ion-text class="label">Sexo</ion-text>
+      <ion-text class="value">{{perfil.sexo}}</ion-text>
+    </div>
+    <div class="info">
+      <ion-text class="label">Fecha de Creación</ion-text>
+      <ion-text class="value">{{perfil.fecha_creacion}}</ion-text>
+    </div>
   </div>
 
   <div class="button-container">
     <ion-button class="perfilButton" (click)="modificarContrasena()"
       >Modificar Contraseña</ion-button
     >
-    <ion-button class="perfilButton" (click)="eliminarCuenta()">Eliminar Cuenta</ion-button>
-    <ion-button id="cambiar-ubicacion" class="perfilButton">Cambiar Ubicación</ion-button>
+
+    <ion-button class="perfilButton" (click)="eliminarCuenta()"
+      >Eliminar Cuenta</ion-button
+    >
+    <ion-button id="cambiar-ubicacion" class="perfilButton"
+      >Cambiar Ubicación</ion-button
+    >
   </div>
 
   <ion-modal
     trigger="cambiar-ubicacion"
     class="cambiarUbicacion"
-    [initialBreakpoint]="0.5" [breakpoints]="[0, 0.5, 0.75]"
+    [initialBreakpoint]="0.5"
+    [breakpoints]="[0, 0.5, 0.75]"
   >
     <ng-template>
       <app-mapa-cambiar-ubicacion></app-mapa-cambiar-ubicacion>
     </ng-template>
   </ion-modal>
-
 </ion-content>

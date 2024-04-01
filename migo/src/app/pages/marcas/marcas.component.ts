@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Campana } from 'src/app/interfaces/campana';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Empresa } from 'src/app/interfaces/empresa';
@@ -6,6 +6,7 @@ import { Pais } from 'src/app/interfaces/pais';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { CiudadService } from 'src/app/providers/ciudad.service';
 import { EmpresaService } from 'src/app/providers/empresa.service';
+import { GlobalServiceService } from 'src/app/providers/global-service.service';
 import { PaisService } from 'src/app/providers/pais.service';
 import { UsersService } from 'src/app/providers/users.service';
 
@@ -27,7 +28,7 @@ export class MarcasComponent implements OnInit {
     private userService: UsersService,
     private paisService: PaisService,
     private ciudadService: CiudadService,
-    private ngZone: NgZone
+    private globalService: GlobalServiceService
   ) {}
 
   verMas(empresa: Empresa) {
@@ -116,5 +117,8 @@ export class MarcasComponent implements OnInit {
 
   ngOnInit() {
     this.generarDatos();
+    this.globalService.getObservable().subscribe((data) => {
+      console.log(data);
+    });
   }
 }
