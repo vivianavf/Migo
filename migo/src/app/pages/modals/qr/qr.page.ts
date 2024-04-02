@@ -11,6 +11,8 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
+
+
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
