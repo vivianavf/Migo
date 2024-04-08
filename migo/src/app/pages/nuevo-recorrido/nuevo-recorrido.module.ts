@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { QrPageRoutingModule } from './qr-routing.module';
+import { NuevoRecorridoPageRoutingModule } from './nuevo-recorrido-routing.module';
 
-import { QrPage } from './qr.page';
-import { QRCodeModule } from 'angularx-qrcode';
+import { NuevoRecorridoPage } from './nuevo-recorrido.page';
 
 @NgModule({
   imports: [
-    QRCodeModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    QrPageRoutingModule,
+    NuevoRecorridoPageRoutingModule
   ],
-  declarations: [QrPage]
+  declarations: [NuevoRecorridoPage]
 })
-export class QrPageModule {}
+export class NuevoRecorridoPageModule {}

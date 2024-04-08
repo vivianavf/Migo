@@ -9,10 +9,6 @@
     padding-right: 15%;
 }
 
-#cambiarUbiMap{
-    height: 75%;
-}
-
 ion-select{
     --background: white;
     --border-radius: 20px;
@@ -21,6 +17,14 @@ ion-select{
     min-height: 30px;
 }
 
+ion-select::part(container){
+    margin-left: 20px;
+}
+
 .paisContainer{
     width: 100%;
+}
+
+.CU-button-container{
+    margin: 30px;
 }

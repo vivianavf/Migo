@@ -11,6 +11,12 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
+import { IngresoConductorCampanaService } from 'src/app/providers/ingreso-conductor-campana.service';
+import { CampanaService } from 'src/app/providers/campana.service';
+import { IngresoConductorCampana } from 'src/app/interfaces/ingreso-conductor-campana';
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import { CampanaActivaPage } from '../../campana-activa/campana-activa.page';
+import { VehiculoService } from 'src/app/providers/vehiculo.service';
 
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -30,15 +36,19 @@ export class QrPage implements OnInit {
 
   datos = '';
   logoData: any;
-  pdfObj: any;
+  pdfObj!: TCreatedPdf;
   base64Image: any;
+  ingresos!: IngresoConductorCampana[];
 
   constructor(
     private plt: Platform,
     private http: HttpClient,
     private fileOpener: FileOpener,
     private vehiculoElegidoService: ElegirVehiculoService,
-    private modal: ModalController,
+    private vehiculoService: VehiculoService,
+    private modalQR: ModalController,
+    private ingresarCondService: IngresoConductorCampanaService,
+    private campanaService: CampanaService,
   ) {}
 
   crearQR() {
@@ -46,11 +56,12 @@ export class QrPage implements OnInit {
     this.datos = 'MIGO ADS _ INFO';
     this.loadLocalAssetToBase64();
     this.crearPDF();
+    
   }
 
   crearPDF() {
     // let vehiculo = this.vehiculoElegidoService.vehiculoElegido;
-    console.log(this.user, this.client, this.campana);
+    // console.log(this.user, this.client, this.campana);
     let logo = { image: this.logoData, width: 50 };
 
     const docDefinition = {
@@ -135,7 +146,12 @@ export class QrPage implements OnInit {
     };
 
     this.pdfObj = pdfMake.createPdf(docDefinition);
-    this.pdfObj.download();
+    // this.pdfObj.download();
+
+    // console.log(this.pdfObj.getStream());
+
+
+    
   }
 
   loadLocalAssetToBase64() {
@@ -151,8 +167,16 @@ export class QrPage implements OnInit {
   }
 
   aceptar(){
-    this.modal.dismiss();
+    this.modalQR.dismiss();
+    // this.vehiculo.brandeo = true;
+    console.log("BRANDEO = TRUE");
+    this.vehiculoService.setBrandeo(this.vehiculo.id_vehiculo!, true).subscribe((response)=>{console.log(response)})
+    
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ingresarCondService.getIngresos().subscribe((data)=>{
+      this.ingresos = data;
+    })
+  }
 }

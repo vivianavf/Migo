@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { Campana } from 'src/app/interfaces/campana';
 import { Client } from 'src/app/interfaces/client';
@@ -18,6 +18,7 @@ import { MenuPage } from '../modals/menu/menu.page';
 import { QrPage } from '../modals/qr/qr.page';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
+import { ConducirModalPage } from '../modals/conducir-modal/conducir-modal.page';
 
 @Component({
   selector: 'app-campana-activa',
@@ -37,6 +38,7 @@ export class CampanaActivaPage implements OnInit {
   nombreEmpresa = '-';
   correoEncargado = '--@--';
   vehiculo!: Vehiculo;
+  brandeo!: boolean;
 
   @ViewChild('map-campanaActiva') mapRef!: google.maps.Map;
   map_campana?: google.maps.Map;
@@ -56,6 +58,7 @@ export class CampanaActivaPage implements OnInit {
 
   ngOnInit() {
     try {
+      console.log("ON INIT")
       this.generarDatos();
       this.toolbarService.setTexto('CAMPAÑA ACTIVA');
       this.crearSectores();
@@ -65,14 +68,12 @@ export class CampanaActivaPage implements OnInit {
     }
   }
 
-  ionViewWillEnter() {
-    try {
-      this.generarDatos();
-      this.crearSectores();
-      // this.createMap();
-    } catch (error) {
-      console.log(error);
-    }
+  ionViewDidEnter(){
+    let solicitud = this.campanaService.getInfoCampanaActiva()[1];
+    // this.vehiculoService.
+    this.obtenerVehiculo(solicitud.id_vehiculo)
+    this.vehiculo.brandeo = this.brandeo;
+    console.log("LOS BRANDEOS = TRUE", this.vehiculo.brandeo, this.brandeo)
   }
 
   generarDatos() {
@@ -219,12 +220,13 @@ export class CampanaActivaPage implements OnInit {
   obtenerVehiculo(id:number ){
     this.vehiculoService.getVehiculobyId(id).subscribe((vehiculo)=>{
       this.vehiculo = vehiculo;
+      this.brandeo = vehiculo.brandeo!;
     });
   }
 
   async mostrarQR() {
     console.log(this.vehiculo)
-    const modal = await this.modalController.create({
+    const modalQR = await this.modalController.create({
       component: QrPage,
       componentProps: {
         user: this.userService.usuarioActivo(),
@@ -237,9 +239,24 @@ export class CampanaActivaPage implements OnInit {
       cssClass: 'qr-modal',
     });
 
-    return await modal.present();
+    return await modalQR.present();
 
     
     
   }
+
+  async conducirVehiculo() {
+    const modal = await this.modalController.create({
+      component: ConducirModalPage,
+      cssClass: 'conducirModal',
+      componentProps: {
+        campana: this.campana,
+        vehiculo: this.vehiculo,
+      },
+    });
+
+    modal.present();
+  }
+
+  anularRegistro(){}
 }

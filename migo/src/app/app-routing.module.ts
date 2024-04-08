@@ -216,6 +216,14 @@ const routes: Routes = [
     path: 'campana-activa',
     loadChildren: () => import('./pages/campana-activa/campana-activa.module').then( m => m.CampanaActivaPageModule)
   },
+  {
+    path: 'conducir-modal',
+    loadChildren: () => import('./pages/modals/conducir-modal/conducir-modal.module').then( m => m.ConducirModalPageModule)
+  },
+  {
+    path: 'nuevo-recorrido',
+    loadChildren: () => import('./pages/nuevo-recorrido/nuevo-recorrido.module').then( m => m.NuevoRecorridoPageModule)
+  },
 
 
 

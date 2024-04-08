@@ -70,13 +70,17 @@
             </div>
           </div>
         </div>
-        <div class="button-container">
+        <div *ngIf="!brandeo" class="button-container">
             <ion-button
               class="formulario capitalize"
               (click)="brandearVehiculo()"
               >Brandear mi vehículo</ion-button
             >
         </div>
+        <div *ngIf="brandeo" class="button-container">
+          <ion-button id="conducirVehiculo" (click)="conducirVehiculo()">Conducir</ion-button>
+          <ion-button (click)="anularRegistro()">Anular Registro</ion-button>
+      </div>
       </ion-card-content>
     </ion-card>
   </ion-content>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
 import { ModalController, NavController } from '@ionic/angular';
 import { Campana } from 'src/app/interfaces/campana';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
@@ -10,7 +9,6 @@ import { UsersService } from 'src/app/providers/users.service';
 import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 import { IngresoConductorCampanaService } from 'src/app/providers/ingreso-conductor-campana.service';
 import { IngresoConductorCampana } from 'src/app/interfaces/ingreso-conductor-campana';
-import { SolicitudesPageModule } from './solicitudes.module';
 
 @Component({
   selector: 'app-solicitudes',
@@ -56,7 +54,7 @@ export class SolicitudesPage implements OnInit {
   }
 
   getCampana(id: number): string {
-    var campana = this.campanas.find(({ id_campana }) => id_campana === id);
+    const campana = this.campanas.find(({ id_campana }) => id_campana === id);
     const resultado = campana ? campana.nombre_campana : '...';
 
     return resultado;

@@ -6,6 +6,7 @@ import {Swiper} from 'swiper';
 import { IonicSlides } from '@ionic/core';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { ModalController, NavController } from '@ionic/angular';
+import { AgregarVehiculoPage } from '../../agregar-vehiculo/agregar-vehiculo.page';
 
 @Component({
   selector: 'app-vehiculos-modal',
@@ -25,6 +26,8 @@ export class VehiculosModalPage implements OnInit {
   vehiculoSeleccionado: any;
 
   hayVehiculos=false;
+
+  component = AgregarVehiculoPage;
 
   constructor(
     private vehiculoService: VehiculoService,

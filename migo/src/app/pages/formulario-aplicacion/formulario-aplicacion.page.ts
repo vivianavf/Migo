@@ -30,6 +30,7 @@ import { Campana } from 'src/app/interfaces/campana';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
+import { NavigationService } from 'src/app/providers/navigation.service';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -140,7 +141,8 @@ export class FormularioAplicacionPage implements OnInit {
     private modeloVehiculoService: ModeloVehiculosService,
     private navCtrl: NavController,
     private formService: FormularioAplicacionService,
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
+    private navService: NavigationService,
   ) {
     this.formularioAplicacion = this.fb.group({
       telefono_conductor: new FormControl('', Validators.required),
@@ -417,6 +419,7 @@ export class FormularioAplicacionPage implements OnInit {
       this.generarApp();
       this.formularioAplicacion.reset();
       this.toolbarService.setTexto('FORMULARIO DE APLICACIÓN');
+      this.navService.setPagina("/formulario-aplicacion");
     } catch (error) {
       console.log(error);
     }

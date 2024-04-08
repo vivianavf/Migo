@@ -28,42 +28,44 @@ export class VehiculoService {
   }
 
   crearVehiculo(vehiculo: Vehiculo) {
-    let config = {
-      headers: {
-        enctype: 'multipart/form-data;',
-        Accept: 'multipart/form-data',
-        'Content-Type': 'multipart/form-data',
-      },
-    };
+
+    let placa = vehiculo.placa.toString();
 
     var formData = new FormData();
 
-    formData.append('id_vehiculo', vehiculo.id_vehiculo!.toString());
+    // formData.append('id_vehiculo', vehiculo.id_vehiculo!.toString());
     formData.append(
       'telefono_conductor',
       vehiculo.telefono_conductor.toString()
     );
-    formData.append('placa', vehiculo.placa.toString());
+    formData.append('placa', placa);
     formData.append('anio', vehiculo.anio.toString());
     formData.append(
       'categoria_vehiculo',
       vehiculo.categoria_vehiculo.toString()
     );
     formData.append('color_vehiculo', vehiculo.color_vehiculo.toString());
-    formData.append('imagen_izq', vehiculo.imagen_izq.webPath!);
-    formData.append('imagen_der', vehiculo.imagen_der.path!);
-    formData.append('imagen_frontal', vehiculo.imagen_frontal.path!);
-    formData.append('imagen_trasera', vehiculo.imagen_trasera.path!);
-    formData.append('imagen_techo', vehiculo.imagen_techo.path!);
+    formData.append('imagen_izq', vehiculo.imagen_izq, placa+"izq.png");
+    formData.append('imagen_der', vehiculo.imagen_der, placa+"derecha.png");
+    formData.append('imagen_frontal', vehiculo.imagen_frontal, placa+"frontal.png");
+    formData.append('imagen_trasera', vehiculo.imagen_trasera, placa+"trasera.png");
+    formData.append('imagen_techo', vehiculo.imagen_techo, placa+"techo.png");
     formData.append('estado', vehiculo.estado.toString());
     formData.append('id_chofer', vehiculo.id_chofer!.toString());
     formData.append('id_cliente', vehiculo.id_cliente!.toString());
     formData.append('id_marca', vehiculo.id_marca.toString());
     formData.append('id_modelo', vehiculo.id_modelo.toString());
 
-    console.log(formData);
+    console.log("FORMDATA", formData);
 
-    // return this.http.post(this.baseURL, formData);
+    return this.http.post(this.baseURL, formData);
+  }
+
+  setBrandeo(id: number, brandeo: boolean): Observable<any> {
+    const body = {
+      "brandeo": brandeo,
+    }
+    return this.http.patch(this.baseURL + id, body);
   }
 
   getIDNuevoVehiculo(): number {

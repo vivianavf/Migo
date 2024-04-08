@@ -8,6 +8,6 @@
     </ion-text>
   </div>
   <ion-button (click)="crearQR()">Mostrar QR</ion-button>
-  <div class="QR"><qrcode [qrdata]="datos" [width]="400"></qrcode></div>
-  <ion-button (clicl)="aceptar()">Aceptar</ion-button>
+  <div class="QR"><qrcode [allowEmptyString]="true" [qrdata]="datos" [width]="400"></qrcode></div>
+  <ion-button (click)="aceptar()">Aceptar</ion-button>
 </ion-content>

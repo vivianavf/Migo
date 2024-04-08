@@ -33,6 +33,7 @@ import { ChoferService } from 'src/app/providers/chofer.service';
 import { UsersService } from 'src/app/providers/users.service';
 import { FechaService } from 'src/app/providers/fecha.service';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { NavigationService } from 'src/app/providers/navigation.service';
 
 interface FormFields {
   Nombre: string;
@@ -44,11 +45,11 @@ interface FormFields {
   anio: string;
   Marca: number;
   Modelo: number;
-  FotoFrontal: Photo;
-  FotoTrasera: Photo;
-  FotoIzquierda: Photo;
-  FotoDerecha: Photo;
-  FotoTecho: Photo;
+  FotoFrontal: Blob;
+  FotoTrasera: Blob;
+  FotoIzquierda: Blob;
+  FotoDerecha: Blob;
+  FotoTecho: Blob;
 }
 
 @Component({
@@ -67,12 +68,15 @@ export class AgregarVehiculoPage implements OnInit {
     anio: '',
     Marca: 0,
     Modelo: 0,
-    FotoFrontal: { webPath: '', format: '', saved: false },
-    FotoTrasera: { webPath: '', format: '', saved: false },
-    FotoIzquierda: { webPath: '', format: '', saved: false },
-    FotoDerecha: { webPath: '', format: '', saved: false },
-    FotoTecho: { webPath: '', format: '', saved: false },
+    FotoFrontal: new Blob(),
+    FotoTrasera: new Blob(),
+    FotoIzquierda: new Blob(),
+    FotoDerecha: new Blob(),
+    FotoTecho: new Blob(),
   };
+
+  //navigation
+  whereFrom = ''
 
   //selectable
   marcaControl!: FormControl;
@@ -118,7 +122,8 @@ export class AgregarVehiculoPage implements OnInit {
     private choferService: ChoferService,
     private userService: UsersService,
     private fechaService: FechaService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private navService: NavigationService,
   ) {}
 
   ngOnInit() {
@@ -137,6 +142,15 @@ export class AgregarVehiculoPage implements OnInit {
         this.valoresModelos.push(data[i]);
       }
     });
+  }
+
+  ionViewDidEnter(){
+    this.whereFrom = this.navService.getPaginaAnterior();
+    console.log(this.whereFrom);
+  }
+
+  ionViewDidLeave(){
+    this.navService.setPagina('')
   }
 
   async abrirModal() {
@@ -210,8 +224,9 @@ export class AgregarVehiculoPage implements OnInit {
 
       //     // var idChoferActual = this.choferService.getIDNuevoChofer()-1;
 
+      console.log("SIZES", this.formFields.FotoDerecha.size, this.formFields.FotoFrontal.size, this.formFields.FotoIzquierda.size, this.formFields.FotoTecho.size, this.formFields.FotoTrasera.size)
+
       var vehiculoRequest = {
-        id_vehiculo: this.vehiculoService.getIDNuevoVehiculo(),
         telefono_conductor: 9999999999,
         placa: this.formFields.Placa,
         anio: parseInt(this.formFields.anio),
@@ -229,7 +244,7 @@ export class AgregarVehiculoPage implements OnInit {
         id_modelo: this.formFields.Modelo,
       };
 
-      this.vehiculoService.crearVehiculo(vehiculoRequest);
+      this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{console.log(response)});
       //   }
       // });
 
@@ -292,11 +307,11 @@ export class AgregarVehiculoPage implements OnInit {
       anio: '',
       Marca: 1,
       Modelo: 1,
-      FotoFrontal: { webPath: '', format: '', saved: false },
-      FotoTrasera: { webPath: '', format: '', saved: false },
-      FotoIzquierda: { webPath: '', format: '', saved: false },
-      FotoDerecha: { webPath: '', format: '', saved: false },
-      FotoTecho: { webPath: '', format: '', saved: false },
+      FotoFrontal: new Blob(),
+      FotoTrasera: new Blob(),
+      FotoIzquierda: new Blob(),
+      FotoDerecha: new Blob(),
+      FotoTecho: new Blob(),
     };
     this.attemptedSubmit = false;
     this.showValidationError = '';
@@ -338,57 +353,75 @@ export class AgregarVehiculoPage implements OnInit {
 
   async takePhoto(label: string): Promise<void> {
     const image = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
       quality: 100,
     });
 
+    this.srcMostrarFoto = "data:image/jpeg;base64,"+image.base64String;
+
     switch (label) {
       case 'Aerea':
-        if (image.webPath) {
+        if (image) {
           this.fotoAereaTomada = true;
-          this.srcAerea = image.webPath!.toString();
-          this.srcMostrarFoto = image.webPath!.toString();
-          this.formFields.FotoTecho = image;
+          this.srcAerea = this.srcMostrarFoto;
+          this.formFields.FotoTecho = this.b64toBlob(image.base64String);
         }
         break;
 
       case 'Frontal':
-        if (image.webPath) {
+        if (image) {
           this.fotoFrontalTomada = true;
-          this.srcFrontal = image.webPath!.toString();
-          this.srcMostrarFoto = image.webPath!.toString();
-          this.formFields.FotoFrontal = image;
+          this.srcFrontal = this.srcMostrarFoto;
+          this.formFields.FotoFrontal = this.b64toBlob(image.base64String);
         }
         break;
 
       case 'Trasera':
-        if (image.webPath) {
+        if (image) {
           this.fotoTraseraTomada = true;
-          this.srcTrasera = image.webPath!.toString();
-          this.srcMostrarFoto = image.webPath!.toString();
-          this.formFields.FotoTrasera = image;
+          this.srcTrasera = this.srcMostrarFoto;
+          this.formFields.FotoTrasera = this.b64toBlob(image.base64String);
         }
         break;
 
       case 'Derecha':
-        if (image.webPath) {
+        if (image) {
           this.fotoDerechaTomada = true;
-          this.srcDerecha = image.webPath!.toString();
-          this.srcMostrarFoto = image.webPath!.toString();
-          this.formFields.FotoDerecha = image;
+          this.srcDerecha = this.srcMostrarFoto;
+          this.formFields.FotoDerecha = this.b64toBlob(image.base64String);
         }
         break;
 
       case 'Izquierda':
-        if (image.webPath) {
+        if (image) {
           this.fotoIzquierdaTomada = true;
-          this.srcIzquierda = image.webPath!.toString();
-          this.srcMostrarFoto = image.webPath!.toString();
-          this.formFields.FotoIzquierda = image;
+          this.srcIzquierda = this.srcMostrarFoto;
+          this.formFields.FotoIzquierda = this.b64toBlob(image.base64String);
         }
         break;
     }
+  }
+
+  b64toBlob(b64Data: any, contentType = '', sliceSize = 512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    console.log("BLOB", blob)
+    return blob;
   }
 
   marcaChange(event: any) {

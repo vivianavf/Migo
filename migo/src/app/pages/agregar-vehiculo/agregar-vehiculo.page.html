@@ -1,7 +1,12 @@
 <ion-toolbar>
   <ion-buttons slot="start">
-    <ion-back-button
+    <ion-back-button *ngIf="whereFrom==''"
       default-href="/vehiculos"
+      text=""
+      icon="chevron-back"
+    ></ion-back-button>
+    <ion-back-button *ngIf="whereFrom=='/formulario-aplicacion'"
+      default-href="/formulario-aplicacion"
       text=""
       icon="chevron-back"
     ></ion-back-button>

@@ -121,14 +121,16 @@ export class AppComponent implements OnInit{
     this.campanaService.getCampanas().subscribe((data)=>{})
 
     let userExists = localStorage.getItem('usuario_email');
+
+    let recorridoExists = localStorage.getItem('recorrido')
+
     if(userExists){
-      this.navCtrl.navigateRoot('/home');
-      //aqui se renderiza el tabs
-      
+      if(recorridoExists){
+        this.navCtrl.navigateRoot('/nuevo-recorrido');
+      }else{
+        this.navCtrl.navigateRoot('/home');
+      }
     }else{
-      // Set Login Page as Root
-      // this.router.navigate(['/login']);
-      
       this.navCtrl.navigateRoot('/login')
       console.log("no hay nada")
     }

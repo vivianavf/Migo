@@ -4,6 +4,7 @@ import { ChoferService } from './chofer.service';
 import { ClienteService } from './cliente.service';
 import { IngresoConductorCampana } from '../interfaces/ingreso-conductor-campana';
 import { Observable } from 'rxjs';
+import * as pdfMake from 'pdfmake/build/pdfmake';
 
 @Injectable({
   providedIn: 'root'
@@ -27,12 +28,23 @@ export class IngresoConductorCampanaService {
     return respuesta;
   }
 
-  getIngresobyId(id: number): Observable<IngresoConductorCampana[]> {
-    return this.http.get<IngresoConductorCampana[]>(this.baseURL + id + '/' + this.formato);
+  getIngresobyId(id: number): Observable<IngresoConductorCampana> {
+    return this.http.get<IngresoConductorCampana>(this.baseURL + id + '/' + this.formato);
   }
 
   crearIngreso(ingreso: any): Observable<any> {
     return this.http.post(this.baseURL, ingreso);
+  }
+  
+
+  subirDocumento(id: number, documento: Blob){
+    const formData = new FormData();
+    const newFile = new File([documento], "");
+    formData.append(
+      'documento_QR',
+      newFile
+    );
+    return this.http.patch(this.baseURL + id, formData);
   }
 
 }

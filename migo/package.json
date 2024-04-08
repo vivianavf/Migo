@@ -58,6 +58,7 @@
     "pdfmake": "^0.2.9",
     "rxjs": "~7.8.1",
     "swiper": "^11.0.5",
+    "timer-node": "^5.0.7",
     "tslib": "^2.3.0",
     "tweetnacl-util": "^0.15.1",
     "zone.js": "~0.13.0"

@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-text>
+    Está por comenzar un nuevo recorrido para la campaña:
+  </ion-text>
+  <ion-text>
+    {{campana.nombre_campana}}
+  </ion-text>
+  <ion-text>
+    Desea continuar??
+  </ion-text>
+  <div>
+    <ion-button>Cancelar</ion-button>
+    <ion-button (click)="crearRecorrido()">Continuar</ion-button>
+  </div>
+</ion-content>

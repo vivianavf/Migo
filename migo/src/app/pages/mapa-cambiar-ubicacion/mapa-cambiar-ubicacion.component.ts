@@ -34,6 +34,9 @@ export class MapaCambiarUbicacionComponent implements OnInit {
   paisInput: string = '';
   ciudadInput: string = '';
 
+  paisActual: string = '';
+  ciudadActual: string = '';
+
   constructor(
     private userService: UsersService,
     private modalCtrl: ModalController,
@@ -54,6 +57,14 @@ export class MapaCambiarUbicacionComponent implements OnInit {
     this.ciudadService.getCiudades().subscribe((data) => {
       this.ciudades = data;
     });
+
+    this.paisService.getPaisbyId(this.userService.usuarioActivo().id_pais).subscribe((pais)=>{
+      this.paisActual = pais.nombre;
+    })
+
+    this.ciudadService.getCiudadbyId(this.userService.usuarioActivo().id_ciudad).subscribe((ciudad)=>{
+      this.ciudadActual = ciudad.nombre;
+    })
   }
 
   async cambiarUbicacion() {

@@ -1,0 +1,38 @@
+@import url('../../../theme/variables.scss');
+
+#newRecorridoMapa{
+    width: 100%;
+    height: 75%;
+    background-color: rgb(226, 226, 226);
+}
+
+ion-content{
+  background: rgb(231, 231, 231);
+  --background: none;
+}
+
+.NR-infoCampana{
+  background: var(--ion-background-color);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NR-info-container{
+  padding: 5%;
+}
+
+.NR-divider{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.NR-button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
