@@ -15,36 +15,57 @@ import { Publicidad } from 'src/app/interfaces/publicidad';
   templateUrl: './ads.component.html',
   styleUrls: ['./ads.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule],
+  imports: [CommonModule,],
 })
 export class AdsComponent implements OnInit {
   srcBanner = '';
+  publicidadesSinFiltrar: Publicidad[] = [];
   publicidades: Publicidad[] = [];
 
   constructor(
     private adsService: AdsService,
-    private userService: UsersService
+    private userService: UsersService,
   ) {}
 
   ngOnInit() {
-    // this.filtrarPublicidades();
-    console.log(this.adsService.publicidadesObtenidas)
+    this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
+
+    var esperaPublicidades = setInterval(()=>{
+      if(this.publicidadesSinFiltrar.length > 0){
+        console.log("Listo!!");
+        this.filtrarPublicidades();
+        this.getPublicidadRandom();
+        clearInterval(esperaPublicidades);
+      }else{
+        console.log("cargando....")
+        this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
+      }
+    }, 100);
   }
 
-  ionViewDidEnter(){
-    console.log(this.adsService.publicidadesObtenidas)
+  filtrarPublicidades(){
+    const ciudad = this.userService.usuarioActivo().id_ciudad;
+    const pais = this.userService.usuarioActivo().id_pais;
+    this.adsService.publicidadesObtenidas.forEach((publicidad)=>{
+      if(publicidad.id_ciudad === ciudad && publicidad.id_pais === pais){
+        this.publicidades.push(publicidad);
+      }
+    })
   }
 
   getPublicidadRandom() {
     this.setSrcRandom();
-    var autoSaveInterval = setInterval(() => {
+    var esperaSrc = setInterval(() => {
       this.setSrcRandom();
-    }, 4000);
+    }, 5000);
   }
 
   setSrcRandom() {
     var numRandom = this.generarNumeroRandom(this.publicidades.length - 1);
-    this.srcBanner = this.publicidades[numRandom].imagen_publicitaria;
+    if(this.publicidades){
+      this.srcBanner = this.publicidades[numRandom].imagen_publicitaria;
+    }
+    
   }
 
   generarNumeroRandom(maximo: number, minimo = 0) {

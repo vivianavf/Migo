@@ -1,3 +1,6 @@
+/* Como no voy a crear una publicidad desde la app */
+/* Puedo obtener la ruta de la img como string */
+
 export interface Publicidad {
     fecha_creacion: Date,
     estado: number,

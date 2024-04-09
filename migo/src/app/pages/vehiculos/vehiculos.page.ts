@@ -69,7 +69,6 @@ export class VehiculosPage implements OnInit {
     if (vehiculo) {
       const routeName = String(vehiculo.imagen_frontal).split('.');
       const extension = routeName.pop();
-      console.log(extension);
       return extension;
     }else{
       return '.jpg';

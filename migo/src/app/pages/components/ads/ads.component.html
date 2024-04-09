@@ -1,5 +1,6 @@
 <div class="ad">
-  <ion-img
+  <ion-spinner *ngIf="publicidadesSinFiltrar.length === 0" name="dots" color="primary"></ion-spinner>
+  <ion-img *ngIf="publicidadesSinFiltrar.length > 0"
     [src]="srcBanner"
     alt="Banner Publicitario"
     class="img-ad"

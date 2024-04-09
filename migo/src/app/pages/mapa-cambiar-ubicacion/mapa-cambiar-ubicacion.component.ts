@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Pais } from 'src/app/interfaces/pais';
@@ -27,6 +27,8 @@ interface Position {
 })
 export class MapaCambiarUbicacionComponent implements OnInit {
 
+  @ViewChild("spinnerDiv", { read: ElementRef }) private spinnerDiv!: ElementRef;
+
   paises: Pais[] = [];
   ciudades: Ciudad[] = [];
   ciudadesFiltradas: Ciudad[] = [];
@@ -44,6 +46,7 @@ export class MapaCambiarUbicacionComponent implements OnInit {
     private paisService: PaisService,
     private ciudadService: CiudadService,
     private globalService: GlobalServiceService,
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit() {
@@ -67,7 +70,7 @@ export class MapaCambiarUbicacionComponent implements OnInit {
     })
   }
 
-  async cambiarUbicacion() {
+  cambiarUbicacion() {
     if (this.paisInput && this.ciudadInput) {
       const id_usuario = this.userService.usuarioActivo().id_usuario;
 
@@ -79,7 +82,7 @@ export class MapaCambiarUbicacionComponent implements OnInit {
         this.userService.ingresarCiudad(this.ciudadInput);
         this.userService.ingresarPais(this.paisInput);
         console.log("RELOAD APP");
-        // location.reload();
+        this.renderer.setStyle(this.spinnerDiv.nativeElement, 'display', 'flex');  
         location.reload();
       })
       // this.modalCtrl.dismiss();

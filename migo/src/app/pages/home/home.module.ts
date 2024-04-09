@@ -7,7 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
-import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
+import { AdsComponent } from '../components/ads/ads.component';
 
 
 @NgModule({
@@ -16,11 +16,11 @@ import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-n
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    BarraNavegacionComponent,
+    AdsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports:[MarcasComponent,],
   declarations: [HomePage,CampanaComponent,MarcasComponent],
-  providers: [CampanaComponent, MarcasComponent,],
+  providers: [CampanaComponent, MarcasComponent, AdsComponent],
 })
 export class HomePageModule {}

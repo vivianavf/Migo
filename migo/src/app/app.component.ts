@@ -95,6 +95,7 @@ export class AppComponent implements OnInit{
   obtenerPublicidades() {
     /* Ya hicimos la peticion al iniciar la app */
     this.adsService.getPublicidades().subscribe((data) => {
+      console.log("publicidades", data)
     });
   }
 

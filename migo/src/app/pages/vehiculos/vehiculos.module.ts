@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { VehiculosPageRoutingModule } from './vehiculos-routing.module';
 
 import { VehiculosPage } from './vehiculos.page';
+import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VehiculosPageRoutingModule
+    VehiculosPageRoutingModule,
+    AdsComponent,
   ],
-  declarations: [VehiculosPage]
+  declarations: [VehiculosPage],
+  providers: [AdsComponent,]
 })
 export class VehiculosPageModule {}

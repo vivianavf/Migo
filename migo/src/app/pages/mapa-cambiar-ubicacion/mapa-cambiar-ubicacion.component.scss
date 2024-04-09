@@ -26,5 +26,20 @@ ion-select::part(container){
 }
 
 .CU-button-container{
-    margin: 30px;
+    // margin: 30px;
+    margin-top: 20px;
+}
+
+.CU-actualizando{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 3px;
+}
+
+.CU-spinner{
+    align-self: center;
+    width: 50px;
+    height: 50px;
 }
