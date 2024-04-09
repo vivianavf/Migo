@@ -9,7 +9,7 @@
       >
       <ion-card (click)="irCampanaActiva(solicitud)" *ngFor="let solicitud of solicitudesActivas"  class="solicitudesCard">
         <div class="fecha">
-          <ion-text class="fechaString">{{solicitud.fecha_registro}}</ion-text
+          <ion-text class="fechaString">{{solicitud.fecha_envio}}</ion-text
             >
         </div>
         <div class="informacion">
@@ -22,7 +22,7 @@
           <div class="infoTexto">
             <ion-text class="bold-text uppercase-text">{{getCampana(solicitud.id_campana)}}</ion-text>
             <ion-text>La solicitud ha sido confirmada por el conductor</ion-text>
-            <ion-text>Estado: Pendiente de brandeo</ion-text>
+            <ion-text>Estado: {{getEstado(solicitud)}}</ion-text>
           </div>
         </div>
       </ion-card>

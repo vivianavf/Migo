@@ -72,26 +72,4 @@ export class PerfilPage implements OnInit {
   }
 
   eliminarCuenta() {}
-
-  async cambiarUbicacion() {
-    if(this.paisInput && this.ciudadInput){
-      const id_usuario = this.userService.usuarioActivo().id_usuario;
-
-    this.userService
-      .actualizarPais(id_usuario, Number(this.paisInput))
-      .subscribe((response: User) => {
-        this.userService.ingresarPais(this.paisInput);
-      });
-    this.userService
-      .actualizarCiudad(id_usuario, Number(this.ciudadInput))
-      .subscribe((response) => {
-        this.userService.ingresarCiudad(this.ciudadInput);
-      });
-
-    this.modalCtrl.dismiss();
-    this.navCtrl.navigateRoot('/home');
-    }    else{
-      this.modalCtrl.dismiss();
-    }
-  }
 }

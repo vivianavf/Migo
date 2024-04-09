@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { PanelPageRoutingModule } from './panel-routing.module';
 
 import { PanelPage } from './panel.page';
-import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
 
 
 @NgModule({

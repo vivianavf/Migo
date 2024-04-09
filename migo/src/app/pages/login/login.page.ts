@@ -70,6 +70,17 @@ export class LoginPage implements OnInit {
     });
   }
 
+  // enviarNotificacion(registration_token, title, body){
+
+  //   bodyR = {
+  //     registration_token: "",
+  //     title: "",
+  //     body: "",
+  //   }
+
+  //   return this.http.post("....//Database/send_fcm_notification/", bodyR)
+  // }
+
   ingresar() {
     var f = this.formularioLogin.value;
     var inputEmail = f.email;

@@ -8,6 +8,7 @@ import { CampanaService } from './providers/campana.service';
 import { register } from 'swiper/element/bundle';
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { AdsService } from './providers/ads.service';
 
 
 register();
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit{
     private campanaService: CampanaService,
     private router: Router,
     private navCtrl: NavController,
+    private adsService: AdsService,
   ) {
 
   }
@@ -90,6 +92,12 @@ export class AppComponent implements OnInit{
     }
   };
 
+  obtenerPublicidades() {
+    /* Ya hicimos la peticion al iniciar la app */
+    this.adsService.getPublicidades().subscribe((data) => {
+    });
+  }
+
 
   ngOnInit() {
 
@@ -125,6 +133,7 @@ export class AppComponent implements OnInit{
     let recorridoExists = localStorage.getItem('recorrido')
 
     if(userExists){
+      this.obtenerPublicidades();
       if(recorridoExists){
         this.navCtrl.navigateRoot('/nuevo-recorrido');
       }else{

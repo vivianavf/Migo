@@ -19,6 +19,8 @@ import { QrPage } from '../modals/qr/qr.page';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
 import { ConducirModalPage } from '../modals/conducir-modal/conducir-modal.page';
+import { AnularRegistroPage } from '../modals/anular-registro/anular-registro.page';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 @Component({
   selector: 'app-campana-activa',
@@ -39,6 +41,9 @@ export class CampanaActivaPage implements OnInit {
   correoEncargado = '--@--';
   vehiculo!: Vehiculo;
   brandeo!: boolean;
+  
+  //anular registro
+  solicitud!: FormularioAplicacion;
 
   @ViewChild('map-campanaActiva') mapRef!: google.maps.Map;
   map_campana?: google.maps.Map;
@@ -58,7 +63,6 @@ export class CampanaActivaPage implements OnInit {
 
   ngOnInit() {
     try {
-      console.log("ON INIT")
       this.generarDatos();
       this.toolbarService.setTexto('CAMPAÑA ACTIVA');
       this.crearSectores();
@@ -70,15 +74,12 @@ export class CampanaActivaPage implements OnInit {
 
   ionViewDidEnter(){
     let solicitud = this.campanaService.getInfoCampanaActiva()[1];
-    // this.vehiculoService.
     this.obtenerVehiculo(solicitud.id_vehiculo)
-    this.vehiculo.brandeo = this.brandeo;
-    console.log("LOS BRANDEOS = TRUE", this.vehiculo.brandeo, this.brandeo)
   }
 
   generarDatos() {
-    let solicitud = this.campanaService.getInfoCampanaActiva()[1];
-    this.obtenerVehiculo(solicitud.id_vehiculo);
+    this.solicitud = this.campanaService.getInfoCampanaActiva()[1];
+    this.obtenerVehiculo(this.solicitud.id_vehiculo);
     
     this.campana = this.campanaService.getInfoCampanaActiva()[0];
     this.consultarVehiculosAdmisibles(this.campana);
@@ -225,7 +226,6 @@ export class CampanaActivaPage implements OnInit {
   }
 
   async mostrarQR() {
-    console.log(this.vehiculo)
     const modalQR = await this.modalController.create({
       component: QrPage,
       componentProps: {
@@ -240,9 +240,6 @@ export class CampanaActivaPage implements OnInit {
     });
 
     return await modalQR.present();
-
-    
-    
   }
 
   async conducirVehiculo() {
@@ -258,5 +255,17 @@ export class CampanaActivaPage implements OnInit {
     modal.present();
   }
 
-  anularRegistro(){}
+  async anularRegistro(){
+    const modal = await this.modalController.create({
+      component: AnularRegistroPage,
+      cssClass: 'anularRegistroModal',
+      componentProps: {
+        campana: this.campana,
+        vehiculo: this.vehiculo,
+        solicitud: this.solicitud,
+      },
+    });
+
+    modal.present();
+  }
 }

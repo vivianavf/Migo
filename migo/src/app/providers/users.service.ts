@@ -46,19 +46,20 @@ export class UsersService {
     return this.http.patch(this.baseURL + id, body);
   }
 
-  actualizarPais(id: number, id_pais: number): Observable<any> {
+  actualizarUbicacion(id: number, id_ciudad: number, id_pais: number): Observable<any> {
     const body = {
       "id_pais": id_pais,
-    }
-    return this.http.patch(this.baseURL + id, body);
-  }
-  
-  actualizarCiudad(id:number, id_ciudad: number): Observable<any>{
-    const body = {
       "id_ciudad": id_ciudad,
     }
     return this.http.patch(this.baseURL + id, body);
   }
+  
+  // actualizarCiudad(id:number, id_ciudad: number): Observable<any>{
+  //   const body = {
+  //     "id_ciudad": id_ciudad,
+  //   }
+  //   return this.http.patch(this.baseURL + id, body);
+  // }
 
   crearUsuario(usuario: any): Observable<any> {
     return this.http.post(this.baseURL, usuario);

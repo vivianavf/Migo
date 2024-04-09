@@ -9,6 +9,8 @@ import { UsersService } from 'src/app/providers/users.service';
 import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 import { IngresoConductorCampanaService } from 'src/app/providers/ingreso-conductor-campana.service';
 import { IngresoConductorCampana } from 'src/app/interfaces/ingreso-conductor-campana';
+import { VehiculoService } from 'src/app/providers/vehiculo.service';
+import { Vehiculo } from 'src/app/interfaces/vehiculo';
 
 @Component({
   selector: 'app-solicitudes',
@@ -21,7 +23,9 @@ export class SolicitudesPage implements OnInit {
   solicitudesRechazadas: FormularioAplicacion[] = [];
   solicitudesPendientes: FormularioAplicacion[] = [];
   campanas: Campana[] = [];
-  solicitudesActivas: IngresoConductorCampana[] = [];
+  vehiculos: Vehiculo[] = [];
+  solicitudesActivas: FormularioAplicacion[] = [];
+  estado = '';
 
   constructor(
     private toolbarService: ToolbarService,
@@ -30,7 +34,8 @@ export class SolicitudesPage implements OnInit {
     private userService: UsersService,
     private modalCtrl: ModalController,
     private ingresoService: IngresoConductorCampanaService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private vehiculoService: VehiculoService,
   ) {}
 
   async aceptarSolicitud(solicitud: FormularioAplicacion) {
@@ -45,7 +50,7 @@ export class SolicitudesPage implements OnInit {
     modal.present();
   }
 
-  irCampanaActiva(solicitud: IngresoConductorCampana) {
+  irCampanaActiva(solicitud: FormularioAplicacion) {
     this.campanaService.getCampanabyId(solicitud.id_campana).subscribe((response)=>{
       this.campanaService.setInfoCampanaActiva(response, solicitud);
       this.navCtrl.navigateRoot('/campana-activa');
@@ -60,21 +65,13 @@ export class SolicitudesPage implements OnInit {
     return resultado;
   }
 
-  generarDatos() {
-  
-    this.ingresoService.getIngresos().subscribe((data) => {
-      data.forEach((solicitudActiva) => {
-        if (
-          solicitudActiva.id_ciudad ===
-            this.userService.usuarioActivo().id_ciudad &&
-          solicitudActiva.id_usuario ===
-            this.userService.usuarioActivo().id_usuario
-        ) {
-          this.solicitudesActivas.push(solicitudActiva);
-        }
-      });
-    });
+  getEstado(solicitud: FormularioAplicacion){
+    const vehiculo = this.vehiculos.find(({ id_vehiculo }) => id_vehiculo === solicitud.id_vehiculo);
+    const estado = vehiculo?.brandeo ?'Brandeado': 'Pendiente de brandeo';
+    return estado;
+  }
 
+  generarDatos() {
     this.formService.getFormularios().subscribe((data) => {
       data.forEach((solicitudData) => {
         if (
@@ -96,6 +93,9 @@ export class SolicitudesPage implements OnInit {
           case 'rechazada':
             this.solicitudesRechazadas.push(solicitud);
             break;
+          case 'activa':
+            this.solicitudesActivas.push(solicitud);
+            break;
         }
       });
     });
@@ -103,6 +103,10 @@ export class SolicitudesPage implements OnInit {
     this.campanaService.getCampanas().subscribe((data) => {
       this.campanas = data;
     });
+
+    this.vehiculoService.getVehiculos().subscribe((data)=>{
+      this.vehiculos = data;
+    })
   }
 
   resetDatos() {

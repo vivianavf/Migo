@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { TabsPageModule } from './pages/tabs/tabs.module';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   {
@@ -223,6 +224,10 @@ const routes: Routes = [
   {
     path: 'nuevo-recorrido',
     loadChildren: () => import('./pages/nuevo-recorrido/nuevo-recorrido.module').then( m => m.NuevoRecorridoPageModule)
+  },
+  {
+    path: 'anular-registro',
+    loadChildren: () => import('./pages/modals/anular-registro/anular-registro.module').then( m => m.AnularRegistroPageModule)
   },
 
 

@@ -28,6 +28,9 @@ export class DetalleVehiculoPage implements OnInit {
   nombre = "";
   apellido = "";
 
+  /* ruta para peticiones a las imagenes de vehiculos del server */
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
+
   constructor(
     private modalCtrl: ModalController,
     private marcaService: MarcaVehiculoService,
@@ -40,8 +43,7 @@ export class DetalleVehiculoPage implements OnInit {
   ngOnInit() {
     // this.src = this.vehiculo!.imagen_frontal;
     this.placa = this.vehiculo.placa;
-    this.src =
-      '../../../../assets/images/vehiculos/' + this.placa + 'frontal.jpg';
+    this.src = this.getImageSrc('frontal', this.vehiculo);
 
     this.marcaService.getMarcabyId(this.vehiculo.id_marca).subscribe((data) => {
       this.marca = data.nombre;
@@ -65,32 +67,48 @@ export class DetalleVehiculoPage implements OnInit {
     }
   }
 
+  getImageSrc(angulo: string, vehiculo?: Vehiculo){
+    if(vehiculo){
+      const extension = this.getImageExtension(vehiculo);
+      return this.imgRuta+vehiculo.placa+angulo+"."+extension;
+    }else{
+      return '';
+    }
+
+  }
+
+  getImageExtension(vehiculo: Vehiculo) {
+    if (vehiculo) {
+      const routeName = String(vehiculo.imagen_frontal).split('.');
+      const extension = routeName.pop();
+      console.log(extension);
+      return extension;
+    }else{
+      return '.jpg';
+    }
+  }
+
   cambiarImagen(lado: string) {
     switch (lado) {
       case 'izq':
         // this.src = this.vehiculo.imagen_izq;
-        this.src =
-          '../../../../assets/images/vehiculos/' + this.placa + 'izq.jpg';
+        this.src = this.getImageSrc('izq', this.vehiculo);
         break;
       case 'der':
         // this.src = this.vehiculo.imagen_der;
-        this.src =
-          '../../../../assets/images/vehiculos/' + this.placa + 'derecha.jpg';
+        this.src = this.getImageSrc('derecha', this.vehiculo);
         break;
       case 'frontal':
         // this.src = this.vehiculo.imagen_frontal;
-        this.src =
-          '../../../../assets/images/vehiculos/' + this.placa + 'frontal.jpg';
+        this.src = this.getImageSrc('frontal', this.vehiculo);
         break;
       case 'trasera':
         // this.src = this.vehiculo.imagen_trasera;
-        this.src =
-          '../../../../assets/images/vehiculos/' + this.placa + 'trasera.jpg';
+        this.src = this.getImageSrc('trasera', this.vehiculo);
         break;
       case 'techo':
         // this.src = this.vehiculo.imagen_techo;
-        this.src =
-          '../../../../assets/images/vehiculos/' + this.placa + 'techo.jpg';
+        this.src = this.getImageSrc('techo', this.vehiculo);
         break;
     }
   }

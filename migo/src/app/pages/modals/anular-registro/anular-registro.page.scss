@@ -1,0 +1,34 @@
+ion-icon.warning-anular{
+    width: 100px;
+    height: 100px;
+    color: red;
+}
+
+.anularR-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.anularR-textContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+
+}
+
+.anularR-button-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.anularR-text{
+    text-align: center;
+}

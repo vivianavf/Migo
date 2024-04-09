@@ -1,15 +1,18 @@
-<ion-content>
-  <ion-text>
-    Está por comenzar un nuevo recorrido para la campaña:
-  </ion-text>
-  <ion-text>
-    {{campana.nombre_campana}}
-  </ion-text>
-  <ion-text>
-    Desea continuar??
-  </ion-text>
-  <div>
-    <ion-button>Cancelar</ion-button>
+<ion-content class="withoutBackground">
+  <div class="cond-modal-textContainer">
+    <ion-text class="cond-modal-text black-text">
+      Está por comenzar un nuevo recorrido para la campaña:
+    </ion-text>
+    <ion-text class="cond-modal-text black-text uppercase-text bold-text">
+      {{campana.nombre_campana}}
+    </ion-text>
+    <ion-text class="cond-modal-text black-text">
+      ¿Desea continuar?
+    </ion-text>
+  </div>
+  
+  <div class="cond-modal-button-container">
+    <ion-button (click)="cerrarVentana()">Cancelar</ion-button>
     <ion-button (click)="crearRecorrido()">Continuar</ion-button>
   </div>
 </ion-content>

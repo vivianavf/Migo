@@ -7,7 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { CampanaComponent } from '../campana/campana.component';
 import { MarcasComponent } from '../marcas/marcas.component';
-import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
 
 
 @NgModule({

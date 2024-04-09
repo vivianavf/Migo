@@ -25,6 +25,10 @@ export class ConducirModalPage implements OnInit {
 
   }
 
+  cerrarVentana(){
+    this.modalController.dismiss();
+  }
+
   crearRecorrido(){
     this.router.navigate(['/nuevo-recorrido'])
     localStorage.setItem('campana-recorrido', JSON.stringify(this.campana));

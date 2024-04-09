@@ -22,7 +22,9 @@
     <div class="img-placa">
       <img
         class="primary-car-img"
-        src="https://www.pythonanywhere.com/user/migoadvs/files/home/migoadvs/media/{{vehiculoPrincipal?.placa}}frontal.png"
+        src="{{getImageSrc('frontal', vehiculoPrincipal)}}"
+        alt="{{vehiculoPrincipal?.placa}}"
+        loading="eager"
       />
       <ion-text class="placaPrincipal bold-text"
         >{{vehiculoPrincipal?.placa}}</ion-text
@@ -56,7 +58,8 @@
       <ion-card-content>
         <div class="secondary-car-img">
           <img
-            src="https://www.pythonanywhere.com/user/migoadvs/files/home/migoadvs/media/{{vehiculoSecundario?.placa}}frontal.png"
+            src="{{getImageSrc('frontal', vehiculoSecundario)}}"
+            alt="{{vehiculoSecundario?.placa}}"
           />
         </div>
         <div class="secondary-car-info">

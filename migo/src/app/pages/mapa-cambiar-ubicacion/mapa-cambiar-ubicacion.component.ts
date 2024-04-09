@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { PaisService } from 'src/app/providers/pais.service';
 import { CiudadService } from 'src/app/providers/ciudad.service';
 import { GlobalServiceService } from 'src/app/providers/global-service.service';
+// import { Event } from '@ionic/angular';
 
 interface Position {
   lat: number;
@@ -17,7 +18,6 @@ interface Position {
 
 @Component({
   selector: 'app-mapa-cambiar-ubicacion',
-
   templateUrl: './mapa-cambiar-ubicacion.component.html',
   styleUrls: ['./mapa-cambiar-ubicacion.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -31,8 +31,8 @@ export class MapaCambiarUbicacionComponent implements OnInit {
   ciudades: Ciudad[] = [];
   ciudadesFiltradas: Ciudad[] = [];
 
-  paisInput: string = '';
-  ciudadInput: string = '';
+  paisInput!: string;
+  ciudadInput!: string;
 
   paisActual: string = '';
   ciudadActual: string = '';
@@ -71,20 +71,18 @@ export class MapaCambiarUbicacionComponent implements OnInit {
     if (this.paisInput && this.ciudadInput) {
       const id_usuario = this.userService.usuarioActivo().id_usuario;
 
-      this.userService
-        .actualizarPais(id_usuario, Number(this.paisInput))
-        .subscribe((response: User) => {
-          this.userService.ingresarPais(this.paisInput);
-        });
-      this.userService
-        .actualizarCiudad(id_usuario, Number(this.ciudadInput))
-        .subscribe((response) => {
-          this.userService.ingresarCiudad(this.ciudadInput);
-        });
+      console.log(this.paisInput);
+      console.log(this.ciudadInput);
 
-      this.modalCtrl.dismiss();
-      this.navCtrl.navigateRoot('/home');
-
+      this.userService.actualizarUbicacion(id_usuario, Number(this.ciudadInput), Number(this.paisInput)).subscribe((data)=>{
+        console.log(data);
+        this.userService.ingresarCiudad(this.ciudadInput);
+        this.userService.ingresarPais(this.paisInput);
+        console.log("RELOAD APP");
+        // location.reload();
+        location.reload();
+      })
+      // this.modalCtrl.dismiss();
     } else {
       this.modalCtrl.dismiss();
     }

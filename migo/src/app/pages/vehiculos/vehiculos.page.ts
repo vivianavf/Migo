@@ -27,6 +27,9 @@ export class VehiculosPage implements OnInit {
   /* */
   vehiculoEliminar!: Vehiculo;
 
+  /* ruta para peticiones a las imagenes de vehiculos del server */
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
+
   constructor(
     private router: Router,
     private userService: UsersService,
@@ -50,6 +53,27 @@ export class VehiculosPage implements OnInit {
     });
 
     modal.present();
+  }
+
+  getImageSrc(angulo: string, vehiculo?: Vehiculo){
+    if(vehiculo){
+      const extension = this.getImageExtension(vehiculo);
+      return this.imgRuta+vehiculo.placa+angulo+"."+extension;
+    }else{
+      return '';
+    }
+
+  }
+
+  getImageExtension(vehiculo: Vehiculo) {
+    if (vehiculo) {
+      const routeName = String(vehiculo.imagen_frontal).split('.');
+      const extension = routeName.pop();
+      console.log(extension);
+      return extension;
+    }else{
+      return '.jpg';
+    }
   }
 
   eliminarVehiculo(vehiculo: any) {
@@ -79,30 +103,34 @@ export class VehiculosPage implements OnInit {
         }
       });
 
-      if(this.vehiculos.length != 0){
+      if (this.vehiculos.length != 0) {
         this.vehiculoPrincipal = this.vehiculos[0];
 
-      //get Marca
-      this.marcaService
-        .getMarcabyId(this.vehiculoPrincipal.id_marca)
-        .subscribe((data) => {
-          this.marcaPrincipal = data.nombre;
-        });
+        //get Marca
+        this.marcaService
+          .getMarcabyId(this.vehiculoPrincipal.id_marca)
+          .subscribe((data) => {
+            this.marcaPrincipal = data.nombre;
+          });
 
-      //get Modelo
-      this.modeloService
-        .getModelobyId(this.vehiculoPrincipal.id_modelo)
-        .subscribe((data) => {
-          this.modeloPrincipal = data.nombre;
-        });
+        //get Modelo
+        this.modeloService
+          .getModelobyId(this.vehiculoPrincipal.id_modelo)
+          .subscribe((data) => {
+            this.modeloPrincipal = data.nombre;
+          });
 
-      this.vehiculosSecundarios = this.vehiculos.slice(
-        1,
-        this.vehiculos.length
-      );
+        this.vehiculosSecundarios = this.vehiculos.slice(
+          1,
+          this.vehiculos.length
+        );
       }
 
-      console.log('OBTENER VEHICULOS 3 - ID CLIENTE', this.vehiculos.length, idCliente);
+      console.log(
+        'OBTENER VEHICULOS 3 - ID CLIENTE',
+        this.vehiculos.length,
+        idCliente
+      );
       if (this.vehiculos.length == 0) {
         this.noTieneVehiculos();
       }
@@ -113,7 +141,7 @@ export class VehiculosPage implements OnInit {
     console.log('DID ENTER 1 - VEHICULOS', this.vehiculos.length);
     var idCliente = this.clientService.clienteActivo().id_cliente;
 
-    console.log("ID CLIENTE", idCliente);
+    console.log('ID CLIENTE', idCliente);
 
     if (idCliente) {
       this.obtenerVehiculos(idCliente);

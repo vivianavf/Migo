@@ -9,17 +9,21 @@
 
   <div class="icon-name-email">
     <ion-img id="user-icon" src="../../../assets/iconos-migo/03.png"></ion-img>
-    <ion-text class="capitalize"
+    <ion-text class="uppercase-text bold-text"
       >{{perfil.nombre}} {{perfil.apellido}}</ion-text
     >
     <ion-text>{{perfil.email}}</ion-text>
   </div>
 
-  <div class="user-information">
-    <div class="info"><ion-text>Información Personal</ion-text></div>
+  <div class="perfil-user-information">
+    <div class="info subtitleContainer"><ion-text>Información Personal</ion-text></div>
     <div class="info">
       <ion-text class="label">Cédula</ion-text>
       <ion-text class="value">{{perfil.cedula}}</ion-text>
+    </div>
+    <div class="info">
+      <ion-text class="label">Fecha de Nacimiento</ion-text>
+      <ion-text class="value">{{perfil.fecha_nacimiento}}</ion-text>
     </div>
     <div class="info">
       <ion-text class="label">Teléfono</ion-text>

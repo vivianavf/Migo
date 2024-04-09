@@ -1,0 +1,27 @@
+ion-content::part(scroll){
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cond-modal-textContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 4px;
+    margin: 20px;
+    align-items: center;
+}
+
+.cond-modal-text{
+    text-align: center;
+    color: black;
+}
+
+.cond-modal-button-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px;
+}

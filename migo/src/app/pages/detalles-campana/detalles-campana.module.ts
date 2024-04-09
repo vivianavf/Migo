@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { DetallesCampanaPageRoutingModule } from './detalles-campana-routing.module';
 
 import { DetallesCampanaPage } from './detalles-campana.page';
-import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [

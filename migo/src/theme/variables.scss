@@ -3,7 +3,7 @@
 
 /** Fonts Personalizadas **/
 @font-face {
-  font-family: 'Centrale Sans';
+  font-family: 'Centrale-Sans';
   font-style: normal;
   font-weight: bold;
   src: url('../assets/fonts/CentraleSans-Bold.ttf');
@@ -17,7 +17,7 @@
 }
 
 @font-face {
-  font-family: 'Source Code';
+  font-family: 'Source-Code';
   font-style: normal;
   font-weight: normal;
   src: url('../assets/fonts/SourceCodePro-Regular.ttf');
@@ -25,7 +25,7 @@
 
 /** Font para titulos **/
 ion-title{
-  --ion-font-family:"Centrale Sans"
+  --ion-font-family:"Centrale-Sans"
 }
 
 /** Font para Subtitulos **/

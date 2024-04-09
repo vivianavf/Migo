@@ -10,28 +10,33 @@
   <div class="previews">
     <ion-img
       class="foto-chiquita"
-      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}frontal.jpg"
+      [src]="getImageSrc('frontal', vehiculo)"
+      [alt]="vehiculo.placa"
       (click)="cambiarImagen('frontal')"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('izq')"
-      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}izq.jpg"
+      src="{{getImageSrc('izq', vehiculo)}}"
+      [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('der')"
-      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}derecha.jpg"
+      src="{{getImageSrc('derecha', vehiculo)}}"
+      [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('techo')"
-      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}techo.jpg"
+      src="{{getImageSrc('techo', vehiculo)}}"
+      [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('trasera')"
-      src="../../../../assets/images/vehiculos/{{vehiculo.placa}}trasera.jpg"
+      src="{{getImageSrc('trasera', vehiculo)}}"
+      [alt]="vehiculo.placa"
     ></ion-img>
   </div>
 

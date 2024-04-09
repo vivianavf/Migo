@@ -17,6 +17,7 @@ import { IngresoConductorCampana } from 'src/app/interfaces/ingreso-conductor-ca
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { CampanaActivaPage } from '../../campana-activa/campana-activa.page';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
+import { Router } from '@angular/router';
 
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -49,6 +50,7 @@ export class QrPage implements OnInit {
     private modalQR: ModalController,
     private ingresarCondService: IngresoConductorCampanaService,
     private campanaService: CampanaService,
+    private router: Router,
   ) {}
 
   crearQR() {
@@ -171,7 +173,7 @@ export class QrPage implements OnInit {
     // this.vehiculo.brandeo = true;
     console.log("BRANDEO = TRUE");
     this.vehiculoService.setBrandeo(this.vehiculo.id_vehiculo!, true).subscribe((response)=>{console.log(response)})
-    
+    this.router.navigate(['/solicitudes']);
   }
 
   ngOnInit() {

@@ -72,14 +72,14 @@
         </div>
         <div *ngIf="!brandeo" class="button-container">
             <ion-button
-              class="formulario capitalize"
+              class="capitalize"
               (click)="brandearVehiculo()"
               >Brandear mi vehículo</ion-button
             >
         </div>
-        <div *ngIf="brandeo" class="button-container">
-          <ion-button id="conducirVehiculo" (click)="conducirVehiculo()">Conducir</ion-button>
-          <ion-button (click)="anularRegistro()">Anular Registro</ion-button>
+        <div *ngIf="brandeo" class="campAct-button-container">
+          <ion-button class="green-button" id="conducirVehiculo" (click)="conducirVehiculo()">Conducir</ion-button>
+          <ion-button class="gray-button" (click)="anularRegistro()">Anular Registro</ion-button>
       </div>
       </ion-card-content>
     </ion-card>

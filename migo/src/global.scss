@@ -114,6 +114,11 @@ ion-item.clear-input-item {
   --color: var(--ion-text-color);
 }
 
+.subtitleContainer{
+  font-family: 'Centrale-Sans';
+  border-bottom: 1px solid white;
+}
+
 a {
   text-decoration: none;
   color: var(--ion-text-color);
@@ -139,6 +144,18 @@ ion-button {
   --color: black;
   --color-activated: white;
   --background-activated: black;
+  --border-radius: 10px;
+}
+
+.green-button{
+  --background: rgb(58, 210, 11);
+  --color: white;
+  font-weight: bold;
+}
+
+.gray-button{
+  --background: rgb(181, 181, 181);
+  --color: black;
 }
 
 .contrast-button {
@@ -248,6 +265,20 @@ ion-modal.solicitudConfirmar{
 
 ion-modal.solicitudConfirmar::part(backdrop) {
   opacity: 1;
+}
+
+.conducirModal{
+  --height: 30%;
+  --width: 90%;
+  --border-radius: 40px;
+  --background: white;
+}
+
+.anularRegistroModal{
+  --height: 50%;
+  --width: 90%;
+  --border-radius: 40px;
+  --background: white;
 }
 
 ion-content.withoutBackground::part(background){

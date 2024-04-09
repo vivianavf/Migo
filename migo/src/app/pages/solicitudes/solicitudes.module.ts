@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SolicitudesPageRoutingModule } from './solicitudes-routing.module';
 
 import { SolicitudesPage } from './solicitudes.page';
-import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [

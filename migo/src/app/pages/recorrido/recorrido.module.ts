@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecorridoPageRoutingModule } from './recorrido-routing.module';
 
 import { RecorridoPage } from './recorrido.page';
-import { BarraNavegacionComponent } from '../barra-navegacion/barra-navegacion.component';
+import { BarraNavegacionComponent } from '../components/barra-navegacion/barra-navegacion.component';
 
 @NgModule({
   imports: [

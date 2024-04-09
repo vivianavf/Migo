@@ -1,0 +1,18 @@
+<ion-toolbar>
+  <ion-buttons id="menuButtons" slot="start">
+    <ion-button class="normal-radius" (click)="mostrarMenu()">
+      <ion-icon class="menu" name="menu-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+  <ion-title *ngIf="mostrarTitulo" id="toolbarTitle">{{textoToolbar}}</ion-title>
+  <ion-buttons id="notifButtons" slot="end">
+    <ion-button class="notificaciones" (click)="mostrarNotificaciones()">
+      <img
+        src="../../../assets/iconos-migo/campanita.png"
+        style="width: 30px; height: 30px"
+    /></ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<app-ads></app-ads>
