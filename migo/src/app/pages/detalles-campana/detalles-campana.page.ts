@@ -156,12 +156,11 @@ export class DetallesCampanaPage implements OnInit {
       this.sectores = data;
       this.campana = this.campanaService.getCampanaActual();
       data.forEach((sectorObtenido) =>{
-        if(sectorObtenido.id_campana == this.campana.id_campana){
+        if(this.campana.id_sector == sectorObtenido.id_sector && sectorObtenido.id_campana == this.campana.id_campana){
           this.sector = sectorObtenido;
-          console.log(this.sector)
-          this.createMap();
         }
       })
+      this.createMap();
     })
   }
 
@@ -191,15 +190,15 @@ export class DetallesCampanaPage implements OnInit {
     try {
       this.generarDatos();
       this.crearSectores();
-      // this.createMap();
     } catch (error) {
       console.log(error);
     }
   }
   
   createMap() {
+    console.log("ESTE SECTOR", this.sector)
     var mapOptions = {
-      zoom: this.sector!.zoom+2,
+      zoom: this.sector!.zoom,
       center: this.sector!.centro,
       streetViewControl: true,
     };
@@ -217,7 +216,6 @@ export class DetallesCampanaPage implements OnInit {
       this.generarDatos();
       this.toolbarService.setTexto('DETALLES DE CAMPAÑA');
       this.crearSectores();
-      // this.createMap();
     } catch (error) {
       console.log(error);
     }

@@ -32,12 +32,10 @@ export class AdsComponent implements OnInit {
 
     var esperaPublicidades = setInterval(()=>{
       if(this.publicidadesSinFiltrar.length > 0){
-        console.log("Listo!!");
         this.filtrarPublicidades();
         this.getPublicidadRandom();
         clearInterval(esperaPublicidades);
       }else{
-        console.log("cargando....")
         this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
       }
     }, 100);
