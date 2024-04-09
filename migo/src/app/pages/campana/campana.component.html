@@ -1,29 +1,55 @@
-<div class="root">
-  <ion-spinner class="campanaSpinner" *ngIf="campanas.length === 0" name="dots" color="primary"></ion-spinner>
-  <ion-text class="helperText" *ngIf="campanas.length !== 0">Campañas disponibles en {{ciudadActiva?.nombre}}</ion-text>
-<div class="marginContent content white-background">
-  <ion-card *ngFor="let campana of campanas">
-    <ion-card-content class="black-text">
-      <ion-label class="uppercase-text bold-text">{{campana.nombre_campana}}<br></ion-label>
-      <p>Empresa: {{ empresas_nombres[campana.id_empresa]}} </p>
-      <p>Publicado: {{campana.fecha_creacion}}</p>
-      <p>Registrate hasta: {{campana.fecha_fin_registro}}</p>
-      <div class="sector-tarifa">
-        <div class="divisor">
-          <ion-icon class="orange-color-contrast" name="location"></ion-icon>
-          <ion-text class="sector black-text" [innerHTML]="obtenerNombreSector(campana.id_sector)" ></ion-text>
-        </div>
-        <div class="divisor">
-          <ion-icon class="orange-color-contrast" name="logo-usd"></ion-icon>
-          <ion-text class="tarifa black-text">{{campana.tarifa_base}} por KM</ion-text>
-        </div>
-      </div>
-    </ion-card-content>
-    <div class="image-and-button">
-      <ion-img src="../../../assets/images/empresas/logos/{{campana.id_empresa}}.jpg" alt="Marca"></ion-img>
-      <ion-button class="rounded-button registrarse white-text " shape="round" expand="full" (click)="registrarse(campana)">Regístrate</ion-button>
-    </div>
-  </ion-card>
-</div>
+<div class="campana-spinnerContainer"  *ngIf="campanas.length === 0">
+  <ion-spinner
+  class="campanaSpinner"
+  name="dots"
+  color="primary"
+></ion-spinner>
 </div>
 
+<div class="root" *ngIf="campanas.length > 0">
+  <ion-text class="helperText"
+    >Campañas disponibles en {{ ciudadActiva?.nombre }}</ion-text
+  >
+  <div class="marginContent content white-background">
+    <ion-card *ngFor="let campana of campanas">
+      <ion-card-content class="black-text">
+        <ion-label class="uppercase-text bold-text"
+          >{{ campana.nombre_campana }}<br
+        /></ion-label>
+        <p>Empresa: {{ empresas_nombres[campana.id_empresa] }}</p>
+        <p>Publicado: {{ campana.fecha_creacion }}</p>
+        <p>Registrate hasta: {{ campana.fecha_fin_registro }}</p>
+        <div class="sector-tarifa">
+          <div class="divisor">
+            <ion-icon class="orange-color-contrast" name="location"></ion-icon>
+            <ion-text
+              class="sector black-text"
+              [innerHTML]="obtenerNombreSector(campana.id_sector)"
+            ></ion-text>
+          </div>
+          <div class="divisor">
+            <ion-icon class="orange-color-contrast" name="logo-usd"></ion-icon>
+            <ion-text class="tarifa black-text"
+              >{{ campana.tarifa_base }} por KM</ion-text
+            >
+          </div>
+        </div>
+      </ion-card-content>
+      <div class="image-and-button">
+        <ion-img
+          src="../../../assets/images/empresas/logos/{{
+            campana.id_empresa
+          }}.jpg"
+          alt="Marca"
+        ></ion-img>
+        <ion-button
+          class="rounded-button registrarse white-text"
+          shape="round"
+          expand="full"
+          (click)="registrarse(campana)"
+          >Regístrate</ion-button
+        >
+      </div>
+    </ion-card>
+  </div>
+</div>

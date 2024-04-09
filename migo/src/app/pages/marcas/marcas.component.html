@@ -1,38 +1,73 @@
-<div class="root">
-  <ion-progress-bar *ngIf="empresas.length === 0" type="indeterminate"></ion-progress-bar>
-  <ion-text class="helperText" *ngIf="campanas.length !== 0">Marcas inscritas en {{pais?.nombre}}</ion-text>
-<div class="content marginContent">
-  <ion-card *ngFor="let empresa of empresas">
-    <div class="banner-empresa ad">
-      <ion-img
-    src="../../../assets/images/empresas/banners/{{empresa.id_empresa}}.jpg"
-    alt="Banner de la empresa"
-    class="img-empresa"
-    id="{{empresa.id_empresa}}"
-  ></ion-img>
-    </div>
-    <ion-card-content class="container">
-      <div class="sub-container" id="empresa-info">
-        <ion-text class="uppercase-text bold-text nombre"> {{empresa.nombre}} </ion-text>
-        <p>Campañas Activas: {{contarCampanasActivas(empresa.id_empresa)}}</p>
-        <p>Vehículos:</p>
-        <div class="vehiculosContainer">
-          <ion-img class="vehiculoType" src="../../../assets/autos/bus.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/camion.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/camioneta.png"
-    alt="Vehiculo"></ion-img>
-    <ion-img class="vehiculoType" src="../../../assets/autos/suv.png"
-    alt="Vehiculo"></ion-img>
-        </div>
-      </div>
-      <div class="sub-container" id="tarifa-verMas">
-        <p>Tarifas desde:</p>
-        <p> ${{rangoTarifas(empresa.id_empresa)[0]}} - ${{rangoTarifas(empresa.id_empresa)[1]}} </p>
-        <ion-button class="rounded-button verMas white-text " shape="round" expand="full" (click)="verMas(empresa)">Ver Más</ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+<div class="marcas-spinnerContainer" *ngIf="empresas.length === 0">
+  <ion-spinner
+  class="marcasSpinner"
+  name="dots"
+  color="primary"
+></ion-spinner>
 </div>
+
+<div class="root" *ngIf="empresas.length > 0">
+  <ion-text class="helperText">Marcas inscritas en {{ pais?.nombre }}</ion-text>
+  <div class="content marginContent">
+    <ion-card *ngFor="let empresa of empresas">
+      <div class="banner-empresa ad">
+        <ion-img
+          src="../../../assets/images/empresas/banners/{{
+            empresa.id_empresa
+          }}.jpg"
+          alt="Banner de la empresa"
+          class="img-empresa"
+          id="{{ empresa.id_empresa }}"
+        ></ion-img>
+      </div>
+      <ion-card-content class="container">
+        <div class="sub-container" id="empresa-info">
+          <ion-text class="uppercase-text bold-text nombre">
+            {{ empresa.nombre }}
+          </ion-text>
+          <p>
+            Campañas Activas: {{ contarCampanasActivas(empresa.id_empresa) }}
+          </p>
+          <p>Vehículos:</p>
+          <div class="vehiculosContainer">
+            <ion-img
+              class="vehiculoType"
+              src="../../../assets/autos/bus.png"
+              alt="Vehiculo"
+            ></ion-img>
+            <ion-img
+              class="vehiculoType"
+              src="../../../assets/autos/camion.png"
+              alt="Vehiculo"
+            ></ion-img>
+            <ion-img
+              class="vehiculoType"
+              src="../../../assets/autos/camioneta.png"
+              alt="Vehiculo"
+            ></ion-img>
+            <ion-img
+              class="vehiculoType"
+              src="../../../assets/autos/suv.png"
+              alt="Vehiculo"
+            ></ion-img>
+          </div>
+        </div>
+        <div class="sub-container" id="tarifa-verMas">
+          <p>Tarifas desde:</p>
+          <p>
+            ${{ rangoTarifas(empresa.id_empresa)[0] }} - ${{
+              rangoTarifas(empresa.id_empresa)[1]
+            }}
+          </p>
+          <ion-button
+            class="rounded-button verMas white-text"
+            shape="round"
+            expand="full"
+            (click)="verMas(empresa)"
+            >Ver Más</ion-button
+          >
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </div>
