@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { EmpresaService } from 'src/app/providers/empresa.service';
@@ -11,6 +11,8 @@ import { CiudadService } from 'src/app/providers/ciudad.service';
 import { UsersService } from 'src/app/providers/users.service';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Pais } from 'src/app/interfaces/pais';
+import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 @Component({
   selector: 'app-campana',
@@ -33,6 +35,8 @@ export class CampanaComponent implements OnInit {
   ordenamientoActual: string = 'ascendente';
   ordenAscendente: boolean = true;
 
+  formularios: FormularioAplicacion[] = [];
+
   constructor(
     private campanaService: CampanaService,
     private empresaService: EmpresaService,
@@ -41,11 +45,10 @@ export class CampanaComponent implements OnInit {
     private paisService: PaisService,
     private ciudadService: CiudadService,
     private userService: UsersService,
-    private ngZone: NgZone // private viewCtrl: View
+    private formService: FormularioAplicacionService
   ) {}
 
   registrarse(campana: Campana) {
-    console.log('Envio la campana', campana);
     this.campanaService.setCampanaActual(campana);
     this.navCtrl.navigateRoot('detalles-campana');
   }
@@ -104,6 +107,19 @@ export class CampanaComponent implements OnInit {
 
   ordenarSectorDescendente() {}
 
+  revisarRegistrosCampana(campana: Campana) {
+    /* Las campañas ya están filtradas por pais y ciudad */
+    let registroCampana: boolean;
+    const usuario = this.userService.usuarioActivo();
+    if (this.formularios.length>0) {
+      const formularioEncontrado = this.formularios.find((form) => form.id_campana === campana.id_campana && form.id_usuario === usuario.id_usuario)
+      formularioEncontrado? registroCampana = true: registroCampana= false;
+    } else {
+      registroCampana = false;
+    }
+    return registroCampana;
+  }
+
   generarDatos() {
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
@@ -114,6 +130,10 @@ export class CampanaComponent implements OnInit {
 
     this.paisService.getPaisbyId(paisUsuario).subscribe((pais) => {
       this.paisActivo = pais;
+    });
+
+    this.formService.getFormularios().subscribe((data) => {
+      this.formularios = data;
     });
 
     this.campanaService.getCampanas().subscribe((campanasArray) => {

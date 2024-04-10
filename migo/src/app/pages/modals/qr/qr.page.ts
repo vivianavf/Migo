@@ -121,7 +121,7 @@ export class QrPage implements OnInit {
               ['Correo del responsable', this.campana.correo_responsable],
               ['Fecha de inicio', this.campana.fecha_inicio],
               ['Fecha de Fin', this.campana.fecha_fin],
-              ['Vehiculos Admisibles', 'Sedan, SUV, Camion, Camioneta, Bus'],
+              ['Vehiculos Admisibles', 'Sedan, SUV, Camión, Camioneta, Bus'],
             ],
           },
         },

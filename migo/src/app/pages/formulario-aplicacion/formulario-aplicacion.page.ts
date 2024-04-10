@@ -325,6 +325,7 @@ export class FormularioAplicacionPage implements OnInit {
           console.log(response);
           console.log('BODY', body);
           this.navCtrl.navigateRoot('/solicitudes');
+          location.reload();
         }
       });
       //mostrar pantalla de registro exitoso

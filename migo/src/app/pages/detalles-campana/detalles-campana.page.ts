@@ -196,7 +196,6 @@ export class DetallesCampanaPage implements OnInit {
   }
   
   createMap() {
-    console.log("ESTE SECTOR", this.sector)
     var mapOptions = {
       zoom: this.sector!.zoom,
       center: this.sector!.centro,
