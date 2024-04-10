@@ -88,6 +88,7 @@
           interface="popover"
           [(ngModel)]="formFields.Sexo"
           name="Sexo"
+          placeholder="Seleccionar Sexo"
           required
         >
           <ion-select-option value="1">Masculino</ion-select-option>
@@ -138,6 +139,7 @@
           interface="popover"
           [(ngModel)]="formFields.Marca"
           name="Marca"
+          placeholder="Seleccionar marca"
           required
         >
           <ion-select-option
@@ -157,6 +159,7 @@
           interface="popover"
           [(ngModel)]="formFields.Modelo"
           name="Modelo"
+          placeholder="Seleccionar modelo"
           required
         >
           <ion-select-option
@@ -176,12 +179,13 @@
           interface="popover"
           [(ngModel)]="formFields.Categoria"
           name="Categoria"
+          placeholder="Seleccionar categoría"
           required
         >
           <ion-select-option
             *ngFor="let categoria of categorias"
-            value="{{categoria}}"
-            >{{categoria}}</ion-select-option
+            value="{{categoria[0]}}"
+            >{{categoria[1]}}</ion-select-option
           >
         </ion-select>
       </div>
@@ -193,11 +197,14 @@
           class="never-flip rounded-input av-select"
           toggleIcon="caret-down-sharp"
           interface="popover"
+          [interfaceOptions]="{cssClass:'aggV-popover'}"
           [(ngModel)]="formFields.Color"
           name="Color"
+          placeholder="Seleccionar color"
           required
         >
           <ion-select-option
+            class="aggV-selectColor"
             *ngFor="let color of colores"
             value="{{color}}"
             >{{color}}</ion-select-option

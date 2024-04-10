@@ -9,6 +9,8 @@ import { register } from 'swiper/element/bundle';
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { AdsService } from './providers/ads.service';
+import { EntidadBancaria } from './interfaces/entidad-bancaria';
+import { EntidadBancariaService } from './providers/entidad-bancaria.service';
 
 
 register();
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit{
     private router: Router,
     private navCtrl: NavController,
     private adsService: AdsService,
+    private bancoService: EntidadBancariaService,
   ) {
 
   }
@@ -128,6 +131,7 @@ export class AppComponent implements OnInit{
     this.clientService.getClients().subscribe((data)=>{})
     this.campanaService.getCampanas().subscribe((data)=>{})
     this.obtenerPublicidades();
+    this.bancoService.getEntidadesBancarias().subscribe((data)=>{})
 
     let userExists = localStorage.getItem('usuario_email');
     let recorridoExists = localStorage.getItem('recorrido')

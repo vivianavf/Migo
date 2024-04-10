@@ -52,6 +52,7 @@ export class VehiculoService {
     formData.append('imagen_techo', vehiculo.imagen_techo, placa+"techo.png");
     formData.append('estado', vehiculo.estado.toString());
     formData.append('id_chofer', vehiculo.id_chofer!.toString());
+    formData.append('id_usuario', vehiculo.id_usuario!.toString());
     formData.append('id_cliente', vehiculo.id_cliente!.toString());
     formData.append('id_marca', vehiculo.id_marca.toString());
     formData.append('id_modelo', vehiculo.id_modelo.toString());

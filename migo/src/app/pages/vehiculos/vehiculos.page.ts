@@ -11,6 +11,7 @@ import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { DetalleVehiculoPage } from '../modals/detalle-vehiculo/detalle-vehiculo.page';
 import { LocalstorageService } from 'src/app/providers/localstorage.service';
 import { NoTieneVehiculoPage } from '../modals/no-tiene-vehiculo/no-tiene-vehiculo.page';
+import { ChoferService } from 'src/app/providers/chofer.service';
 
 @Component({
   selector: 'app-vehiculos',
@@ -38,7 +39,8 @@ export class VehiculosPage implements OnInit {
     private marcaService: MarcaVehiculoService,
     private modeloService: ModeloVehiculosService,
     private modalCtrl: ModalController,
-    private localStorageSrvc: LocalstorageService
+    private localStorageSrvc: LocalstorageService,
+    private choferService: ChoferService,
   ) {}
 
   async verMas(vehiculoSecundario: any) {
@@ -85,53 +87,111 @@ export class VehiculosPage implements OnInit {
     this.vehiculosSecundarios.splice(index, 1);
   }
 
-  obtenerVehiculos(idCliente: number) {
-    this.vehiculoService.getVehiculos().subscribe((data) => {
-      data.forEach((vehiculo) => {
-        if (vehiculo.id_cliente === idCliente) {
-          if (
-            !this.vehiculos.find(
-              (carro) => carro.id_vehiculo === vehiculo.id_vehiculo
-            )
-          ) {
-            this.vehiculos.push(vehiculo);
+  obtenerVehiculos(idConductor: number, rol: string) {
+
+    switch (rol) {
+      case 'cliente':
+        this.vehiculoService.getVehiculos().subscribe((data) => {
+          data.forEach((vehiculo) => {
+            if (vehiculo.id_cliente === idConductor) {
+              if (
+                !this.vehiculos.find(
+                  (carro) => carro.id_vehiculo === vehiculo.id_vehiculo
+                )
+              ) {
+                this.vehiculos.push(vehiculo);
+              }
+            }
+          });
+    
+          if (this.vehiculos.length != 0) {
+            this.vehiculoPrincipal = this.vehiculos[0];
+    
+            //get Marca
+            this.marcaService
+              .getMarcabyId(this.vehiculoPrincipal.id_marca)
+              .subscribe((data) => {
+                this.marcaPrincipal = data.nombre;
+              });
+    
+            //get Modelo
+            this.modeloService
+              .getModelobyId(this.vehiculoPrincipal.id_modelo)
+              .subscribe((data) => {
+                this.modeloPrincipal = data.nombre;
+              });
+    
+            this.vehiculosSecundarios = this.vehiculos.slice(
+              1,
+              this.vehiculos.length
+            );
           }
-        }
-      });
-
-      if (this.vehiculos.length != 0) {
-        this.vehiculoPrincipal = this.vehiculos[0];
-
-        //get Marca
-        this.marcaService
-          .getMarcabyId(this.vehiculoPrincipal.id_marca)
-          .subscribe((data) => {
-            this.marcaPrincipal = data.nombre;
+          if (this.vehiculos.length < 1) {
+            this.noTieneVehiculos();
+          }
+        });
+        break;
+      case 'chofer':
+        this.vehiculoService.getVehiculos().subscribe((data) => {
+          data.forEach((vehiculo) => {
+            if (vehiculo.id_chofer === idConductor) {
+              if (
+                !this.vehiculos.find(
+                  (carro) => carro.id_vehiculo === vehiculo.id_vehiculo
+                )
+              ) {
+                this.vehiculos.push(vehiculo);
+              }
+            }
           });
-
-        //get Modelo
-        this.modeloService
-          .getModelobyId(this.vehiculoPrincipal.id_modelo)
-          .subscribe((data) => {
-            this.modeloPrincipal = data.nombre;
-          });
-
-        this.vehiculosSecundarios = this.vehiculos.slice(
-          1,
-          this.vehiculos.length
-        );
-      }
-      if (this.vehiculos.length < 1) {
-        this.noTieneVehiculos();
-      }
-    });
+    
+          if (this.vehiculos.length != 0) {
+            this.vehiculoPrincipal = this.vehiculos[0];
+    
+            //get Marca
+            this.marcaService
+              .getMarcabyId(this.vehiculoPrincipal.id_marca)
+              .subscribe((data) => {
+                this.marcaPrincipal = data.nombre;
+              });
+    
+            //get Modelo
+            this.modeloService
+              .getModelobyId(this.vehiculoPrincipal.id_modelo)
+              .subscribe((data) => {
+                this.modeloPrincipal = data.nombre;
+              });
+    
+            this.vehiculosSecundarios = this.vehiculos.slice(
+              1,
+              this.vehiculos.length
+            );
+          }
+          if (this.vehiculos.length < 1) {
+            this.noTieneVehiculos();
+          }
+        });
+        break;
+    }
+    
   }
 
   ionViewDidEnter() {
-    var idCliente = this.clientService.clienteActivo().id_cliente;
+    const idCliente = this.clientService.clienteActivo().id_cliente;
+    const idChofer = this.choferService.choferActivo().id_chofer;
+
+    //Si es cliente --> debe salir el vehiculo
+    //si es chofer --> debe salir el mismo vehiculo
+
     if (idCliente) {
-      this.obtenerVehiculos(idCliente);
+      this.obtenerVehiculos(idCliente, 'cliente');
     }
+
+    if(idChofer){
+      this.obtenerVehiculos(idChofer, 'chofer');
+    }
+
+    // Si es un chofer, tiene que obtener los vehiculos del chofer
   }
 
   async noTieneVehiculos() {

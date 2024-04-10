@@ -29,20 +29,8 @@ ion-title{
 .addVehiculoInput{
     // background: blue;
     min-height: 30px;
-}
-
-.addVehiculoInput{
-    label{
-        div{
-            input{
-                
-            }
-        }
-    }
-}
-
-.addVehiculoInput > input{
-    margin-left: 10px;
+    --padding-start: 10px;
+    --padding-end: 10px;
 }
 
 .rounded-input {
@@ -53,6 +41,7 @@ ion-title{
 
 .av-select{
     min-height: 30px;
+    --padding-start: 10px;
 }
 
 // ion-item{
@@ -83,6 +72,10 @@ ion-title{
 // ion-select{
     
 // }
+
+/* Select Options */
+
+
 
 .foto-laterales{
     display: flex;

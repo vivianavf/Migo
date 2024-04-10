@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar part="toolbar">
+  <ion-toolbar class="menuToolbar" part="toolbar">
     <ion-buttons slot="start">
       <ion-back-button icon="chevron-back" (click)="cerrarModal()" default-href=""></ion-back-button>
     </ion-buttons>
@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content class="withoutBackground">
+<ion-content>
   <div class="container">
     <img class="usericon" alt="Icon" src="../../../../assets/iconos-migo/03.png" />
     <ion-text class="uppercase-text bold-text">{{nombreUsuario}}</ion-text>
@@ -64,7 +64,7 @@
   </div>
 
     <div id="button-container">
-    <ion-button class="normal-radius" color="primary" (click)="cerrarSesion()">
+    <ion-button class="normal-radius cerrarSesion" color="primary" (click)="cerrarSesion()">
       CERRAR SESIÓN
     </ion-button>
   </div>

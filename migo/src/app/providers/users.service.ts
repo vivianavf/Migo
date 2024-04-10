@@ -111,16 +111,16 @@ export class UsersService {
   }
 
   usuarioActivo() {
-    const usuarioactivo = {
+    const usuarioactivo: User = {
       id_usuario: Number(localStorage.getItem('usuario_id')),
       estado: Number(localStorage.getItem('usuario_estado')),
-      email: localStorage.getItem('usuario_email'),
-      placa: localStorage.getItem('usuario_placa'),
-      contrasena: localStorage.getItem('usuario_contrasena'),
-      fecha_creacion: localStorage.getItem('usuario_fecha_creacion'),
-      fecha_modificacion: localStorage.getItem('usuario_fecha_modificacion'),
-      rol_usuario: Number(localStorage.getItem('usuario_rol')),
-      token_notificacion: localStorage.getItem('token_notificacion'),
+      email: localStorage.getItem('usuario_email')!,
+      placa: localStorage.getItem('usuario_placa')!,
+      contrasena: localStorage.getItem('usuario_contrasena')!,
+      fecha_creacion: localStorage.getItem('usuario_fecha_creacion')!,
+      fecha_modificacion: localStorage.getItem('usuario_fecha_modificacion')!,
+      rol_usuario: Number(localStorage.getItem('usuario_rol'))!,
+      token_notificacion: localStorage.getItem('token_notificacion')!,
       id_pais: Number(localStorage.getItem('usuario_id_pais')),
       id_ciudad: Number(localStorage.getItem('usuario_id_ciudad')),
     };
@@ -148,28 +148,26 @@ export class UsersService {
     switch (this.usuarioActivo().rol_usuario) {
       case 2: //es chofer
         return {
-          id_chofer: this.choferService.choferActivo().id_chofer,
           nombre: this.choferService.choferActivo().nombre.toString(),
           apellido: this.choferService.choferActivo().apellido.toString(),
-          fecha_nacimiento: this.choferService.choferActivo().fecha_nacimiento,
-          fecha_creacion: this.usuarioActivo().fecha_creacion,
-          email: this.usuarioActivo().email!,
+          email: this.usuarioActivo().email,
           cedula: this.choferService.choferActivo().cedula_chofer.toString(),
-          telefono: '...',
+          fecha_nacimiento: this.choferService.choferActivo().fecha_nacimiento.toString(),
+          telefono: 'No Aplica',
           sexo: this.sexoString(this.choferService.choferActivo().sexo),
+          fecha_creacion: this.usuarioActivo().fecha_creacion!,
         };
         break;
       case 5: //es cliente
         return {
-          id_cliente: this.clienteService.clienteActivo().id_cliente,
           nombre: this.clienteService.clienteActivo().nombre.toString(),
           apellido: this.clienteService.clienteActivo().apellido.toString(),
-          fecha_nacimiento: this.clienteService.clienteActivo().fecha_nacimiento,
-          fecha_creacion: this.usuarioActivo().fecha_creacion,
-          email: this.usuarioActivo().email!,
+          email: this.usuarioActivo().email,
           cedula: this.clienteService.clienteActivo().cedula_cliente.toString(),
+          fecha_nacimiento: this.clienteService.clienteActivo().fecha_nacimiento.toString(),
           telefono: this.clienteService.clienteActivo().telefono,
           sexo: this.sexoString(this.clienteService.clienteActivo().sexo),
+          fecha_creacion: this.usuarioActivo().fecha_creacion,
         };
         break;
     }
@@ -179,8 +177,10 @@ export class UsersService {
       apellido: '...',
       email: '...',
       cedula: '...',
+      fecha_nacimiento: '...',
       telefono: '...',
       sexo: '...',
+      fecha_creacion: '...'
     };
   }
 }

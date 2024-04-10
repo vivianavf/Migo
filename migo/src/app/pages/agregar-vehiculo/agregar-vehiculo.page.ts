@@ -34,6 +34,8 @@ import { UsersService } from 'src/app/providers/users.service';
 import { FechaService } from 'src/app/providers/fecha.service';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { NavigationService } from 'src/app/providers/navigation.service';
+import { User } from 'src/app/interfaces/user';
+import { Chofer } from 'src/app/interfaces/chofer';
 
 interface FormFields {
   Nombre: string;
@@ -115,11 +117,11 @@ export class AgregarVehiculoPage implements OnInit {
 
   //categorias y colores
   categorias = [
-    'Sedán',
-    'SUV',
-    'Camioneta',
-    'Camión',
-    'Bus'
+    ['sedan', 'Sedán'],
+    ['suv', 'SUV'],
+    ['camioneta', 'Camioneta'],
+    ['camion', 'Camión'],
+    ['bus', 'Bus'],
   ]
 
   colores = [
@@ -218,8 +220,8 @@ export class AgregarVehiculoPage implements OnInit {
       )}.`;
       return;
     } else {
-      var userRequest = {
-        id_usuario: this.nuevoIDUsuario,
+
+      const userRequest = {
         email: this.formFields.Placa,
         placa: this.formFields.Placa,
         contrasena: this.formFields.Placa,
@@ -229,55 +231,55 @@ export class AgregarVehiculoPage implements OnInit {
         fecha_modificacion: new Date().toLocaleString(),
         estado: 1,
         rol_usuario: 2, //chofer
+        id_ciudad: this.userService.usuarioActivo().id_ciudad,
+        id_pais: this.userService.usuarioActivo().id_pais,
       };
 
-      // this.userService.crearUsuario(userRequest).subscribe((response) => {
-      //   console.log(response)
-      //   if(response){
-      //     this.nuevoIDUsuario = this.userService.getIDNuevoUsuario();
-      //     console.log(this.nuevoIDUsuario);
+      this.userService.crearUsuario(userRequest).subscribe((data: User)=>{
+        console.log("nuevo Usuario",data)
+        const usuarioCreado = data;
+        
+        const choferRequest = {
+          cedula_chofer: this.formFields.Cedula.toString(),
+          nombre: this.formFields.Nombre,
+          apellido: this.formFields.Apellido,
+          fecha_nacimiento: this.formFields.FechaNacimiento,
+          sexo: this.formFields.Sexo,
+          estado: 1,
+          id_usuario: usuarioCreado.id_usuario,
+          id_ciudad: usuarioCreado.id_ciudad,
+          id_pais: usuarioCreado.id_pais,
+        }
 
-      //     var choferRequest = {
-      //       cedula_chofer: this.formFields.Cedula.toString(),
-      //       nombre: this.formFields.Nombre,
-      //       apellido: this.formFields.Apellido,
-      //       fecha_nacimiento: this.formFields.FechaNacimiento,
-      //       sexo: this.formFields.Sexo,
-      //       estado: 1,
-      //       id_usuario: this.nuevoIDUsuario,
-      //     };
+        this.choferService.crearChofer(choferRequest).subscribe((data: Chofer)=>{
+          console.log("Nuevo Chover", data)
+          const choferCreado = data;
 
-      //     // this.choferService.crearChofer(choferRequest).subscribe((response) => {
-      //     //   console.log(response);
-      //     // });
-
-      //     // var idChoferActual = this.choferService.getIDNuevoChofer()-1;
-
-      var vehiculoRequest = {
-        telefono_conductor: 9999999999,
-        placa: this.formFields.Placa,
-        anio: parseInt(this.formFields.anio),
-        categoria_vehiculo: this.formFields.Categoria, ///////// agregar como ion-select
-        color_vehiculo: this.formFields.Color, //////////// agregar como ion-select
-        imagen_izq: this.formFields.FotoIzquierda,
-        imagen_der: this.formFields.FotoDerecha,
-        imagen_frontal: this.formFields.FotoFrontal,
-        imagen_trasera: this.formFields.FotoTrasera,
-        imagen_techo: this.formFields.FotoTecho,
-        estado: 1,
-        id_chofer: 1, //
-        id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
-        id_marca: this.formFields.Marca,
-        id_modelo: this.formFields.Modelo,
-      };
-
-      this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{console.log(response)});
-      //   }
-      // });
-
-      // HTMLIonLoadingElement
-
-      // enviar un correo
+          var vehiculoRequest = {
+            telefono_conductor: 9999999999,
+            placa: this.formFields.Placa,
+            anio: parseInt(this.formFields.anio),
+            categoria_vehiculo: this.formFields.Categoria,
+            color_vehiculo: this.formFields.Color,
+            imagen_izq: this.formFields.FotoIzquierda,
+            imagen_der: this.formFields.FotoDerecha,
+            imagen_frontal: this.formFields.FotoFrontal,
+            imagen_trasera: this.formFields.FotoTrasera,
+            imagen_techo: this.formFields.FotoTecho,
+            estado: 1,
+            id_chofer: choferCreado.id_chofer, //
+            id_usuario: usuarioCreado.id_usuario, //
+            id_cliente: this.clienteService.clienteActivo().id_cliente, // se coloca el ID del cliente con la sesion activa
+            id_marca: this.formFields.Marca,
+            id_modelo: this.formFields.Modelo,
+          };
+          this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{
+            console.log(response);
+            location.reload();
+            this.router.navigate(['/vehiculos']);
+          });
+        })
+      })
     }
 
     // Aquí puedes agregar la lógica para enviar los datos a tu servidor o realizar otras acciones

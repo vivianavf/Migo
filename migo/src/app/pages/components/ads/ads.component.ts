@@ -45,7 +45,7 @@ export class AdsComponent implements OnInit {
     const ciudad = this.userService.usuarioActivo().id_ciudad;
     const pais = this.userService.usuarioActivo().id_pais;
     this.adsService.publicidadesObtenidas.forEach((publicidad)=>{
-      if(publicidad.id_ciudad === ciudad && publicidad.id_pais === pais){
+      if(publicidad.id_ciudad === ciudad && publicidad.id_pais === pais && publicidad.estado === 1){
         this.publicidades.push(publicidad);
       }
     })

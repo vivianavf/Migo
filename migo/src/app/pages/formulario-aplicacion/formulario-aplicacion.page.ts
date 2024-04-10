@@ -31,6 +31,8 @@ import { FormularioAplicacionService } from 'src/app/providers/formulario-aplica
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 import { NavigationService } from 'src/app/providers/navigation.service';
+import { EntidadBancaria } from 'src/app/interfaces/entidad-bancaria';
+import { EntidadBancariaService } from 'src/app/providers/entidad-bancaria.service';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -84,44 +86,9 @@ export class FormularioAplicacionPage implements OnInit {
   seleccionoVehiculo: boolean = false;
   mostrarmsgVehiculo: boolean = false;
 
-  public entidadesBancarias = [
-    'Banco del Ecuador',
-    'Banco Nacional de Fomento',
-    'Banco Pichincha',
-    'Banco Guayaquil',
-    'Banco Pacífico',
-    'Banco Produbanco',
-    'Banco Internacional',
-    'Banco Amazonas',
-    'Banco Solidario',
-    'Banco Diners Club',
-    'Banco de Loja',
-    'Banco de Machala',
-    'Banco Bolivariano',
-    'Banco ProCredit',
-    'Banco Coopnacional',
-    'Banco Finca',
-    'Banco Cofiec',
-    'Banco General Rumiñahui',
-    'Banco Comercial de Manabí',
-    'Banco de Guayaquil Panamá',
-    'Banco de la Producción',
-    'Banco D-Miro',
-    'Banco del Pacífico Internacional',
-    'Banco Unión',
-    'Banco del Litoral',
-    'Banco del Austro',
-    'Banco Cajasur',
-    'Banco Guaymango',
-    'Banco Rioja',
-    'Banco Ruminahui',
-    'Cooperativa de Ahorro y Crédito “Juventud Ecuatoriana Progresista” LTDA., (JEP)',
-    'Cooperativa Alianza del Valle',
-    'Cooprogreso',
-    'Cooperativa de Ahorro y Crédito 29 de Octubre Ltda.',
-  ];
+  entidadesBancarias: string[] = [];
 
-  public tiposCuentas = ['Ahorros', 'Corriente'];
+  public tiposCuentas = ['Ahorros', 'Corriente', 'Billetera Electrónica'];
 
   public results = [...this.entidadesBancarias];
 
@@ -143,6 +110,7 @@ export class FormularioAplicacionPage implements OnInit {
     private formService: FormularioAplicacionService,
     private toolbarService: ToolbarService,
     private navService: NavigationService,
+    private bancoService: EntidadBancariaService,
   ) {
     this.formularioAplicacion = this.fb.group({
       telefono_conductor: new FormControl('', Validators.required),
@@ -184,10 +152,6 @@ export class FormularioAplicacionPage implements OnInit {
   async mostrarMenu() {
     const modal = await this.modalController.create({
       component: MenuPage,
-      componentProps: {
-        user: this.userService.usuarioActivo(),
-        client: this.clientService.clienteActivo(),
-      },
       cssClass: 'menu',
     });
 
@@ -400,6 +364,16 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   generarApp() {
+    if(this.entidadesBancarias.length === 0){
+      this.bancoService.entidadesObtenidas.forEach((entidad)=>{
+        const ciudad = this.userService.usuarioActivo().id_ciudad;
+        const pais = this.userService.usuarioActivo().id_pais;
+        (ciudad === entidad.id_ciudad && pais === entidad.id_pais)? this.entidadesBancarias.push(entidad.nombre):console.log('');
+        // this.entidadesBancarias.push(entidad.nombre);
+      });
+    }
+    this.results = this.entidadesBancarias;
+
     this.cliente = this.clientService.clienteActivo();
     this.correoInput = this.cliente.email;
     this.cedulaInput = this.cliente.cedula_cliente;
@@ -409,7 +383,7 @@ export class FormularioAplicacionPage implements OnInit {
     });
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     try {
       this.generarApp();
     } catch (error) {}

@@ -12,13 +12,24 @@ import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
 
+interface Perfil{
+  nombre: string,
+  apellido: string,
+  email: string,
+  cedula: string,
+  fecha_nacimiento: string,
+  telefono: string,
+  sexo: string,
+  fecha_creacion: string,
+}
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  perfil: any;
+  perfil!: Perfil;
 
   paises: Pais[] = [];
   ciudades: Ciudad[] = [];
@@ -26,6 +37,9 @@ export class PerfilPage implements OnInit {
 
   paisInput: string = '';
   ciudadInput: string = '';
+
+  meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   constructor(
     private toolbarService: ToolbarService,
@@ -54,6 +68,12 @@ export class PerfilPage implements OnInit {
     });
 
     this.perfil = this.userService.esChoferOCliente();
+    const fechaN = new Date(this.perfil.fecha_nacimiento)
+    const fechaC = new Date(this.perfil.fecha_creacion)
+
+    this.perfil.fecha_nacimiento = (fechaN.getDate()+1)+' '+this.meses[fechaN.getMonth()]+' '+fechaN.getFullYear();
+    this.perfil.fecha_creacion = (fechaC.getDate()+1)+' '+this.meses[fechaC.getMonth()]+' '+fechaC.getFullYear();
+
   }
 
   filtrarCiudades() {

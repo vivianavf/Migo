@@ -1,6 +1,7 @@
-ion-toolbar{
-    padding-top: 20px;
+.menuToolbar{
+    background: black;
 }
+
 
 #toolbarTitle{
     padding-right: 48px;
@@ -39,5 +40,9 @@ div.container{
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  ion-button.cerrarSesion{
+    margin-bottom: 50px;
   }
  
