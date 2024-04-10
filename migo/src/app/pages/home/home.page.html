@@ -82,11 +82,11 @@
     </ion-segment>
   </ion-toolbar>
 
-  <div class="app-campana" *ngIf="segmentValue === 'campanas'" (click)="mostrarFiltro()" >
+  <div class="app-campana" *ngIf="segmentValue === 'campanas'" >
     <app-campana  ></app-campana>
   </div>
 
-  <div *ngIf="segmentValue === 'marcas'" (click)="borrarFiltro()">
+  <div *ngIf="segmentValue === 'marcas'">
     <app-marcas  ></app-marcas>
   </div>
 </ion-content>

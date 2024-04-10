@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class ToolbarService {
 
   mostrarTexto = false;
-  mostrarFiltro = false;
   toolbarText = ""
   showAdsimg = true;
 

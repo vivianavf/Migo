@@ -57,11 +57,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.globalService.getObservable().subscribe((data)=>{console.log(data)})
-
-    var autoSaveInterval = setInterval(() => {
-      this.imgBanner = this.generarNumeroBanner();
-    }, 5000);
-
     this.toolbarService.setTexto('HOME');
     this.tabService.showTabs();
   }
@@ -90,14 +85,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  borrarFiltro() {
-    this.mostrarBotonFiltro = false;
-  }
-
-  mostrarFiltro() {
-    this.mostrarBotonFiltro = true;
-  }
-
   async mostrarMenu() {
     const modal = await this.modalController.create({
       component: MenuPage,
@@ -119,18 +106,5 @@ export class HomePage implements OnInit {
     });
 
     return await modal.present();
-  }
-
-  generarNumeroBanner() {
-    const numeroAleatorio = Math.random();
-    // Multiplica por 10 para obtener un número entre 0 (inclusive) y 10 (exclusivo)
-    const numeroEntre0Y10 = numeroAleatorio * 15;
-
-    // Añade 1 para obtener un número entre 1 (inclusive) y 11 (exclusivo)
-    const numeroEntre1Y11 = numeroEntre0Y10 + 1;
-
-    // Utiliza Math.floor para redondear hacia abajo y obtener un número entero entre 1 y 10
-    const numeroFinal = Math.floor(numeroEntre1Y11);
-    return numeroFinal;
   }
 }

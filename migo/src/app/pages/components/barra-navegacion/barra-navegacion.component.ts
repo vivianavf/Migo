@@ -67,14 +67,4 @@ export class BarraNavegacionComponent implements OnInit {
     return await modal.present();
   }
 
-  borrarFiltro() {
-    this.mostrarBotonFiltro = false;
-    console.log(this.mostrarBotonFiltro);
-  }
-
-  mostrarFiltro() {
-    this.mostrarBotonFiltro = true;
-    console.log(this.mostrarBotonFiltro);
-  }
-
 }

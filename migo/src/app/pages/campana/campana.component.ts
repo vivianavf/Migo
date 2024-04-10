@@ -105,8 +105,11 @@ export class CampanaComponent implements OnInit {
   ordenarSectorDescendente() {}
 
   generarDatos() {
+    console.log("generarDatos")
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
+
+    console.log("pais y ciudad", paisUsuario, ciudadUsuario)
 
     this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
       this.ciudadActiva = ciudad;
@@ -119,9 +122,12 @@ export class CampanaComponent implements OnInit {
     this.campanaService.getCampanas().subscribe((campanasArray) => {
       campanasArray.forEach((campana) => {
         if (campana.id_ciudad === ciudadUsuario) {
+          console.log("entro al if", campana)
           this.campanas.push(campana);
         }
       });
+
+      console.log("campanas --", this.campanas) // aqui no hay nada
     });
 
     this.empresaService.getEmpresas().subscribe((data) => {

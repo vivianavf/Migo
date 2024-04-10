@@ -128,13 +128,12 @@ export class AppComponent implements OnInit{
     this.userService.getUsers().subscribe((data)=>{})
     this.clientService.getClients().subscribe((data)=>{})
     this.campanaService.getCampanas().subscribe((data)=>{})
+    this.obtenerPublicidades();
 
     let userExists = localStorage.getItem('usuario_email');
-
     let recorridoExists = localStorage.getItem('recorrido')
 
     if(userExists){
-      this.obtenerPublicidades();
       if(recorridoExists){
         this.navCtrl.navigateRoot('/nuevo-recorrido');
       }else{
