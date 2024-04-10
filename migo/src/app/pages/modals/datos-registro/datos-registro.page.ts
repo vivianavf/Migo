@@ -48,13 +48,10 @@ export class DatosRegistroPage implements OnInit {
 
   aceptar() {
     this.modalController.dismiss();
-    var nuevoID;
     this.userService.crearUsuario(this.usuario).subscribe((respuesta) => {
       this.usuario = respuesta; /// ?? no se, pero funciona y ya no quiero modificarlo
-      console.log('Usuario registrado con exito', this.usuario);
-      nuevoID = this.usuario.id_usuario;
+      const nuevoID = this.usuario.id_usuario;
       this.userService.ingresarUsuario(this.usuario);
-      console.log("Usuario Ingresado", this.usuario);
       var nuevocliente = <Client>{
         cedula_cliente: this.cedula,
         nombre: this.nombres,
@@ -70,11 +67,10 @@ export class DatosRegistroPage implements OnInit {
       };
 
       this.clienteService.crearCliente(nuevocliente).subscribe((respuesta) => {
-        console.log(respuesta);
+        nuevocliente = respuesta;
+        const nuevoIDCliente = nuevocliente.id_cliente;
+        this.clienteService.ingresarCliente(nuevocliente);
       });
-
-      this.clienteService.ingresarCliente(nuevocliente);
-      console.log("Cliente Ingresado", nuevocliente);
 
       this.formularioRegistro.reset();
       this.navCtrl.navigateRoot('/home');

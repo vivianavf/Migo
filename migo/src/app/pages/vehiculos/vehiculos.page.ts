@@ -130,7 +130,8 @@ export class VehiculosPage implements OnInit {
         this.vehiculos.length,
         idCliente
       );
-      if (this.vehiculos.length == 0) {
+      console.log("vehiculos lenght", this.vehiculos.length)
+      if (this.vehiculos.length < 1) {
         this.noTieneVehiculos();
       }
     });
@@ -139,6 +140,7 @@ export class VehiculosPage implements OnInit {
   ionViewDidEnter() {
     console.log('DID ENTER 1 - VEHICULOS', this.vehiculos.length);
     var idCliente = this.clientService.clienteActivo().id_cliente;
+    console.log(this.clientService.clienteActivo())
 
     console.log('ID CLIENTE', idCliente);
 
