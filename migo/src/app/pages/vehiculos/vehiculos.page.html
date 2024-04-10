@@ -1,4 +1,4 @@
-<ion-toolbar>
+<ion-toolbar class="misVehiculos">
   <ion-buttons slot="start">
     <ion-back-button
       default-href="/home"
@@ -11,7 +11,14 @@
 
 <app-ads></app-ads>
 
-<ion-content class="ion-padding">
+<ion-content *ngIf="this.vehiculos.length === 0" class="ion-padding vehiculos-vacio withoutBackground">
+  <div class="vehiculos-actualizando">
+    <ion-spinner class="vehiculos-spinner" name="dots" color="primary"></ion-spinner>
+  </div>
+</ion-content>
+
+<ion-content  *ngIf="this.vehiculos.length > 0" class="ion-padding withoutBackground">
+  
   <div class="divisor first-divisor">
     <div class="img-placa">
       <img

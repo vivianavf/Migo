@@ -3,6 +3,10 @@ ion-buttons {
   height: 48px;
 }
 
+ion-toolbar.misVehiculos{
+  --background: none;
+}
+
 #vehiculoTitle {
   padding-left: 0px;
   padding-right: 48px;
@@ -200,4 +204,24 @@ ion-icon#warning {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+
+/* si no hay vehiculos */
+.vehiculos-vacio{
+  display: flex;
+}
+
+.vehiculos-actualizando{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.vehiculos-spinner{
+  align-self: center;
+  width: 100px;
+  height: 100px;
 }

@@ -9,18 +9,11 @@ const config: CapacitorConfig = {
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 500,
+      launchShowDuration: 1000,
       launchAutoHide: true,
-      // launchFadeOutDuration: 300,
-      backgroundColor: "#000000",
-      // androidSplashResourceName: "splash",
-      // androidScaleType: "CENTER_CROP",
-      showSpinner: false,
-      // androidSpinnerStyle: "small",
-      // splashFullScreen: true,
-      // splashImmersive: true,
-      // layoutName: "launch_screen",
-      // useDialog: true,
+      backgroundColor: "#12bcbe",
+      splashFullScreen: true,
+      splashImmersive: true,
     },
     PushNotifications: {
       presentationOptions: ['badge', 'sound', 'alert'],

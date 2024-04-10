@@ -42,7 +42,6 @@ export class VehiculosPage implements OnInit {
   ) {}
 
   async verMas(vehiculoSecundario: any) {
-    console.log(this.vehiculos);
 
     const modal = await this.modalCtrl.create({
       component: DetalleVehiculoPage,
@@ -76,14 +75,12 @@ export class VehiculosPage implements OnInit {
   }
 
   eliminarVehiculo(vehiculo: any) {
-    console.log('1', vehiculo);
     this.vehiculoEliminar = vehiculo;
     let index = this.vehiculosSecundarios.indexOf(this.vehiculoEliminar);
     this.vehiculosSecundarios.splice(index, 1);
   }
 
   eliminarVehiculoDefinitivamente() {
-    console.log('2', this.vehiculoEliminar);
     let index = this.vehiculosSecundarios.indexOf(this.vehiculoEliminar);
     this.vehiculosSecundarios.splice(index, 1);
   }
@@ -124,13 +121,6 @@ export class VehiculosPage implements OnInit {
           this.vehiculos.length
         );
       }
-
-      console.log(
-        'OBTENER VEHICULOS 3 - ID CLIENTE',
-        this.vehiculos.length,
-        idCliente
-      );
-      console.log("vehiculos lenght", this.vehiculos.length)
       if (this.vehiculos.length < 1) {
         this.noTieneVehiculos();
       }
@@ -138,12 +128,7 @@ export class VehiculosPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log('DID ENTER 1 - VEHICULOS', this.vehiculos.length);
     var idCliente = this.clientService.clienteActivo().id_cliente;
-    console.log(this.clientService.clienteActivo())
-
-    console.log('ID CLIENTE', idCliente);
-
     if (idCliente) {
       this.obtenerVehiculos(idCliente);
     }
@@ -159,10 +144,7 @@ export class VehiculosPage implements OnInit {
   }
 
   ngOnInit() {
-    // var idCliente = this.clientService.clienteActivo().id_cliente;
-    // if (idCliente) {
-    //   this.obtenerVehiculos(idCliente);
-    // }
+
   }
 
   agregarVehiculo() {
