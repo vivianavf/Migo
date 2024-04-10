@@ -22,132 +22,122 @@
   </ion-item-divider>
 
   <form enctype="multipart/form-data">
-    <div class="conductor-form">
-      <ion-item [class.invalid-border]="isInvalidField('Nombre')">
-        <ion-label>Nombre</ion-label>
+    <div class="conductor-form aggVehiculoForm">
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Nombre</ion-label>
         <ion-input
-          class="addVehiculoInput"
+          class="addVehiculoInput rounded-input"
           [(ngModel)]="formFields.Nombre"
           name="Nombre"
           placeholder="Ingrese el nombre"
-          class="rounded-input"
           required
           maxlength="30"
           pattern="^[a-zA-Z]+$"
           enterkeyhint="next"
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('Apellido')">
-        <ion-label>Apellido</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Apellido</ion-label>
         <ion-input
-          class="addVehiculoInput"
+          class="addVehiculoInput rounded-input"
           [(ngModel)]="formFields.Apellido"
           name="Apellido"
           placeholder="Ingrese el apellido"
-          class="rounded-input"
           required
           maxlength="30"
           pattern="^[a-zA-Z]+$"
           enterkeyhint="next"
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('Cedula')">
-        <ion-label>Cédula</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Cédula</ion-label>
         <ion-input
-          class="addVehiculoInput"
+          class="addVehiculoInput rounded-input"
           [(ngModel)]="formFields.Cedula"
           name="Cedula"
-          ß
           placeholder="Ingrese la cédula"
-          class="rounded-input"
           required
           maxlength="10"
           pattern="^[0-9]+$"
           enterkeyhint="next"
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('FechaNacimiento')">
-        <ion-label>Fecha de Nacimiento</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Fecha de Nacimiento</ion-label>
         <ion-input
           type="date"
-          class="addVehiculoInput"
+          class="addVehiculoInput rounded-input"
           [(ngModel)]="formFields.FechaNacimiento"
           name="FechaNacimiento"
           placeholder="Fecha de Nacimiento"
-          class="rounded-input"
           required
           maxlength="30"
           enterkeyhint="next"
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('Sexo')">
-        <ion-label>Sexo</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Sexo</ion-label>
         <ion-select
           part="select-sexo-vehiculo"
-          class="never-flip"
+          class="never-flip rounded-input av-select"
           toggleIcon="caret-down-sharp"
           interface="popover"
           [(ngModel)]="formFields.Sexo"
           name="Sexo"
-          class="rounded-input"
           required
         >
           <ion-select-option value="1">Masculino</ion-select-option>
           <ion-select-option value="2">Femenino</ion-select-option>
           <ion-select-option value="3">Prefiero No Decir</ion-select-option>
         </ion-select>
-      </ion-item>
+      </div>
     </div>
 
-    <div class="vehiculo-form">
-      <ion-item-divider color="primary">
-        <ion-title>Información del vehículo</ion-title>
-      </ion-item-divider>
+  <ion-item-divider color="primary">
+      <ion-title>Información del vehículo</ion-title>
+  </ion-item-divider>
 
-      <ion-item [class.invalid-border]="isInvalidField('Placa')">
-        <ion-label>Placa</ion-label>
+    <div class="vehiculo-form aggVehiculoForm">
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Placa</ion-label>
         <ion-input
+          class="addVehiculoInput rounded-input"
           [(ngModel)]="formFields.Placa"
           name="Placa"
           placeholder="Ingrese la placa. Ejemplo: GXY1234"
-          class="rounded-input"
           required
           maxlength="7"
           pattern="^[A-Z]{3}-[0-9]{4}$"
           enterkeyhint="next"
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item
-        class="item-input"
-        [class.invalid-border]="isInvalidField('anio')"
-      >
-        <ion-label>Año</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Año</ion-label>
         <ion-input
+          class="rounded-input addVehiculoInput"
           [(ngModel)]="formFields.anio"
           name="anio"
           placeholder="Ingrese el año"
-          class="rounded-input"
           inputmode="numeric"
           maxlength="4"
           required
         ></ion-input>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('Marca')">
-        <ion-label>Marca</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Marca</ion-label>
         <ion-select
           part="select-marca-vehiculo"
-          class="never-flip"
+          class="never-flip rounded-input av-select"
           toggleIcon="caret-down-sharp"
           interface="popover"
           [(ngModel)]="formFields.Marca"
           name="Marca"
-          class="rounded-input"
           required
         >
           <ion-select-option
@@ -156,18 +146,17 @@
             >{{ marca.nombre }}</ion-select-option
           >
         </ion-select>
-      </ion-item>
+      </div>
 
-      <ion-item [class.invalid-border]="isInvalidField('Modelo')">
-        <ion-label>Modelo</ion-label>
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Modelo</ion-label>
         <ion-select
           part="select-modelo-vehiculo"
-          class="never-flip"
+          class="never-flip rounded-input av-select"
           toggleIcon="caret-down-sharp"
           interface="popover"
           [(ngModel)]="formFields.Modelo"
           name="Modelo"
-          class="rounded-input"
           required
         >
           <ion-select-option
@@ -175,15 +164,53 @@
             value="{{ modelo.id_modelo }}"
             >{{ modelo.nombre }}</ion-select-option
           >
-          <!-- Agrega más opciones según sea necesario -->
         </ion-select>
-      </ion-item>
+      </div>
+
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Categoría</ion-label>
+        <ion-select
+          part="select-categoria-vehiculo"
+          class="never-flip rounded-input av-select"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          [(ngModel)]="formFields.Categoria"
+          name="Categoria"
+          required
+        >
+          <ion-select-option
+            *ngFor="let categoria of categorias"
+            value="{{categoria}}"
+            >{{categoria}}</ion-select-option
+          >
+        </ion-select>
+      </div>
+
+      <div class="av-inputContainer">
+        <ion-label class="av-inputLabel">Color</ion-label>
+        <ion-select
+          part="select-color-vehiculo"
+          class="never-flip rounded-input av-select"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          [(ngModel)]="formFields.Color"
+          name="Color"
+          required
+        >
+          <ion-select-option
+            *ngFor="let color of colores"
+            value="{{color}}"
+            >{{color}}</ion-select-option
+          >
+        </ion-select>
+      </div>
     </div>
 
-    <div class="fotos-form">
-      <ion-item-divider color="primary">
-        <ion-title>Fotos del vehículo</ion-title>
-      </ion-item-divider>
+    <ion-item-divider color="primary">
+      <ion-title>Fotos del vehículo</ion-title>
+    </ion-item-divider>
+
+    <div class="fotos-form"> 
       <div class="foto-laterales">
         <div class="button-container">
           <ion-label *ngIf="!fotoIzquierdaTomada">Lateral Izquierdo</ion-label>

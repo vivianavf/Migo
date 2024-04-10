@@ -164,6 +164,7 @@ ion-button {
 }
 
 ion-toolbar {
+  --background: none;
   padding-top: 20px;
   display: flex;
   text-align: center;
@@ -416,10 +417,10 @@ ion-alert.notificationsAlert {
   }
 }
 
-ion-input.addVehiculoInput > input {
-  --pading-top: 0px;
-  --padding-bottom: 0px;
-}
+// ion-input.addVehiculoInput > input {
+//   --pading-top: 0px;
+//   --padding-bottom: 0px;
+// }
 
 .legacy-input.sc-ion-input-md-h .native-input.sc-ion-input-md {
   --pading-top: 0px;

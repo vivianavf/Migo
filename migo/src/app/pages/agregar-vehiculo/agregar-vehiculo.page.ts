@@ -50,6 +50,8 @@ interface FormFields {
   FotoIzquierda: Blob;
   FotoDerecha: Blob;
   FotoTecho: Blob;
+  Categoria: string,
+  Color: string,
 }
 
 @Component({
@@ -73,6 +75,8 @@ export class AgregarVehiculoPage implements OnInit {
     FotoIzquierda: new Blob(),
     FotoDerecha: new Blob(),
     FotoTecho: new Blob(),
+    Categoria: '',
+    Color: '',
   };
 
   //navigation
@@ -108,6 +112,31 @@ export class AgregarVehiculoPage implements OnInit {
 
   alertButtons = ['OK'];
   alertInputs = [{ label: 'Red', type: 'radio', value: 'red' }];
+
+  //categorias y colores
+  categorias = [
+    'Sedán',
+    'SUV',
+    'Camioneta',
+    'Camión',
+    'Bus'
+  ]
+
+  colores = [
+    'Blanco',
+    'Negro',
+    'Gris',
+    'Plata',
+    'Azul',
+    'Celeste',
+    'Rojo',
+    'Verde',
+    'Café',
+    'Naranja',
+    'Amarillo',
+    'Beige',
+    'Violeta',
+  ]
 
   constructor(
     private modeloService: ModeloVehiculosService,
@@ -224,14 +253,12 @@ export class AgregarVehiculoPage implements OnInit {
 
       //     // var idChoferActual = this.choferService.getIDNuevoChofer()-1;
 
-      console.log("SIZES", this.formFields.FotoDerecha.size, this.formFields.FotoFrontal.size, this.formFields.FotoIzquierda.size, this.formFields.FotoTecho.size, this.formFields.FotoTrasera.size)
-
       var vehiculoRequest = {
         telefono_conductor: 9999999999,
         placa: this.formFields.Placa,
         anio: parseInt(this.formFields.anio),
-        categoria_vehiculo: 'suv', ///////// agregar como ion-select
-        color_vehiculo: 'Negro', //////////// agregar como ion-select
+        categoria_vehiculo: this.formFields.Categoria, ///////// agregar como ion-select
+        color_vehiculo: this.formFields.Color, //////////// agregar como ion-select
         imagen_izq: this.formFields.FotoIzquierda,
         imagen_der: this.formFields.FotoDerecha,
         imagen_frontal: this.formFields.FotoFrontal,
@@ -250,7 +277,7 @@ export class AgregarVehiculoPage implements OnInit {
 
       // HTMLIonLoadingElement
 
-      // enviar una notificacion
+      // enviar un correo
     }
 
     // Aquí puedes agregar la lógica para enviar los datos a tu servidor o realizar otras acciones
@@ -312,6 +339,8 @@ export class AgregarVehiculoPage implements OnInit {
       FotoIzquierda: new Blob(),
       FotoDerecha: new Blob(),
       FotoTecho: new Blob(),
+      Categoria: '',
+      Color: '',
     };
     this.attemptedSubmit = false;
     this.showValidationError = '';

@@ -1,64 +1,88 @@
 @import '../../../theme/variables.scss';
 
-ion-label{
-    width: 100%;
-    flex:initial;
-}
-
-ion-item{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    --highlight-color-focused: transparent;
-    --highlight-color-invalid: transparent;
-    --highlight-color-valid: transparent;
-    // height: 70px;
-}
-
-ion-item::part(native){
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    height: 70px;
-    align-items: start;
-}
-
-ion-item::part(native){
-    .item-inner{
-        border-style: none;
-        border: none;
-    }
-}
-
 ion-title{
     padding-left: 0;
 }
 
-.conductor-form{
+.aggVehiculoForm{
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    gap: 10px;
 }
 
-ion-input{
-    width: 100%;
-    --padding-top: 0px; /* para arreglar el input dentro */
+/* Estilos de cada input*/
+
+.av-inputContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.av-inputLabel{
+    font-family: 'Bahnschrift';
+}
+
+.addVehiculoInput{
+    // background: blue;
     min-height: 30px;
 }
 
-ion-select:host{
-    // flex: 0;
+.addVehiculoInput{
+    label{
+        div{
+            input{
+                
+            }
+        }
+    }
+}
+
+.addVehiculoInput > input{
+    margin-left: 10px;
+}
+
+.rounded-input {
+    border-radius: 30px;
+    background-color: white;
+    color: black;
+}
+
+.av-select{
     min-height: 30px;
 }
 
-ion-select:host(:not(.legacy-select)){
-    min-height: 30px;
-}
+// ion-item{
+//     display: flex;
+//     flex-direction: column;
+// }
 
-ion-select{
-    min-height: 30px;
-}
+// ion-item::part(native){
+//     display: flex;
+//     flex-direction: column;
+// }
+
+// ion-input{
+//     width: 100%;
+//     --padding-top: 0px; /* para arreglar el input dentro */
+//     min-height: 30px;
+// }
+
+// ion-select:host{
+//     // flex: 0;
+//     min-height: 30px;
+// }
+
+// ion-select:host(:not(.legacy-select)){
+//     min-height: 30px;
+// }
+
+// ion-select{
+    
+// }
 
 .foto-laterales{
     display: flex;
@@ -83,13 +107,6 @@ ion-select{
     border-style: dashed;
     margin: 10px;
     aspect-ratio: 1/2;
-}
-
-.rounded-input {
-    border-radius: 30px;
-    background-color: white;
-    // padding: 8px; /* Ajusta el relleno según sea necesario */
-    color: black; /* Cambia el color del texto a negro */
 }
 
 .submit-button-container {
@@ -120,15 +137,8 @@ ion-button.add-button:host(.button-solid){
     --box-shadow:0;
 }
 
-ion-select-option{
-    --color: black;
-}
 
-.preview-modal{
-    
-}
-
-.legacy-input.sc-ion-input-md-h{
-    --padding-top:0px;
-    --padding-start:15px;
-}
+// .legacy-input.sc-ion-input-md-h{
+//     --padding-top:0px;
+//     --padding-start:15px;
+// }
