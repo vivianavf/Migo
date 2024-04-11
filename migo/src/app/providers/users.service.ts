@@ -147,6 +147,7 @@ export class UsersService {
   esChoferOCliente() {
     switch (this.usuarioActivo().rol_usuario) {
       case 2: //es chofer
+      console.log(this.choferService.choferActivo())
         return {
           nombre: this.choferService.choferActivo().nombre.toString(),
           apellido: this.choferService.choferActivo().apellido.toString(),

@@ -38,6 +38,7 @@ export class ChoferService {
   }
 
   ingresarChofer(chofer: Chofer) {
+    console.log(chofer);
     if (chofer) {
       if(chofer.id_chofer){
         localStorage.setItem('chofer_id', chofer.id_chofer.toString());

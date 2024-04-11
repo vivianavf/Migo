@@ -33,6 +33,7 @@ import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 import { NavigationService } from 'src/app/providers/navigation.service';
 import { EntidadBancaria } from 'src/app/interfaces/entidad-bancaria';
 import { EntidadBancariaService } from 'src/app/providers/entidad-bancaria.service';
+import { ChoferService } from 'src/app/providers/chofer.service';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -112,6 +113,7 @@ export class FormularioAplicacionPage implements OnInit {
     private toolbarService: ToolbarService,
     private navService: NavigationService,
     private bancoService: EntidadBancariaService,
+    private choferService: ChoferService
   ) {
     this.formularioAplicacion = this.fb.group({
       telefono_conductor: new FormControl('', Validators.required),
@@ -181,11 +183,30 @@ export class FormularioAplicacionPage implements OnInit {
     //enviar el ID del cliente
     //mostrar un modal donde se muestren todos los vehiculos
 
+    //si soy chofer, muestra con mi numero de chofer los autos que quiero ver
+    //si soy cliente, muestra con mi id de cliente los autos que quiero ver
+
+    const user = this.userService.usuarioActivo();
+    const rolUser = user.rol_usuario;
+    let id = 0;
+
+    switch (rolUser) {
+      case 2: //chofer
+        const choferActivo = this.choferService.choferActivo();
+        id = choferActivo.id_chofer!;
+        break;
+      case 5: //cliente
+        const clienteActivo = this.clientService.clienteActivo();
+        id = clienteActivo.id_cliente!;
+        break;
+    }
+
     const modal = await this.modalController.create({
       component: VehiculosModalPage,
       cssClass: 'vehiculos-modal',
       componentProps: {
-        idCliente: this.cliente.id_cliente,
+        id: id,
+        rolUsuario: rolUser,
       },
     });
 
@@ -263,37 +284,67 @@ export class FormularioAplicacionPage implements OnInit {
       this.vehiculoSeleccionado
     ) {
       console.log('puede registrarse');
-      // this.navCtrl.navigateRoot('/home');
 
-      // this.mostrarQR();
+      const user = this.userService.usuarioActivo();
+      const rolUser = user.rol_usuario;
 
-      var body = {
-        telefono_conductor: parseInt(this.cliente.telefono)!,
-        licencia: this.archivoLicencia,
-        matricula: this.archivoMatricula,
-        numero_cuenta_bancaria: this.numeroCuentaInput,
-        cedula: this.cliente.cedula_cliente,
-        entidad_bancaria: 1,
-        tipo_cuenta_bancaria: 1,
-        correo_electronico: this.cliente.email,
-        fecha_envio: new Date().toISOString().split('T')[0],
-        id_usuario: this.userService.usuarioActivo().id_usuario,
-        id_ciudad: this.userService.usuarioActivo().id_ciudad,
-        id_pais: this.userService.usuarioActivo().id_pais,
-        id_campana: this.campana.id_campana!,
-        estado_solicitud: 'pendiente',
-        id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
-      };
+      switch (rolUser) {
+        case 2: //chofer
+          const choferActivo = this.choferService.choferActivo();
+          var body = {
+            telefono_conductor: 999999999,
+            licencia: this.archivoLicencia,
+            matricula: this.archivoMatricula,
+            numero_cuenta_bancaria: this.numeroCuentaInput,
+            cedula: String(choferActivo.cedula_chofer),
+            entidad_bancaria: 1,
+            tipo_cuenta_bancaria: 1,
+            correo_electronico: user.email,
+            fecha_envio: new Date().toISOString().split('T')[0],
+            id_usuario: this.userService.usuarioActivo().id_usuario,
+            id_ciudad: this.userService.usuarioActivo().id_ciudad,
+            id_pais: this.userService.usuarioActivo().id_pais,
+            id_campana: this.campana.id_campana!,
+            estado_solicitud: 'pendiente',
+            id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
+          };
+          this.formService.crearFormulario(body).subscribe((response) => {
+            if (response) {
+              console.log(response);
+              this.navCtrl.navigateRoot('/solicitudes');
+              location.reload();
+            }
+          });
+          break;
+        case 5: //cliente
+          const clienteActivo = this.clientService.clienteActivo();
+          var body = {
+            telefono_conductor: parseInt(clienteActivo.telefono)!,
+            licencia: this.archivoLicencia,
+            matricula: this.archivoMatricula,
+            numero_cuenta_bancaria: this.numeroCuentaInput,
+            cedula: String(clienteActivo.cedula_cliente),
+            entidad_bancaria: 1,
+            tipo_cuenta_bancaria: 1,
+            correo_electronico: clienteActivo.email,
+            fecha_envio: new Date().toISOString().split('T')[0],
+            id_usuario: this.userService.usuarioActivo().id_usuario,
+            id_ciudad: this.userService.usuarioActivo().id_ciudad,
+            id_pais: this.userService.usuarioActivo().id_pais,
+            id_campana: this.campana.id_campana!,
+            estado_solicitud: 'pendiente',
+            id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
+          };
 
-      this.formService.crearFormulario(body).subscribe((response) => {
-        if (response) {
-          console.log(response);
-          console.log('BODY', body);
-          this.navCtrl.navigateRoot('/solicitudes');
-          location.reload();
-        }
-      });
-      //mostrar pantalla de registro exitoso
+          this.formService.crearFormulario(body).subscribe((response) => {
+            if (response) {
+              console.log(response);
+              this.navCtrl.navigateRoot('/solicitudes');
+              location.reload();
+            }
+          });
+          break;
+      }
     } else {
       console.log('No puede registrarse');
     }
@@ -357,27 +408,44 @@ export class FormularioAplicacionPage implements OnInit {
         this.textoMatricula = 'Matrícula';
         break;
       case 2:
-        this.textoMatricula = 'Tarjeta de Propiedad'
+        this.textoMatricula = 'Tarjeta de Propiedad';
         break;
       default:
         this.textoMatricula = 'Título de Propiedad del Vehículo';
         break;
     }
 
-    if(this.entidadesBancarias.length === 0){
-      this.bancoService.entidadesObtenidas.forEach((entidad)=>{
-        (ciudad === entidad.id_ciudad && pais === entidad.id_pais)? this.entidadesBancarias.push(entidad.nombre):console.log('');
+    if (this.entidadesBancarias.length === 0) {
+      this.bancoService.entidadesObtenidas.forEach((entidad) => {
+        ciudad === entidad.id_ciudad && pais === entidad.id_pais
+          ? this.entidadesBancarias.push(entidad.nombre)
+          : console.log('');
       });
     }
     this.results = this.entidadesBancarias;
 
-    this.cliente = this.clientService.clienteActivo();
-    this.correoInput = this.cliente.email;
-    this.cedulaInput = this.cliente.cedula_cliente;
+    const user = this.userService.usuarioActivo();
+    const rolUser = user.rol_usuario;
+
+    switch (rolUser) {
+      case 2: //chofer
+        const choferActivo = this.choferService.choferActivo();
+        this.correoInput = user.email;
+        this.cedulaInput = String(choferActivo.cedula_chofer);
+        break;
+      case 5: //cliente
+        const clienteActivo = this.clientService.clienteActivo();
+        this.correoInput = clienteActivo.email;
+        this.cedulaInput = clienteActivo.cedula_cliente;
+        break;
+    }
+
     this.campana = this.campanaService.getCampanaActual();
     this.vehiculoService.getVehiculos().subscribe((data) => {
       this.vehiculos = data;
     });
+
+    this.formService.getFormularios().subscribe((data)=>{})
   }
 
   ionViewDidEnter() {
@@ -391,7 +459,7 @@ export class FormularioAplicacionPage implements OnInit {
       this.generarApp();
       this.formularioAplicacion.reset();
       this.toolbarService.setTexto('FORMULARIO DE APLICACIÓN');
-      this.navService.setPagina("/formulario-aplicacion");
+      this.navService.setPagina('/formulario-aplicacion');
     } catch (error) {
       console.log(error);
     }

@@ -70,7 +70,7 @@ export class PerfilPage implements OnInit {
     this.perfil = this.userService.esChoferOCliente();
     const fechaN = new Date(this.perfil.fecha_nacimiento)
     const fechaC = new Date(this.perfil.fecha_creacion)
-
+    console.log(this.perfil)
     this.perfil.fecha_nacimiento = (fechaN.getDate()+1)+' '+this.meses[fechaN.getMonth()]+' '+fechaN.getFullYear();
     this.perfil.fecha_creacion = (fechaC.getDate()+1)+' '+this.meses[fechaC.getMonth()]+' '+fechaC.getFullYear();
 

@@ -1,4 +1,8 @@
 ion-content#vehiculos-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     background: white;
 }
 
@@ -50,4 +54,21 @@ img.foto{
 
 .msg-v{
     color: black;
+}
+
+.vm-container{
+    height: 100%;
+}
+
+.vm-spinner{
+    width: 150px;
+    height: 150px;
+    align-self: center;
+}
+
+.vm-spinnerContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }

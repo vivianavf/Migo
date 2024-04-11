@@ -7,6 +7,8 @@ import { IonicSlides } from '@ionic/core';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { ModalController, NavController } from '@ionic/angular';
 import { AgregarVehiculoPage } from '../../agregar-vehiculo/agregar-vehiculo.page';
+import { CampanaService } from 'src/app/providers/campana.service';
+import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 
 @Component({
   selector: 'app-vehiculos-modal',
@@ -19,13 +21,16 @@ export class VehiculosModalPage implements OnInit {
   swiperRef: ElementRef | undefined;
   swiper?:Swiper;
 
-  @Input() idCliente: any;
+  @Input() id!: number;
+  @Input() rolUsuario!: number;
+
   swiperModules = [IonicSlides]
-  vehiculosCliente: Vehiculo[] = [];
+  vehiculosMostrar: Vehiculo[] = [];
 
   vehiculoSeleccionado: any;
 
   hayVehiculos=false;
+  loading = true;
 
   component = AgregarVehiculoPage;
 
@@ -34,6 +39,8 @@ export class VehiculosModalPage implements OnInit {
     private elegirVehiculoService: ElegirVehiculoService,
     private modalController: ModalController,
     private navCtrl: NavController,
+    private campanaService: CampanaService,
+    private formService: FormularioAplicacionService,
   ) { }
 
   elegirVehiculo(vehiculo: any) {
@@ -46,16 +53,59 @@ export class VehiculosModalPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  buscarVehiculoFormulario(vehiculo: Vehiculo){
+    //si el vehiculo ya esta en la campana, entonces no deberia salir en la seleccion
+    const campanaActual = this.campanaService.getCampanaActual();
+
+    this.formService.getFormularios().subscribe((data)=>{
+      var formularios = data;
+      formularios.forEach((formulario)=>{
+        if(!(formulario.id_vehiculo === vehiculo.id_vehiculo && formulario.id_campana === campanaActual.id_campana)){
+          this.vehiculosMostrar.push(vehiculo)
+          console.log("SU vehiculo puede registrarse en la campana")
+          //filtar por pais y ciudad
+        }else{
+          console.log("su vehiculo ya se encuentra registrado en esta campana", vehiculo)
+        }
+      })
+    })
+  }
+
+  filtrarVehiculoUbicacion(){
+
+  }
+
   ngOnInit() {
-    var vehiculosBuscar = this.vehiculoService.getVehiculos().subscribe((data)=>{
+    //filtrar por pais y ciudad
+    this.vehiculoService.getVehiculos().subscribe((data)=>{
       data.forEach((vehiculo)=>{
-        if(vehiculo.id_cliente === this.idCliente){
-          this.vehiculosCliente.push(vehiculo);
+        switch (this.rolUsuario) {
+          case 2: //chofer
+            if(vehiculo.id_chofer === this.id){
+              const formularios= this.formService.formulariosObtenidos;
+              const campanaactual = this.campanaService.getCampanaActual();
+              const registro = formularios?.find((form) => form.id_campana === campanaactual.id_campana && form.id_vehiculo === vehiculo.id_vehiculo)
+              console.log(registro)
+              registro?console.log(''):this.vehiculosMostrar.push(vehiculo)
+            }
+            break;
+          case 5: //cliente
+            if(vehiculo.id_cliente === this.id){
+              const formularios= this.formService.formulariosObtenidos;
+              const campanaactual = this.campanaService.getCampanaActual();
+              const registro = formularios?.find((form) => form.id_campana === campanaactual.id_campana && form.id_vehiculo === vehiculo.id_vehiculo)
+              console.log(registro)
+              registro?console.log(''):this.vehiculosMostrar.push(vehiculo)
+            }
+            break;
         }
       })
 
-      if(this.vehiculosCliente.length>0){this.hayVehiculos=true}else{this.hayVehiculos=false}
+      if(this.vehiculosMostrar.length>0){this.hayVehiculos=true}else{this.hayVehiculos=false}
+      this.loading = false;
     })
+
+    
   }
 
 }

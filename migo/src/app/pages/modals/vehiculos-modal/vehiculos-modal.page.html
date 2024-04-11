@@ -1,12 +1,17 @@
 <ion-content id="vehiculos-content">
-  <swiper-container *ngIf="hayVehiculos" [modules]="swiperModules" [slidesPerView]="2" [pagination]="true" >
-    <swiper-slide *ngFor="let vehiculo of vehiculosCliente" (click)="elegirVehiculo(vehiculo)">
-      <img class="foto" src="../../../../assets/images/vehiculos/{{vehiculo.id_vehiculo}}.jpg" [alt]="vehiculo.placa" />
-      <ion-text class="placa bold-text">{{vehiculo.placa}}</ion-text>
-    </swiper-slide>
-  </swiper-container>
-  <div class="mensaje-nohay">
-    <ion-text class="capitalize bold-text msg-v" *ngIf="!hayVehiculos">No hay vehiculos registrados</ion-text>
-    <ion-button (click)="irRegistro()">Registrar Vehiculo</ion-button>
+  <div class="vm-spinnerContainer" *ngIf="loading">
+    <ion-spinner class="vm-spinner" name="dots" color="primary"></ion-spinner>
+  </div>
+  <div class="vm-container" *ngIf="!loading">
+    <swiper-container *ngIf="hayVehiculos" [modules]="swiperModules" [slidesPerView]="2" [pagination]="true" >
+      <swiper-slide *ngFor="let vehiculo of vehiculosMostrar" (click)="elegirVehiculo(vehiculo)">
+        <img class="foto" src="../../../../assets/images/vehiculos/{{vehiculo.id_vehiculo}}.jpg" [alt]="vehiculo.placa" />
+        <ion-text class="placa bold-text">{{vehiculo.placa}}</ion-text>
+      </swiper-slide>
+    </swiper-container>
+    <div class="mensaje-nohay">
+      <ion-text class="capitalize bold-text msg-v" *ngIf="!hayVehiculos">No hay vehiculos registrados</ion-text>
+      <ion-button (click)="irRegistro()">Registrar Vehiculo</ion-button>
+    </div>
   </div>
 </ion-content>
