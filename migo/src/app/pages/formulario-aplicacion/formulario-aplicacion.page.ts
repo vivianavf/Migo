@@ -34,6 +34,7 @@ import { NavigationService } from 'src/app/providers/navigation.service';
 import { EntidadBancaria } from 'src/app/interfaces/entidad-bancaria';
 import { EntidadBancariaService } from 'src/app/providers/entidad-bancaria.service';
 import { ChoferService } from 'src/app/providers/chofer.service';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -97,6 +98,8 @@ export class FormularioAplicacionPage implements OnInit {
   entidadesFiltradas: string[] = [];
   entidadSeleccionada: string = '';
 
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/'
+
   constructor(
     private modalController: ModalController,
     private userService: UsersService,
@@ -113,7 +116,7 @@ export class FormularioAplicacionPage implements OnInit {
     private toolbarService: ToolbarService,
     private navService: NavigationService,
     private bancoService: EntidadBancariaService,
-    private choferService: ChoferService
+    private choferService: ChoferService,
   ) {
     this.formularioAplicacion = this.fb.group({
       telefono_conductor: new FormControl('', Validators.required),
@@ -129,6 +132,25 @@ export class FormularioAplicacionPage implements OnInit {
       id_cliente: new FormControl('', Validators.required),
       id_campana: new FormControl('', Validators.required),
     });
+  }
+
+  getImageSrc(angulo: string, vehiculo?: Vehiculo) {
+    if (vehiculo) {
+      const extension = this.getImageExtension(vehiculo);
+      return this.imgRuta + vehiculo.placa + angulo + '.' + extension;
+    } else {
+      return '';
+    }
+  }
+
+  getImageExtension(vehiculo: Vehiculo) {
+    if (vehiculo) {
+      const routeName = String(vehiculo.imagen_frontal).split('.');
+      const extension = routeName.pop();
+      return extension;
+    } else {
+      return '.jpg';
+    }
   }
 
   filtrarEntidades(event: any) {
@@ -288,17 +310,19 @@ export class FormularioAplicacionPage implements OnInit {
       const user = this.userService.usuarioActivo();
       const rolUser = user.rol_usuario;
 
+      const entidadElegida = this.bancoService.entidadesObtenidas.find((entidad)=> entidad.nombre === this.entidadBancaria)
+
       switch (rolUser) {
         case 2: //chofer
           const choferActivo = this.choferService.choferActivo();
-          var body = {
+          var formChofer: FormularioAplicacion = {
             telefono_conductor: 999999999,
             licencia: this.archivoLicencia,
             matricula: this.archivoMatricula,
             numero_cuenta_bancaria: this.numeroCuentaInput,
             cedula: String(choferActivo.cedula_chofer),
-            entidad_bancaria: 1,
-            tipo_cuenta_bancaria: 1,
+            entidad_bancaria: entidadElegida!.id_entidad,
+            tipo_cuenta_bancaria: this.tipoCuenta,
             correo_electronico: user.email,
             fecha_envio: new Date().toISOString().split('T')[0],
             id_usuario: this.userService.usuarioActivo().id_usuario,
@@ -308,7 +332,7 @@ export class FormularioAplicacionPage implements OnInit {
             estado_solicitud: 'pendiente',
             id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
           };
-          this.formService.crearFormulario(body).subscribe((response) => {
+          this.formService.crearFormulario(formChofer).subscribe((response) => {
             if (response) {
               console.log(response);
               this.navCtrl.navigateRoot('/solicitudes');
@@ -318,14 +342,14 @@ export class FormularioAplicacionPage implements OnInit {
           break;
         case 5: //cliente
           const clienteActivo = this.clientService.clienteActivo();
-          var body = {
+          var formCliente: FormularioAplicacion = {
             telefono_conductor: parseInt(clienteActivo.telefono)!,
             licencia: this.archivoLicencia,
             matricula: this.archivoMatricula,
             numero_cuenta_bancaria: this.numeroCuentaInput,
             cedula: String(clienteActivo.cedula_cliente),
-            entidad_bancaria: 1,
-            tipo_cuenta_bancaria: 1,
+            entidad_bancaria: entidadElegida!.id_entidad,
+            tipo_cuenta_bancaria: String(this.tipoCuenta),
             correo_electronico: clienteActivo.email,
             fecha_envio: new Date().toISOString().split('T')[0],
             id_usuario: this.userService.usuarioActivo().id_usuario,
@@ -336,7 +360,7 @@ export class FormularioAplicacionPage implements OnInit {
             id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
           };
 
-          this.formService.crearFormulario(body).subscribe((response) => {
+          this.formService.crearFormulario(formCliente).subscribe((response) => {
             if (response) {
               console.log(response);
               this.navCtrl.navigateRoot('/solicitudes');
@@ -446,6 +470,20 @@ export class FormularioAplicacionPage implements OnInit {
     });
 
     this.formService.getFormularios().subscribe((data)=>{})
+  }
+
+  resetDatos(){
+    this.seleccionoVehiculo = false;
+    this.entidadBancaria = 'Entidad Bancaria';
+    this.tipoCuenta = 'Tipo de Cuenta'
+    this.numeroCuentaInput = '';
+    this.formularioAplicacion.reset();
+    // Object.assign(this.archivoLicencia, new File())
+    // Object.assign(this.archivoMatricula, {})
+  }
+
+  ionViewDidLeave(){
+    this.resetDatos();
   }
 
   ionViewDidEnter() {

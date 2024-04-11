@@ -18,5 +18,4 @@ export interface Vehiculo {
     id_chofer?: number,
     id_marca: number,
     id_modelo: number,
-    brandeo?: boolean,
 }

@@ -48,6 +48,8 @@ export class ConfirmacionPage implements OnInit {
     this.formularioService.cambiarEstadoFormulario(Number(this.solicitud.id_formulario), "activa").subscribe((response)=>{console.log(response)})
     this.ingresoService.crearIngreso(ingreso).subscribe((response)=>{console.log(response)});
     this.modalCtrl.dismiss();
+    this.router.navigate(['/home']);
+    // location.reload();
   }
 
   cerrar() {

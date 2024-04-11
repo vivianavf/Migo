@@ -5,7 +5,7 @@
   <div class="vm-container" *ngIf="!loading">
     <swiper-container *ngIf="hayVehiculos" [modules]="swiperModules" [slidesPerView]="2" [pagination]="true" >
       <swiper-slide *ngFor="let vehiculo of vehiculosMostrar" (click)="elegirVehiculo(vehiculo)">
-        <img class="foto" src="../../../../assets/images/vehiculos/{{vehiculo.id_vehiculo}}.jpg" [alt]="vehiculo.placa" />
+        <img class="foto" [src]="getImageSrc('frontal', vehiculo)" [alt]="vehiculo.placa" />
         <ion-text class="placa bold-text">{{vehiculo.placa}}</ion-text>
       </swiper-slide>
     </swiper-container>

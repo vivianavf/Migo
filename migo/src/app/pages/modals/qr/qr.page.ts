@@ -18,6 +18,8 @@ import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { CampanaActivaPage } from '../../campana-activa/campana-activa.page';
 import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Router } from '@angular/router';
+import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
+import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
@@ -40,6 +42,8 @@ export class QrPage implements OnInit {
   pdfObj!: TCreatedPdf;
   base64Image: any;
   ingresos!: IngresoConductorCampana[];
+  talleres: TallerBrandeo[] = [];
+  talleresCampana: TallerBrandeo[] = [];
 
   constructor(
     private plt: Platform,
@@ -51,6 +55,7 @@ export class QrPage implements OnInit {
     private ingresarCondService: IngresoConductorCampanaService,
     private campanaService: CampanaService,
     private router: Router,
+    private tallerService: TallerBrandeoService,
   ) {}
 
   crearQR() {
@@ -58,7 +63,6 @@ export class QrPage implements OnInit {
     this.datos = 'MIGO ADS _ INFO';
     this.loadLocalAssetToBase64();
     this.crearPDF();
-    
   }
 
   crearPDF() {
@@ -151,9 +155,6 @@ export class QrPage implements OnInit {
     // this.pdfObj.download();
 
     // console.log(this.pdfObj.getStream());
-
-
-    
   }
 
   loadLocalAssetToBase64() {
@@ -171,14 +172,23 @@ export class QrPage implements OnInit {
   aceptar(){
     this.modalQR.dismiss();
     // this.vehiculo.brandeo = true;
-    console.log("BRANDEO = TRUE");
-    this.vehiculoService.setBrandeo(this.vehiculo.id_vehiculo!, true).subscribe((response)=>{console.log(response)})
+    // console.log("BRANDEO = TRUE");
+    // this.vehiculoService.setBrandeo(this.vehiculo.id_vehiculo!, true).subscribe((response)=>{console.log(response)})
     this.router.navigate(['/solicitudes']);
   }
 
   ngOnInit() {
     this.ingresarCondService.getIngresos().subscribe((data)=>{
       this.ingresos = data;
+    })
+
+    this.tallerService.getTalleres().subscribe((data)=>{
+      this.talleres = data;
+      console.log(this.campana.id_talleres)
+      this.campana.id_talleres.forEach((idTaller)=>{
+         const tallerEncontrado = this.talleres.find((taller)=> taller.id_taller === idTaller)!
+         this.talleresCampana.push(tallerEncontrado);
+      })
     })
   }
 }

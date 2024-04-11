@@ -1,13 +1,25 @@
 <ion-content id="qr-content">
   <div class="title">
     <ion-text class="ion-black-text black-text uppercase-text">
-      PRESENTE EL SIGUIENTE CÓDIGO EN EL taller de brandeo:
+      presente el siguiente código QR en los siguientes talleres de brandeo:
     </ion-text>
-    <ion-text class="ion-black-text black-text capitalize">
-      Taller(es) Brandeo
-    </ion-text>
+    <ion-list class="tallerList">
+      <ion-item *ngFor="let taller of talleresCampana" class="tallerItem ion-black-text black-text capitalize">
+        <a class="maps-link" [href]="taller.referencia">
+          <ion-label class="taller-nombre">{{taller.nombre}}</ion-label>
+          <ion-label class="taller-direccion">
+            <ion-img src="../../../../assets/images/Google_Maps_icon_(2020).svg.png" class="maps-icon">
+            </ion-img>
+            {{taller.direccion}}
+          </ion-label>
+        </a>
+      </ion-item>
+    </ion-list>
   </div>
   <ion-button (click)="crearQR()">Mostrar QR</ion-button>
   <div class="QR"><qrcode [allowEmptyString]="true" [qrdata]="datos" [width]="400"></qrcode></div>
-  <ion-button (click)="aceptar()">Aceptar</ion-button>
+  <div class="verificarBrandeo">
+    <ion-text class="ion-black-text black-text">Un administrador verificará el brandeo para que pueda comenzar a monetizar</ion-text>
+    <ion-button (click)="aceptar()">Aceptar</ion-button>
+  </div>
 </ion-content>

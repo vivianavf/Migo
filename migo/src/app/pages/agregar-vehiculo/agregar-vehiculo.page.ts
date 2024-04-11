@@ -275,8 +275,10 @@ export class AgregarVehiculoPage implements OnInit {
           };
           this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{
             console.log(response);
-            location.reload();
-            this.router.navigate(['/vehiculos']);
+            this.router.navigate([this.whereFrom]);
+            //mostrar alguna ventana o regresar a la anterior
+            // location.reload();
+            // this.router.navigate(['/vehiculos']);
           });
         })
       })

@@ -52,7 +52,13 @@
                   <ion-item slot="header" color="light">
                     <ion-label>Talleres Disponibles</ion-label>
                   </ion-item>
-                  <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content"><a class="maps-link" [href]="taller.referencia">{{taller.nombre}}<ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png"></ion-img></a></div>
+                  <div *ngFor="let taller of talleresBrandeo" class="ion-padding accordion-element" slot="content">
+                    <a class="maps-link" [href]="taller.referencia">
+                      {{taller.nombre}}
+                      <ion-img class="maps-icon" src="../../../assets/images/Google_Maps_icon_(2020).svg.png">
+                      </ion-img>
+                    </a>
+                  </div>
                 </ion-accordion>
               </ion-accordion-group>
             </div>

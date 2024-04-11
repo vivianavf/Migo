@@ -6,7 +6,7 @@ export interface FormularioAplicacion {
     numero_cuenta_bancaria: string,
     cedula: string,
     entidad_bancaria: number,
-    tipo_cuenta_bancaria: number,
+    tipo_cuenta_bancaria: string,
     correo_electronico: string,
     fecha_envio: Date | string,
     id_usuario: number,
@@ -15,4 +15,5 @@ export interface FormularioAplicacion {
     id_vehiculo: number,
     id_campana: number,
     estado_solicitud: string,
+    brandeo?: boolean,
 }

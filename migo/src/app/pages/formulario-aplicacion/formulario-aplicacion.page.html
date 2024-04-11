@@ -212,7 +212,7 @@
             <div class="img-container">
               <img
                 class="img-vehiculo"
-                src="../../../assets/images/vehiculos/{{vehiculoSeleccionado?.id_vehiculo}}.jpg"
+                [src]="getImageSrc('frontal', vehiculoSeleccionado!)"
                 alt="{{vehiculoSeleccionado?.placa}}"
               />
             </div>

@@ -9,6 +9,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { AgregarVehiculoPage } from '../../agregar-vehiculo/agregar-vehiculo.page';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
+import { NavigationService } from 'src/app/providers/navigation.service';
 
 @Component({
   selector: 'app-vehiculos-modal',
@@ -32,6 +33,8 @@ export class VehiculosModalPage implements OnInit {
   hayVehiculos=false;
   loading = true;
 
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
+
   component = AgregarVehiculoPage;
 
   constructor(
@@ -41,7 +44,27 @@ export class VehiculosModalPage implements OnInit {
     private navCtrl: NavController,
     private campanaService: CampanaService,
     private formService: FormularioAplicacionService,
+    private navService: NavigationService,
   ) { }
+
+  getImageSrc(angulo: string, vehiculo?: Vehiculo) {
+    if (vehiculo) {
+      const extension = this.getImageExtension(vehiculo);
+      return this.imgRuta + vehiculo.placa + angulo + '.' + extension;
+    } else {
+      return '';
+    }
+  }
+
+  getImageExtension(vehiculo: Vehiculo) {
+    if (vehiculo) {
+      const routeName = String(vehiculo.imagen_frontal).split('.');
+      const extension = routeName.pop();
+      return extension;
+    } else {
+      return '.jpg';
+    }
+  }
 
   elegirVehiculo(vehiculo: any) {
     this.elegirVehiculoService.sendVehiculo(vehiculo);
@@ -49,6 +72,7 @@ export class VehiculosModalPage implements OnInit {
   }
 
   irRegistro(){
+    this.navService.setPagina('/formulario-aplicacion')
     this.navCtrl.navigateRoot('/agregar-vehiculo');
     this.modalController.dismiss();
   }

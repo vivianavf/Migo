@@ -66,9 +66,7 @@ export class SolicitudesPage implements OnInit {
   }
 
   getEstado(solicitud: FormularioAplicacion){
-    const vehiculo = this.vehiculos.find(({ id_vehiculo }) => id_vehiculo === solicitud.id_vehiculo);
-    const estado = vehiculo?.brandeo ?'Brandeado': 'Pendiente de brandeo';
-    return estado;
+    return solicitud.brandeo ?'Brandeado': 'Pendiente de brandeo';
   }
 
   generarDatos() {
@@ -79,7 +77,7 @@ export class SolicitudesPage implements OnInit {
             this.userService.usuarioActivo().id_usuario &&
           solicitudData.id_ciudad === this.userService.usuarioActivo().id_ciudad
         ) {
-          this.solicitudes.push(solicitudData);
+          solicitudData.estado_solicitud==='anulada'?console.log(''):this.solicitudes.push(solicitudData);
         }
       });
       this.solicitudes.forEach((solicitud) => {
@@ -95,6 +93,8 @@ export class SolicitudesPage implements OnInit {
             break;
           case 'activa':
             this.solicitudesActivas.push(solicitud);
+            break;
+          case 'anulada':
             break;
         }
       });

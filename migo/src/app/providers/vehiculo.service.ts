@@ -62,13 +62,6 @@ export class VehiculoService {
     return this.http.post(this.baseURL, formData);
   }
 
-  setBrandeo(id: number, brandeo: boolean): Observable<any> {
-    const body = {
-      "brandeo": brandeo,
-    }
-    return this.http.patch(this.baseURL + id, body);
-  }
-
   getIDNuevoVehiculo(): number {
     this.getVehiculos().subscribe((response) => {});
     let ultimoID =

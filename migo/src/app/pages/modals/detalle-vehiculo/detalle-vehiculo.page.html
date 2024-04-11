@@ -17,25 +17,25 @@
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('izq')"
-      src="{{getImageSrc('izq', vehiculo)}}"
+      [src]="getImageSrc('izq', vehiculo)"
       [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('der')"
-      src="{{getImageSrc('derecha', vehiculo)}}"
+      [src]="getImageSrc('derecha', vehiculo)"
       [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('techo')"
-      src="{{getImageSrc('techo', vehiculo)}}"
+      [src]="getImageSrc('techo', vehiculo)"
       [alt]="vehiculo.placa"
     ></ion-img>
     <ion-img
       class="foto-chiquita"
       (click)="cambiarImagen('trasera')"
-      src="{{getImageSrc('trasera', vehiculo)}}"
+      [src]="getImageSrc('trasera', vehiculo)"
       [alt]="vehiculo.placa"
     ></ion-img>
   </div>

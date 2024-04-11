@@ -40,7 +40,7 @@ export class CampanaActivaPage implements OnInit {
   nombreEmpresa = '-';
   correoEncargado = '--@--';
   vehiculo!: Vehiculo;
-  brandeo!: boolean;
+  brandeo?: boolean;
   
   //anular registro
   solicitud!: FormularioAplicacion;
@@ -75,12 +75,16 @@ export class CampanaActivaPage implements OnInit {
   ionViewDidEnter(){
     let solicitud = this.campanaService.getInfoCampanaActiva()[1];
     this.obtenerVehiculo(solicitud.id_vehiculo)
+    this.brandeo = solicitud.brandeo;
+    console.log(this.brandeo);
   }
 
   generarDatos() {
     this.solicitud = this.campanaService.getInfoCampanaActiva()[1];
-    this.obtenerVehiculo(this.solicitud.id_vehiculo);
-    
+    // this.obtenerVehiculo(this.solicitud.id_vehiculo);
+    this.brandeo = this.solicitud.brandeo;
+    console.log(this.brandeo);
+
     this.campana = this.campanaService.getInfoCampanaActiva()[0];
     this.consultarVehiculosAdmisibles(this.campana);
     this.consultarTalleres(this.campana);
@@ -221,7 +225,8 @@ export class CampanaActivaPage implements OnInit {
   obtenerVehiculo(id:number ){
     this.vehiculoService.getVehiculobyId(id).subscribe((vehiculo)=>{
       this.vehiculo = vehiculo;
-      this.brandeo = vehiculo.brandeo!;
+      this.brandeo = false;
+      // this.brandeo = vehiculo.brandeo!;
     });
   }
 

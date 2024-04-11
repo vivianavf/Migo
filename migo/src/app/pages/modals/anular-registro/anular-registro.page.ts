@@ -27,9 +27,14 @@ export class AnularRegistroPage implements OnInit {
   }
 
   anularRegistro(){
-    this.formService.cambiarEstadoFormulario(this.solicitud.id_formulario!, 'anulada').subscribe((response)=>{console.log(response)});
+    this.formService.cambiarEstadoFormulario(this.solicitud.id_formulario!, 'anulada').subscribe((response)=>{
+      console.log(response)
+      location.reload();
+    });
+    // location.reload();
     this.router.navigate(['/solicitudes']);
     this.modalController.dismiss();
+    // location
   }
 
   cancelar(){
