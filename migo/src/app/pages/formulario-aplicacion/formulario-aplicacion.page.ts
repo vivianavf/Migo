@@ -51,6 +51,7 @@ export class FormularioAplicacionPage implements OnInit {
   archivoMatricula!: File;
   showLicencia = true;
   showMatricula = true;
+  textoMatricula = '';
 
   entidadBancaria = 'Entidad Bancaria';
   tipoCuenta = 'Tipo de Cuenta';
@@ -298,23 +299,6 @@ export class FormularioAplicacionPage implements OnInit {
     }
   }
 
-  async mostrarQR() {
-    const modal = await this.modalController.create({
-      component: QrPage,
-      componentProps: {
-        user: this.userService.usuarioActivo(),
-        client: this.clientService.clienteActivo(),
-        campana: this.campanaService.getCampanaActual(),
-        vehiculo: this.elegirVehiculoService.vehiculoElegido,
-        marca: this.marcaVehiculo,
-        modelo: this.modeloVehiculo,
-      },
-      cssClass: 'qr-modal',
-    });
-
-    return await modal.present();
-  }
-
   vehiculoHaSidoSeleccionado() {
     if (!this.seleccionoVehiculo) {
       this.mostrarmsgVehiculo = true;
@@ -364,12 +348,25 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   generarApp() {
+    const ciudad = this.userService.usuarioActivo().id_ciudad;
+    const pais = this.userService.usuarioActivo().id_pais;
+
+    /* En Ecuador se dice 'Matricula', en Colombia se dice 'Tarjeta de propiedad' */
+    switch (pais) {
+      case 1:
+        this.textoMatricula = 'Matrícula';
+        break;
+      case 2:
+        this.textoMatricula = 'Tarjeta de Propiedad'
+        break;
+      default:
+        this.textoMatricula = 'Título de Propiedad del Vehículo';
+        break;
+    }
+
     if(this.entidadesBancarias.length === 0){
       this.bancoService.entidadesObtenidas.forEach((entidad)=>{
-        const ciudad = this.userService.usuarioActivo().id_ciudad;
-        const pais = this.userService.usuarioActivo().id_pais;
         (ciudad === entidad.id_ciudad && pais === entidad.id_pais)? this.entidadesBancarias.push(entidad.nombre):console.log('');
-        // this.entidadesBancarias.push(entidad.nombre);
       });
     }
     this.results = this.entidadesBancarias;
