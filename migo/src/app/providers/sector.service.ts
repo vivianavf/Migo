@@ -8,14 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class SectorService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
   private baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/sectores/';
   private formato = '?format=json'
   private sector !: Sector;
   public sectoresObtenidos: Sector[] = [];
+  
+
+  constructor(
+    private http: HttpClient,
+  ) { }
+
+  
 
   getSectores():Observable<Sector[]>{
     var respuesta = this.http.get<Sector[]>(this.baseURL+this.formato);
