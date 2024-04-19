@@ -22,7 +22,7 @@
           <div class="infoTexto">
             <ion-text class="bold-text uppercase-text">{{getCampana(solicitud.id_campana)}}</ion-text>
             <ion-text>La solicitud ha sido confirmada por el conductor</ion-text>
-            <ion-text>Estado: {{getEstado(solicitud)}}</ion-text>
+            <ion-text>Estado: <span class="bold-text" *ngIf="solicitud.brandeo" style="color:rgb(17, 186, 17);">Brandeado</span><span class="bold-text" *ngIf="!solicitud.brandeo" style="color:rgb(195, 0, 0);">Pendiente de Brandeo</span></ion-text>
           </div>
         </div>
       </ion-card>
