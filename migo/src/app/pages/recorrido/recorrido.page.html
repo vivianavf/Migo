@@ -4,12 +4,12 @@
   <div id="recorridoContent">
     <ion-text>Mostrando recorridos realizados</ion-text>
     <div id="recorridoCardsContainer">
-      <ion-card class="white-card" id="recorridoCard">
+      <ion-card  *ngFor='let recorrido of recorridos' class="white-card" id="recorridoCard">
         <div id="info-recorrido">
           <div id="info-text">
-            <ion-text class="black-text">Nombre de Campaña</ion-text>
-            <ion-text class="black-text">Kms Recorridos: 999 KM</ion-text>
-            <ion-text class="black-text">Recaudación: $ 999 999 999</ion-text>
+            <ion-text class="black-text">{{recorrido.id_campana}}</ion-text>
+            <ion-text class="black-text">Kms Recorridos: {{recorrido.kilometraje_recorrido}} KM</ion-text>
+            <ion-text class="black-text">Recaudación: $ {{recorrido.dinero_recaudado}}</ion-text>
           </div>
           <div id="info-button">
             <ion-button id="verDetalleRecorrido">Ver detalle</ion-button>

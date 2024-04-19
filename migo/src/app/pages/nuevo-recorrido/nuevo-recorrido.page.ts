@@ -54,6 +54,10 @@ export class NuevoRecorridoPage implements OnInit {
   ubicacionesGuardadas: UbicacionGuardada[] = [];
   actualPolygon: any;
 
+  //
+  directionsService: any;
+  directionsDisplay: any;
+
   constructor(
     private router: Router,
     private tabService: TabsService,
@@ -126,14 +130,14 @@ export class NuevoRecorridoPage implements OnInit {
 
     if(this.actualPolygon){
       let contieneUbi = google.maps.geometry.poly.containsLocation({lat: lat, lng: lng}, this.actualPolygon);
-
-      if(contieneUbi){
-        this.ubicacionesGuardadas.push({ lat: lat, lng: lng });
+      this.ubicacionesGuardadas.push({ lat: lat, lng: lng });
         localStorage.setItem(
           'ubicaciones',
           JSON.stringify(this.ubicacionesGuardadas)
         );
-        console.log('UBICACIONES GUARDADAS', this.ubicacionesGuardadas);
+
+      if(contieneUbi){
+        //
       }
     }
     
@@ -154,7 +158,7 @@ export class NuevoRecorridoPage implements OnInit {
     //
   }
 
-  dibujarUbicaciones(ubicacionesGuardadas: UbicacionGuardada[]) {
+  async dibujarUbicaciones(ubicacionesGuardadas: UbicacionGuardada[]) {
 
     // pero siempre y cuando los markers estén dentro del sector
   // https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
@@ -174,23 +178,48 @@ export class NuevoRecorridoPage implements OnInit {
         map: this.mapaRecorrido,
         title: 'Ubicacion!',
       });
-
-      // new google.maps.marker.AdvancedMarkerElement({
-      //   position: { lat: ubicacion.lat, lng: ubicacion.lng },
-      //   map: this.mapaRecorrido,
-      //   // content: pinViewBackground.element,
-      // });
     });
 
     const flightPath = new google.maps.Polyline({
       path: this.ubicacionesGuardadas,
       geodesic: true,
-      strokeColor: '#FF0000',
+      strokeColor: '#0013FF',
       strokeOpacity: 1.0,
-      strokeWeight: 2,
+      strokeWeight: 3,
     });
 
+    this.directionsService = new google.maps.DirectionsService;
+    this.directionsDisplay = new google.maps.DirectionsRenderer;
+    // this.directionsDisplay = new google.maps.DirectionsRenderer();
+
     flightPath.setMap(this.mapaRecorrido);
+
+    // this.directionsDisplay.setMap(this.mapaRecorrido);
+    // this.directionsDisplay.setOptions({
+    //   polylineOptions: {
+    //     strokeWeight: 6,
+    //     strokeOpacity: 1,
+    //     strokeColor: 'blue'
+    //   },
+    //   suppressMarkers: true
+    // })
+
+    // await this.drawPolyline();
+
+    // let primeraUbi = this.ubicacionesGuardadas[0];
+    // let ultimaUbi = this.ubicacionesGuardadas[this.ubicacionesGuardadas.length-1];
+
+    // await this.directionsService.route({
+    //   origin: primeraUbi,
+    //   destination: ultimaUbi,
+    //   travelMode: 'DRIVING',
+    //   provideRouteAlternatives: true,
+    // }, (response: any, status: any) =>{
+    //   if(status === 'OK'){
+    //     this.directionsDisplay.setDirections(response);
+    //   }
+    // })
+
   }
 
   generarDatos() {
@@ -339,10 +368,10 @@ export class NuevoRecorridoPage implements OnInit {
 
       createdPolygon = new google.maps.Polygon({
         paths: this.sectorCampana.cerco_virtual,
-        strokeColor: '#FF0000',
+        strokeColor: '#5DD3FF',
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: '#FF0000',
+        fillColor: '#5DD3FF',
         fillOpacity: 0.35,
       });
 
@@ -376,7 +405,62 @@ export class NuevoRecorridoPage implements OnInit {
   // Esa cantidad de distancia la guardo en el contador
   // devuelvo los KMS recorridos
 
-  
+  obtenerKMSRecorridos(): number{
+    let KMScontador = 0.0;
+    let ubiMonetizable: UbicacionGuardada[] = [];
+
+    // 1 2 3 4 /// ubicacionesGuardadas 
+    // 1 2 3  /// ubiMonetizable
+
+    this.ubicacionesGuardadas.forEach((ubicacion)=>{
+      // ubiMonetizable.push(ubicacion);
+
+      if(ubiMonetizable.length > 0){
+        let ultimoElemento = ubiMonetizable[ubiMonetizable.length-1];
+        KMScontador += this.calcularDistanciaenKMS(ubicacion, ultimoElemento);
+        console.log("CONTADOR VA EN - ", KMScontador);
+      }
+
+      ubiMonetizable.push(ubicacion);
+
+      // if(ubiMonetizable.length === 0){
+      //   ubiMonetizable.push(ubicacion);
+      // }else{
+      //   let ultimoElemento = ubiMonetizable[ubiMonetizable.length-1];
+      //   KMScontador += this.calcularDistanciaenKMS(ubicacion, ultimoElemento);
+      //   ubiMonetizable.push(ubicacion);
+      // }
+    })
+
+    console.log("Finalizacion de contador KMS -- quedó en -- ", KMScontador);
+
+    return KMScontador;
+  }
+
+  calcularDistanciaenKMS(puntoA: UbicacionGuardada, puntoB: UbicacionGuardada): number{
+    var R = 3958.8; //radio de la tierra en millas
+
+    var rlat1 = puntoA.lat * (Math.PI/180);
+    var rlat2 = puntoB.lat * (Math.PI/180);
+
+    var difLat = rlat2 - rlat1;
+    var difLong = (puntoB.lng - puntoB.lng) * (Math.PI/180);
+
+    var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difLat/2)
+    * Math.sin(difLat /
+      2) + Math.cos(rlat1) * Math.cos(rlat2) * Math.sin( difLong /
+        2) * Math.sin(difLong /2 )));
+
+    // var distanciaMetros = google.maps.geometry.spherical.computeDistanceBetween(puntoA, puntoB)
+    // var distanciaKMS = distanciaMetros * 0.001;
+
+    console.log("Distancia entre los puntos:")
+    // console.log("API COMP (en KMS) --- ", distanciaKMS);
+    console.log("DISTANCIA CAL en millas --- ", d);
+    console.log("DISTANCIA CAL EN KMS --- ", d*1609);
+
+    return d*1609;
+  }
 
 
   //
@@ -404,19 +488,38 @@ export class NuevoRecorridoPage implements OnInit {
   // multiplico cada valor que esta guardado en la campaña x la cantidad de kms
   // y sumo cada parte al contador (igual son valores estaticos)
 
+  resetLocalStorage(){
+    if(localStorage.getItem('recorrido')){
+      localStorage.removeItem('recorrido')
+    }
+    if(localStorage.getItem('campana-recorrido')){
+      localStorage.removeItem('campana-recorrido')
+    }
+
+    if(localStorage.getItem('vehiculo-recorrido')){
+      localStorage.removeItem('vehiculo-recorrido')
+    }
+
+    if(localStorage.getItem('ubicaciones')){
+      localStorage.removeItem('ubicaciones')
+    }
+  }
+  
   finalizarRecorrido() {
-    this.tabService.showTabs();
-    localStorage.removeItem('recorrido');
-    localStorage.removeItem('campana-recorrido');
-    localStorage.removeItem('vehiculo-recorrido');
-    localStorage.removeItem('ubicaciones');
+
+    console.log("Recorrido Finalizado....");
+
+    const KMSRecorridos = this.obtenerKMSRecorridos();
+    console.log("KMS RECORRIDOS - ", KMSRecorridos)
+    const fechaActual = new Date();
+
     const nuevoRecorrido: RecorridoRealizado = {
       id_vehiculo: this.vehiculo.id_vehiculo!,
       id_usuario: this.usuario.id_usuario,
       id_campana: this.campana.id_campana,
       fecha_hora_inicio: this.fechaInicio,
-      fecha_hora_fin: new Date(),
-      kilometraje_recorrido: 1,
+      fecha_hora_fin: fechaActual,
+      kilometraje_recorrido: KMSRecorridos,
       dinero_recaudado: 1,
       id_ciudad: this.usuario.id_ciudad,
       id_pais: this.usuario.id_pais,
@@ -429,11 +532,15 @@ export class NuevoRecorridoPage implements OnInit {
     // location.reload();
     // this.router.navigate(['/panel'])
 
+    console.log('Creando el recorrido ... ', nuevoRecorrido);
+
     this.recorridoService
       .crearRecorrido(nuevoRecorrido)
       .subscribe((response) => {
         this.stopTimer();
         location.reload();
+        this.tabService.hideTabs();
+        this.resetLocalStorage();
         // this.router.navigate(['/panel']);
       });
   }

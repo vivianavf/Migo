@@ -42,6 +42,7 @@ export class VerificarRecorridoPage implements OnInit {
 
   ngOnInit() {
     this.startTimer();
+
   }
 
   startTimer(){
@@ -52,6 +53,15 @@ export class VerificarRecorridoPage implements OnInit {
       this.currentTimeVerificacion = this.timerVerificacion.time();
       //si el contador llega a cero, poner algo que no alcanzó a hacer su verificación
     }, 1000);
+  }
+
+  stopTimer() {
+    this.timerVerificacion.stop();
+
+    if (this.intervalVerificacion) {
+      clearInterval(this.intervalVerificacion);
+      this.intervalVerificacion = undefined;
+    }
   }
 
   enviarVerificacion(){
@@ -76,6 +86,7 @@ export class VerificarRecorridoPage implements OnInit {
 
       setTimeout(()=>{
         this.modalVerificacion.dismiss();
+        this.resetDatos();
         this.router.navigate(['/nuevo-recorrido']);
       }, 3000);
 
@@ -95,6 +106,12 @@ export class VerificarRecorridoPage implements OnInit {
       this.mostrarMensaje = true;
     }
 
+  }
+
+  resetDatos(){
+    this.stopTimer();
+    this.fotoTomada = false;
+    this.src = '';
   }
 
   async takePhoto(): Promise<void>{
