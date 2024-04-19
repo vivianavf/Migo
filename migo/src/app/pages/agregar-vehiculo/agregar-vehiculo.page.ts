@@ -19,7 +19,7 @@ import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.servi
 import { MarcaVehiculo } from 'src/app/interfaces/marca-vehiculo';
 import { ModeloVehiculo } from 'src/app/interfaces/modelo-vehiculo';
 import { Observable } from 'rxjs';
-import { ModalController } from '@ionic/angular';
+import { IonModal, ModalController } from '@ionic/angular';
 import { FotopreviewPage } from '../modals/fotopreview/fotopreview.page';
 import { Email } from 'src/app/interfaces/email';
 import { HttpserviceService } from 'src/app/providers/httpservice.service';
@@ -114,6 +114,10 @@ export class AgregarVehiculoPage implements OnInit {
 
   alertButtons = ['OK'];
   alertInputs = [{ label: 'Red', type: 'radio', value: 'red' }];
+
+  //
+  @ViewChild(IonModal) modalaggVehiculo!: IonModal;
+  missingFields: string[] = [];
 
   //categorias y colores
   categorias = [
@@ -212,14 +216,19 @@ export class AgregarVehiculoPage implements OnInit {
     // Marcamos que se ha intentado enviar el formulario
     this.attemptedSubmit = true;
 
-    const missingFields = this.getMissingFields();
+    // const missingFields = this.getMissingFields();
+    this.missingFields = this.getMissingFields();
 
-    if (missingFields.length > 0) {
-      this.showValidationError = `Debe llenar los campos: ${missingFields.join(
+    if (this.missingFields.length > 0) {
+      console.log("missing fields", this.missingFields.length)
+      this.showValidationError = `Debe llenar los campos: ${this.missingFields.join(
         ', '
       )}.`;
       return;
     } else {
+      console.log("missing fields", this.missingFields.length)
+
+      // abrir alerta
 
       const userRequest = {
         email: this.formFields.Placa,
@@ -274,6 +283,9 @@ export class AgregarVehiculoPage implements OnInit {
             id_modelo: this.formFields.Modelo,
           };
           this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{
+            // cerrar alerta
+            this.modalaggVehiculo.dismiss();
+
             console.log(response);
             this.router.navigate([this.whereFrom]);
             //mostrar alguna ventana o regresar a la anterior

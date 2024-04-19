@@ -1,11 +1,27 @@
 <app-barra-navegacion></app-barra-navegacion>
 
-
 <ion-content class="withoutBackground">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">recorrido</ion-title>
-      <img src="../../../assets/images/construccion.jpg"/>
-    </ion-toolbar>
-  </ion-header>
+  <div id="recorridoContent">
+    <ion-text>Mostrando recorridos realizados</ion-text>
+    <div id="recorridoCardsContainer">
+      <ion-card class="white-card" id="recorridoCard">
+        <div id="info-recorrido">
+          <div id="info-text">
+            <ion-text class="black-text">Nombre de Campaña</ion-text>
+            <ion-text class="black-text">Kms Recorridos: 999 KM</ion-text>
+            <ion-text class="black-text">Recaudación: $ 999 999 999</ion-text>
+          </div>
+          <div id="info-button">
+            <ion-button id="verDetalleRecorrido">Ver detalle</ion-button>
+          </div>
+        </div>
+        <div id="img-recorridoContainer">
+          <img
+            id="img-recorrido"
+            src="../../../assets/images/migo-logo-edited.jpeg"
+          />
+        </div>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

@@ -235,7 +235,7 @@ export class CampanaActivaPage implements OnInit {
       component: QrPage,
       componentProps: {
         user: this.userService.usuarioActivo(),
-        client: this.clientService.clienteActivo(),
+        conductor: this.userService.esChoferOCliente(),
         campana: this.campana,
         vehiculo: this.vehiculo,
         marca: this.vehiculo.id_marca,

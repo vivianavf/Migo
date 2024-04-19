@@ -135,6 +135,20 @@ a {
 }
 
 /** Color objetos **/
+ion-card.white-card{
+  background: white;
+  --background-color: white;
+  --border-radius: 20px;
+  border-radius: 20px;
+  --color: black;
+  color: black;
+}
+
+ion-card.white-card > * {
+  --color: black;
+  color: black;
+}
+
 ion-checkbox {
   --border-color: #ffffff;
 }
@@ -148,7 +162,7 @@ ion-button {
 }
 
 .green-button{
-  --background: rgb(58, 210, 11);
+  --background: rgb(61, 214, 14);
   --color: white;
   font-weight: bold;
 }
@@ -280,6 +294,23 @@ ion-modal.solicitudConfirmar::part(backdrop) {
   --width: 90%;
   --border-radius: 40px;
   --background: white;
+}
+
+/* Pantallas de cargando */
+.loadingContent{
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  // height: 100%;
+}
+
+.loadingSpinner{
+  width: 70px;
+  height: 70px;
+  align-self: center;
 }
 
 ion-content.withoutBackground::part(background){

@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { VerificacionesPageRoutingModule } from './verificaciones-routing.module';
 
 import { VerificacionesPage } from './verificaciones.page';
+import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VerificacionesPageRoutingModule
+    VerificacionesPageRoutingModule,
+    AdsComponent,
   ],
   declarations: [VerificacionesPage]
 })

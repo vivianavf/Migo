@@ -1,0 +1,58 @@
+.ver-card{
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    padding: 5px;
+}
+
+.ver-imageContainer{
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.ver-image{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.ver-image::part(image){
+    border-radius: 50%;
+}
+
+.ver-campanaInfoContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 5px;
+}
+
+.ver-messageContainer{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#line{
+    width: 90%;
+    border-bottom: 1px solid white;
+    height: 20px;
+}
+
+.ver-buttonContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

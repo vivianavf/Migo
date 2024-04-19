@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HistorialPagosPageRoutingModule } from './historial-pagos-routing.module';
+import { VerificarRecorridoPageRoutingModule } from './verificar-recorrido-routing.module';
 
-import { HistorialPagosPage } from './historial-pagos.page';
+import { VerificarRecorridoPage } from './verificar-recorrido.page';
 import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { AdsComponent } from '../components/ads/ads.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    HistorialPagosPageRoutingModule,
+    VerificarRecorridoPageRoutingModule,
     AdsComponent,
   ],
-  declarations: [HistorialPagosPage]
+  declarations: [VerificarRecorridoPage]
 })
-export class HistorialPagosPageModule {}
+export class VerificarRecorridoPageModule {}

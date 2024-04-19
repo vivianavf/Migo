@@ -16,8 +16,12 @@
       </ion-item>
     </ion-list>
   </div>
-  <ion-button (click)="crearQR()">Mostrar QR</ion-button>
-  <div class="QR"><qrcode [allowEmptyString]="true" [qrdata]="datos" [width]="400"></qrcode></div>
+  <ion-button (click)="crearQR()">Generar Código QR</ion-button>
+  <form enctype="multipart/form-data">
+    <div class="QR">
+      <qrcode [allowEmptyString]="true" [qrdata]="datos" [width]="200">
+      </qrcode></div>
+  </form>
   <div class="verificarBrandeo">
     <ion-text class="ion-black-text black-text">Un administrador verificará el brandeo para que pueda comenzar a monetizar</ion-text>
     <ion-button (click)="aceptar()">Aceptar</ion-button>

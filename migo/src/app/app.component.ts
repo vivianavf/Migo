@@ -11,6 +11,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { AdsService } from './providers/ads.service';
 import { EntidadBancaria } from './interfaces/entidad-bancaria';
 import { EntidadBancariaService } from './providers/entidad-bancaria.service';
+import { EnviarNotificacionService } from './providers/enviar-notificacion.service';
 
 
 register();
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit{
     private navCtrl: NavController,
     private adsService: AdsService,
     private bancoService: EntidadBancariaService,
+    private enviarNotificacion: EnviarNotificacionService,
   ) {
 
   }
@@ -62,11 +64,24 @@ export class AppComponent implements OnInit{
     await PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification) => {
+        console.log(notification);
         console.log(
           'Push notification action performed',
           notification.actionId,
-          notification.inputValue
+          notification.inputValue,
         );
+        // console.log("Title", notification.notification.title)
+        // console.log("Title to String", notification.notification.title?.toString())
+        // console.log("TAG", notification.notification.tag)
+        // console.log("BODY", notification.notification.body?.toString())
+        // console.log("DATA - title", notification.notification.data)
+        // console.log("SUBTITLE", notification.notification.subtitle?.toString())
+
+        // if(notification.notification.data.message){
+        //   console.log("message - notif", notification.notification.data.message)
+        // }
+        
+        this.router.navigate(['/verificar-recorrido']);
       }
     );
   };
@@ -103,8 +118,6 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit() {
-
-    try {
       const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
 
       if (isPushNotificationsAvailable) {
@@ -123,10 +136,6 @@ export class AppComponent implements OnInit{
       } else {
         console.log('Push Notifications Not Available :c');
       }
-    } catch (error) {
-      console.log(error);
-    }
-
     this.userService.getUsers().subscribe((data)=>{})
     this.clientService.getClients().subscribe((data)=>{})
     this.campanaService.getCampanas().subscribe((data)=>{})

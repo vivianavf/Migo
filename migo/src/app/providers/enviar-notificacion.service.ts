@@ -7,7 +7,7 @@ import { UsersService } from './users.service';
 })
 export class EnviarNotificacionService {
 
-  baseURL = 'https://migoadvs.pythonanywhere.com/Database/Database/send_fcm_notification/';
+  baseURL = 'https://migoadvs.pythonanywhere.com/Database/send_fcm_notification/';
 
   constructor(
     private http: HttpClient,
@@ -16,7 +16,7 @@ export class EnviarNotificacionService {
 
   enviarNotificacion(titulo: string, mensaje: string){
     const token = this.userService.usuarioActivo().token_notificacion;
-
+    console.log("Token de notificacion a enviar",token);
     const notificacion = {
       registration_token: token,
       title: titulo,

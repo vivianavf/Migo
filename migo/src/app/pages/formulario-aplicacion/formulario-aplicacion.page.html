@@ -257,11 +257,28 @@
       </div>
   
       <div class="button-container">
-        <ion-button id="" (click)="enviarFormulario()" class="capitalize-text enviar"
+        <ion-button id="enviarFormularioAplicacion" (click)="enviarFormulario()" class="capitalize-text enviar"
           >Enviar</ion-button
         >
       </div>
     
   </ion-card>
+
+  <ion-modal
+    *ngIf="puedeRegistrarse"
+    trigger="enviarFormularioAplicacion"
+    class="enviarFormularioAplicacionModal"
+    [initialBreakpoint]="0.5"
+    [breakpoints]="[0.5, 0.75]"
+  >
+    <ng-template>
+      <ion-content>
+        <div class="loadingContent">
+          <ion-text>Enviando Solicitud...</ion-text>
+          <ion-spinner class="loadingSpinner" name="dots" color="primary"></ion-spinner>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>

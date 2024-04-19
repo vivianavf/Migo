@@ -37,9 +37,10 @@ export class IngresoConductorCampanaService {
   }
   
 
-  subirDocumento(id: number, documento: Blob){
+  subirDocumento(id: number, documento: Blob, placa: string, cedula: string){
+    // const fecha = new Date();
     const formData = new FormData();
-    const newFile = new File([documento], "");
+    const newFile = new File([documento], id + '_' +placa + '_' + cedula +'.pdf');
     formData.append(
       'documento_QR',
       newFile

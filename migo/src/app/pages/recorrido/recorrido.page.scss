@@ -1,0 +1,60 @@
+#recorridoContent{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+#recorridoCardsContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+#recorridoCard{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#info-recorrido{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+#info-text{
+    display: flex;
+    flex-direction: column;
+}
+
+#info-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+ion-button#verDetalleRecorrido{
+    min-height: 30px;
+}
+
+#img-recorridoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
+#img-recorrido{
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+}

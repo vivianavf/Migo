@@ -95,6 +95,7 @@ export class UsersService {
       localStorage.setItem('usuario_rol', user.rol_usuario.toString());
       localStorage.setItem('usuario_id_pais', user.id_pais.toString());
       localStorage.setItem('usuario_id_ciudad', user.id_ciudad.toString());
+      localStorage.setItem('token_notificacion', user.token_notificacion.toString());
     }
   }
 
@@ -143,6 +144,10 @@ export class UsersService {
 
     return '';
   }
+
+  /* esChoferOCliente */
+  /* Devuelve un objeto Chofer, si el usuario activo es un chofer */
+  /* Devuelve un objeto Cliente, si el usuario activo es un cliente */
 
   esChoferOCliente() {
     switch (this.usuarioActivo().rol_usuario) {

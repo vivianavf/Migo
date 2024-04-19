@@ -12,6 +12,7 @@ import { DetalleVehiculoPage } from '../modals/detalle-vehiculo/detalle-vehiculo
 import { LocalstorageService } from 'src/app/providers/localstorage.service';
 import { NoTieneVehiculoPage } from '../modals/no-tiene-vehiculo/no-tiene-vehiculo.page';
 import { ChoferService } from 'src/app/providers/chofer.service';
+import { NavigationService } from 'src/app/providers/navigation.service';
 
 @Component({
   selector: 'app-vehiculos',
@@ -41,6 +42,7 @@ export class VehiculosPage implements OnInit {
     private modalCtrl: ModalController,
     private localStorageSrvc: LocalstorageService,
     private choferService: ChoferService,
+    private navService: NavigationService,
   ) {}
 
   async verMas(vehiculoSecundario: any) {
@@ -209,5 +211,7 @@ export class VehiculosPage implements OnInit {
 
   agregarVehiculo() {
     this.router.navigate(['/agregar-vehiculo']);
+    this.navService.setPagina('/vehiculos')
+    // this.service
   }
 }

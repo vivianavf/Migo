@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  IonModal,
   ModalController,
   NavController,
   PopoverController,
@@ -99,6 +100,10 @@ export class FormularioAplicacionPage implements OnInit {
   entidadSeleccionada: string = '';
 
   imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/'
+
+  //
+  puedeRegistrarse: boolean = false;
+  @ViewChild(IonModal) modalFormulario!: IonModal;
 
   constructor(
     private modalController: ModalController,
@@ -306,6 +311,7 @@ export class FormularioAplicacionPage implements OnInit {
       this.vehiculoSeleccionado
     ) {
       console.log('puede registrarse');
+      this.puedeRegistrarse = true;
 
       const user = this.userService.usuarioActivo();
       const rolUser = user.rol_usuario;
@@ -335,7 +341,8 @@ export class FormularioAplicacionPage implements OnInit {
           this.formService.crearFormulario(formChofer).subscribe((response) => {
             if (response) {
               console.log(response);
-              this.navCtrl.navigateRoot('/solicitudes');
+              this.modalFormulario.dismiss();
+              // this.navCtrl.navigateRoot('/solicitudes');
               location.reload();
             }
           });
@@ -363,7 +370,9 @@ export class FormularioAplicacionPage implements OnInit {
           this.formService.crearFormulario(formCliente).subscribe((response) => {
             if (response) {
               console.log(response);
-              this.navCtrl.navigateRoot('/solicitudes');
+              //cerrar cargando
+              this.modalFormulario.dismiss();
+              // this.navCtrl.navigateRoot('/solicitudes');
               location.reload();
             }
           });
@@ -371,6 +380,7 @@ export class FormularioAplicacionPage implements OnInit {
       }
     } else {
       console.log('No puede registrarse');
+      this.puedeRegistrarse = false;
     }
   }
 

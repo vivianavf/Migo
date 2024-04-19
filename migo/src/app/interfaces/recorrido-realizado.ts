@@ -10,4 +10,5 @@ export interface RecorridoRealizado {
     id_ciudad: number,
     id_pais: number,
     estado?: number,
+    ubicaciones: any,
 }

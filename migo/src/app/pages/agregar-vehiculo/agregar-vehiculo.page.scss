@@ -88,10 +88,15 @@ ion-title{
     --background: transparent;
 }
 
+ion-img.fotoVehiculoPreview{
+    max-height: 340px;
+}
+
 .button-container{
     width: 200px;
-    min-height: 200px;
-    height: 100%;
+    height: 400px;
+    max-width: 200px;
+    max-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -135,3 +140,17 @@ ion-button.add-button:host(.button-solid){
 //     --padding-top:0px;
 //     --padding-start:15px;
 // }
+
+
+#aggVehiculoCargando{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+#aggVehiculoSpinner{
+    width: 100px;
+    height: 100px;
+}

@@ -20,7 +20,10 @@ import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Router } from '@angular/router';
 import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
 import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
-
+import { Chofer } from 'src/app/interfaces/chofer';
+import { MarcaService } from 'src/app/providers/marca.service';
+import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
+import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -31,11 +34,14 @@ import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 })
 export class QrPage implements OnInit {
   @Input() user!: User;
-  @Input() client!: Client;
+  @Input() conductor!: any;
   @Input() campana!: Campana;
   @Input() vehiculo!: Vehiculo;
   @Input() marca!: string;
   @Input() modelo!: string;
+
+  nombreMarca = ''
+  nombreModelo = ''
 
   datos = '';
   logoData: any;
@@ -56,18 +62,23 @@ export class QrPage implements OnInit {
     private campanaService: CampanaService,
     private router: Router,
     private tallerService: TallerBrandeoService,
+    private marcaVehiculoService: MarcaVehiculoService,
+    private modeloVehiculoService: ModeloVehiculosService
   ) {}
 
   crearQR() {
-    if(this.datos) return
-    this.datos = 'MIGO ADS _ INFO';
+    if (this.datos) return;
+
+    // enlace al documento del formulario registro campana
+    this.datos = '//Migo Ads//';
     this.loadLocalAssetToBase64();
     this.crearPDF();
+
+    // tengo que enviar un documento QR
+    //
   }
 
   crearPDF() {
-    // let vehiculo = this.vehiculoElegidoService.vehiculoElegido;
-    // console.log(this.user, this.client, this.campana);
     let logo = { image: this.logoData, width: 50 };
 
     const docDefinition = {
@@ -79,9 +90,9 @@ export class QrPage implements OnInit {
       },
       content: [
         { text: 'Migo Ads - Orden de Brandeo', style: 'header' },
-        { text: 'Generado en: 8/01/2024', style: 'subheader' },
-        { text: '\nTaller ' + "this.campana.taller_brandeo", style: 'header' },
-        { text: 'Direccion del taller', style: 'subheader' },
+        { text: 'Generado en: ' + new Date(), style: 'subheader' },
+        // { text: '\nTaller ' + this.campana, style: 'header' },
+        // { text: 'Direccion del taller', style: 'subheader' },
         { text: '\nDatos de Cliente y Vehiculo', style: 'header' },
         {
           columns: [
@@ -90,11 +101,11 @@ export class QrPage implements OnInit {
               table: {
                 body: [
                   ['Cliente', ''],
-                  ['Nombre', this.client.nombre],
-                  ['Apellido', this.client.apellido],
-                  ['Cedula', this.client.cedula_cliente],
-                  ['Fecha de Nacimiento', this.client.fecha_nacimiento],
-                  ['Telefono', this.client.telefono],
+                  ['Nombre', this.conductor.nombre],
+                  ['Apellido', this.conductor.apellido],
+                  ['Cedula', this.conductor.cedula],
+                  ['Fecha de Nacimiento', this.conductor.fecha_nacimiento],
+                  ['Telefono', this.conductor.telefono],
                 ],
               },
             },
@@ -105,16 +116,16 @@ export class QrPage implements OnInit {
                   ['Vehiculo', ''],
                   ['Placa', this.vehiculo.placa],
                   ['Año', this.vehiculo.anio],
-                  ['Marca', this.marca],
-                  ['Modelo', this.modelo],
-                  ['Color',this.vehiculo.color_vehiculo],
+                  ['Marca', this.nombreMarca],
+                  ['Modelo', this.nombreModelo],
+                  ['Color', this.vehiculo.color_vehiculo],
                   ['Categoria', this.vehiculo.categoria_vehiculo],
                 ],
               },
             },
           ],
         },
-        { text: '\nImagenes del Vehiculo\n', style: 'header' },
+        // { text: '\nImagenes del Vehiculo\n', style: 'header' },
         { text: '\nInformacion del Brandeo\n', style: 'header' },
         {
           style: 'tableExample',
@@ -129,7 +140,7 @@ export class QrPage implements OnInit {
             ],
           },
         },
-        { text: '\nBrandeo: '+this.campana.tipo_brandeo, style: 'header' },
+        { text: '\nBrandeo: ' + this.campana.tipo_brandeo, style: 'header' },
         {
           ul: [
             'Capo',
@@ -153,8 +164,25 @@ export class QrPage implements OnInit {
 
     this.pdfObj = pdfMake.createPdf(docDefinition);
     // this.pdfObj.download();
+    this.pdfObj.getBlob((result: Blob) => {
 
-    // console.log(this.pdfObj.getStream());
+      let ingresoActual = this.ingresos.find(
+        (ingreso) =>
+          this.campana.id_campana === ingreso.id_campana &&
+          this.user.id_usuario === ingreso.id_usuario &&
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+      );
+      if (ingresoActual) {
+        this.ingresarCondService
+          .subirDocumento(ingresoActual.id!, result, this.vehiculo.placa, this.conductor.cedula )
+          .subscribe((ingreso: any) => {
+            const rutaBase = 'https://migoadvs.pythonanywhere.com/documentos/'
+            const rutaDocumento = ingresoActual!.id + '_' + this.vehiculo.placa + '_' + this.conductor.cedula +'.pdf'
+            const rutaCompleta = rutaBase + rutaDocumento;
+            this.datos = rutaCompleta;
+          });
+      }
+    });
   }
 
   loadLocalAssetToBase64() {
@@ -169,26 +197,30 @@ export class QrPage implements OnInit {
       });
   }
 
-  aceptar(){
+  aceptar() {
     this.modalQR.dismiss();
-    // this.vehiculo.brandeo = true;
-    // console.log("BRANDEO = TRUE");
-    // this.vehiculoService.setBrandeo(this.vehiculo.id_vehiculo!, true).subscribe((response)=>{console.log(response)})
     this.router.navigate(['/solicitudes']);
   }
 
   ngOnInit() {
-    this.ingresarCondService.getIngresos().subscribe((data)=>{
+    this.ingresarCondService.getIngresos().subscribe((data) => {
       this.ingresos = data;
-    })
+    });
 
-    this.tallerService.getTalleres().subscribe((data)=>{
+    this.marcaVehiculoService.getMarcabyId(Number(this.marca)).subscribe((marca)=>{
+      this.nombreMarca = marca.nombre;
+    });
+    this.modeloVehiculoService.getModelobyId(Number(this.modelo)).subscribe((modelo)=>{
+      this.nombreModelo = modelo.nombre});
+
+    this.tallerService.getTalleres().subscribe((data) => {
       this.talleres = data;
-      console.log(this.campana.id_talleres)
-      this.campana.id_talleres.forEach((idTaller)=>{
-         const tallerEncontrado = this.talleres.find((taller)=> taller.id_taller === idTaller)!
-         this.talleresCampana.push(tallerEncontrado);
-      })
-    })
+      this.campana.id_talleres.forEach((idTaller) => {
+        const tallerEncontrado = this.talleres.find(
+          (taller) => taller.id_taller === idTaller
+        )!;
+        this.talleresCampana.push(tallerEncontrado);
+      });
+    });
   }
 }

@@ -223,6 +223,7 @@
           <ion-label *ngIf="!fotoIzquierdaTomada">Lateral Izquierdo</ion-label>
 
           <ion-img
+          class="fotoVehiculoPreview"
             *ngIf="fotoIzquierdaTomada"
             (click)="abrirModal()"
             src="{{srcIzquierda}}"
@@ -249,6 +250,7 @@
         <div class="button-container">
           <ion-label *ngIf="!fotoDerechaTomada">Lateral Derecho</ion-label>
           <ion-img
+           class="fotoVehiculoPreview"
             *ngIf="fotoDerechaTomada"
             (click)="abrirModal()"
             src="{{srcDerecha}}"
@@ -276,6 +278,7 @@
         <div class="button-container">
           <ion-label *ngIf="!fotoTraseraTomada">Foto Trasera</ion-label>
           <ion-img
+          class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoTraseraTomada"
             src="{{srcTrasera}}"
@@ -301,6 +304,7 @@
         <div class="button-container">
           <ion-label *ngIf="!fotoAereaTomada">Foto Aérea</ion-label>
           <ion-img
+          class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoAereaTomada"
             src="{{srcAerea}}"
@@ -328,6 +332,7 @@
         <div class="button-container">
           <ion-label *ngIf="!fotoFrontalTomada">Foto Frontal</ion-label>
           <ion-img
+          class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoFrontalTomada"
             src="{{srcFrontal}}"
@@ -357,9 +362,27 @@
     </div>
     <ion-text *ngIf="esMayorEdad">Debe ser mayor a 18 años</ion-text>
     <div class="submit-button-container">
-      <ion-button expand="default" (click)="submitForm()"
+      <ion-button id="aggVehiculoButton" expand="default" (click)="submitForm()"
         >Agregar Vehículo</ion-button
       >
     </div>
   </form>
+
+
+  <ion-modal
+    *ngIf="missingFields.length === 0"
+    trigger="aggVehiculoButton"
+    class="aggVehiculoModal"
+    [initialBreakpoint]="0.5"
+    [breakpoints]="[0.5, 0.75]"
+  >
+  <ng-template>
+    <ion-content>
+      <div class="loadingContent">
+        <ion-text>Enviando Solicitud...</ion-text>
+        <ion-spinner class="loadingSpinner" name="dots" color="primary"></ion-spinner>
+      </div>
+    </ion-content>
+  </ng-template>
+  </ion-modal>
 </ion-content>

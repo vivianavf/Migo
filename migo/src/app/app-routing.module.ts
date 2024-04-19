@@ -229,6 +229,10 @@ const routes: Routes = [
     path: 'anular-registro',
     loadChildren: () => import('./pages/modals/anular-registro/anular-registro.module').then( m => m.AnularRegistroPageModule)
   },
+  {
+    path: 'verificar-recorrido',
+    loadChildren: () => import('./pages/verificar-recorrido/verificar-recorrido.module').then( m => m.VerificarRecorridoPageModule)
+  },
 
 
 

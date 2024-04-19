@@ -1,0 +1,70 @@
+
+#card-RecorridoInfo{
+    background: white;
+    margin: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#line{
+    height: 2px;
+    border-bottom: 1px solid rgb(192, 192, 192);
+    width: 80%;
+}
+
+#retiroInfoContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    padding: 10px;
+    width: 100%;
+}
+
+.hist-infotext{
+    display: flex;
+    flex-direction: column;
+}
+
+#retiroButtonContainer{
+    display: flex;
+    justify-content: center;
+}
+
+#generarRetiroButton{
+    --background: rgb(37, 244, 37);
+    --border-radius: 20px;
+    margin: 10px;
+
+}
+
+#filtroContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#filtroButton{
+    width: 200px;
+    --background: white;
+    --border-radius: 20px
+}
+
+#filtroButton::part(native){
+    .button-inner{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+#filtroButton::part(native) > span{
+    
+        display: flex;
+        justify-content: space-between;
+        background: green;
+}
+

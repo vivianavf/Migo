@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Campana } from '../interfaces/campana';
+import { FormularioAplicacion } from '../interfaces/formulario-aplicacion';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class CampanaService {
   private campana : any;
   public campanasObtenidas: Campana[] = [];
   private campanaActiva!: Campana;
-  private solicitud: any;
+  private solicitud!: FormularioAplicacion;
 
   constructor(
     private http: HttpClient,
@@ -44,12 +45,12 @@ export class CampanaService {
     return this.campana;
   }
 
-  setInfoCampanaActiva(campana: Campana, solicitud: any){
+  setInfoCampanaActiva(campana: Campana, solicitud: FormularioAplicacion){
     this.campanaActiva = campana;
     this.solicitud = solicitud;
   }
 
-  getInfoCampanaActiva():any{
+  getInfoCampanaActiva():[campana: Campana, solicitud: FormularioAplicacion]{
     return [this.campanaActiva, this.solicitud];
   }
 
