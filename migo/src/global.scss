@@ -296,6 +296,13 @@ ion-modal.solicitudConfirmar::part(backdrop) {
   --background: white;
 }
 
+.mapa-recorrido-modal{
+  --height: 60%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: white;
+}
+
 /* Pantallas de cargando */
 .loadingContent{
   padding: 50px;

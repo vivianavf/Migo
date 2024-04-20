@@ -73,13 +73,17 @@ export class AppComponent implements OnInit{
         // console.log("Title", notification.notification.title)
         // console.log("Title to String", notification.notification.title?.toString())
         // console.log("TAG", notification.notification.tag)
-        // console.log("BODY", notification.notification.body?.toString())
-        // console.log("DATA - title", notification.notification.data)
+        console.log("BODY", notification.notification.body?.toString())
+        console.log("DATA - title", notification.notification.data)
+        console.log(JSON.stringify(notification.notification.data))
+        console.log(JSON.stringify(notification))
         // console.log("SUBTITLE", notification.notification.subtitle?.toString())
 
         // if(notification.notification.data.message){
         //   console.log("message - notif", notification.notification.data.message)
         // }
+
+        // object [Object]
         
         this.router.navigate(['/verificar-recorrido']);
       }

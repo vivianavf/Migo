@@ -233,6 +233,10 @@ const routes: Routes = [
     path: 'verificar-recorrido',
     loadChildren: () => import('./pages/verificar-recorrido/verificar-recorrido.module').then( m => m.VerificarRecorridoPageModule)
   },
+  {
+    path: 'mapa-recorrido',
+    loadChildren: () => import('./pages/modals/mapa-recorrido/mapa-recorrido.module').then( m => m.MapaRecorridoPageModule)
+  },
 
 
 

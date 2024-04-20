@@ -31,67 +31,6 @@ export class NotificacionesPage implements OnInit {
   }
 
 
-
-  async eliminarTodo() {
-    
-    //eliminar notificaciones del servidor (nunca más regresan, se eliminan para siempreeeee)
-    const alert = await this.alertController.create({
-      cssClass: "notificationsAlert",
-      header: 'Está seguro de eliminar todas las notificaciones?',
-      message: 'Esta acción no se puede revertir',
-      buttons: [{
-        cssClass: "cancelarButton",
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => {
-          console.log('Alert canceled');
-        },
-      },
-      {
-        cssClass: "YesButton",
-        text: 'Aceptar',
-        role: 'confirm',
-        handler: () => {
-          console.log('Alert confirmed');
-          var cards = document.getElementsByClassName("notifCard");
-          while (cards.length > 0) {
-            cards[0].remove();
-          }
-          for (let i = 0; i < this.notificaciones.length; i++) {
-            this.notificacionesService.clearNotificaciones(this.notificaciones[i].id_notificacion.toString(), this.notificaciones[i]).subscribe((data) => {
-              console.log(data);
-            })
-          }
-        },
-      },],
-    });
-
-    await alert.present();
-  }
-
-  async verMas(fecha_creacion: string, titulo: string, descripcion: string){
-    const alert = await this.alertController.create({
-      cssClass: "notificationInfo",
-      header: titulo,
-      subHeader: fecha_creacion,
-      message: descripcion,
-      //TODO: falta la imagen
-      buttons: [
-      {
-        cssClass: "YesButton",
-        text: 'Aceptar',
-        role: 'confirm',
-        handler: () => {
-          console.log('Alert confirmed');
-          
-        },
-      },],
-    });
-
-    // await alert.present();
-
-  }
-
   ngOnInit() {
     this.notificacionesService.getNotificaciones().subscribe((data) => {
       this.notificaciones = data;

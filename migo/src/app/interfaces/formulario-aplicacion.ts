@@ -16,4 +16,11 @@ export interface FormularioAplicacion {
     id_campana: number,
     estado_solicitud: string,
     brandeo?: boolean,
+    carroceria_capo?: boolean,
+    carroceria_techo?: boolean,
+    puerta_conductor?: boolean,
+    puerta_pasajero?: boolean,
+    puerta_trasera_iz?: boolean,
+    puerta_trasera_der?: boolean,
+    puerta_maletero?: boolean,
 }

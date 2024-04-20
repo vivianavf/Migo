@@ -40,10 +40,49 @@ export class PanelPage implements OnInit {
   ds!: google.maps.DirectionsService;
   dr!: google.maps.DirectionsRenderer;
 
+  //
+  horarioInicio = '8:23'
+  horarioFin = '16:47'
+
   constructor(
     private toolbarService: ToolbarService,
     private sectorService: SectorService
   ) {}
+
+  //
+  //HOY
+  // POR COBRAR : ???
+  // RECORRIDO:
+  // crear un array vacio de campanasHoy = campana[]
+  // crear una variable number vacia de contadorKMsHoy = 0
+  // tendria que obtener un array de todos los recorridosrealizados[]
+  // guardar en una variable la fecha de hoy
+  // Luego, recorrer el array de recorridosrealizados[] y comparar la fecha con la de hoy
+  // si el recorridorealizado.fecha es igual a la fecha de hoy
+  // se obtiene los KMS de ese recorrido 
+  // y se suman a la variable contadorKMsHoy
+  // con el id_campana obtener la campana
+  // agregar esa campana a campanasHoy
+  // 
+  //
+  // HORARIO MONETIZACION:
+  // crear array de numbers = horariosInicio ej: [800, 1200, 1259, 900]
+  // crear array de number = horariosFin ej: [1600, 1800, 1759, 1000]
+  // obtener el minimo de cada array
+  // el minimo de horarios de Inicio guardarlo en horarioInicio
+  // el minio de horarios de Fin guardarlo en horarioFin
+
+  // TODOS MIS RECORRIDOS
+  // KMS TOTALES
+  // crear un contador KMSTotales = 0
+  // obtener con el servicio todos los recorridos
+  // recorrer este array y obtener el km de cada recorrido
+  // sumar el km a KMSTotales
+
+  // Tiempo Total
+
+
+  //
 
   ngOnInit() {
     //aqui nada

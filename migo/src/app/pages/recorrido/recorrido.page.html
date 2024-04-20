@@ -2,23 +2,26 @@
 
 <ion-content class="withoutBackground">
   <div id="recorridoContent">
-    <ion-text>Mostrando recorridos realizados</ion-text>
+    <ion-text *ngIf="recorridos.length > 0">Mostrando recorridos realizados</ion-text>
+    <ion-text *ngIf="recorridos.length === 0">No hay recorridos para presentar</ion-text>
     <div id="recorridoCardsContainer">
       <ion-card  *ngFor='let recorrido of recorridos' class="white-card" id="recorridoCard">
         <div id="info-recorrido">
           <div id="info-text">
-            <ion-text class="black-text">{{recorrido.id_campana}}</ion-text>
+            <ion-text class="black-text bold-text uppercase-text">{{getNombreCampana(recorrido.id_campana)}}</ion-text>
             <ion-text class="black-text">Kms Recorridos: {{recorrido.kilometraje_recorrido}} KM</ion-text>
             <ion-text class="black-text">Recaudación: $ {{recorrido.dinero_recaudado}}</ion-text>
           </div>
           <div id="info-button">
-            <ion-button id="verDetalleRecorrido">Ver detalle</ion-button>
+            <ion-button (click)="mostrarMapaRecorrido(recorrido)" class="capitalize" id="verDetalleRecorrido">Ver detalle</ion-button>
           </div>
         </div>
         <div id="img-recorridoContainer">
           <img
             id="img-recorrido"
-            src="../../../assets/images/migo-logo-edited.jpeg"
+            src="../../../assets/images/empresas/logos/{{
+              getIDEmpresa(recorrido.id_campana)
+            }}.jpg"
           />
         </div>
       </ion-card>

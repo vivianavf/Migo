@@ -172,7 +172,6 @@ export class NuevoRecorridoPage implements OnInit {
     // });
 
     ubicacionesGuardadas.forEach((ubicacion) => {
-      console.log(ubicacion.lat, ubicacion.lng);
       new google.maps.Marker({
         position: { lat: ubicacion.lat, lng: ubicacion.lng },
         map: this.mapaRecorrido,
@@ -475,7 +474,9 @@ export class NuevoRecorridoPage implements OnInit {
   // "carroceria_guantera": 0.0,
   // "carroceria_techo": 0.0,
 
-  //Pero con booleanos, cosa que ahi ya se que parte del carro el conductor brandeó
+  // valores entre 0 y 1 (a modo de porcentajes)
+
+  // Pero con booleanos, cosa que ahi ya se que parte del carro el conductor brandeó
   // Luego de eso, sacar los valores con true
   // por ejemplo = ["puerta_conductor", "puerta_pasajero"]
   // Luego Sacar en Campaña Publicitaria el valor de esos brandeos.
@@ -504,13 +505,20 @@ export class NuevoRecorridoPage implements OnInit {
       localStorage.removeItem('ubicaciones')
     }
   }
+
+  redondearFloat(numeroFloat: number, decimales: number){
+    const factor = 10 ** decimales;
+    return Math.round(numeroFloat*factor) / factor
+  }
   
   finalizarRecorrido() {
 
     console.log("Recorrido Finalizado....");
-
+    
     const KMSRecorridos = this.obtenerKMSRecorridos();
-    console.log("KMS RECORRIDOS - ", KMSRecorridos)
+    const KMSRedondeados = this.redondearFloat(KMSRecorridos, 2);
+    console.log("KMS SIN REDONDEAR - ", KMSRecorridos)
+    console.log("KMS REDONDEADOS -- ", KMSRedondeados)
     const fechaActual = new Date();
 
     const nuevoRecorrido: RecorridoRealizado = {
@@ -519,7 +527,7 @@ export class NuevoRecorridoPage implements OnInit {
       id_campana: this.campana.id_campana,
       fecha_hora_inicio: this.fechaInicio,
       fecha_hora_fin: fechaActual,
-      kilometraje_recorrido: KMSRecorridos,
+      kilometraje_recorrido: KMSRedondeados,
       dinero_recaudado: 1,
       id_ciudad: this.usuario.id_ciudad,
       id_pais: this.usuario.id_pais,

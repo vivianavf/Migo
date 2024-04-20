@@ -1,65 +1,12 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar class="notifToolbar" part="toolbar">
     <ion-buttons slot="start">
-      <ion-back-button
-        icon="chevron-back"
-        (click)="cerrarModal()"
-        default-href=""
-      ></ion-back-button>
+      <ion-back-button icon="chevron-back" (click)="cerrarModal()" default-href=""></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center bold-text uppercase-text"
-      >Notificaciones</ion-title
-    >
+    <ion-title id="toolbarTitle">NOTIFICACIONES</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="withoutBackground">
-  <ion-item class="button-container">
-    <ion-button
-      class="ion-text-end eliminar capitalize bold-text"
-      (click)="eliminarTodo()"
-    >
-      Eliminar Todo
-      <ion-icon name="trash" color="white"></ion-icon>
-    </ion-button>
-  </ion-item>
 
-  <ion-item
-    id="parent-notifications"
-    class="first-container container"
-  >
-    <ion-title class="read white-text">No leídas</ion-title>
-    <ion-progress-bar
-      *ngIf="notificaciones.length === 0"
-      type="indeterminate"
-    ></ion-progress-bar>
-    <ion-card *ngFor="let notificacion of notificaciones">
-      <div class="date">{{notificacion.fecha_creacion}}</div>
-        <ion-card-content>
-          <img
-            class="notif-img"
-            src="../../../../assets/images/migo_logo.png"
-          />
-          <div class="notif-contenido">
-            <ion-text
-              class="notif-title bold-text uppercase-text"
-              >{{notificacion.titulo}}</ion-text
-            ><ion-text
-              class="notif-content"
-              >{{notificacion.descripcion}}</ion-text
-            >
-          </div>
-          <ion-button
-            class="detalle capitalize ion-text-wrap bold-text"
-            >Ver Más</ion-button
-          ></ion-card-content
-        ></ion-card>
-  </ion-item>
-
-  <div class="line"></div>
-
-  <ion-item class="second-container container">
-    <ion-title class="read"> Leídas </ion-title>
-    <ion-text>No Hay Notificaciones</ion-text>
-  </ion-item>
 </ion-content>
