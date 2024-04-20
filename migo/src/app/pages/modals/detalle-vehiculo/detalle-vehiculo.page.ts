@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
 import { ClienteService } from 'src/app/providers/cliente.service';
-import { MarcaService } from 'src/app/providers/marca.service';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 import { Client } from 'src/app/interfaces/client';
 import { MarcaVehiculo } from 'src/app/interfaces/marca-vehiculo';

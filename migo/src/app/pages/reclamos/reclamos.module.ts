@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReclamosPageRoutingModule } from './reclamos-routing.module';
 
 import { ReclamosPage } from './reclamos.page';
+import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReclamosPageRoutingModule
+    ReclamosPageRoutingModule,
+    AdsComponent,
   ],
   declarations: [ReclamosPage]
 })

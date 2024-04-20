@@ -6,6 +6,9 @@ import { RecorridoRealizadoService } from 'src/app/providers/recorrido-realizado
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { MapaRecorridoPage } from '../modals/mapa-recorrido/mapa-recorrido.page';
 import { UsersService } from 'src/app/providers/users.service';
+import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
+import { EmpresaImages } from 'src/app/interfaces/empresa-images';
+import { Campana } from 'src/app/interfaces/campana';
 
 @Component({
   selector: 'app-recorrido',
@@ -14,6 +17,7 @@ import { UsersService } from 'src/app/providers/users.service';
 })
 export class RecorridoPage implements OnInit {
   recorridos: RecorridoRealizado[] = [];
+  imagesEmpresas: EmpresaImages[] = [];
 
   constructor(
     private toolbarService: ToolbarService,
@@ -21,6 +25,7 @@ export class RecorridoPage implements OnInit {
     private campanaService: CampanaService,
     private modalController: ModalController,
     private userService: UsersService,
+    private empresaImagesService: EmpresaImagesService,
   ) {}
 
   getNombreCampana(idCampana: number): string {
@@ -60,6 +65,12 @@ export class RecorridoPage implements OnInit {
     return await mapaRecorrido.present();
   }
 
+  getURL(recorrido: RecorridoRealizado){
+    const idCampana = recorrido.id_campana;
+    const campana = this.campanaService.campanasObtenidas.find((campana) => idCampana === campana.id_campana)!;
+    return this.empresaImagesService.getLogoURLbyEmpresaId(campana.id_empresa, this.imagesEmpresas);
+  }
+
   ngOnInit() {
     this.toolbarService.setTexto('MIS RECORRIDOS');
 
@@ -73,5 +84,9 @@ export class RecorridoPage implements OnInit {
         }
       })
     });
+
+    this.empresaImagesService.getImages().subscribe((data)=>{
+      this.imagesEmpresas = data;
+    })
   }
 }

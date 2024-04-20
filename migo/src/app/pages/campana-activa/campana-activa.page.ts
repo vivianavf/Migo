@@ -76,14 +76,12 @@ export class CampanaActivaPage implements OnInit {
     let solicitud = this.campanaService.getInfoCampanaActiva()[1];
     this.obtenerVehiculo(solicitud.id_vehiculo)
     this.brandeo = solicitud.brandeo;
-    console.log(this.brandeo);
   }
 
   generarDatos() {
     this.solicitud = this.campanaService.getInfoCampanaActiva()[1];
     // this.obtenerVehiculo(this.solicitud.id_vehiculo);
     this.brandeo = this.solicitud.brandeo;
-    console.log(this.brandeo);
 
     this.campana = this.campanaService.getInfoCampanaActiva()[0];
     this.consultarVehiculosAdmisibles(this.campana);
@@ -184,7 +182,7 @@ export class CampanaActivaPage implements OnInit {
 
   createMap() {
     var mapOptions = {
-      zoom: this.sector!.zoom + 2,
+      zoom: this.sector!.zoom,
       center: this.sector!.centro,
       streetViewControl: true,
     };

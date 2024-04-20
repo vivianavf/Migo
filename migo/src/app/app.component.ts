@@ -9,9 +9,9 @@ import { register } from 'swiper/element/bundle';
 import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { AdsService } from './providers/ads.service';
-import { EntidadBancaria } from './interfaces/entidad-bancaria';
 import { EntidadBancariaService } from './providers/entidad-bancaria.service';
 import { EnviarNotificacionService } from './providers/enviar-notificacion.service';
+import { EmpresaImagesService } from './providers/empresa-images.service';
 
 
 register();
@@ -34,6 +34,7 @@ export class AppComponent implements OnInit{
     private adsService: AdsService,
     private bancoService: EntidadBancariaService,
     private enviarNotificacion: EnviarNotificacionService,
+    private empresaImagesService: EmpresaImagesService,
   ) {
 
   }

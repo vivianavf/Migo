@@ -13,6 +13,8 @@ import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Pais } from 'src/app/interfaces/pais';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
+import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
+import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 
 @Component({
   selector: 'app-campana',
@@ -37,6 +39,8 @@ export class CampanaComponent implements OnInit {
 
   formularios: FormularioAplicacion[] = [];
 
+  imagesEmpresas: EmpresaImages[] = [];
+
   constructor(
     private campanaService: CampanaService,
     private empresaService: EmpresaService,
@@ -45,7 +49,8 @@ export class CampanaComponent implements OnInit {
     private paisService: PaisService,
     private ciudadService: CiudadService,
     private userService: UsersService,
-    private formService: FormularioAplicacionService
+    private formService: FormularioAplicacionService,
+    private empresaImagesService: EmpresaImagesService,
   ) {}
 
   registrarse(campana: Campana) {
@@ -163,7 +168,15 @@ export class CampanaComponent implements OnInit {
       });
     });
 
+    this.empresaImagesService.getImages().subscribe((data)=>{
+      this.imagesEmpresas = data;
+    })
+
     // campanasCargadas = document.getElementById('')
+  }
+
+  getURL(campana: Campana){
+    return this.empresaImagesService.getLogoURLbyEmpresaId(campana.id_empresa, this.imagesEmpresas);
   }
 
   obtenerNombreSector(idSector: number) {

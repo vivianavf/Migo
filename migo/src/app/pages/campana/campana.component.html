@@ -37,9 +37,7 @@
       </ion-card-content>
       <div class="image-and-button">
         <ion-img
-          src="../../../assets/images/empresas/logos/{{
-            campana.id_empresa
-          }}.jpg"
+          src="{{getURL(campana)}}"
           alt="Marca"
         ></ion-img>
         <ion-button *ngIf="!revisarRegistrosCampana(campana)"
