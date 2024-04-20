@@ -10,8 +10,7 @@ import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { AdsService } from './providers/ads.service';
 import { EntidadBancariaService } from './providers/entidad-bancaria.service';
-import { EnviarNotificacionService } from './providers/enviar-notificacion.service';
-import { EmpresaImagesService } from './providers/empresa-images.service';
+import { EmpresaService } from './providers/empresa.service';
 
 
 register();
@@ -33,8 +32,7 @@ export class AppComponent implements OnInit{
     private navCtrl: NavController,
     private adsService: AdsService,
     private bancoService: EntidadBancariaService,
-    private enviarNotificacion: EnviarNotificacionService,
-    private empresaImagesService: EmpresaImagesService,
+    private empresaService: EmpresaService,
   ) {
 
   }
@@ -141,11 +139,12 @@ export class AppComponent implements OnInit{
       } else {
         console.log('Push Notifications Not Available :c');
       }
-    this.userService.getUsers().subscribe((data)=>{})
-    this.clientService.getClients().subscribe((data)=>{})
-    this.campanaService.getCampanas().subscribe((data)=>{})
+    this.userService.getUsers().subscribe()
+    this.clientService.getClients().subscribe()
+    this.campanaService.getCampanas().subscribe()
     this.obtenerPublicidades();
-    this.bancoService.getEntidadesBancarias().subscribe((data)=>{})
+    this.bancoService.getEntidadesBancarias().subscribe()
+    this.empresaService.getEmpresas().subscribe();
 
     let userExists = localStorage.getItem('usuario_email');
     let recorridoExists = localStorage.getItem('recorrido')

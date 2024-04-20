@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Campana } from 'src/app/interfaces/campana';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Empresa } from 'src/app/interfaces/empresa';
+import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 import { Pais } from 'src/app/interfaces/pais';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { CiudadService } from 'src/app/providers/ciudad.service';
+import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaService } from 'src/app/providers/empresa.service';
 import { GlobalServiceService } from 'src/app/providers/global-service.service';
 import { PaisService } from 'src/app/providers/pais.service';
@@ -22,13 +24,16 @@ export class MarcasComponent implements OnInit {
   pais?: Pais;
   ciudad?: Ciudad;
 
+  imagesEmpresas: EmpresaImages[] = [];
+
   constructor(
     private empresaService: EmpresaService,
     private campanaService: CampanaService,
     private userService: UsersService,
     private paisService: PaisService,
     private ciudadService: CiudadService,
-    private globalService: GlobalServiceService
+    private globalService: GlobalServiceService,
+    private empresaImagesService: EmpresaImagesService,
   ) {}
 
   verMas(empresa: Empresa) {
@@ -36,10 +41,11 @@ export class MarcasComponent implements OnInit {
   }
 
   contarCampanasActivas(idEmpresa: any) {
-    const campanasEmpresa = this.campanas.filter(
-      (campana) => campana.id_empresa === idEmpresa
-    );
+    const idCiudad = this.userService.usuarioActivo().id_ciudad;
 
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => (campana.id_empresa === idEmpresa && campana.id_ciudad === idCiudad)
+    );
     return campanasEmpresa.length;
   }
 
@@ -111,6 +117,15 @@ export class MarcasComponent implements OnInit {
       });
     });
     this.campanas = this.campanaService.campanasObtenidas;
+
+    this.empresaImagesService.getImages().subscribe((data)=>{
+      this.imagesEmpresas = data;
+    })
+  }
+
+  getURL(empresa: Empresa){
+    const idEmpresa = empresa.id_empresa;
+    return this.empresaImagesService.getBannerURLbyEmpresaId(empresa.id_empresa, this.imagesEmpresas);
   }
 
   handleRefresh() {}

@@ -12,12 +12,10 @@
     <ion-card *ngFor="let empresa of empresas">
       <div class="banner-empresa ad">
         <ion-img
-          src="../../../assets/images/empresas/banners/{{
-            empresa.id_empresa
-          }}.jpg"
+          [src]="getURL(empresa)"
           alt="Banner de la empresa"
           class="img-empresa"
-          id="{{ empresa.id_empresa }}"
+          [id]="empresa.id_empresa"
         ></ion-img>
       </div>
       <ion-card-content class="container">

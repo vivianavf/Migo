@@ -29,6 +29,8 @@ import { SectorService } from 'src/app/providers/sector.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
+import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
+import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -52,6 +54,8 @@ export class DetallesCampanaPage implements OnInit {
   @ViewChild('map') mapRef!: google.maps.Map;
   map?: google.maps.Map;
 
+  imagesEmpresas: EmpresaImages[] = [];
+
   constructor(
     private campanaService: CampanaService,
     private modalController: ModalController,
@@ -62,6 +66,7 @@ export class DetallesCampanaPage implements OnInit {
     private navCtrl: NavController,
     private toolbarService: ToolbarService,
     private tallerBService: TallerBrandeoService,
+    private empresaImagesService: EmpresaImagesService,
   ) {}
 
   async mostrarNotificaciones() {
@@ -101,7 +106,16 @@ export class DetallesCampanaPage implements OnInit {
       );
       if (busquedaEmpresa) this.nombreEmpresa = busquedaEmpresa.nombre;
     });
+
+    this.empresaImagesService.getImages().subscribe((data)=>{
+      this.imagesEmpresas = data;
+    })
     
+  }
+
+  getBannerURL(campana: Campana){
+    const idEmpresa = campana.id_empresa;
+    return this.empresaImagesService.getBannerURLbyEmpresaId(idEmpresa, this.imagesEmpresas);
   }
 
   consultarTalleres(campana: Campana){

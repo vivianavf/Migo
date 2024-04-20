@@ -23,8 +23,8 @@
     <div class="img-placa">
       <img
         class="primary-car-img"
-        src="{{getImageSrc('frontal', vehiculoPrincipal)}}"
-        alt="{{vehiculoPrincipal?.placa}}"
+        [src]="getImageSrc('frontal', vehiculoPrincipal)"
+        [alt]="vehiculoPrincipal?.placa"
         loading="eager"
       />
       <ion-text class="placaPrincipal bold-text"

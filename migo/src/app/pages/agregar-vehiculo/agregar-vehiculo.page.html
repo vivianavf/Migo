@@ -226,7 +226,7 @@
           class="fotoVehiculoPreview"
             *ngIf="fotoIzquierdaTomada"
             (click)="abrirModal()"
-            src="{{srcIzquierda}}"
+            [src]="srcIzquierda"
           ></ion-img>
 
           <ion-button
@@ -253,7 +253,7 @@
            class="fotoVehiculoPreview"
             *ngIf="fotoDerechaTomada"
             (click)="abrirModal()"
-            src="{{srcDerecha}}"
+            [src]="srcDerecha"
           ></ion-img>
           <ion-button
             *ngIf="!fotoDerechaTomada"
@@ -281,7 +281,7 @@
           class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoTraseraTomada"
-            src="{{srcTrasera}}"
+            [src]="srcTrasera"
           ></ion-img>
           <ion-button
             *ngIf="!fotoTraseraTomada"
@@ -307,7 +307,7 @@
           class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoAereaTomada"
-            src="{{srcAerea}}"
+            [src]="srcAerea"
           ></ion-img>
           <ion-button
             *ngIf="!fotoAereaTomada"
@@ -335,7 +335,7 @@
           class="fotoVehiculoPreview"
             (click)="abrirModal()"
             *ngIf="fotoFrontalTomada"
-            src="{{srcFrontal}}"
+            [src]="srcFrontal"
           ></ion-img>
           <ion-button
             *ngIf="!fotoFrontalTomada"

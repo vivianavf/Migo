@@ -12,6 +12,15 @@
   height: 100px;
 }
 
+.img-empresa{
+  height: 90px;
+  width: 100%;
+}
+
+.img-empresa::part(image){
+  object-fit: cover;
+}
+
 
 div.content{
     background-color: white;
