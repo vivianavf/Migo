@@ -33,10 +33,6 @@ export class PanelPage implements OnInit {
 
   @ViewChild('map') mapRef!: google.maps.Map;
   map?: google.maps.Map;
-  center: google.maps.LatLngLiteral = {
-    lat: -2.18982299999999,
-    lng: -79.88775,
-  };
 
   source!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
@@ -270,8 +266,8 @@ export class PanelPage implements OnInit {
         const zoom = ciudad.ubicacion_google_maps.zoom;
         if (centro && zoom) {
           var mapOptions = {
-            zoom: 12,
-            center: this.center,
+            zoom: zoom,
+            center: centro,
             disableDefaultUI: false,
             fullscreenControl: true,
           };

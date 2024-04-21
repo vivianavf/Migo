@@ -35,14 +35,14 @@ export class EmpresaImagesService {
     const image = images.find((image)=> idEmpresa === image.id_empresa)
     const arrayURL = String(image?.logo).split('/')
     const URL = arrayURL[arrayURL.length-1]
-    return this.rutaLogos+URL;
+    return image?this.rutaLogos+URL:'';
   }
 
   getBannerURLbyEmpresaId(idEmpresa: number, images: EmpresaImages[]): string{
     const image = images.find((image)=> idEmpresa === image.id_empresa)
     const arrayURL = String(image?.banner).split('/')
     const URL = arrayURL[arrayURL.length-1]
-    return this.rutaBanners+URL;
+    return image?this.rutaBanners+URL:'';
   }
 
 
