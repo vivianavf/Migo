@@ -55,7 +55,7 @@ export class FormularioAplicacionService {
       formulario.tipo_cuenta_bancaria.toString()
     );
     formData.append('correo_electronico', formulario.correo_electronico);
-    formData.append('fecha_envio', formulario.fecha_envio.toString()); // Convertir a formato ISOString
+    formData.append('fecha_envio', formulario.fecha_envio.toString());
     formData.append('id_usuario', formulario.id_usuario.toString());
     formData.append('id_campana', formulario.id_campana.toString());
     formData.append('id_ciudad', formulario.id_ciudad.toString());

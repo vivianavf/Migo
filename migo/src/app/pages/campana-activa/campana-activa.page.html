@@ -5,7 +5,7 @@
       <ion-card-content class="campana-content">
         <div class="banner-empresa ad">
           <ion-img
-            src="../../../assets/images/empresas/banners/{{campana.id_empresa}}.jpg"
+            [src]="getURL(campana)"
             alt="Banner de la empresa"
             class="img-empresa"
           ></ion-img>

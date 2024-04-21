@@ -6,12 +6,12 @@
     <p class="capitalize bold-text">HOY</p>
     <div id="cobro-container" class="">
       <div id="por-cobrar">
-        <p class="capitalize">por cobrar:</p>
-        <p class="bold-text"> $120.52</p>
+        <p class="capitalize">recaudado:</p>
+        <p class="bold-text"> $ {{getDineroRecaudado(recorridosHoy)}}</p>
       </div>
       <div id="recorrido">
         <p class="capitalize">recorrido:</p>
-        <p class="bold-text uppercase-text"> 267 km</p>
+        <p class="bold-text uppercase-text">{{getKMSRecorridos(recorridosHoy)}} km</p>
       </div>
     </div>
     <div id="hora" class="">
@@ -27,20 +27,20 @@
         <p>Tiempo total recorrido:</p>
         <p>Recaudado hasta hoy:</p>
         <p>Recorridos realizados:</p>
-        <p>Campañas completadas:</p>
+        <p>Campañas:</p>
       </div>
       <div>
-        <p>999 KM</p>
-        <p>1d 12h 52m</p>
-        <p>$312.48</p>
-        <p>43 recorridos</p>
-        <p>4 campañas</p>
+        <p>{{getKMSRecorridos(recorridosUsuario)}} KM</p>
+        <p>{{dias}}d {{horas}}h {{minutos}}m</p>
+        <p>$ {{getDineroRecaudado(recorridosUsuario)}}</p>
+        <p>{{recorridosUsuario.length}} recorridos</p>
+        <p>{{numeroCampanas}} campañas</p>
       </div>
     </div>
   </ion-card>
   <ion-card class="card">
     <p class="bold-text uppercase-text">cobro de los ultimos 2 meses</p>
-    <p class="bold-text"> $1,299</p>
+    <p class="bold-text"> $ {{cobro}}</p>
     <ion-button (click)="verHistorial()">Historial de pagos</ion-button>
   </ion-card>
   <ion-card class="card">
@@ -52,5 +52,8 @@
     </div>
   </ion-card>
 
-</div>
+  </div>
+  <div *ngIf="!hayRecorridos" class="marginContent">
+    <ion-text>No hay recorridos disponibles</ion-text>
+  </div>
 </ion-content>

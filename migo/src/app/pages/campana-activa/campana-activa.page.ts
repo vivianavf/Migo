@@ -1,5 +1,5 @@
-import { Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Campana } from 'src/app/interfaces/campana';
 import { Client } from 'src/app/interfaces/client';
 import { Empresa } from 'src/app/interfaces/empresa';
@@ -21,6 +21,8 @@ import { Vehiculo } from 'src/app/interfaces/vehiculo';
 import { ConducirModalPage } from '../modals/conducir-modal/conducir-modal.page';
 import { AnularRegistroPage } from '../modals/anular-registro/anular-registro.page';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
+import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
+import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 
 @Component({
   selector: 'app-campana-activa',
@@ -48,6 +50,9 @@ export class CampanaActivaPage implements OnInit {
   @ViewChild('map-campanaActiva') mapRef!: google.maps.Map;
   map_campana?: google.maps.Map;
 
+  //
+  imagesEmpresas: EmpresaImages[] = [];
+
   constructor(
     private toolbarService: ToolbarService,
     private campanaService: CampanaService,
@@ -56,9 +61,9 @@ export class CampanaActivaPage implements OnInit {
     private clientService: ClienteService,
     private empresaService: EmpresaService,
     private sectorService: SectorService,
-    private navCtrl: NavController,
     private tallerBService: TallerBrandeoService,
-    private vehiculoService: VehiculoService
+    private vehiculoService: VehiculoService,
+    private empresaImagesService: EmpresaImagesService,
   ) {}
 
   ngOnInit() {
@@ -79,6 +84,10 @@ export class CampanaActivaPage implements OnInit {
   }
 
   generarDatos() {
+    this.empresaImagesService.getImages().subscribe((data)=>{
+      this.imagesEmpresas = data;
+    })
+
     this.solicitud = this.campanaService.getInfoCampanaActiva()[1];
     // this.obtenerVehiculo(this.solicitud.id_vehiculo);
     this.brandeo = this.solicitud.brandeo;
@@ -195,6 +204,10 @@ export class CampanaActivaPage implements OnInit {
     this.crearCercos();
   }
 
+  getURL(campana: Campana){
+    return this.empresaImagesService.getBannerURLbyEmpresaId(campana.id_empresa, this.imagesEmpresas);
+  }
+
   async mostrarNotificaciones() {
     const modal = await this.modalController.create({
       component: NotificacionesPage,
@@ -223,8 +236,8 @@ export class CampanaActivaPage implements OnInit {
   obtenerVehiculo(id:number ){
     this.vehiculoService.getVehiculobyId(id).subscribe((vehiculo)=>{
       this.vehiculo = vehiculo;
-      this.brandeo = false;
-      // this.brandeo = vehiculo.brandeo!;
+      // this.brandeo = false;
+      // this.brandeo = vehiculo.;
     });
   }
 
