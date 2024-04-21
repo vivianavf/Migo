@@ -39,9 +39,13 @@
     </div>
   </ion-card>
   <ion-card class="card">
-    <p class="bold-text uppercase-text">cobro de los ultimos 2 meses</p>
-    <p class="bold-text"> $ {{cobro}}</p>
-    <ion-button (click)="verHistorial()">Historial de pagos</ion-button>
+    <p class="bold-text uppercase-text">cobro de los últimos 2 meses</p>
+    <div class="ultimoCobroContainer">
+      <p class="bold-text"> $ {{cobro}}</p>
+    </div>
+    <div class="buttonHistorialContainer">
+      <ion-button id="historialPagos" class="capitalize" (click)="verHistorial()">Historial de pagos</ion-button>
+    </div>
   </ion-card>
   <ion-card class="card">
     <div class="mapa bold-text uppercase-text">

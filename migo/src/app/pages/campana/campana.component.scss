@@ -1,3 +1,5 @@
+@import url('../../../theme/variables.scss');
+
 .campana-spinnerContainer{
   width: 100%;
   height: 100%;
@@ -92,7 +94,7 @@ ion-card-content{
 
   ion-card{
     border-radius: 0;
-    border-bottom: 1px solid rgb(165, 165, 165);
+    border-bottom: 1px solid var(--ion-border-color);
   }
 
 ion-progress-bar{

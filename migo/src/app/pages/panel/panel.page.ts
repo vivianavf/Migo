@@ -11,6 +11,9 @@ import { Sector } from 'src/app/interfaces/sector';
 import { RecorridoRealizado } from 'src/app/interfaces/recorrido-realizado';
 import { RecorridoRealizadoService } from 'src/app/providers/recorrido-realizado.service';
 import { UsersService } from 'src/app/providers/users.service';
+import { Router } from '@angular/router';
+import { CiudadService } from 'src/app/providers/ciudad.service';
+import { Ciudad } from 'src/app/interfaces/ciudad';
 
 @Component({
   selector: 'app-panel',
@@ -34,7 +37,6 @@ export class PanelPage implements OnInit {
     lat: -2.18982299999999,
     lng: -79.88775,
   };
-  zoom = 12;
 
   source!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
@@ -68,7 +70,9 @@ export class PanelPage implements OnInit {
     private toolbarService: ToolbarService,
     private sectorService: SectorService,
     private recorridoService: RecorridoRealizadoService,
-    private userService: UsersService
+    private userService: UsersService,
+    private router: Router,
+    private ciudadService: CiudadService
   ) {}
 
   ngOnInit() {
@@ -108,7 +112,9 @@ export class PanelPage implements OnInit {
         //hay recorridos
         this.hayRecorridos = true;
         this.recorridosUsuario = recorridos.filter(
-          (recorrido) => recorrido.id_usuario === idUsuarioActivo && idCiudad === recorrido.id_ciudad
+          (recorrido) =>
+            recorrido.id_usuario === idUsuarioActivo &&
+            idCiudad === recorrido.id_ciudad
         );
 
         const idCampanas = this.recorridosUsuario.map(
@@ -136,7 +142,7 @@ export class PanelPage implements OnInit {
         this.getHorarioInicioHoy();
         this.getHorarioFinHoy();
         this.getTiempoTranscurrido();
-
+        this.generarCobro2Meses();
 
         //crear Mapa
         this.createMap();
@@ -146,6 +152,11 @@ export class PanelPage implements OnInit {
       }
     });
   }
+
+  generarCobro2Meses() {
+    this.cobro = 0;
+  }
+
   getKMSRecorridos(arr: RecorridoRealizado[]) {
     const KMS = arr.map((recorrido) => recorrido.kilometraje_recorrido);
     var distancia = KMS.reduce(
@@ -157,8 +168,11 @@ export class PanelPage implements OnInit {
 
   getDineroRecaudado(arr: RecorridoRealizado[]) {
     const R = arr.map((recorrido) => recorrido.dinero_recaudado);
-    var dinero = R.reduce((x, y) => x + y, 0);
-    return dinero.toFixed(2);
+    if (R) {
+      var dinero = R.reduce((x, y) => x + y, 0);
+      return dinero.toFixed(2);
+    }
+    return 0;
   }
 
   getHorarioInicioHoy(): void {
@@ -167,13 +181,16 @@ export class PanelPage implements OnInit {
         new Date(recorrido.fecha_hora_inicio).getHours() * 100 +
         new Date(recorrido.fecha_hora_inicio).getMinutes()
     );
-    const horaMinima = Math.min(...inicios);
-    let hora = String(Math.floor(horaMinima / 100));
-    let minutos = String(horaMinima % 100);
-    hora==='Infinity'?hora='-':hora;
-    hora==='-Infinity'?hora='-':hora;
-    minutos==='NaN'?minutos='-':minutos;
-    this.horarioInicio = hora + ':' + minutos;
+
+    if (inicios) {
+      const horaMinima = Math.min(...inicios);
+      let hora = String(Math.floor(horaMinima / 100));
+      let minutos = String(horaMinima % 100);
+      hora === 'Infinity' ? (hora = '-') : hora;
+      hora === '-Infinity' ? (hora = '-') : hora;
+      minutos === 'NaN' ? (minutos = '-') : minutos;
+      this.horarioInicio = hora + ':' + minutos;
+    }
   }
 
   getHorarioFinHoy(): void {
@@ -182,15 +199,18 @@ export class PanelPage implements OnInit {
         new Date(recorrido.fecha_hora_fin).getHours() * 100 +
         new Date(recorrido.fecha_hora_fin).getMinutes()
     );
-    const horaMaxima = Math.max(...fines);
-    let hora = String(Math.floor(horaMaxima / 100));
-    let minutos = String(horaMaxima % 100);
-    hora==='Infinity'?hora='-':hora;
-    hora==='-Infinity'?hora='-':hora;
-    minutos==='NaN'?minutos='-':minutos;
-    this.horarioFin = hora + ':' + minutos;
+
+    if (fines) {
+      const horaMaxima = Math.max(...fines);
+      let hora = String(Math.floor(horaMaxima / 100));
+      let minutos = String(horaMaxima % 100);
+      hora === 'Infinity' ? (hora = '-') : hora;
+      hora === '-Infinity' ? (hora = '-') : hora;
+      minutos === 'NaN' ? (minutos = '-') : minutos;
+      this.horarioFin = hora + ':' + minutos;
+    }
   }
-  
+
   getTiempoTranscurrido() {
     const inicios = this.recorridosUsuario.map(
       (recorrido) => new Date(recorrido.fecha_hora_inicio)
@@ -199,72 +219,73 @@ export class PanelPage implements OnInit {
       (recorrido) => new Date(recorrido.fecha_hora_fin)
     );
 
-    let iniciosAscendente = inicios.sort((a, b)=>{
-      return a.getTime()- b.getTime();
-    })
+    if (inicios && fines) {
+      let iniciosAscendente = inicios.sort((a, b) => {
+        return a.getTime() - b.getTime();
+      });
 
-    let finesAscendente = fines.sort((x, y)=>{
-      return x.getTime() - y.getTime();
-    })
+      let finesAscendente = fines.sort((x, y) => {
+        return x.getTime() - y.getTime();
+      });
+      const inicioRecorridos = iniciosAscendente[0];
+      const finRecorridos = finesAscendente.pop();
 
-    const inicioRecorridos = iniciosAscendente[0];
-    const finRecorridos = finesAscendente.pop();
+      if (inicioRecorridos && finRecorridos) {
+        const tiempo = this.msDias(
+          finRecorridos!.getTime() - inicioRecorridos.getTime()
+        );
 
-    const tiempo = this.msDias(finRecorridos!.getTime() - inicioRecorridos.getTime());
-
-    this.dias = tiempo.dias;
-    this.horas = tiempo.horas;
-    this.minutos = tiempo.minutos;
-
+        this.dias = tiempo.dias;
+        this.horas = tiempo.horas;
+        this.minutos = tiempo.minutos;
+      }
+    }
   }
 
-  msDias(milisegundos: number): { dias: number, horas: number, minutos: number }{
+  msDias(milisegundos: number): {
+    dias: number;
+    horas: number;
+    minutos: number;
+  } {
     const segundosEnUnMinuto = 60;
     const segundosEnUnaHora = 60 * segundosEnUnMinuto;
     const segundosEnUnDia = 24 * segundosEnUnaHora;
 
     const dias = Math.floor(milisegundos / (1000 * segundosEnUnDia));
-    const horas = Math.floor((milisegundos % (1000 * segundosEnUnDia)) / (1000 * segundosEnUnaHora));
-    const minutos = Math.floor((milisegundos % (1000 * segundosEnUnaHora)) / (1000 * segundosEnUnMinuto));
+    const horas = Math.floor(
+      (milisegundos % (1000 * segundosEnUnDia)) / (1000 * segundosEnUnaHora)
+    );
+    const minutos = Math.floor(
+      (milisegundos % (1000 * segundosEnUnaHora)) / (1000 * segundosEnUnMinuto)
+    );
 
     return { dias, horas, minutos };
-
   }
 
   createMap() {
-    var mapOptions = {
-      zoom: this.zoom,
-      center: this.center,
-      disableDefaultUI: true,
-      fullscreenControl: true,
-    };
-    var mapCreado = new google.maps.Map(
-      document.getElementById('map-panel')!,
-      mapOptions
-    );
-    this.map = mapCreado;
-  }
-
-  async mostrarNotificaciones() {
-    const modal = await this.modalController.create({
-      component: NotificacionesPage,
-      componentProps: {},
-      cssClass: 'notificaciones,',
+    const idCiudad = this.userService.usuarioActivo().id_ciudad;
+    this.ciudadService.getCiudadbyId(idCiudad).subscribe((ciudad: Ciudad) => {
+      if (ciudad) {
+        const centro = ciudad.ubicacion_google_maps.centro;
+        const zoom = ciudad.ubicacion_google_maps.zoom;
+        if (centro && zoom) {
+          var mapOptions = {
+            zoom: 12,
+            center: this.center,
+            disableDefaultUI: false,
+            fullscreenControl: true,
+          };
+          var mapCreado = new google.maps.Map(
+            document.getElementById('map-panel')!,
+            mapOptions
+          );
+          this.map = mapCreado;
+        }
+      }
     });
   }
 
-  async mostrarMenu() {
-    const modal = await this.modalController.create({
-      component: MenuPage,
-      componentProps: {
-        user: this.userService.usuarioActivo(),
-        client: this.clientService.clienteActivo(),
-      },
-      cssClass: 'menu',
-    });
-
-    return await modal.present();
+  verHistorial() {
+    this.router.navigate(['/historial-pagos']);
   }
-
-  verHistorial() {}
 }
