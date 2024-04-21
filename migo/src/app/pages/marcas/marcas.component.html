@@ -32,30 +32,32 @@
               class="vehiculoType"
               src="../../../assets/autos/bus.png"
               alt="Vehiculo"
+              *ngIf="busAdmisible(empresa.id_empresa)"
             ></ion-img>
             <ion-img
               class="vehiculoType"
               src="../../../assets/autos/camion.png"
               alt="Vehiculo"
+              *ngIf="camionAdmisible(empresa.id_empresa)"
             ></ion-img>
             <ion-img
               class="vehiculoType"
               src="../../../assets/autos/camioneta.png"
               alt="Vehiculo"
+              *ngIf="camionetaAdmisible(empresa.id_empresa)"
             ></ion-img>
             <ion-img
               class="vehiculoType"
               src="../../../assets/autos/suv.png"
               alt="Vehiculo"
+              *ngIf="suvAdmisible(empresa.id_empresa)"
             ></ion-img>
           </div>
         </div>
         <div class="sub-container" id="tarifa-verMas">
           <p>Tarifas desde:</p>
           <p>
-            ${{ rangoTarifas(empresa.id_empresa)[0] }} - ${{
-              rangoTarifas(empresa.id_empresa)[1]
-            }}
+            $ {{tarifaMinima(empresa.id_empresa)}}
           </p>
           <ion-button
             class="rounded-button verMas white-text"

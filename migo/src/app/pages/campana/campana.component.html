@@ -1,12 +1,4 @@
-<div class="campana-spinnerContainer"  *ngIf="campanas.length === 0">
-  <ion-spinner
-  class="campanaSpinner"
-  name="dots"
-  color="primary"
-></ion-spinner>
-</div>
-
-<div class="root" *ngIf="campanas.length > 0">
+<div *ngIf="campanas.length > 0" class="root">
   <ion-text class="helperText"
     >Campañas disponibles en {{ ciudadActiva?.nombre }}</ion-text
   >
@@ -36,18 +28,17 @@
         </div>
       </ion-card-content>
       <div class="image-and-button">
-        <ion-img
-          src="{{getURL(campana)}}"
-          alt="Marca"
-        ></ion-img>
-        <ion-button *ngIf="!revisarRegistrosCampana(campana)"
+        <ion-img src="{{ getURL(campana) }}" alt="Marca"></ion-img>
+        <ion-button
+          *ngIf="!revisarRegistrosCampana(campana)"
           class="rounded-button registrarse white-text"
           shape="round"
           expand="full"
           (click)="registrarse(campana)"
           >Regístrate</ion-button
         >
-        <ion-button *ngIf="revisarRegistrosCampana(campana)"
+        <ion-button
+          *ngIf="revisarRegistrosCampana(campana)"
           class="rounded-button gray-button registrarse"
           shape="round"
           expand="full"
@@ -55,5 +46,71 @@
         >
       </div>
     </ion-card>
+  </div>
+</div>
+
+<div *ngIf="campanas.length === 0" class="root">
+  <ion-text class="helperText">Campañas disponibles en ---</ion-text>
+  <div class="marginContent content white-background">
+    <ion-card>
+      <ion-card-content class="black-text">
+        <ion-label class="uppercase-text bold-text"
+          ><ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"
+          ></ion-skeleton-text
+          ><br
+        /></ion-label>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"
+          ></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"
+          ></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text
+            [animated]="true"
+            style="width: 80%"
+          ></ion-skeleton-text>
+        </p>
+        <div class="sector-tarifa">
+          <div class="divisor">
+            <ion-icon class="orange-color-contrast" name="location"></ion-icon>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 80%"
+            ></ion-skeleton-text>
+          </div>
+          <div class="divisor">
+            <ion-icon class="orange-color-contrast" name="logo-usd"></ion-icon>
+            <ion-text class="tarifa black-text"
+              ><ion-skeleton-text
+                [animated]="true"
+                style="width: 80%"
+              ></ion-skeleton-text
+            ></ion-text>
+          </div>
+        </div>
+      </ion-card-content>
+      <div class="image-and-button">
+        <ion-thumbnail id="campana-thumbnail" slot="start">
+          <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+        </ion-thumbnail>
+      </div>
+    </ion-card>
+  </div>
+
+  <div class="campana-spinnerContainer" *ngIf="campanas.length === 0">
+    <ion-spinner
+      class="campanaSpinner"
+      name="dots"
+      color="primary"
+    ></ion-spinner>
   </div>
 </div>

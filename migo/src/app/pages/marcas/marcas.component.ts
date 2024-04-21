@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Campana } from 'src/app/interfaces/campana';
-import { Ciudad } from 'src/app/interfaces/ciudad';
 import { Empresa } from 'src/app/interfaces/empresa';
 import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 import { Pais } from 'src/app/interfaces/pais';
 import { CampanaService } from 'src/app/providers/campana.service';
-import { CiudadService } from 'src/app/providers/ciudad.service';
 import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaService } from 'src/app/providers/empresa.service';
 import { GlobalServiceService } from 'src/app/providers/global-service.service';
 import { PaisService } from 'src/app/providers/pais.service';
 import { UsersService } from 'src/app/providers/users.service';
+import { DetalleMarcaPage } from '../modals/detalle-marca/detalle-marca.page';
 
 @Component({
   selector: 'app-marcas',
@@ -22,7 +22,7 @@ export class MarcasComponent implements OnInit {
   campanas: Campana[] = [];
 
   pais?: Pais;
-  ciudad?: Ciudad;
+
 
   imagesEmpresas: EmpresaImages[] = [];
 
@@ -31,58 +31,76 @@ export class MarcasComponent implements OnInit {
     private campanaService: CampanaService,
     private userService: UsersService,
     private paisService: PaisService,
-    private ciudadService: CiudadService,
     private globalService: GlobalServiceService,
     private empresaImagesService: EmpresaImagesService,
+    private modalController: ModalController,
   ) {}
 
-  verMas(empresa: Empresa) {
+  async verMas(empresa: Empresa) {
     //Mostrar info de la empresa
+    const modal = await this.modalController.create({
+      component: DetalleMarcaPage,
+      cssClass: 'detalleMarcaModal',
+      componentProps: {
+        empresa: empresa,
+        pais: this.pais,
+        bannerURL: this.getURL(empresa),
+      },
+    })
+
+    return modal.present();
   }
 
-  contarCampanasActivas(idEmpresa: any) {
-    const idCiudad = this.userService.usuarioActivo().id_ciudad;
-
+  contarCampanasActivas(idEmpresa: number) {
     const campanasEmpresa = this.campanas.filter(
-      (campana) => (campana.id_empresa === idEmpresa && campana.id_ciudad === idCiudad)
+      (campana) => (campana.id_empresa === idEmpresa)
     );
     return campanasEmpresa.length;
   }
 
-  rangoTarifas(idEmpresa: any) {
+  tarifaMinima(idEmpresa: number) {
     const campanasEmpresa = this.campanas.filter(
-      (campana) => campana.id_empresa === idEmpresa
+      (campana) => (campana.id_empresa === idEmpresa)
     );
-
-    var tarifaBase: number[] = [];
-    if (campanasEmpresa.length > 0) {
-      campanasEmpresa.forEach((campana) => {
-        tarifaBase.push(campana.tarifa_base);
-      });
-    }
-    let rangoTarifa: number[] = [];
-
-    if (tarifaBase.length > 0) {
-      var minimo = Math.min(...tarifaBase);
-      var maximo = Math.max(...tarifaBase);
-      rangoTarifa.push(minimo);
-      rangoTarifa.push(maximo);
-    } else {
-      rangoTarifa.push(0);
-      rangoTarifa.push(0);
-    }
-    return rangoTarifa;
+    let tarifas = campanasEmpresa.map(campana => campana.tarifa_min);
+    let valorMinimo = Math.min(...tarifas);
+    return valorMinimo===Infinity?0:valorMinimo;
   }
+
+  busAdmisible(idEmpresa: number): boolean{
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => (campana.id_empresa === idEmpresa && campana.bus_admisible)
+    );
+    return campanasEmpresa.length>0?true:false;
+  }
+
+  camionAdmisible(idEmpresa: number): boolean{
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => (campana.id_empresa === idEmpresa && campana.camion_admisible)
+    );
+    return campanasEmpresa.length>0?true:false;
+  }
+
+  camionetaAdmisible(idEmpresa: number): boolean{
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => (campana.id_empresa === idEmpresa && campana.camioneta_admisible)
+    );
+    return campanasEmpresa.length>0?true:false;
+  }
+
+  suvAdmisible(idEmpresa: number): boolean{
+    const campanasEmpresa = this.campanas.filter(
+      (campana) => (campana.id_empresa === idEmpresa && campana.suv_admisible)
+    );
+    return campanasEmpresa.length>0?true:false;
+  }
+
 
   cleanDatos() {
     var paisUsuario = 0;
-    var ciudadUsuario = 0;
 
     this.paisService.getPaisbyId(paisUsuario).subscribe((pais) => {
       this.pais = pais;
-    });
-    this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
-      this.ciudad = ciudad;
     });
 
     this.empresaService.getEmpresas().subscribe((data) => {
@@ -100,23 +118,15 @@ export class MarcasComponent implements OnInit {
 
   generarDatos() {
     var paisUsuario = this.userService.usuarioActivo().id_pais;
-    var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
 
-    this.paisService.getPaisbyId(paisUsuario).subscribe((pais) => {
+    this.paisService.getPaisbyId(paisUsuario).subscribe((pais)=>{
       this.pais = pais;
-    });
-    this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
-      this.ciudad = ciudad;
-    });
+    })
 
     this.empresaService.getEmpresas().subscribe((data) => {
-      data.forEach((empresa) => {
-        if (empresa.id_pais === paisUsuario) {
-          this.empresas.push(empresa);
-        }
-      });
+      this.empresas = data.filter(empresa => empresa.id_pais === paisUsuario && empresa.estado === 1)
     });
-    this.campanas = this.campanaService.campanasObtenidas;
+    this.campanas = this.campanaService.campanasObtenidas.filter((campana) => campana.id_pais === paisUsuario && campana.estado === 1);
 
     this.empresaImagesService.getImages().subscribe((data)=>{
       this.imagesEmpresas = data;
@@ -132,8 +142,6 @@ export class MarcasComponent implements OnInit {
 
   ngOnInit() {
     this.generarDatos();
-    this.globalService.getObservable().subscribe((data) => {
-      console.log(data);
-    });
+    this.globalService.getObservable().subscribe();
   }
 }

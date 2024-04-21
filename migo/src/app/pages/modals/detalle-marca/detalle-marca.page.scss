@@ -1,0 +1,46 @@
+.detalleMarcaContant{
+    height: 100%;
+}
+
+#bannerDetalleMarca{
+    padding-top: 30px;
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.inforDetalleMarca{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detalleMarca{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.infoContactoContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contactoDetalle{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nombreDescripcionMarca{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-align: justify;
+}

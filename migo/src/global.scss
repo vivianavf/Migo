@@ -303,6 +303,18 @@ ion-modal.solicitudConfirmar::part(backdrop) {
   --background: white;
 }
 
+ion-modal.detalleMarcaModal{
+  --height: 60%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: white;
+  --backdrop-opacity: 0.6;
+}
+
+ion-modal{
+  --backdrop-opacity: 0.6;
+}
+
 /* Pantallas de cargando */
 .loadingContent{
   padding: 50px;

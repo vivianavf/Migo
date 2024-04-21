@@ -237,6 +237,10 @@ const routes: Routes = [
     path: 'mapa-recorrido',
     loadChildren: () => import('./pages/modals/mapa-recorrido/mapa-recorrido.module').then( m => m.MapaRecorridoPageModule)
   },
+  {
+    path: 'detalle-marca',
+    loadChildren: () => import('./pages/modals/detalle-marca/detalle-marca.module').then( m => m.DetalleMarcaPageModule)
+  },
 
 
 
