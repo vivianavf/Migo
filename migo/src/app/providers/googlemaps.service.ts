@@ -15,6 +15,7 @@ export class GooglemapsService {
   ) { }
 
   public createMap(centro: {lat: number, lng: number;}, zoom: number, elementoHTMLMapa: string, map: google.maps.Map, cerco_virtual?:Ubicacion[][], ubicaciones?: Ubicacion[], crearRutas?: boolean){
+    console.log('Creando mapa... ', elementoHTMLMapa)
     if (centro && zoom) {
       var mapOptions = {
         zoom: zoom,
@@ -81,6 +82,8 @@ export class GooglemapsService {
           fillColor: this.colorSector,
           fillOpacity: 0.35,
         });
+
+        console.log('Creando sector... ', cerco)
 
         createdPolygon.setMap(map);
       }

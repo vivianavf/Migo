@@ -109,6 +109,7 @@ export class PanelPage implements OnInit {
     this.recorridosHoy = [];
     this.recorridosUsuario = [];
     this.campanasUsuario = [];
+    this.sectores = [];
   }
 
   generarDatos() {
@@ -189,7 +190,6 @@ export class PanelPage implements OnInit {
         }else{
           this.createMap();
         }
-
 
         //create Map
         
@@ -335,9 +335,6 @@ export class PanelPage implements OnInit {
             cercosVirtuales.push((cercoVirtual));
           })
         })
-
-        console.log('cercosVirtuales', cercosVirtuales);
-
         
         this.googleMapService.createMap(
           centro,
