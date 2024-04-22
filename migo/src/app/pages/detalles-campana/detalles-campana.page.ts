@@ -19,18 +19,13 @@ import { EmpresaService } from 'src/app/providers/empresa.service';
 import { User } from 'src/app/interfaces/user';
 import { Client } from 'src/app/interfaces/client';
 import { Sector } from 'src/app/interfaces/sector';
-// import { Sector } from 'src/app/interfaces/sector';
-// import { GoogleMap } from '@capacitor/google-maps';
-// import { CapacitorGoogleMaps } from '@capacitor/google-maps/dist/typings/implementation';
-// import { GoogleMap, GoogleMaps, GoogleMapOptions, LatLng, Polygon, PolygonOptions } from '@ionic-native/google-maps';
-
-// import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { SectorService } from 'src/app/providers/sector.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
 import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaImages } from 'src/app/interfaces/empresa-images';
+import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 
 @Component({
   selector: 'app-detalles-campana',
@@ -51,8 +46,7 @@ export class DetallesCampanaPage implements OnInit {
   nombreEmpresa = '-';
   correoEncargado = '--@--';
 
-  @ViewChild('map') mapRef!: google.maps.Map;
-  map?: google.maps.Map;
+  mapDetalleCampana?: google.maps.Map;
 
   imagesEmpresas: EmpresaImages[] = [];
 
@@ -67,6 +61,7 @@ export class DetallesCampanaPage implements OnInit {
     private toolbarService: ToolbarService,
     private tallerBService: TallerBrandeoService,
     private empresaImagesService: EmpresaImagesService,
+    private googleMapService: GooglemapsService,
   ) {}
 
   async mostrarNotificaciones() {
@@ -178,28 +173,6 @@ export class DetallesCampanaPage implements OnInit {
     })
   }
 
-  async crearCercos() {
-    if (this.sector) {
-      let createdPolygon: any;
-
-      this.sector.cerco_virtual.forEach((cerco) => {
-        if (cerco) {
-          createdPolygon = new google.maps.Polygon({
-            paths: [cerco],
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-          });
-
-          createdPolygon.setMap(this.map);
-        }
-      });
-
-    }
-  }
-
   ionViewWillEnter() {
     try {
       this.generarDatos();
@@ -210,18 +183,7 @@ export class DetallesCampanaPage implements OnInit {
   }
   
   createMap() {
-    var mapOptions = {
-      zoom: this.sector!.zoom,
-      center: this.sector!.centro,
-      streetViewControl: true,
-    };
-    var mapCreado = new google.maps.Map(
-      document.getElementById('map-campana')!,
-      mapOptions
-    );
-    this.map = mapCreado;
-
-    this.crearCercos();
+    this.googleMapService.createMap(this.sector!.centro, this.sector!.zoom, 'map-campana', this.mapDetalleCampana!, this.sector!.cerco_virtual);
   }
 
   ngOnInit() {

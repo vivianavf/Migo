@@ -23,6 +23,7 @@ import { AnularRegistroPage } from '../modals/anular-registro/anular-registro.pa
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaImages } from 'src/app/interfaces/empresa-images';
+import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 
 @Component({
   selector: 'app-campana-activa',
@@ -64,6 +65,7 @@ export class CampanaActivaPage implements OnInit {
     private tallerBService: TallerBrandeoService,
     private vehiculoService: VehiculoService,
     private empresaImagesService: EmpresaImagesService,
+    private googleMapService: GooglemapsService,
   ) {}
 
   ngOnInit() {
@@ -71,7 +73,6 @@ export class CampanaActivaPage implements OnInit {
       this.generarDatos();
       this.toolbarService.setTexto('CAMPAÑA ACTIVA');
       this.crearSectores();
-      // this.createMap();
     } catch (error) {
       console.log(error);
     }
@@ -168,40 +169,8 @@ export class CampanaActivaPage implements OnInit {
     });
   }
 
-  async crearCercos() {
-    if (this.sector) {
-      let createdPolygon: any;
-
-      this.sector.cerco_virtual.forEach((cerco) => {
-        if (cerco) {
-          createdPolygon = new google.maps.Polygon({
-            paths: [cerco],
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-          });
-
-          createdPolygon.setMap(this.map_campana);
-        }
-      });
-    }
-  }
-
   createMap() {
-    var mapOptions = {
-      zoom: this.sector!.zoom,
-      center: this.sector!.centro,
-      streetViewControl: true,
-    };
-    var mapCampanaActiva = new google.maps.Map(
-      document.getElementById('campanaActiva')!,
-      mapOptions
-    );
-    this.map_campana = mapCampanaActiva;
-
-    this.crearCercos();
+    this.googleMapService.createMap(this.sector!.centro, this.sector!.zoom, 'campanaActiva', this.map_campana!, this.sector!.cerco_virtual);
   }
 
   getURL(campana: Campana){

@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  reflectComponentType,
+} from '@angular/core';
 // import { GoogleMap, Polygon } from '@capacitor/google-maps';
 import { Geolocation } from '@capacitor/geolocation';
 // import { CapacitorGoogleMaps } from '@capacitor/google-maps/dist/typings/implementation';
@@ -14,6 +20,11 @@ import { UsersService } from 'src/app/providers/users.service';
 import { Router } from '@angular/router';
 import { CiudadService } from 'src/app/providers/ciudad.service';
 import { Ciudad } from 'src/app/interfaces/ciudad';
+import { GooglemapsService } from 'src/app/providers/googlemaps.service';
+import { CampanaService } from 'src/app/providers/campana.service';
+import { Campana } from 'src/app/interfaces/campana';
+import { forkJoin } from 'rxjs';
+import { Ubicacion } from 'src/app/interfaces/ubicacion';
 
 @Component({
   selector: 'app-panel',
@@ -24,15 +35,13 @@ export class PanelPage implements OnInit {
   // map!: GoogleMap;
   // @ViewChild('mapaPanel') mapRef!: ElementRef<HTMLElement>;
   // polygonId?: string;
-
   modalController: any;
   clientService: any;
 
   sectores: Sector[] = [];
   sector?: Sector;
 
-  @ViewChild('map') mapRef!: google.maps.Map;
-  map?: google.maps.Map;
+  map!: google.maps.Map;
 
   source!: google.maps.LatLngLiteral;
   destination!: google.maps.LatLngLiteral;
@@ -59,6 +68,11 @@ export class PanelPage implements OnInit {
   recorridosHoy: RecorridoRealizado[] = [];
   recorridosUsuario: RecorridoRealizado[] = [];
 
+  //campanas
+  // objectCampanas: Observable<Campana[]> = [];
+  campanasUsuario: Campana[] = [];
+  idCampanasUsuario: number[] = [];
+
   //cobros
   cobro = 0;
 
@@ -68,7 +82,9 @@ export class PanelPage implements OnInit {
     private recorridoService: RecorridoRealizadoService,
     private userService: UsersService,
     private router: Router,
-    private ciudadService: CiudadService
+    private ciudadService: CiudadService,
+    private googleMapService: GooglemapsService,
+    private campanaService: CampanaService
   ) {}
 
   ngOnInit() {
@@ -92,6 +108,7 @@ export class PanelPage implements OnInit {
   resetDatos() {
     this.recorridosHoy = [];
     this.recorridosUsuario = [];
+    this.campanasUsuario = [];
   }
 
   generarDatos() {
@@ -116,10 +133,12 @@ export class PanelPage implements OnInit {
         const idCampanas = this.recorridosUsuario.map(
           (recorrido) => recorrido.id_campana
         );
-        const campanasSinDuplicar = idCampanas.filter((id, i, self) => {
+
+        this.idCampanasUsuario = idCampanas.filter((id, i, self) => {
           return self.indexOf(id) === i;
         });
-        this.numeroCampanas = campanasSinDuplicar.length;
+
+        this.numeroCampanas = this.idCampanasUsuario.length;
 
         this.recorridosUsuario.forEach((recorrido) => {
           const condicion =
@@ -135,13 +154,45 @@ export class PanelPage implements OnInit {
           }
         });
 
+        // this.idCampanasUsuario.forEach((idCampana)=>{
+        //   this.campanaService.getCampanabyId(idCampana).subscribe((campana)=>{
+        //     this.campanasUsuario.push(campana);
+        //     console.log(campana)
+        //   })
+        // })
+
         this.getHorarioInicioHoy();
         this.getHorarioFinHoy();
         this.getTiempoTranscurrido();
         this.generarCobro2Meses();
 
-        //crear Mapa
-        this.createMap();
+        //crear Campanas y luego Mapa
+        const idCampanasHoyRepetidas = this.recorridosHoy.map(
+          (recorrido) => recorrido.id_campana
+        );
+
+        const idCampanasHoy = idCampanasHoyRepetidas.filter((id, i, self) => {
+          return self.indexOf(id) === i;
+        });
+
+        if(idCampanasHoy.length > 0){
+          idCampanasHoy.forEach((id) => {
+            this.campanaService.getCampanabyId(id).subscribe((campana) => {
+              this.sectorService
+                .getSectorbyId(campana.id_sector)
+                .subscribe((sector) => {
+                  this.sectores.push(sector);
+                  this.createMap();
+                });
+            });
+          });
+        }else{
+          this.createMap();
+        }
+
+
+        //create Map
+        
       } else {
         this.hayRecorridos = false;
         //no hay recorridos
@@ -261,22 +312,44 @@ export class PanelPage implements OnInit {
   createMap() {
     const idCiudad = this.userService.usuarioActivo().id_ciudad;
     this.ciudadService.getCiudadbyId(idCiudad).subscribe((ciudad: Ciudad) => {
-      if (ciudad) {
-        const centro = ciudad.ubicacion_google_maps.centro;
-        const zoom = ciudad.ubicacion_google_maps.zoom;
-        if (centro && zoom) {
-          var mapOptions = {
-            zoom: zoom,
-            center: centro,
-            disableDefaultUI: false,
-            fullscreenControl: true,
-          };
-          var mapCreado = new google.maps.Map(
-            document.getElementById('map-panel')!,
-            mapOptions
-          );
-          this.map = mapCreado;
-        }
+
+      const centro = ciudad.ubicacion_google_maps.centro;
+      const zoom = ciudad.ubicacion_google_maps.zoom;
+      if (this.recorridosHoy && this.sectores) {
+        let ubicacionesHoy: Ubicacion[] = [];
+
+        this.recorridosHoy.forEach((recorrido) => {
+          recorrido.ubicaciones.forEach((ubicacion) => {
+            ubicacionesHoy.push(ubicacion);
+          });
+        });
+
+        const c = this.sectores.map(
+          (sector) => sector.cerco_virtual
+        );
+
+        let cercosVirtuales: Ubicacion[][] = [[]];
+
+        c.forEach((cerco)=>{
+          cerco.forEach((cercoVirtual)=>{
+            cercosVirtuales.push((cercoVirtual));
+          })
+        })
+
+        console.log('cercosVirtuales', cercosVirtuales);
+
+        
+        this.googleMapService.createMap(
+          centro,
+          zoom,
+          'map-panel',
+          this.map,
+          cercosVirtuales,
+          ubicacionesHoy,
+          true
+        );
+      }else{
+        this.googleMapService.createMap(centro, zoom, 'map-panel', this.map);
       }
     });
   }

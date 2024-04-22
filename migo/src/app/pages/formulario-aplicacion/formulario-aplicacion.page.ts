@@ -317,7 +317,8 @@ export class FormularioAplicacionPage implements OnInit {
       const rolUser = user.rol_usuario;
 
       const entidadElegida = this.bancoService.entidadesObtenidas.find((entidad)=> entidad.nombre === this.entidadBancaria)
-
+      const f = new Date().toLocaleDateString().split('/');
+      const fechaEnvio = f[2]+'-'+f[1]+'-'+f[0];
       switch (rolUser) {
         case 2: //chofer
           const choferActivo = this.choferService.choferActivo();
@@ -330,7 +331,7 @@ export class FormularioAplicacionPage implements OnInit {
             entidad_bancaria: entidadElegida!.id_entidad,
             tipo_cuenta_bancaria: this.tipoCuenta,
             correo_electronico: user.email,
-            fecha_envio: new Date(),
+            fecha_envio: fechaEnvio,
             id_usuario: this.userService.usuarioActivo().id_usuario,
             id_ciudad: this.userService.usuarioActivo().id_ciudad,
             id_pais: this.userService.usuarioActivo().id_pais,
@@ -358,7 +359,7 @@ export class FormularioAplicacionPage implements OnInit {
             entidad_bancaria: entidadElegida!.id_entidad,
             tipo_cuenta_bancaria: String(this.tipoCuenta),
             correo_electronico: clienteActivo.email,
-            fecha_envio: new Date(),
+            fecha_envio: fechaEnvio,
             id_usuario: this.userService.usuarioActivo().id_usuario,
             id_ciudad: this.userService.usuarioActivo().id_ciudad,
             id_pais: this.userService.usuarioActivo().id_pais,

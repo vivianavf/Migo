@@ -1,3 +1,5 @@
+import { Ubicacion } from "./ubicacion";
+
 export interface RecorridoRealizado {
     id_recorrido?: number,
     id_usuario: number,
@@ -10,5 +12,5 @@ export interface RecorridoRealizado {
     id_ciudad: number,
     id_pais: number,
     estado?: number,
-    ubicaciones: any,
+    ubicaciones: Ubicacion[],
 }
