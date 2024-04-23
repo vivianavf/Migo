@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VehiculosPageRoutingModule } from './vehiculos-routing.module';
+import { ContactoPageRoutingModule } from './contacto-routing.module';
 
-import { VehiculosPage } from './vehiculos.page';
+import { ContactoPage } from './contacto.page';
 import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
@@ -14,10 +14,9 @@ import { AdsComponent } from '../components/ads/ads.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    VehiculosPageRoutingModule,
-    AdsComponent,
+    ContactoPageRoutingModule,
+    AdsComponent
   ],
-  declarations: [VehiculosPage],
-  providers: [AdsComponent, VehiculosPage,],
+  declarations: [ContactoPage]
 })
-export class VehiculosPageModule {}
+export class ContactoPageModule {}

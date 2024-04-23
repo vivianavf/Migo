@@ -36,6 +36,7 @@ import { EntidadBancaria } from 'src/app/interfaces/entidad-bancaria';
 import { EntidadBancariaService } from 'src/app/providers/entidad-bancaria.service';
 import { ChoferService } from 'src/app/providers/chofer.service';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
+import { EnviarFormularioAplicacionComponent } from '../modals/enviar-formulario-aplicacion/enviar-formulario-aplicacion.component';
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -140,22 +141,9 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   getImageSrc(angulo: string, vehiculo?: Vehiculo) {
-    if (vehiculo) {
-      const extension = this.getImageExtension(vehiculo);
-      return this.imgRuta + vehiculo.placa + angulo + '.' + extension;
-    } else {
-      return '';
-    }
-  }
-
-  getImageExtension(vehiculo: Vehiculo) {
-    if (vehiculo) {
-      const routeName = String(vehiculo.imagen_frontal).split('.');
-      const extension = routeName.pop();
-      return extension;
-    } else {
-      return '.jpg';
-    }
+    const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
+    const foto = arrayNombreURL[arrayNombreURL.length-1];
+    return this.imgRuta+foto;
   }
 
   filtrarEntidades(event: any) {
@@ -293,7 +281,20 @@ export class FormularioAplicacionPage implements OnInit {
     this.popCtrl.dismiss();
   }
 
+  async mostrarCargando(){
+    const modal = await this.modalController.create({
+      component: EnviarFormularioAplicacionComponent,
+      cssClass: 'enviarFormApp',
+    })
+
+    return modal.present();
+  }
+
+
   enviarFormulario() {
+
+    this.mostrarCargando();
+
     this.aceptoTerminos();
     this.entidadVacio();
     this.archivoExiste();
@@ -341,10 +342,10 @@ export class FormularioAplicacionPage implements OnInit {
           };
           this.formService.crearFormulario(formChofer).subscribe((response) => {
             if (response) {
-              console.log(response);
-              this.modalFormulario.dismiss();
+              // console.log(response);
+              // this.modalFormulario.dismiss();
               // this.navCtrl.navigateRoot('/solicitudes');
-              location.reload();
+              setTimeout(this.redireccion, 3000);
             }
           });
           break;
@@ -370,11 +371,11 @@ export class FormularioAplicacionPage implements OnInit {
 
           this.formService.crearFormulario(formCliente).subscribe((response) => {
             if (response) {
-              console.log(response);
+              // console.log(response);
               //cerrar cargando
-              this.modalFormulario.dismiss();
+              // this.modalFormulario.dismiss();
               // this.navCtrl.navigateRoot('/solicitudes');
-              location.reload();
+              setTimeout(this.redireccion, 3000);
             }
           });
           break;
@@ -383,6 +384,11 @@ export class FormularioAplicacionPage implements OnInit {
       console.log('No puede registrarse');
       this.puedeRegistrarse = false;
     }
+  }
+
+  redireccion(){
+    // this.modalCtrl.dismiss();
+    location.reload();
   }
 
   vehiculoHaSidoSeleccionado() {

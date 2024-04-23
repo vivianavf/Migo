@@ -241,6 +241,18 @@ const routes: Routes = [
     path: 'detalle-marca',
     loadChildren: () => import('./pages/modals/detalle-marca/detalle-marca.module').then( m => m.DetalleMarcaPageModule)
   },
+  {
+    path: 'contacto',
+    loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
+  },
+  {
+    path: 'terminos-condiciones-principal',
+    loadChildren: () => import('./pages/terminos-condiciones-principal/terminos-condiciones-principal.module').then( m => m.TerminosCondicionesPrincipalPageModule)
+  },
+  {
+    path: 'politica-privacidad-principal',
+    loadChildren: () => import('./pages/politica-privacidad-principal/politica-privacidad-principal.module').then( m => m.PoliticaPrivacidadPrincipalPageModule)
+  },
 
 
 

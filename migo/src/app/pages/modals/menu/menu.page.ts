@@ -26,7 +26,7 @@ export class MenuPage implements OnInit {
     private clientService: ClienteService,
     private tabService: TabsService,
     private choferService: ChoferService,
-    private toolbarService: ToolbarService,
+    private toolbarService: ToolbarService
   ) {}
 
   cerrarModal() {
@@ -64,6 +64,21 @@ export class MenuPage implements OnInit {
         this.router.navigate(['/reclamos']);
         this.modalController.dismiss();
         break;
+
+      case 'contacto':
+        this.router.navigate(['/contacto']);
+        this.modalController.dismiss();
+        break;
+
+      case 'terminos':
+        this.router.navigate(['/terminos-condiciones-principal']);
+        this.modalController.dismiss();
+        break;
+
+      case 'privacidad':
+        this.router.navigate(['/politica-privacidad-principal']);
+        this.modalController.dismiss();
+        break;
     }
   }
 
@@ -80,15 +95,21 @@ export class MenuPage implements OnInit {
   ngOnInit() {
     // console.log(this.user)
     // console.log(this.client)
-    this.toolbarService.setTexto("MENÚ");
+    this.toolbarService.setTexto('MENÚ');
     this.toolbarService.showAds(false);
 
     switch (this.user.rol_usuario) {
       case 2: // es chofer
-        this.nombreUsuario = this.choferService.choferActivo().nombre.toString() + " " + this.choferService.choferActivo().apellido.toString();
+        this.nombreUsuario =
+          this.choferService.choferActivo().nombre.toString() +
+          ' ' +
+          this.choferService.choferActivo().apellido.toString();
         break;
       case 5: //es cliente
-        this.nombreUsuario = this.clientService.clienteActivo().nombre.toString() + " " + this.clientService.clienteActivo().apellido.toString();
+        this.nombreUsuario =
+          this.clientService.clienteActivo().nombre.toString() +
+          ' ' +
+          this.clientService.clienteActivo().apellido.toString();
         break;
     }
   }

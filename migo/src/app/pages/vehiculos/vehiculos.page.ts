@@ -13,6 +13,7 @@ import { LocalstorageService } from 'src/app/providers/localstorage.service';
 import { NoTieneVehiculoPage } from '../modals/no-tiene-vehiculo/no-tiene-vehiculo.page';
 import { ChoferService } from 'src/app/providers/chofer.service';
 import { NavigationService } from 'src/app/providers/navigation.service';
+import { EliminarVehiculoComponent } from '../modals/eliminar-vehiculo/eliminar-vehiculo.component';
 
 @Component({
   selector: 'app-vehiculos',
@@ -59,34 +60,24 @@ export class VehiculosPage implements OnInit {
   }
 
   getImageSrc(angulo: string, vehiculo?: Vehiculo){
-    if(vehiculo){
-      const extension = this.getImageExtension(vehiculo);
-      return this.imgRuta+vehiculo.placa+angulo+"."+extension;
-    }else{
-      return '';
-    }
-
+    const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
+    const foto = arrayNombreURL[arrayNombreURL.length-1];
+    return this.imgRuta+foto;
   }
 
-  getImageExtension(vehiculo: Vehiculo) {
-    if (vehiculo) {
-      const routeName = String(vehiculo.imagen_frontal).split('.');
-      const extension = routeName.pop();
-      return extension;
-    }else{
-      return '.jpg';
-    }
-  }
+  async eliminarVehiculo(vehiculo: any) {
+    console.log(vehiculo);
 
-  eliminarVehiculo(vehiculo: any) {
-    this.vehiculoEliminar = vehiculo;
-    let index = this.vehiculosSecundarios.indexOf(this.vehiculoEliminar);
-    this.vehiculosSecundarios.splice(index, 1);
-  }
+    const modal = await this.modalCtrl.create({
+      component: EliminarVehiculoComponent,
+      cssClass: 'eliminar-vehiculo',
+      componentProps: {
+        vehiculo: vehiculo,
+      }
 
-  eliminarVehiculoDefinitivamente() {
-    let index = this.vehiculosSecundarios.indexOf(this.vehiculoEliminar);
-    this.vehiculosSecundarios.splice(index, 1);
+    });
+    modal.present();
+    
   }
 
   obtenerVehiculos(idConductor: number, rol: string) {
@@ -179,6 +170,11 @@ export class VehiculosPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.generarDatos();
+    
+  }
+
+  generarDatos(){
     const idCliente = this.clientService.clienteActivo().id_cliente;
     const idChofer = this.choferService.choferActivo().id_chofer;
 

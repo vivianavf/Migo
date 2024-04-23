@@ -1,0 +1,17 @@
+.enviarFormPage{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    height: 100%;
+  }
+
+  #spinnerAddForm{
+    width: 100px;
+    height: 100px;
+    color: var(--ion-color-primary);
+  }

@@ -57,8 +57,6 @@ export class VehiculoService {
     formData.append('id_marca', vehiculo.id_marca.toString());
     formData.append('id_modelo', vehiculo.id_modelo.toString());
 
-    console.log("FORMDATA", formData);
-
     return this.http.post(this.baseURL, formData);
   }
 
@@ -90,5 +88,9 @@ export class VehiculoService {
 
   getVehiculoActual() {
     return this.vehiculo;
+  }
+
+  deleteVehiculo(id: number){
+    return this.http.delete(this.baseURL+id+'/');
   }
 }

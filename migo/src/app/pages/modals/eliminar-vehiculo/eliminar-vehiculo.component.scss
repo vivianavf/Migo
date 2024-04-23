@@ -1,0 +1,54 @@
+@import url('../../../../theme/variables.scss');
+
+ion-icon#warning {
+    height: 70px;
+    width: 70px;
+    color: red;
+  }
+  
+  .texts {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .texts:first-child {
+    color: black;
+    font-size: x-large;
+  }
+  
+  .texts:last-child {
+    color: red;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #boton-cancelar {
+    --box-shadow: none;
+    --background: transparent;
+  }
+  
+  #boton-eliminar {
+    --background: red;
+    --color: white;
+  }
+  
+  .eliminarVehiculoPage{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    height: 100%;
+  }
+
+  #spinnerDeleteVehiculo{
+    width: 100px;
+    height: 100px;
+    color: var(--ion-color-primary);
+  }

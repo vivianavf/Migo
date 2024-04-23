@@ -162,53 +162,6 @@ ion-button.agregar-vehiculo {
   width: 50%;
 }
 
-/* MODAL */
-
-.confirmationPage::part(background) {
-  background: white;
-}
-
-ion-icon#warning {
-  height: 100px;
-  width: 100px;
-  color: red;
-}
-
-.texts {
-  display: flex;
-  flex-direction: column;
-}
-
-.texts:first-child {
-  color: black;
-  font-size: x-large;
-}
-
-.texts:last-child {
-  color: red;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-}
-
-#boton-cancelar {
-  --box-shadow: none;
-  --background: transparent;
-}
-
-#boton-eliminar {
-  --background: red;
-}
-
-.confirmationPage {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-
 /* si no hay vehiculos */
 .vehiculos-vacio{
   display: flex;

@@ -308,11 +308,24 @@ ion-modal.detalleMarcaModal{
   --width: 80%;
   --border-radius: 40px;
   --background: white;
-  --backdrop-opacity: 0.6;
 }
 
 ion-modal{
   --backdrop-opacity: 0.6;
+}
+
+ion-modal.eliminar-vehiculo{
+  --height: 30%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: white;
+}
+
+ion-modal.enviarFormApp{
+  --height: 30%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: white;
 }
 
 /* Pantallas de cargando */

@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VehiculosPageRoutingModule } from './vehiculos-routing.module';
+import { PoliticaPrivacidadPrincipalPageRoutingModule } from './politica-privacidad-principal-routing.module';
 
-import { VehiculosPage } from './vehiculos.page';
+import { PoliticaPrivacidadPrincipalPage } from './politica-privacidad-principal.page';
 import { AdsComponent } from '../components/ads/ads.component';
 
 @NgModule({
@@ -14,10 +14,9 @@ import { AdsComponent } from '../components/ads/ads.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    VehiculosPageRoutingModule,
+    PoliticaPrivacidadPrincipalPageRoutingModule,
     AdsComponent,
   ],
-  declarations: [VehiculosPage],
-  providers: [AdsComponent, VehiculosPage,],
+  declarations: [PoliticaPrivacidadPrincipalPage]
 })
-export class VehiculosPageModule {}
+export class PoliticaPrivacidadPrincipalPageModule {}

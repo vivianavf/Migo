@@ -1,0 +1,29 @@
+<ion-content class="withoutBackground">
+  <div *ngIf="!deleteVehiculo" class="eliminarVehiculoPage">
+    <ion-icon id="warning" name="warning"></ion-icon>
+
+    <div class="texts">
+      <ion-text class="black-text">
+        ¿Estás seguro de eliminar este vehículo?
+      </ion-text>
+      <ion-text class="black-text bold-text">
+        Esta acción no se puede deshacer.
+      </ion-text>
+    </div>
+
+    <div class="buttons">
+      <ion-button id="boton-cancelar" (click)="cerrar()">cancelar</ion-button>
+      <ion-button
+        class="bold-text"
+        id="boton-eliminar"
+        (click)="eliminarVehiculo()"
+        >eliminar</ion-button
+      >
+    </div>
+  </div>
+
+  <div *ngIf="deleteVehiculo" class="eliminarVehiculoPage">
+    <ion-spinner id="spinnerDeleteVehiculo" name="bubbles"></ion-spinner>
+    <ion-text class="black-text">Eliminando vehículo...</ion-text>
+  </div>
+</ion-content>

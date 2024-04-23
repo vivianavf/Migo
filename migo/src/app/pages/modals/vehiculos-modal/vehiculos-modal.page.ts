@@ -49,23 +49,14 @@ export class VehiculosModalPage implements OnInit {
 
   getImageSrc(angulo: string, vehiculo?: Vehiculo) {
     if (vehiculo) {
-      const extension = this.getImageExtension(vehiculo);
-      return this.imgRuta + vehiculo.placa + angulo + '.' + extension;
+      const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
+      const foto = arrayNombreURL[arrayNombreURL.length-1];
+      return this.imgRuta+foto;
     } else {
       return '';
     }
   }
-
-  getImageExtension(vehiculo: Vehiculo) {
-    if (vehiculo) {
-      const routeName = String(vehiculo.imagen_frontal).split('.');
-      const extension = routeName.pop();
-      return extension;
-    } else {
-      return '.jpg';
-    }
-  }
-
+  
   elegirVehiculo(vehiculo: any) {
     this.elegirVehiculoService.sendVehiculo(vehiculo);
     this.modalController.dismiss();
