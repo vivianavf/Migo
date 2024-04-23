@@ -41,6 +41,10 @@ export class CampanaComponent implements OnInit {
 
   imagesEmpresas: EmpresaImages[] = [];
 
+  //promesas
+  campanasPromise!: Promise<any>;
+  campanasCargadas: boolean = false;
+
   constructor(
     private campanaService: CampanaService,
     private empresaService: EmpresaService,
@@ -58,8 +62,9 @@ export class CampanaComponent implements OnInit {
     this.navCtrl.navigateRoot('detalles-campana');
   }
 
+  //ordenar campana
   ordenarAscendente() {
-    this.campanaService.campanasObtenidas.sort((a, b) => {
+    this.campanas.sort((a, b) => {
       const nameA = a.nombre_campana.toLowerCase();
       const nameB = b.nombre_campana.toLowerCase();
       if (nameA < nameB) {
@@ -72,8 +77,9 @@ export class CampanaComponent implements OnInit {
     });
   }
 
+  //ordenar campana
   ordenarDescendente() {
-    this.campanaService.campanasObtenidas.sort((a, b) => {
+    this.campanas.sort((a, b) => {
       const nameA = a.nombre_campana.toLowerCase();
       const nameB = b.nombre_campana.toLowerCase();
       if (nameA > nameB) {
@@ -87,15 +93,15 @@ export class CampanaComponent implements OnInit {
   }
 
   ordenarTarifaAscendente() {
-    this.campanaService.campanasObtenidas.sort((a, b) => {
-      return a.tarifa_base - b.tarifa_base;
-    });
+      this.campanas = this.campanaService.campanasObtenidas.sort((a, b) => 
+        a.tarifa_base - b.tarifa_base);
+
   }
 
   ordenarTarifaDescendente() {
-    this.campanaService.campanasObtenidas.sort((a, b) => {
-      return b.tarifa_base - a.tarifa_base;
-    });
+    console.log(this.campanas)
+    this.campanas = this.campanaService.campanasObtenidas.sort((a, b) => 
+      b.tarifa_base - a.tarifa_base);
   }
 
   ordenarSectorAscendente() {
@@ -129,6 +135,11 @@ export class CampanaComponent implements OnInit {
     var paisUsuario = this.userService.usuarioActivo().id_pais;
     var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
 
+    this.campanaService.getCampanas().subscribe(() => {
+      // this.campanasCargadas = true;
+      this.campanas = this.campanaService.campanasObtenidas.filter(campana => campana.id_ciudad === ciudadUsuario);
+  })
+
     this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
       this.ciudadActiva = ciudad;
     });
@@ -139,14 +150,6 @@ export class CampanaComponent implements OnInit {
 
     this.formService.getFormularios().subscribe((data) => {
       this.formularios = data;
-    });
-
-    this.campanaService.getCampanas().subscribe((campanasArray) => {
-      campanasArray.forEach((campana) => {
-        if (campana.id_ciudad === ciudadUsuario) {
-          this.campanas.push(campana);
-        }
-      });
     });
 
     this.empresaService.getEmpresas().subscribe((data) => {

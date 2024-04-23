@@ -253,6 +253,10 @@ const routes: Routes = [
     path: 'politica-privacidad-principal',
     loadChildren: () => import('./pages/politica-privacidad-principal/politica-privacidad-principal.module').then( m => m.PoliticaPrivacidadPrincipalPageModule)
   },
+  {
+    path: 'eliminar-cuenta',
+    loadChildren: () => import('./pages/modals/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
+  },
 
 
 

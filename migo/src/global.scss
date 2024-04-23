@@ -328,6 +328,13 @@ ion-modal.enviarFormApp{
   --background: white;
 }
 
+ion-modal.eliminarCuenta{
+  --height: 50%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: white;
+}
+
 /* Pantallas de cargando */
 .loadingContent{
   padding: 50px;

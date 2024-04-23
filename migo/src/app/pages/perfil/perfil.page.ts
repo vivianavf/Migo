@@ -11,6 +11,7 @@ import { Ciudad } from 'src/app/interfaces/ciudad';
 import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
+import { EliminarCuentaPage } from '../modals/eliminar-cuenta/eliminar-cuenta.page';
 
 interface Perfil{
   nombre: string,
@@ -91,5 +92,13 @@ export class PerfilPage implements OnInit {
     this.navCtrl.navigateRoot('/reestablecer-password');
   }
 
-  eliminarCuenta() {}
+  async eliminarCuenta() {
+    const modal = await this.modalCtrl.create({
+      component: EliminarCuentaPage,
+      componentProps: {hola: ''},
+      cssClass: 'eliminarCuenta'
+    })
+
+    return modal.present();
+  }
 }

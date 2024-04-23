@@ -70,10 +70,10 @@ export class HomePage implements OnInit {
       case 'tarif-descendente':
         this.campanaComponent.ordenarTarifaDescendente();
         break;
-      case 'ascendente':
+      case 'ascendente': //ordenar campana
         this.campanaComponent.ordenarAscendente();
         break;
-      case 'descendente':
+      case 'descendente': //ordenar campana
         this.campanaComponent.ordenarDescendente();
         break;
       case 'sect-ascendente':
