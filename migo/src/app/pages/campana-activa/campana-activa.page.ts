@@ -234,6 +234,7 @@ export class CampanaActivaPage implements OnInit {
       componentProps: {
         campana: this.campana,
         vehiculo: this.vehiculo,
+        sector: this.sector,
       },
     });
 

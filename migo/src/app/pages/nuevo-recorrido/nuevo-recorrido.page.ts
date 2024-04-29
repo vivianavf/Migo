@@ -9,10 +9,13 @@ import { RecorridoRealizadoService } from 'src/app/providers/recorrido-realizado
 import { TabsService } from 'src/app/providers/tabs.service';
 import { UsersService } from 'src/app/providers/users.service';
 import { Timer, Time, TimerOptions } from 'timer-node';
-import { Geolocation } from '@capacitor/geolocation';
+import { Geolocation, Position } from '@capacitor/geolocation';
 import { SectorService } from 'src/app/providers/sector.service';
 import { Sector } from 'src/app/interfaces/sector';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { GooglemapsService } from 'src/app/providers/googlemaps.service';
+import { BackgroundRunner } from '@capacitor/background-runner';
+import { Preferences } from '@capacitor/preferences';
 
 interface UbicacionGuardada {
   lng: number;
@@ -33,6 +36,7 @@ export class NuevoRecorridoPage implements OnInit {
 
   campana!: Campana;
   vehiculo!: Vehiculo;
+  sector!: Sector;
   usuario!: User;
   sectorCampana!: Sector;
 
@@ -64,38 +68,29 @@ export class NuevoRecorridoPage implements OnInit {
     private enviarNotificacion: EnviarNotificacionService,
     private recorridoService: RecorridoRealizadoService,
     private userService: UsersService,
-    private sectorService: SectorService
+    private sectorService: SectorService,
+    private googleMapsService: GooglemapsService,
   ) {}
 
   ionViewDidEnter() {
-    console.log('VIEW ENTER');
     this.tabService.hideTabs();
-    // this.generarDatos();
-
-    if (!(this.campana && this.vehiculo)) {
+    if (!(this.campana && this.vehiculo && this.sector)) {
       this.generarDatos();
-      console.log("ya que no hay datos de campana ni vehiculos lo generamos")
     }else{
-      console.log("obtengo solamente la ubicacion actual para guardarla en el array de ubicaciones")
-      this.obtenerUbicacionActual();
-      console.log('ya hay esta info', this.campana, this.vehiculo)
+      console.log("obtengo solamente la ubicacion actual")
+      console.log("ELSE VIEW ENTER (aqui dibujaria el mapa)")
     }
-    // 1. El timer debe continuar desde donde lo deje
-    // y debe de seguir en segundo plano.
-    // 2. debe de recoger la nueva ubicacion.
-    // 3. debe de verificar si la ubicacion coincide con el sector
   }
 
   ionViewDidLeave() {
     // this.resetDatos();
+    //DEJAR DE VER LA UBICACION?? TAL VEZ
   }
 
   ngOnInit() {
-    console.log("ON INIT");
-    // location.reload();
     this.generarDatos();
-    // 10 minutos es 600000 ms
-    // 15 minutos es 900000 ms
+    this.dibujarMapaSector();
+    // this.trackUbication();
   }
 
   resetDatos() {
@@ -105,144 +100,17 @@ export class NuevoRecorridoPage implements OnInit {
     this.stopTimer();
   }
 
-  enviarNotificacionesPeriodicas(tiempoMS: number) {
-    this.notificacionIntervalId = setInterval(() => {
-      // 10 minutos es 600000 ms
-      // 15 minutos es 900000 ms
-      this.enviarNotificacion
-        .enviarNotificacion(
-          'Verifica tu recorrido!',
-          'Es hora de verificar tu recorrido, por favor, ve a un lugar seguro y prepárate para tomar las fotos'
-        )
-        .subscribe((response) => {
-          console.log(response);
-        });
-    }, tiempoMS);
-  }
-
-  guardarUbicacion(lat: number, lng: number) {
-    console.log('guardando la ubicacion...', {lat: lat, lng: lng})
-    const peticionStorage = JSON.parse(localStorage.getItem('ubicaciones')!);
-
-    if (peticionStorage) {
-      this.ubicacionesGuardadas = peticionStorage;
-    }
-
-    if(this.actualPolygon){
-      let contieneUbi = google.maps.geometry.poly.containsLocation({lat: lat, lng: lng}, this.actualPolygon);
-      this.ubicacionesGuardadas.push({ lat: lat, lng: lng });
-        localStorage.setItem(
-          'ubicaciones',
-          JSON.stringify(this.ubicacionesGuardadas)
-        );
-
-      if(contieneUbi){
-        //
-      }
-    }
-    
-    // Cada que entro a recorridos, debo guardar la ubicacion que tengo actualmente
-    // Luego, accedo a un array de Ubicaciones, ordenadas por orden de veces que he entrado a estas ubicaciones
-    // Luego, recorro el array y voy poniendo los markers correspondiente a las veces que he hecho la verificacion
-    this.dibujarUbicaciones(this.ubicacionesGuardadas);
-
-    // Luego, hago un polyline marcando todas las ubicaciones que tengo guardadas
-    // Guardar en el local Storage --> las ubicaciones se van a borrar solamente si salgo de la app
-    // Una vez que doy a finalizar recorrido, tengo que ir a la pestaña de Mis Recorridos y mostrar el recorrido que hice
-    // Es decir, tengo que acceder a estas ubicaciones
-
-    // Se guarda de manera local mientras tanto, pero una vez que le doy a finalizar recorrido, se envian estas ubicaciones
-    // en el campo de recorridosrealizados
-
-    // Ubicaciones Guardadas = [{lat: xx, lng: xx}, {}]
-    //
-  }
-
-  async dibujarUbicaciones(ubicacionesGuardadas: UbicacionGuardada[]) {
-
-    // pero siempre y cuando los markers estén dentro del sector
-  // https://developers.google.com/maps/documentation/javascript/examples/poly-containsLocation
-
-  // solamente si el marker esta dentro del sector puedo monetizar
-
-  // si la ubicacion actual esta fuera del sector, entonces no se guarda
-
-    // const pinViewBackground = new google.maps.marker.PinElement({
-    //   background: '#FBBC04',
-    // });
-
-    ubicacionesGuardadas.forEach((ubicacion) => {
-      new google.maps.Marker({
-        position: { lat: ubicacion.lat, lng: ubicacion.lng },
-        map: this.mapaRecorrido,
-        title: 'Ubicacion!',
-      });
-    });
-
-    const flightPath = new google.maps.Polyline({
-      path: this.ubicacionesGuardadas,
-      geodesic: true,
-      strokeColor: '#0013FF',
-      strokeOpacity: 1.0,
-      strokeWeight: 3,
-    });
-
-    this.directionsService = new google.maps.DirectionsService;
-    this.directionsDisplay = new google.maps.DirectionsRenderer;
-    // this.directionsDisplay = new google.maps.DirectionsRenderer();
-
-    flightPath.setMap(this.mapaRecorrido);
-
-    // this.directionsDisplay.setMap(this.mapaRecorrido);
-    // this.directionsDisplay.setOptions({
-    //   polylineOptions: {
-    //     strokeWeight: 6,
-    //     strokeOpacity: 1,
-    //     strokeColor: 'blue'
-    //   },
-    //   suppressMarkers: true
-    // })
-
-    // await this.drawPolyline();
-
-    // let primeraUbi = this.ubicacionesGuardadas[0];
-    // let ultimaUbi = this.ubicacionesGuardadas[this.ubicacionesGuardadas.length-1];
-
-    // await this.directionsService.route({
-    //   origin: primeraUbi,
-    //   destination: ultimaUbi,
-    //   travelMode: 'DRIVING',
-    //   provideRouteAlternatives: true,
-    // }, (response: any, status: any) =>{
-    //   if(status === 'OK'){
-    //     this.directionsDisplay.setDirections(response);
-    //   }
-    // })
-
-  }
-
   generarDatos() {
     this.tabService.hideTabs();
 
     this.timer = new Timer({ startTimestamp: new Date().getTime() });
-
     this.startTimer();
+
     this.campana = JSON.parse(localStorage.getItem('campana-recorrido')!);
     this.vehiculo = JSON.parse(localStorage.getItem('vehiculo-recorrido')!);
+    this.sector = JSON.parse(localStorage.getItem('sector-recorrido')!);
+    this.fechaInicio = JSON.parse(localStorage.getItem('fecha-inicio-recorrido')!);
     this.usuario = this.userService.usuarioActivo()!;
-    this.fechaInicio = new Date();
-
-    this.enviarNotificacionesPeriodicas(10000);
-    // this.enviarNotificacion.enviarNotificacion(this.campana.nombre_campana, "Asegúrate de estar dentro del sector para monetizar el recorrido").subscribe((response)=>{
-    //   console.log(response)
-    // })
-
-    // this.fechaInicio = fechaHoy.split('T')[0];
-    // this.horaInicio = fechaHoy.split('T')[1].split('.')[0];
-
-    this.sectorService.getSectores().subscribe((data) => {
-      this.verificarPermisosUbicacion();
-    });
   }
 
   startTimer() {
@@ -265,6 +133,24 @@ export class NuevoRecorridoPage implements OnInit {
       clearInterval(this.notificacionIntervalId);
       this.notificacionIntervalId = undefined;
     }
+  }
+
+  dibujarMapaSector(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const nuevoMapa = this.googleMapsService.createInitPoint(pos, 14, 'nuevo-recorrido', this.mapaRecorrido, this.sector.cerco_virtual, pos)!;
+          this.mapaRecorrido = nuevoMapa;
+          //comienza a trackear la localizacion
+          this.trackUbication();
+        }
+      );
+    }
+    
   }
 
   verificarPermisosUbicacion() {
@@ -291,110 +177,85 @@ export class NuevoRecorridoPage implements OnInit {
         });
       }
     });
+  }
 
-    // if(navigator.geolocation){
-    //   console.log("UBicacion activada")
-    // }else{
-    //   console.log("UBicacion desAAactivada")
+  async trackUbication(){
+    //cuando cierro la app, deja de trackear la localizacion
+    const watchId = Geolocation.watchPosition({timeout: 5000}, (position, err) => {
+      if (err) {
+        console.error('Error al obtener la posición:', err);
+      } else {
+        this.handlePositionUpdate(position!);
+      }
+    });
+
+    // try {
+    //   const result = await BackgroundRunner.dispatchEvent({
+    //     label: 'com.migo.ads.check',
+    //     event: 'trackLocation',
+    //     details: {},
+    //   });
+    //   console.log('track result -- ', JSON.stringify(result));
+    // } catch (err) {
+    //   console.log(`ERROR: ${err}`);
     // }
+  }
 
-    try {
-      this.obtenerUbicacionActual();
-    } catch (error) {
-      console.log('La ubicacion esta desactivada... abriendo modal');
+  handlePositionUpdate(position: Position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    // console.log(`Nueva posición: Latitud ${latitude}, Longitud ${longitude}`);
+
+    // Agregar esa ubicacion como un marker al mapa que ya está creado
+    const nuevaPosicion = {
+      lat: latitude,
+      lng: longitude,
     }
+    this.guardarUbicacion(nuevaPosicion);
+    // Crear una ruta en Google Maps
   }
 
-  obtenerUbicacionActual(){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: GeolocationPosition) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+  guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
 
-          this.dibujarMapa(pos);
-          this.crearCercos();
-          this.guardarUbicacion(pos.lat, pos.lng);
-          //
-        }
-      );
+    const ubicaciones: UbicacionGuardada[] = this.obtenerUbicaciones();
+    console.log('ubicaciones', ubicaciones)
+
+    if(ubicaciones.length === 0){
+      console.log('es la primera ubicacion', nuevaPosicion)
+      //dibujar un marker como punto de inicio
+      // this.googleMapsService.createFirstMarker({lat: nuevaPosicion.lat, lng: nuevaPosicion.lng}, this.mapaRecorrido);
+      // google.maps.event.addListenerOnce(this.mapaRecorrido, "idle", () =>{
+        
+      // })
+    }else{
+      console.log('NO es la primera ubicacion', nuevaPosicion)
+      //en la posicion anterior borrar el carrito
+      //añadir un marker de carrito a la nueva posicion
+      if(this.mapaRecorrido){
+        let marker = new google.maps.Marker({
+          position: nuevaPosicion,
+          map: this.mapaRecorrido,
+          icon: '/assets/iconos-migo/location-car-animated.gif',
+          optimized: false,
+        });
+  
+        marker.setMap(this.mapaRecorrido);
+        console.log('marker', marker)
+      }
+      //dibujar una linea desde la ubicacion anterior
     }
+
+    ubicaciones.push(nuevaPosicion);
+    localStorage.setItem('ubicaciones', JSON.stringify(ubicaciones));
   }
 
-  guardarUbicacionenArray(){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position: GeolocationPosition) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          this.guardarUbicacion(pos.lat, pos.lng);
-          //
-        }
-      );
-    }
+  obtenerUbicaciones() {
+    return localStorage.getItem('ubicaciones')?JSON.parse(localStorage.getItem('ubicaciones')!):[];
   }
+  
 
-  dibujarMapa(pos: any) {
-          this.mapaRecorrido = new google.maps.Map(
-            document.getElementById('nuevo-recorrido') as HTMLElement,
-            {
-              center: pos,
-              zoom: 15,
-            }
-          );
-
-          new google.maps.Marker({
-            position: pos,
-            map: this.mapaRecorrido,
-            title: 'Ubicacion actual!',
-          });
-          //
-  }
-
-  errorPosition(err: any) {
-    console.error(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  crearCercos() {
-    console.log('crear cercos', this.sectorCampana);
-    if (this.sectorCampana) {
-      let createdPolygon: any;
-
-      createdPolygon = new google.maps.Polygon({
-        paths: this.sectorCampana.cerco_virtual,
-        strokeColor: '#5DD3FF',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#5DD3FF',
-        fillOpacity: 0.35,
-      });
-
-      createdPolygon.setMap(this.mapaRecorrido);
-      this.actualPolygon = createdPolygon;
-
-      // this.sectorCampana.cerco_virtual.forEach((cerco) => {
-      //   if (cerco) {
-      //     createdPolygon = new google.maps.Polygon({
-      //       paths: [cerco],
-      //       strokeColor: '#FF0000',
-      //       strokeOpacity: 0.8,
-      //       strokeWeight: 2,
-      //       fillColor: '#FF0000',
-      //       fillOpacity: 0.35,
-      //     });
-
-      //     createdPolygon.setMap(this.mapaRecorrido);
-      //   }
-      // });
-    }
-  }
-
-  // ********************
+  obtenerKMSRecorridos(): number{
+     // ********************
   // Como calcular el KM RECORRIDO??
   // Obtener el array local de Ubicaciones Guardadas (local Storage)
   // Poner un contador desde 0
@@ -404,7 +265,6 @@ export class NuevoRecorridoPage implements OnInit {
   // Esa cantidad de distancia la guardo en el contador
   // devuelvo los KMS recorridos
 
-  obtenerKMSRecorridos(): number{
     let KMScontador = 0.0;
     let ubiMonetizable: UbicacionGuardada[] = [];
 
@@ -461,8 +321,8 @@ export class NuevoRecorridoPage implements OnInit {
     return d*1609;
   }
 
-
-  //
+  calcularDineroRecaudado(){
+    //
   // ********************
   // Como calcular el dinero recaudado???
 
@@ -488,6 +348,7 @@ export class NuevoRecorridoPage implements OnInit {
 
   // multiplico cada valor que esta guardado en la campaña x la cantidad de kms
   // y sumo cada parte al contador (igual son valores estaticos)
+  }  
 
   resetLocalStorage(){
     if(localStorage.getItem('recorrido')){
@@ -501,6 +362,15 @@ export class NuevoRecorridoPage implements OnInit {
       localStorage.removeItem('vehiculo-recorrido')
     }
 
+    if(localStorage.getItem('ubicaciones')){
+      localStorage.removeItem('ubicaciones')
+    }
+    if(localStorage.getItem('sector-recorrido')){
+      localStorage.removeItem('sector-recorrido')
+    }
+    if(localStorage.getItem('fecha-inicio-recorrido')){
+      localStorage.removeItem('fecha-inicio-recorrido')
+    }
     if(localStorage.getItem('ubicaciones')){
       localStorage.removeItem('ubicaciones')
     }
@@ -541,15 +411,19 @@ export class NuevoRecorridoPage implements OnInit {
     // this.router.navigate(['/panel'])
 
     console.log('Creando el recorrido ... ', nuevoRecorrido);
+    this.stopTimer();
+    location.reload();
+    // this.tabService.showTabs();
+    this.resetLocalStorage();
 
-    this.recorridoService
-      .crearRecorrido(nuevoRecorrido)
-      .subscribe((response) => {
-        this.stopTimer();
-        location.reload();
-        this.tabService.hideTabs();
-        this.resetLocalStorage();
-        // this.router.navigate(['/panel']);
-      });
+    // this.recorridoService
+    //   .crearRecorrido(nuevoRecorrido)
+    //   .subscribe((response) => {
+    //     this.stopTimer();
+    //     location.reload();
+    //     this.tabService.hideTabs();
+    //     this.resetLocalStorage();
+    //     // this.router.navigate(['/panel']);
+    //   });
   }
 }

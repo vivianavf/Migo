@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.migo.ads',
   appName: 'migo',
   webDir: 'www',
   server: {
@@ -19,9 +19,16 @@ const config: CapacitorConfig = {
       presentationOptions: ['badge', 'sound', 'alert'],
     },
     Camera: {
-      syncPhotosToGallery: false
-    }    
-    
+      syncPhotosToGallery: true //OJO
+    },
+    // BackgroundRunner: {
+    //   label: 'com.migo.ads.check',
+    //   src: 'runners/runner.js',
+    //   event: 'myEvent',
+    //   repeat: true,
+    //   interval: 30,
+    //   autoStart: true,
+    // },
   }	
 };
 
