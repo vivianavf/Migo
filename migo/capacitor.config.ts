@@ -19,16 +19,8 @@ const config: CapacitorConfig = {
       presentationOptions: ['badge', 'sound', 'alert'],
     },
     Camera: {
-      syncPhotosToGallery: true //OJO
+      syncPhotosToGallery: false //OJO
     },
-    // BackgroundRunner: {
-    //   label: 'com.migo.ads.check',
-    //   src: 'runners/runner.js',
-    //   event: 'myEvent',
-    //   repeat: true,
-    //   interval: 30,
-    //   autoStart: true,
-    // },
   }	
 };
 
