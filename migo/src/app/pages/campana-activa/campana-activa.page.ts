@@ -44,6 +44,7 @@ export class CampanaActivaPage implements OnInit {
   correoEncargado = '--@--';
   vehiculo!: Vehiculo;
   brandeo?: boolean;
+  // solicitud!: FormularioAplicacion;
   
   //anular registro
   solicitud!: FormularioAplicacion;
@@ -80,6 +81,7 @@ export class CampanaActivaPage implements OnInit {
 
   ionViewDidEnter(){
     let solicitud = this.campanaService.getInfoCampanaActiva()[1];
+    this.solicitud = solicitud;
     this.obtenerVehiculo(solicitud.id_vehiculo)
     this.brandeo = solicitud.brandeo;
   }
@@ -235,6 +237,7 @@ export class CampanaActivaPage implements OnInit {
         campana: this.campana,
         vehiculo: this.vehiculo,
         sector: this.sector,
+        solicitud: this.solicitud,
       },
     });
 

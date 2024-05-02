@@ -14,6 +14,8 @@ import { SectorService } from 'src/app/providers/sector.service';
 import { Sector } from 'src/app/interfaces/sector';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { GooglemapsService } from 'src/app/providers/googlemaps.service';
+import { concat } from 'rxjs';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 interface UbicacionGuardada {
   lng: number;
@@ -30,19 +32,20 @@ export class NuevoRecorridoPage implements OnInit {
   timer!: Timer;
   interValidId: any;
   notificacionIntervalId: any;
-  currentTime: any = {};
+  currentTime: any = {ms: '0', s: '0', m: "0", h:'0', d: "0"};
 
   campana!: Campana;
   vehiculo!: Vehiculo;
   sector!: Sector;
   usuario!: User;
   sectorCampana!: Sector;
+  solicitud!: FormularioAplicacion;
 
   mapaRecorrido!: google.maps.Map;
   centroRecorrido: google.maps.LatLngLiteral = { lat: 30, lng: -110 };
 
   //variables
-  fechaInicio!: Date;
+  fechaInicio!: String;
   kms = 0;
   dineroRecaudado = 0;
   horaInicio = '...';
@@ -68,7 +71,7 @@ export class NuevoRecorridoPage implements OnInit {
     private recorridoService: RecorridoRealizadoService,
     private userService: UsersService,
     private sectorService: SectorService,
-    private googleMapsService: GooglemapsService
+    private googleMapsService: GooglemapsService,
   ) {}
 
   ionViewDidEnter() {
@@ -76,7 +79,6 @@ export class NuevoRecorridoPage implements OnInit {
     if (this.mapaRecorrido) {
       this.trackUbication();
     }
-    console.log('VIEW ENTER..');
   }
 
   ionViewDidLeave() {
@@ -85,7 +87,6 @@ export class NuevoRecorridoPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ON INIT');
     this.generarDatos();
     this.dibujarMapaSector();
   }
@@ -106,9 +107,9 @@ export class NuevoRecorridoPage implements OnInit {
     this.campana = JSON.parse(localStorage.getItem('campana-recorrido')!);
     this.vehiculo = JSON.parse(localStorage.getItem('vehiculo-recorrido')!);
     this.sector = JSON.parse(localStorage.getItem('sector-recorrido')!);
-    this.fechaInicio = JSON.parse(
-      localStorage.getItem('fecha-inicio-recorrido')!
-    );
+    this.fechaInicio = JSON.parse(localStorage.getItem('fecha-inicio-recorrido')!)
+    this.solicitud = JSON.parse(localStorage.getItem('solicitud-recorrido')!);
+    
     this.usuario = this.userService.usuarioActivo()!;
   }
 
@@ -117,6 +118,12 @@ export class NuevoRecorridoPage implements OnInit {
 
     this.interValidId = setInterval(() => {
       this.currentTime = this.timer.time();
+      let segundos = this.timer.time().s;
+      if(this.currentTime.s < 10){this.currentTime.s = '0'.concat(segundos.toString())}
+      let minutos = this.timer.time().m;
+      if(this.currentTime.m < 10){this.currentTime.m = '0'.concat(minutos.toString())}
+      let horas = this.timer.time().h;
+      if(this.currentTime.h < 10){this.currentTime.h = '0'.concat(horas.toString())}
     }, 1000);
   }
 
@@ -161,15 +168,8 @@ export class NuevoRecorridoPage implements OnInit {
     this.sectorCampana = this.sectorService.sectoresObtenidos.find(
       (sector) => sector.id_sector === this.campana.id_sector
     )!;
-    console.log(
-      'SECTOR -- nombre, cerco',
-      this.sectorCampana,
-      this.sectorCampana.nombre,
-      this.sectorCampana.cerco_virtual
-    );
 
     Geolocation.checkPermissions().then((result) => {
-      console.log(result);
       if (
         result.location === 'granted' &&
         result.coarseLocation === 'granted'
@@ -186,8 +186,9 @@ export class NuevoRecorridoPage implements OnInit {
   async trackUbication() {
     console.log('track ubicacion... ');
     //cuando cierro la app, deja de trackear la localizacion
+
     const watchId = Geolocation.watchPosition(
-      { timeout: 5000 },
+      { timeout: 5000, maximumAge: 5000},
       (position, err) => {
         if (err) {
           console.error('Error al obtener la posición:', err);
@@ -214,15 +215,18 @@ export class NuevoRecorridoPage implements OnInit {
 
   guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
     const ubicaciones: UbicacionGuardada[] = this.obtenerUbicaciones();
-    console.log('ubicaciones', ubicaciones);
+    this.ubicacionesGuardadas = ubicaciones;
 
     if (ubicaciones.length === 0) {
-      console.log('es la primera ubicacion', nuevaPosicion);
       //dibujar un marker como punto de inicio
     } else {
       if (this.mapaRecorrido) {
-        console.log('NO es la primera ubicacion', nuevaPosicion);
         const ubicacionAnterior = ubicaciones[ubicaciones.length - 1];
+
+        //para el contador de KMS
+        this.kms += this.calcularDistanciaenKMS(ubicacionAnterior, nuevaPosicion);
+        this.kms = this.redondearFloat(this.kms, 2);
+
         //en la posicion anterior borrar el carrito
         if (this.markersCarrito.length > 0) {
           this.markersCarrito.pop()!.setMap(null);
@@ -268,48 +272,6 @@ export class NuevoRecorridoPage implements OnInit {
       : [];
   }
 
-  obtenerKMSRecorridos(): number {
-    // ********************
-    // Como calcular el KM RECORRIDO??
-    // Obtener el array local de Ubicaciones Guardadas (local Storage)
-    // Poner un contador desde 0
-    // Poner una variable vacia
-    // Si la variable esta vacia, guarda el elemento del array actual y paso al isiguiente
-    // Si no esta vacia, calculo los KMS del elemento actual con la diferencia que esta en la variable guardada
-    // Esa cantidad de distancia la guardo en el contador
-    // devuelvo los KMS recorridos
-
-    let KMScontador = 0.0;
-    let ubiMonetizable: UbicacionGuardada[] = [];
-
-    // 1 2 3 4 /// ubicacionesGuardadas
-    // 1 2 3  /// ubiMonetizable
-
-    this.ubicacionesGuardadas.forEach((ubicacion) => {
-      // ubiMonetizable.push(ubicacion);
-
-      if (ubiMonetizable.length > 0) {
-        let ultimoElemento = ubiMonetizable[ubiMonetizable.length - 1];
-        KMScontador += this.calcularDistanciaenKMS(ubicacion, ultimoElemento);
-        console.log('CONTADOR VA EN - ', KMScontador);
-      }
-
-      ubiMonetizable.push(ubicacion);
-
-      // if(ubiMonetizable.length === 0){
-      //   ubiMonetizable.push(ubicacion);
-      // }else{
-      //   let ultimoElemento = ubiMonetizable[ubiMonetizable.length-1];
-      //   KMScontador += this.calcularDistanciaenKMS(ubicacion, ultimoElemento);
-      //   ubiMonetizable.push(ubicacion);
-      // }
-    });
-
-    console.log('Finalizacion de contador KMS -- quedó en -- ', KMScontador);
-
-    return KMScontador;
-  }
-
   calcularDistanciaenKMS(
     puntoA: UbicacionGuardada,
     puntoB: UbicacionGuardada
@@ -338,11 +300,6 @@ export class NuevoRecorridoPage implements OnInit {
     // var distanciaMetros = google.maps.geometry.spherical.computeDistanceBetween(puntoA, puntoB)
     // var distanciaKMS = distanciaMetros * 0.001;
 
-    console.log('Distancia entre los puntos:');
-    // console.log("API COMP (en KMS) --- ", distanciaKMS);
-    console.log('DISTANCIA CAL en millas --- ', d);
-    console.log('DISTANCIA CAL EN KMS --- ', d * 1609);
-
     return d * 1609;
   }
 
@@ -368,6 +325,10 @@ export class NuevoRecorridoPage implements OnInit {
     // puerta_pasajero = 0.25 x km
     // multiplico cada valor que esta guardado en la campaña x la cantidad de kms
     // y sumo cada parte al contador (igual son valores estaticos)
+
+    console.log("calculando dinero... ")
+    // var values = Object.keys(this.solicitud).filter(key => this.solicitud[key])
+    return 0;
   }
 
   resetLocalStorage() {
@@ -403,21 +364,19 @@ export class NuevoRecorridoPage implements OnInit {
 
   finalizarRecorrido() {
     console.log('Recorrido Finalizado....');
-
-    const KMSRecorridos = this.obtenerKMSRecorridos();
+    const KMSRecorridos = this.kms;
     const KMSRedondeados = this.redondearFloat(KMSRecorridos, 2);
-    console.log('KMS SIN REDONDEAR - ', KMSRecorridos);
-    console.log('KMS REDONDEADOS -- ', KMSRedondeados);
-    const fechaActual = new Date();
+    const fechaActual = new Date().toLocaleString();
+    const dinero = this.calcularDineroRecaudado();
 
     const nuevoRecorrido: RecorridoRealizado = {
       id_vehiculo: this.vehiculo.id_vehiculo!,
       id_usuario: this.usuario.id_usuario,
       id_campana: this.campana.id_campana,
-      fecha_hora_inicio: this.fechaInicio,
-      fecha_hora_fin: fechaActual,
+      fecha_hora_inicio: new Date(String(this.fechaInicio!)),
+      fecha_hora_fin: new Date(String(fechaActual)),
       kilometraje_recorrido: KMSRedondeados,
-      dinero_recaudado: 1,
+      dinero_recaudado: dinero,
       id_ciudad: this.usuario.id_ciudad,
       id_pais: this.usuario.id_pais,
       estado: 1,
@@ -431,7 +390,7 @@ export class NuevoRecorridoPage implements OnInit {
 
     console.log('Creando el recorrido ... ', nuevoRecorrido);
     this.stopTimer();
-    location.reload();
+    // location.reload();
     // this.tabService.showTabs();
     this.resetLocalStorage();
 

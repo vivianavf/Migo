@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Campana } from 'src/app/interfaces/campana';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 import { Sector } from 'src/app/interfaces/sector';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
 import { TabsService } from 'src/app/providers/tabs.service';
@@ -16,6 +17,7 @@ export class ConducirModalPage implements OnInit {
   @Input() campana!: Campana;
   @Input() vehiculo!: Vehiculo;
   @Input() sector!: Sector;
+  @Input() solicitud!: FormularioAplicacion;
 
   constructor(
     private router: Router,
@@ -36,7 +38,8 @@ export class ConducirModalPage implements OnInit {
     localStorage.setItem('campana-recorrido', JSON.stringify(this.campana));
     localStorage.setItem('vehiculo-recorrido', JSON.stringify(this.vehiculo));
     localStorage.setItem('sector-recorrido',JSON.stringify(this.sector));
-    localStorage.setItem('fecha-inicio-recorrido',JSON.stringify(new Date()));
+    localStorage.setItem('solicitud-recorrido',JSON.stringify(this.sector));
+    localStorage.setItem('fecha-inicio-recorrido',JSON.stringify(new Date().toLocaleString()));
     this.modalController.dismiss();
     localStorage.setItem('recorrido','true')
   }
