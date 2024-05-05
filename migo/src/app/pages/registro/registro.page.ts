@@ -20,6 +20,7 @@ import { Pais } from 'src/app/interfaces/pais';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { PaisService } from 'src/app/providers/pais.service';
 import { CiudadService } from 'src/app/providers/ciudad.service';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-registro',
@@ -81,6 +82,7 @@ export class RegistroPage implements OnInit {
     private regConductorService: RegistroConductorService,
     private paisService: PaisService,
     private ciudadService: CiudadService,
+    private toolbarService: ToolbarService,
   ) {
     this.formularioRegistro = this.fb.group({
       cedula: new FormControl('', [Validators.required]),
@@ -355,6 +357,7 @@ export class RegistroPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('REGISTRO')
     this.users = this.userService.usersObtenidos;
     this.clientes = this.clienteService.clientesObtenidos;
     this.formularioRegistro.reset();

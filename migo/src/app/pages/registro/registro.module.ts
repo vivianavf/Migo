@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RegistroPageRoutingModule } from './registro-routing.module';
 
 import { RegistroPage } from './registro.page';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistroPageRoutingModule
+    RegistroPageRoutingModule,
+    BackButtonsComponent,
   ],
   declarations: [RegistroPage]
 })

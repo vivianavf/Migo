@@ -26,8 +26,6 @@ import { GlobalServiceService } from 'src/app/providers/global-service.service';
 export class HomePage implements OnInit {
   // backButton: Subscription = new Subscription();
 
-  imgBanner: number = 1;
-
   opcionSeleccionada: any;
   segmentValue: string = 'campanas';
 

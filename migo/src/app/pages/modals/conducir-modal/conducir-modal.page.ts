@@ -38,7 +38,7 @@ export class ConducirModalPage implements OnInit {
     localStorage.setItem('campana-recorrido', JSON.stringify(this.campana));
     localStorage.setItem('vehiculo-recorrido', JSON.stringify(this.vehiculo));
     localStorage.setItem('sector-recorrido',JSON.stringify(this.sector));
-    localStorage.setItem('solicitud-recorrido',JSON.stringify(this.sector));
+    localStorage.setItem('solicitud-recorrido',JSON.stringify(this.solicitud));
     localStorage.setItem('fecha-inicio-recorrido',JSON.stringify(new Date().toLocaleString()));
     this.modalController.dismiss();
     localStorage.setItem('recorrido','true')

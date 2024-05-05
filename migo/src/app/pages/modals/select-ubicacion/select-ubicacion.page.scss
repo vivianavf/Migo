@@ -1,0 +1,26 @@
+.root-select-ubication{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.paisContainer{
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.select-ubicacion{
+    --border-color: var(--ion-color-primary);
+    --background: white;
+    --border-radius: 10px;
+}
+
+.CU-spinner{
+    align-self: center;
+    width: 80px;
+    height: 80px;
+}

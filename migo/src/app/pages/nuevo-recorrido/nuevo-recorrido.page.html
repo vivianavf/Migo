@@ -25,7 +25,10 @@
       <ion-text class="black-text">{{fechaInicio}}</ion-text>
     </div>
     <div class="NR-divider">
-      <ion-text class="black-text">Kilómetros recorridos:</ion-text>
+      <div class="text-kms">
+        <ion-text class="black-text">Kilómetros recorridos:</ion-text>
+        <ion-button id="click-more-info"><ion-icon name="help-circle-outline"></ion-icon></ion-button>
+      </div>
       <ion-text class="black-text">{{kms}} KM</ion-text>
     </div>
     <div class="NR-divider">
@@ -41,4 +44,14 @@
   <div class="NR-button-container">
     <ion-button (click)="finalizarRecorrido()"> Finalizar Recorrido</ion-button>
   </div>
+
+  <ion-popover trigger="click-more-info" triggerAction="click">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-text class="black-text">
+          Se comenzará el conteo de kilómetros cuando el vehículo acceda a una zona sujeta a monetización.
+        </ion-text>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 </ion-content>

@@ -22,6 +22,16 @@ interface UbicacionGuardada {
   lat: number;
 }
 
+interface Monetizacion {
+  valorCarroceriaCapo: number;
+  valorCarroceriaTecho: number;
+  valorPuertaConductor: number;
+  valorPuertaPasajero: number;
+  valorPuertaTraseraIzq: number;
+  valorPuertaTraseraDer: number;
+  valorPuertaMaletero: number;
+}
+
 @Component({
   selector: 'app-nuevo-recorrido',
   templateUrl: './nuevo-recorrido.page.html',
@@ -32,7 +42,7 @@ export class NuevoRecorridoPage implements OnInit {
   timer!: Timer;
   interValidId: any;
   notificacionIntervalId: any;
-  currentTime: any = {ms: '0', s: '0', m: "0", h:'0', d: "0"};
+  currentTime: any = { ms: '0', s: '0', m: '0', h: '0', d: '0' };
 
   campana!: Campana;
   vehiculo!: Vehiculo;
@@ -47,6 +57,7 @@ export class NuevoRecorridoPage implements OnInit {
   //variables
   fechaInicio!: String;
   kms = 0;
+  kmsMonetizables = 0;
   dineroRecaudado = 0;
   horaInicio = '...';
   // timer = "00:00"
@@ -57,8 +68,9 @@ export class NuevoRecorridoPage implements OnInit {
 
   //
   ubicacionesGuardadas: UbicacionGuardada[] = [];
-  actualPolygon: any;
+  polygonCreado!: google.maps.Polygon;
   markersCarrito: google.maps.Marker[] = [];
+  watchId!: string;
 
   //
   directionsService: any;
@@ -71,7 +83,7 @@ export class NuevoRecorridoPage implements OnInit {
     private recorridoService: RecorridoRealizadoService,
     private userService: UsersService,
     private sectorService: SectorService,
-    private googleMapsService: GooglemapsService,
+    private googleMapsService: GooglemapsService
   ) {}
 
   ionViewDidEnter() {
@@ -107,9 +119,11 @@ export class NuevoRecorridoPage implements OnInit {
     this.campana = JSON.parse(localStorage.getItem('campana-recorrido')!);
     this.vehiculo = JSON.parse(localStorage.getItem('vehiculo-recorrido')!);
     this.sector = JSON.parse(localStorage.getItem('sector-recorrido')!);
-    this.fechaInicio = JSON.parse(localStorage.getItem('fecha-inicio-recorrido')!)
+    this.fechaInicio = JSON.parse(
+      localStorage.getItem('fecha-inicio-recorrido')!
+    );
     this.solicitud = JSON.parse(localStorage.getItem('solicitud-recorrido')!);
-    
+
     this.usuario = this.userService.usuarioActivo()!;
   }
 
@@ -119,11 +133,17 @@ export class NuevoRecorridoPage implements OnInit {
     this.interValidId = setInterval(() => {
       this.currentTime = this.timer.time();
       let segundos = this.timer.time().s;
-      if(this.currentTime.s < 10){this.currentTime.s = '0'.concat(segundos.toString())}
+      if (this.currentTime.s < 10) {
+        this.currentTime.s = '0'.concat(segundos.toString());
+      }
       let minutos = this.timer.time().m;
-      if(this.currentTime.m < 10){this.currentTime.m = '0'.concat(minutos.toString())}
+      if (this.currentTime.m < 10) {
+        this.currentTime.m = '0'.concat(minutos.toString());
+      }
       let horas = this.timer.time().h;
-      if(this.currentTime.h < 10){this.currentTime.h = '0'.concat(horas.toString())}
+      if (this.currentTime.h < 10) {
+        this.currentTime.h = '0'.concat(horas.toString());
+      }
     }, 1000);
   }
 
@@ -149,15 +169,17 @@ export class NuevoRecorridoPage implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          const nuevoMapa = this.googleMapsService.createInitPoint(
+          let initPointResult = this.googleMapsService.createInitPoint(
             pos,
             14,
             'nuevo-recorrido',
             this.mapaRecorrido,
             this.sector.cerco_virtual,
             pos
-          )!;
-          this.mapaRecorrido = nuevoMapa;
+          );
+
+          this.mapaRecorrido = initPointResult.mapa!;
+          this.polygonCreado = initPointResult.poligono!;
           this.trackUbication();
         }
       );
@@ -188,7 +210,7 @@ export class NuevoRecorridoPage implements OnInit {
     //cuando cierro la app, deja de trackear la localizacion
 
     const watchId = Geolocation.watchPosition(
-      { timeout: 5000, maximumAge: 5000},
+      { timeout: 5000, maximumAge: 5000 },
       (position, err) => {
         if (err) {
           console.error('Error al obtener la posición:', err);
@@ -197,6 +219,8 @@ export class NuevoRecorridoPage implements OnInit {
         }
       }
     );
+
+    this.watchId = (await watchId).toString();
   }
 
   handlePositionUpdate(position: Position) {
@@ -214,31 +238,50 @@ export class NuevoRecorridoPage implements OnInit {
   }
 
   guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
+    /// marcar con diferente color si la ubicacion entra o no entra en la monetizacion
+
     const ubicaciones: UbicacionGuardada[] = this.obtenerUbicaciones();
     this.ubicacionesGuardadas = ubicaciones;
 
     if (ubicaciones.length === 0) {
       //dibujar un marker como punto de inicio
+      //es la primera ubicacion
     } else {
       if (this.mapaRecorrido) {
         const ubicacionAnterior = ubicaciones[ubicaciones.length - 1];
-
-        //para el contador de KMS
-        this.kms += this.calcularDistanciaenKMS(ubicacionAnterior, nuevaPosicion);
-        this.kms = this.redondearFloat(this.kms, 2);
 
         //en la posicion anterior borrar el carrito
         if (this.markersCarrito.length > 0) {
           this.markersCarrito.pop()!.setMap(null);
         }
-        let markerAnterior = new google.maps.Marker({
-          position: ubicacionAnterior,
-          map: this.mapaRecorrido,
-          icon: '/assets/iconos-migo/route-location.png',
-          optimized: false,
-        });
-        markerAnterior.setMap(this.mapaRecorrido);
-        
+
+        //verifica si la ubicacion ANTERIOR entra en EL SECTOR
+        if (google.maps.geometry.poly.containsLocation(ubicacionAnterior, this.polygonCreado)) {
+          // contiene la posicion
+          //marcar con un circulo verde la posicion anterior si es correcta
+          let markerAnterior = new google.maps.Marker({
+            position: ubicacionAnterior,
+            map: this.mapaRecorrido,
+            icon: '/assets/iconos-migo/green-location.png',
+            optimized: false,
+          });
+          markerAnterior.setMap(this.mapaRecorrido);
+        } else {
+          // no contiene la posicion
+          //marcar con un circulo ROJO si la posicion anterior NO es correcta
+          let markerAnterior = new google.maps.Marker({
+            position: ubicacionAnterior,
+            map: this.mapaRecorrido,
+            icon: '/assets/iconos-migo/red-location.png',
+            optimized: false,
+          });
+          markerAnterior.setMap(this.mapaRecorrido);
+        }
+
+        //para el contador de KMS recorridos
+        // this.kms += this.calcularDistanciaenKMS(ubicacionAnterior,nuevaPosicion);
+        // this.kms = this.redondearFloat(this.kms, 2);
+
         //añadir un marker de carrito a la nueva posicion
         let marker = new google.maps.Marker({
           position: nuevaPosicion,
@@ -246,15 +289,33 @@ export class NuevoRecorridoPage implements OnInit {
           icon: '/assets/iconos-migo/location-car-animated.gif',
           optimized: false,
         });
-
         this.markersCarrito.push(marker);
         marker.setMap(this.mapaRecorrido);
+
+        let colorRuta;
+
+        //verifica si la ubicacion NUEVA entra en la monetizacion
+        if (
+          google.maps.geometry.poly.containsLocation(
+            nuevaPosicion,
+            this.polygonCreado
+          )
+        ) {
+          // contiene la posicion
+          colorRuta = '#7ED57'
+          this.kms += this.calcularDistanciaenKMS(ubicacionAnterior,nuevaPosicion);
+          this.kms = this.redondearFloat(this.kms, 2);
+          this.dineroRecaudado = this.calcularDineroRecaudado(this.kms);
+        } else {
+          // no contiene la posicion
+          colorRuta = '#E50000'
+        }
 
         //dibujar una linea desde la ubicacion anterior
         const flightPath = new google.maps.Polyline({
           path: [ubicacionAnterior, nuevaPosicion],
           geodesic: true,
-          strokeColor: '#E50000',
+          strokeColor: colorRuta,
           strokeOpacity: 1.0,
           strokeWeight: 1,
         });
@@ -296,39 +357,21 @@ export class NuevoRecorridoPage implements OnInit {
               Math.sin(difLong / 2)
         )
       );
-
-    // var distanciaMetros = google.maps.geometry.spherical.computeDistanceBetween(puntoA, puntoB)
-    // var distanciaKMS = distanciaMetros * 0.001;
-
     return d * 1609;
   }
 
-  calcularDineroRecaudado() {
-    //
-    // ********************
-    // Como calcular el dinero recaudado???
-    // En formulario de Registro de Campaña añadir los campos (6):
-    // "puerta_conductor": 0.0,
-    // "puerta_pasajero": 0.0,
-    // "puerta_traseratzq": 0.0,
-    // "puerta_traseraDer": 0.0,
-    // "carroceria_guantera": 0.0,
-    // "carroceria_techo": 0.0,
-    // valores entre 0 y 1 (a modo de porcentajes)
-    // Pero con booleanos, cosa que ahi ya se que parte del carro el conductor brandeó
-    // Luego de eso, sacar los valores con true
-    // por ejemplo = ["puerta_conductor", "puerta_pasajero"]
-    // Luego Sacar en Campaña Publicitaria el valor de esos brandeos.
-    // pongo un contador x cada parte del auto posible (6)
-    // Obtengo la cantidad de kms recorridos
-    // puerta_conductor = 0.50 x km
-    // puerta_pasajero = 0.25 x km
-    // multiplico cada valor que esta guardado en la campaña x la cantidad de kms
-    // y sumo cada parte al contador (igual son valores estaticos)
+  calcularDineroRecaudado(KMSRecorridos: number) {
+    let monetizacion: Monetizacion = {
+      valorCarroceriaCapo: this.solicitud.carroceria_capo?this.campana.tarifa_base * this.campana.carroceria_capo * KMSRecorridos: 0,
+      valorCarroceriaTecho: this.solicitud.carroceria_techo?this.campana.tarifa_base * this.campana.carroceria_techo * KMSRecorridos: 0,
+      valorPuertaConductor: this.solicitud.puerta_conductor?this.campana.tarifa_base * this.campana.puerta_conductor * KMSRecorridos: 0,
+      valorPuertaPasajero: this.solicitud.puerta_pasajero?this.campana.tarifa_base * this.campana.puerta_pasajero * KMSRecorridos: 0,
+      valorPuertaTraseraIzq: this.solicitud.puerta_trasera_iz?this.campana.tarifa_base * this.campana.puerta_trasera_iz * KMSRecorridos: 0,
+      valorPuertaTraseraDer: this.solicitud.puerta_trasera_der?this.campana.tarifa_base * this.campana.puerta_trasera_der * KMSRecorridos: 0,
+      valorPuertaMaletero: this.solicitud.puerta_maletero?this.campana.tarifa_base * this.campana.puerta_maletero * KMSRecorridos: 0,
+    };
 
-    console.log("calculando dinero... ")
-    // var values = Object.keys(this.solicitud).filter(key => this.solicitud[key])
-    return 0;
+    return Object.values(monetizacion).reduce((total, valor) => total + valor, 0);
   }
 
   resetLocalStorage() {
@@ -364,10 +407,11 @@ export class NuevoRecorridoPage implements OnInit {
 
   finalizarRecorrido() {
     console.log('Recorrido Finalizado....');
+    Geolocation.clearWatch({ id: this.watchId });
     const KMSRecorridos = this.kms;
     const KMSRedondeados = this.redondearFloat(KMSRecorridos, 2);
     const fechaActual = new Date().toLocaleString();
-    const dinero = this.calcularDineroRecaudado();
+    const dinero = this.dineroRecaudado;
 
     const nuevoRecorrido: RecorridoRealizado = {
       id_vehiculo: this.vehiculo.id_vehiculo!,
@@ -383,25 +427,15 @@ export class NuevoRecorridoPage implements OnInit {
       ubicaciones: this.ubicacionesGuardadas,
     };
 
-    // console.log("recorrido finalizado", nuevoRecorrido)
-    // this.stopTimer();
-    // location.reload();
-    // this.router.navigate(['/panel'])
-
-    console.log('Creando el recorrido ... ', nuevoRecorrido);
-    this.stopTimer();
-    // location.reload();
-    // this.tabService.showTabs();
-    this.resetLocalStorage();
-
-    // this.recorridoService
-    //   .crearRecorrido(nuevoRecorrido)
-    //   .subscribe((response) => {
-    //     this.stopTimer();
-    //     location.reload();
-    //     this.tabService.hideTabs();
-    //     this.resetLocalStorage();
-    //     // this.router.navigate(['/panel']);
-    //   });
+    
+    this.recorridoService
+      .crearRecorrido(nuevoRecorrido)
+      .subscribe((response) => {
+        console.log('Creando el recorrido ... ', response);
+        this.stopTimer();
+        this.tabService.hideTabs();
+        this.resetLocalStorage();
+        location.reload();
+      });
   }
 }

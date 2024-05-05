@@ -8,6 +8,7 @@ import { PreguntasPageRoutingModule } from './preguntas-routing.module';
 
 import { PreguntasPage } from './preguntas.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     PreguntasPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [PreguntasPage]
 })

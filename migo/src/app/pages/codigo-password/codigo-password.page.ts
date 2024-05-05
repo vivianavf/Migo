@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ComunicationService } from 'src/app/providers/comunication.service';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-codigo-password',
@@ -19,6 +20,7 @@ export class CodigoPasswordPage implements OnInit {
   constructor(
     private router: Router,
     private communicationService: ComunicationService,
+    private toolbarService: ToolbarService,
   ) { }
 
   siguiente(){
@@ -33,11 +35,13 @@ export class CodigoPasswordPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('RECUPERAR CONTRASEÑA')
     this.communicationService.variable$.subscribe((variable) =>{
       this.recibido = variable;
       this.email = variable[0];
       this.codigo = variable[1];
       console.log(variable)
+
       
     })
 

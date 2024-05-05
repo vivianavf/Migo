@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CodigoPasswordPageRoutingModule } from './codigo-password-routing.module';
 
 import { CodigoPasswordPage } from './codigo-password.page';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CodigoPasswordPageRoutingModule
+    CodigoPasswordPageRoutingModule,
+    BackButtonsComponent,
   ],
   declarations: [CodigoPasswordPage]
 })

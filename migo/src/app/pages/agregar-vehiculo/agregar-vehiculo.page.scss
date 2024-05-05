@@ -94,9 +94,9 @@ ion-img.fotoVehiculoPreview{
 
 .button-container{
     width: 200px;
-    height: 400px;
-    max-width: 200px;
-    max-height: 400px;
+    height: fit-content;
+    // max-width: 200px;
+    // max-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -153,4 +153,53 @@ ion-button.add-button:host(.button-solid){
 #aggVehiculoSpinner{
     width: 100px;
     height: 100px;
+}
+
+.marca{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#click-marca-info{
+    
+}
+
+.marca-info{
+    --width: 18px;
+    --height: 18px;
+    min-height: 18px;
+    --background: none;
+    color: var(--ion-color-primary);
+}
+
+.click-marca-infoContent{
+    --background: white;
+}
+
+.marca-info::part(native){
+    padding: 0;
+}
+
+#marca-help-icon{
+    width: 18px;
+    height: 18px;
+}
+
+.contenido-carroceria{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.labels{
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    align-items: center;
+}
+
+.icono-categoria{
+    width: 80px;
+    height: 80px;
 }

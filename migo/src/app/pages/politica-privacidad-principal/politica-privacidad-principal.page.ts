@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-politica-privacidad-principal',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PoliticaPrivacidadPrincipalPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private toolbarService: ToolbarService,
+  ) { }
 
   ngOnInit() {
+    this.toolbarService.setTexto('POLÍTICA Y PRIVACIDAD');
   }
 
 }

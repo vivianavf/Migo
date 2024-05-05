@@ -26,7 +26,7 @@ export class MenuPage implements OnInit {
     private clientService: ClienteService,
     private tabService: TabsService,
     private choferService: ChoferService,
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
   ) {}
 
   cerrarModal() {

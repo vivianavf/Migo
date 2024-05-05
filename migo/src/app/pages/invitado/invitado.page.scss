@@ -1,0 +1,109 @@
+@import url('../../../theme/variables.scss');
+
+.campana-spinnerContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.campanaSpinner{
+  align-self: center;
+  width: 100px;
+  height: 100px;
+}
+
+div.content{
+  border-radius: 20px;
+}
+
+.root{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+ion-text{
+  padding-top: 6%;
+  // padding-bottom: 6%;
+}
+
+ion-card {
+    display: flex;
+    flex-direction: row;
+  }
+
+ion-card-content{
+  text-align: left;
+  padding: 10px;
+  width: 70%;
+}
+  
+  .info {
+    flex: 1; /* Ocupa el espacio disponible a la izquierda */
+  }
+  
+  .image-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra la imagen y el botón verticalmente */
+    padding: 8px; /* Espaciado interno */
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: center;
+    width: 30%;
+  }
+  
+  ion-img {
+    width: 80px; /* Ancho de la imagen */
+    height: 80px; /* Altura de la imagen */
+  }
+  
+  ion-img::part(image){
+    border-radius: 100%;
+    object-fit: cover;
+  }
+
+  .sector, .tarifa{
+    padding: 0;
+  }
+
+  .sector-tarifa{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .divisor{
+    display: flex;
+    align-items: center;
+  }
+
+  ion-icon{
+    width: 30px;
+    height: 30px;
+  }
+
+  .registrarse{
+    width: 100%;
+  }
+
+  .registrarse::part(native){
+    font-size: smaller;
+  }
+
+  ion-card{
+    border-radius: 0;
+    border-bottom: 1px solid var(--ion-border-color);
+  }
+
+ion-progress-bar{
+  margin-top: 100%;
+  width: 350px;
+}
+
+#campana-thumbnail{
+  width: 100%;
+  height: 100%;
+  --border-radius: 50%;
+}

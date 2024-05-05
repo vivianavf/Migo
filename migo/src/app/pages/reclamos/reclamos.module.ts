@@ -8,6 +8,7 @@ import { ReclamosPageRoutingModule } from './reclamos-routing.module';
 
 import { ReclamosPage } from './reclamos.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     ReclamosPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [ReclamosPage]
 })

@@ -36,6 +36,8 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 import { NavigationService } from 'src/app/providers/navigation.service';
 import { User } from 'src/app/interfaces/user';
 import { Chofer } from 'src/app/interfaces/chofer';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
+import {Location} from '@angular/common';
 
 interface FormFields {
   Nombre: string;
@@ -81,9 +83,6 @@ export class AgregarVehiculoPage implements OnInit {
     Color: '',
   };
 
-  //navigation
-  whereFrom = ''
-
   //selectable
   marcaControl!: FormControl;
   form!: FormGroup;
@@ -97,6 +96,10 @@ export class AgregarVehiculoPage implements OnInit {
   showValidationError: string = '';
   valoresMarcas: MarcaVehiculo[] = [];
   valoresModelos: ModeloVehiculo[] = [];
+
+  marcaInput!: string;
+  // modeloInput!: string;
+  modelosFiltrados: ModeloVehiculo[] = [];
 
   fotoIzquierdaTomada: boolean = false;
   fotoDerechaTomada: boolean = false;
@@ -121,11 +124,11 @@ export class AgregarVehiculoPage implements OnInit {
 
   //categorias y colores
   categorias = [
+    ['bus', 'Bus'],
+    ['camion', 'Camión'],
+    ['camioneta', 'Camioneta'],
     ['sedan', 'Sedán'],
     ['suv', 'SUV'],
-    ['camioneta', 'Camioneta'],
-    ['camion', 'Camión'],
-    ['bus', 'Bus'],
   ]
 
   colores = [
@@ -159,6 +162,8 @@ export class AgregarVehiculoPage implements OnInit {
     private fechaService: FechaService,
     private formBuilder: FormBuilder,
     private navService: NavigationService,
+    private toolbarService: ToolbarService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -171,21 +176,47 @@ export class AgregarVehiculoPage implements OnInit {
       for (let i = 0; i < data.length; i++) {
         this.valoresMarcas.push(data[i]);
       }
+
+      this.valoresMarcas.sort(this.compararPorNombre);
     });
     this.modeloService.getModelos().subscribe((data) => {
       for (let i = 0; i < data.length; i++) {
         this.valoresModelos.push(data[i]);
       }
     });
+
+    this.toolbarService.setTexto('AGREGAR VEHÍCULO');
   }
 
-  ionViewDidEnter(){
-    this.whereFrom = this.navService.getPaginaAnterior();
-    console.log(this.whereFrom);
-  }
+  compararPorNombre(a: any, b: any) {
+    if (a.nombre < b.nombre) {
+        return -1;
+    }
+    if (a.nombre > b.nombre) {
+        return 1;
+    }
+    return 0;
+}
 
   ionViewDidLeave(){
     this.navService.setPagina('')
+  }
+
+  marcaChange(e: any) {
+    this.filtrarModelos(e.detail.value);
+    this.marcaInput = e.detail.value;
+  }
+
+  filtrarModelos(idMarca: number) {
+    this.modelosFiltrados = [];
+    this.valoresModelos.forEach((modelo) => {
+      if (modelo.id_marca == idMarca) {
+        this.modelosFiltrados.push(modelo);
+      }
+    });
+
+    this.modelosFiltrados.sort(this.compararPorNombre);
+    // this.ciudadesFiltradas = [];
   }
 
   async abrirModal() {
@@ -285,9 +316,9 @@ export class AgregarVehiculoPage implements OnInit {
           this.vehiculoService.crearVehiculo(vehiculoRequest).subscribe((response)=>{
             // cerrar alerta
             this.modalaggVehiculo.dismiss();
-
             console.log(response);
-            this.router.navigate([this.whereFrom]);
+            this.location.back();
+            // this.router.navigate([this.whereFrom]);
             //mostrar alguna ventana o regresar a la anterior
             // location.reload();
             // this.router.navigate(['/vehiculos']);
@@ -467,9 +498,5 @@ export class AgregarVehiculoPage implements OnInit {
     const blob = new Blob(byteArrays, { type: contentType });
     console.log("BLOB", blob)
     return blob;
-  }
-
-  marcaChange(event: any) {
-    console.log('marca:', event.value);
   }
 }

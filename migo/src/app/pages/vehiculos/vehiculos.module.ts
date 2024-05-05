@@ -8,6 +8,7 @@ import { VehiculosPageRoutingModule } from './vehiculos-routing.module';
 
 import { VehiculosPage } from './vehiculos.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     VehiculosPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [VehiculosPage],
   providers: [AdsComponent, VehiculosPage,],

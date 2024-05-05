@@ -15,6 +15,7 @@ import { ModalController } from '@ionic/angular';
 import { ClienteService } from 'src/app/providers/cliente.service';
 import { Client } from 'src/app/interfaces/client';
 import { Location } from "@angular/common";
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class RecuperarPasswordPage implements OnInit {
     private clientService: ClienteService,
     private modalController: ModalController,
     private location: Location,
+    private toolbarService: ToolbarService,
   ) {
     this.formularioCorreo = this.fb.group({
       email: new FormControl(
@@ -51,10 +53,6 @@ export class RecuperarPasswordPage implements OnInit {
         ])
       ),
     });
-  }
-
-  myBackButton(){
-    this.location.back();
   }
 
   cancelar() {
@@ -124,6 +122,7 @@ export class RecuperarPasswordPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('RECUPERAR CONTRASEÑA');
     this.users = this.userService.usersObtenidos;
     this.clientes = this.clientService.clientesObtenidos;
   }

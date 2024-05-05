@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @Component({
   selector: 'app-historial-pagos',
@@ -13,9 +15,14 @@ export class HistorialPagosPage implements OnInit {
 
   constructor(
     private popOverCtrl: PopoverController,
-  ) { }
+    private toolbarService: ToolbarService,
+    private backButtonComponent: BackButtonsComponent,
+  ) {
+  }
 
   ngOnInit() {
+    this.toolbarService.setTexto('HISTORIAL DE PAGOS');
+    
   }
 
   generarRetiro(){
@@ -45,5 +52,7 @@ export class HistorialPagosPage implements OnInit {
         break;
     }
   }
+
+
 
 }

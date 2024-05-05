@@ -7,6 +7,7 @@ import { RecuperarPasswordPageRoutingModule } from './recuperar-password-routing
 
 import { RecuperarPasswordPage } from './recuperar-password.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RecuperarPasswordPageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BackButtonsComponent,
   ],
   declarations: [RecuperarPasswordPage]
 })

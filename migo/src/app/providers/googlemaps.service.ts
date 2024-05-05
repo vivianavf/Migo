@@ -84,6 +84,7 @@ export class GooglemapsService {
   }
 
   private createSector(cerco_virtual: Ubicacion[][], map: google.maps.Map) {
+    let polygon;
     cerco_virtual.forEach((cerco) => {
       if (cerco) {
         let createdPolygon = new google.maps.Polygon({
@@ -95,8 +96,10 @@ export class GooglemapsService {
           fillOpacity: 0.35,
         });
         createdPolygon.setMap(map);
+        polygon =createdPolygon;
       }
     });
+    return polygon;
   }
 
   public createFirstMarker(
@@ -123,6 +126,7 @@ export class GooglemapsService {
   ) {
 
     let mapReturn;
+    let polygon;
 
     if (centro && zoom) {
       var mapOptions = {
@@ -139,7 +143,7 @@ export class GooglemapsService {
       mapReturn = mapCreado;
 
       if (cerco_virtual) {
-        this.createSector(cerco_virtual, map);
+        polygon = this.createSector(cerco_virtual, map);
       }
 
       if (ubicacion) {
@@ -151,6 +155,6 @@ export class GooglemapsService {
       }
     }
 
-    return mapReturn;
+    return {mapa: mapReturn, poligono: polygon};
   }
 }

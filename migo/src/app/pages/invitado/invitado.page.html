@@ -1,5 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Invitado</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-back-buttons></app-back-buttons>
+
+<ion-content class="withoutBackground">
+    <div class="marginContent content white-background" *ngIf="eligioUbicacion()">
+        <ion-card *ngFor="let campana of campanasFiltradas">
+            <ion-card-content>
+                <ion-label class="black-text uppercase-text bold-text"
+          >{{ campana.nombre_campana }}<br
+        /></ion-label>
+                <p class="black-text">Empresa: {{ empresas_nombres[campana.id_empresa] }}</p>
+                <p class="black-text">Publicado: {{ campana.fecha_creacion }}</p>
+                <p class="black-text">Registrate hasta: {{ campana.fecha_fin_registro }}</p>
+                <div class="sector-tarifa">
+                    <div class="divisor">
+                      <ion-icon class="orange-color-contrast" name="location"></ion-icon>
+                      <ion-text
+                        class="sector black-text"
+                        [innerHTML]="obtenerNombreSector(campana.id_sector)"
+                      ></ion-text>
+                    </div>
+                    <div class="divisor">
+                      <ion-icon class="orange-color-contrast" name="logo-usd"></ion-icon>
+                      <ion-text class="tarifa black-text"
+                        >{{ campana.tarifa_base }} por KM</ion-text
+                      >
+                    </div>
+                  </div>
+            </ion-card-content>
+            <div class="image-and-button">
+                <ion-img src="{{ getURL(campana) }}" alt="Marca"></ion-img>
+                <ion-button
+                  class="rounded-button registrarse white-text"
+                  shape="round"
+                  expand="full"
+                  (click)="registrarse(campana)"
+                  >Regístrate</ion-button
+                >
+            </div>
+
+        </ion-card>
+    </div>
+    <div *ngIf="!eligioUbicacion()">
+
+    </div>
+</ion-content>

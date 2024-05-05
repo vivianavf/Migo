@@ -8,6 +8,7 @@ import { PoliticaPrivacidadPrincipalPageRoutingModule } from './politica-privaci
 
 import { PoliticaPrivacidadPrincipalPage } from './politica-privacidad-principal.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     PoliticaPrivacidadPrincipalPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [PoliticaPrivacidadPrincipalPage]
 })

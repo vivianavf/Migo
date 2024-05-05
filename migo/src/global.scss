@@ -209,6 +209,10 @@ ion-toolbar > ion-title {
   font-size: 10px;
 }
 
+.size-large {
+  font-size: 20px;
+}
+
 .normal-radius {
   --border-radius: 10px;
 }
@@ -333,6 +337,17 @@ ion-modal.eliminarCuenta{
   --width: 80%;
   --border-radius: 40px;
   --background: white;
+}
+
+ion-modal.select-ubicacion{
+  --height: 50%;
+  --width: 80%;
+  --border-radius: 40px;
+  --background: rgb(184, 184, 184);
+}
+
+.cat-vehiculo-info-popOver{
+  --width: 90%;
 }
 
 /* Pantallas de cargando */

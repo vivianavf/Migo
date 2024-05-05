@@ -14,6 +14,7 @@ import { NoTieneVehiculoPage } from '../modals/no-tiene-vehiculo/no-tiene-vehicu
 import { ChoferService } from 'src/app/providers/chofer.service';
 import { NavigationService } from 'src/app/providers/navigation.service';
 import { EliminarVehiculoComponent } from '../modals/eliminar-vehiculo/eliminar-vehiculo.component';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-vehiculos',
@@ -44,6 +45,7 @@ export class VehiculosPage implements OnInit {
     private localStorageSrvc: LocalstorageService,
     private choferService: ChoferService,
     private navService: NavigationService,
+    private toolbarService: ToolbarService,
   ) {}
 
   async verMas(vehiculoSecundario: any) {
@@ -202,6 +204,7 @@ export class VehiculosPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('MIS VEHÍCULOS')
 
   }
 

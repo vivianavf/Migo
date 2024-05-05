@@ -7,6 +7,7 @@ import { AgregarVehiculoPageRoutingModule } from './agregar-vehiculo-routing.mod
 
 import { AgregarVehiculoPage } from './agregar-vehiculo.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     AgregarVehiculoPageRoutingModule,
     ReactiveFormsModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [AgregarVehiculoPage],

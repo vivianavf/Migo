@@ -257,6 +257,10 @@ const routes: Routes = [
     path: 'eliminar-cuenta',
     loadChildren: () => import('./pages/modals/eliminar-cuenta/eliminar-cuenta.module').then( m => m.EliminarCuentaPageModule)
   },
+  {
+    path: 'select-ubicacion',
+    loadChildren: () => import('./pages/modals/select-ubicacion/select-ubicacion.module').then( m => m.SelectUbicacionPageModule)
+  },
 
 
 

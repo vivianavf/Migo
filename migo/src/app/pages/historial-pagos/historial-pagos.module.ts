@@ -8,6 +8,7 @@ import { HistorialPagosPageRoutingModule } from './historial-pagos-routing.modul
 
 import { HistorialPagosPage } from './historial-pagos.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,9 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     HistorialPagosPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
-  declarations: [HistorialPagosPage]
+  declarations: [HistorialPagosPage],
+  providers: [BackButtonsComponent],
 })
 export class HistorialPagosPageModule {}

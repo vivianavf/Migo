@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReestablecerPasswordPageRoutingModule } from './reestablecer-password-routing.module';
 
 import { ReestablecerPasswordPage } from './reestablecer-password.page';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReestablecerPasswordPageRoutingModule
+    ReestablecerPasswordPageRoutingModule,
+    BackButtonsComponent,
   ],
   declarations: [ReestablecerPasswordPage]
 })

@@ -36,3 +36,18 @@ ion-content{
   align-items: center;
   margin-bottom: 30px;
 }
+
+#click-more-info::part(native){
+  padding: 0;
+  min-width: 18px;
+  max-width: 18px;
+  margin: 0;
+}
+
+#click-more-info{
+  --background: none;
+  --box-shadow: none;
+  min-width: 18px;
+  min-height: 18px;
+  margin: 0;
+}

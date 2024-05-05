@@ -8,6 +8,7 @@ import { ContactoPageRoutingModule } from './contacto-routing.module';
 
 import { ContactoPage } from './contacto.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AdsComponent } from '../components/ads/ads.component';
     FormsModule,
     IonicModule,
     ContactoPageRoutingModule,
-    AdsComponent
+    AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [ContactoPage]
 })

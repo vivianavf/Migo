@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 @Component({
   selector: 'app-contacto',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactoPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private toolbarService: ToolbarService,
+  ) { }
 
   ngOnInit() {
+    this.toolbarService.setTexto('CONTACTO')
   }
 
 }

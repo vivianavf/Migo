@@ -25,6 +25,7 @@ import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { forkJoin } from 'rxjs';
 import { Ubicacion } from 'src/app/interfaces/ubicacion';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-panel',
@@ -84,7 +85,8 @@ export class PanelPage implements OnInit {
     private router: Router,
     private ciudadService: CiudadService,
     private googleMapService: GooglemapsService,
-    private campanaService: CampanaService
+    private campanaService: CampanaService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -353,5 +355,6 @@ export class PanelPage implements OnInit {
 
   verHistorial() {
     this.router.navigate(['/historial-pagos']);
+    // Location.
   }
 }

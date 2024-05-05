@@ -5,6 +5,7 @@ import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { UsersService } from 'src/app/providers/users.service';
 import { sha256 } from 'js-sha256';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class ReestablecerPasswordPage implements OnInit {
     private router: Router,
     private modalController: ModalController,
     private alertController: AlertController,
+    private toolbarService: ToolbarService,
   ) { }
 
   async actualizar(){
@@ -78,6 +80,8 @@ export class ReestablecerPasswordPage implements OnInit {
   }
 
   ngOnInit() {
+    this.toolbarService.setTexto('RECUPERAR CONTRASEÑA');
+    
     this.communicationService.variable$.subscribe((data) =>{
       this.emailUser = data[0]
     })

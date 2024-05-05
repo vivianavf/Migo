@@ -1,0 +1,51 @@
+<ion-content class="withoutBackground">
+  <div class="root-select-ubication" *ngIf="!showSpinner">
+    <ion-text class="black-text bold-text size-large" >
+      Selecciona tu Ubicación
+    </ion-text>
+
+    <div class="paisContainer">
+      <ion-select class="black-text select-ubicacion"
+        (ionChange)="paisChange($event)"
+        aria-label="Pais"
+        label="Selecciona un país"
+        interface="popover"
+        placeholder="..."
+        label-placement="floating"
+        fill="outline"
+      >
+        <ion-select-option class="black-text" *ngFor="let pais of paises" [value]="pais.id_pais">{{
+          pais.nombre
+        }}</ion-select-option>
+      </ion-select>
+    </div>
+
+    <div class="paisContainer">
+      <ion-select class="black-text select-ubicacion"
+        (ionChange)="ciudadChange($event)"
+        aria-label="Ciudad"
+        label="Selecciona una ciudad"
+        interface="popover"
+        placeholder="..."
+        label-placement="floating"
+        fill="outline"
+      >
+        <ion-select-option class="black-text"
+          *ngFor="let ciudad of ciudadesFiltradas"
+          [value]="ciudad.id_ciudad"
+          >{{ ciudad.nombre }}</ion-select-option
+        >
+      </ion-select>
+    </div>
+
+    <div class="CU-button-container">
+      <ion-button (click)="cambiarUbicacion()">Cambiar Ubicación</ion-button>
+    </div>
+  </div>
+
+  <div class="root-select-ubication" *ngIf="showSpinner">
+    <ion-spinner class="CU-spinner" name="crescent" color="primary"></ion-spinner>
+    <ion-text class="black-text">Obteniendo datos...</ion-text>
+  </div>
+  
+</ion-content>
