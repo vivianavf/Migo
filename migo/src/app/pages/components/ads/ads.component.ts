@@ -15,7 +15,7 @@ import { Publicidad } from 'src/app/interfaces/publicidad';
   templateUrl: './ads.component.html',
   styleUrls: ['./ads.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule,],
+  imports: [CommonModule],
 })
 export class AdsComponent implements OnInit {
   srcBanner = '';
@@ -24,31 +24,50 @@ export class AdsComponent implements OnInit {
 
   constructor(
     private adsService: AdsService,
-    private userService: UsersService,
+    private userService: UsersService
   ) {}
 
   ngOnInit() {
-    this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
+    try {
+      this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
 
-    var esperaPublicidades = setInterval(()=>{
-      if(this.publicidadesSinFiltrar.length > 0){
-        this.filtrarPublicidades();
-        this.getPublicidadRandom();
-        clearInterval(esperaPublicidades);
-      }else{
-        this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
-      }
-    }, 100);
+      var esperaPublicidades = setInterval(() => {
+        if (this.publicidadesSinFiltrar.length > 0) {
+          this.filtrarPublicidades();
+          this.getPublicidadRandom();
+          clearInterval(esperaPublicidades);
+        } else {
+          this.publicidadesSinFiltrar = this.adsService.publicidadesObtenidas;
+        }
+      }, 100);
+    } catch (error) {
+      //nadaa
+    }
   }
 
-  filtrarPublicidades(){
-    const ciudad = this.userService.usuarioActivo().id_ciudad;
-    const pais = this.userService.usuarioActivo().id_pais;
-    this.adsService.publicidadesObtenidas.forEach((publicidad)=>{
-      if(publicidad.id_ciudad === ciudad && publicidad.id_pais === pais && publicidad.estado === 1){
-        this.publicidades.push(publicidad);
-      }
-    })
+  filtrarPublicidades() {
+    let ciudad: number;
+    let pais: number;
+    const invitado = localStorage.getItem('invitado');
+    if (invitado) {
+      ciudad = JSON.parse(localStorage.getItem('invitado-ciudad')!).id_ciudad;
+      pais = JSON.parse(localStorage.getItem('invitado-pais')!).id_pais;
+    } else {
+      ciudad = this.userService.usuarioActivo().id_ciudad;
+      pais = this.userService.usuarioActivo().id_pais;
+    }
+
+    if(ciudad && pais){
+      this.adsService.publicidadesObtenidas.forEach((publicidad) => {
+        if (
+          publicidad.id_ciudad === ciudad &&
+          publicidad.id_pais === pais &&
+          publicidad.estado === 1
+        ) {
+          this.publicidades.push(publicidad);
+        }
+      });
+    }
   }
 
   getPublicidadRandom() {
@@ -60,10 +79,9 @@ export class AdsComponent implements OnInit {
 
   setSrcRandom() {
     var numRandom = this.generarNumeroRandom(this.publicidades.length - 1);
-    if(this.publicidades){
+    if (this.publicidades) {
       this.srcBanner = this.publicidades[numRandom].imagen_publicitaria;
     }
-    
   }
 
   generarNumeroRandom(maximo: number, minimo = 0) {

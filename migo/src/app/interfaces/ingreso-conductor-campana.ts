@@ -7,5 +7,6 @@ export interface IngresoConductorCampana {
     id_vehiculo: number,
     id_ciudad: number,
     id_pais: number,
-    documentoQR ?: File,
+    documentoQR?: String,
+    imagenQR?: String,
 }

@@ -31,6 +31,8 @@ export class VehiculosPage implements OnInit {
   /* */
   vehiculoEliminar!: Vehiculo;
 
+  esChofer: boolean = false;
+
   /* ruta para peticiones a las imagenes de vehiculos del server */
   imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
 
@@ -185,10 +187,12 @@ export class VehiculosPage implements OnInit {
 
     if (idCliente) {
       this.obtenerVehiculos(idCliente, 'cliente');
+      this.esChofer = false;
     }
 
     if(idChofer){
       this.obtenerVehiculos(idChofer, 'chofer');
+      this.esChofer = true;
     }
 
     // Si es un chofer, tiene que obtener los vehiculos del chofer
@@ -198,6 +202,7 @@ export class VehiculosPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: NoTieneVehiculoPage,
       cssClass: 'no-tiene-vehiculo',
+      backdropDismiss: false
     });
 
     modal.present();

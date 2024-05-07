@@ -25,8 +25,13 @@ ion-content::part(background){
     align-content: center;
     text-align: center;
     height: 100%;
+    gap: 5px;
 }
 
 ion-button{
     padding: 20px;
+}
+
+.contacto-coord{
+    font-size: medium;
 }

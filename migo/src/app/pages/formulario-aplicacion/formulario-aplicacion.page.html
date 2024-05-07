@@ -196,7 +196,10 @@
   
       <div class="select-vehiculo">
         <div class="select-v" *ngIf="!seleccionoVehiculo">
-          <p class="uppercase-text white-text">Seleccionar vehículo:</p>
+          <div class="infoPopOverAlignment">
+            <ion-button id="click-select-v-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button>
+            <ion-label class="uppercase-text white-text">Seleccionar vehículo</ion-label>
+          </div>
           <ion-button
             id="open-modal"
             (click)="seleccionarVehiculo()"
@@ -263,4 +266,15 @@
       </div>
     
   </ion-card>
+
+  <ion-popover trigger="click-select-v-info" triggerAction="click">
+    <ng-template>
+      <ion-content class="ion-padding popOver-infoContent">
+        <ion-text class="black-text">
+          El registro de un vehículo en campaña es <b>PERSONAL</b> y solamente se mostrarán los vehículos de los cuales usted es conductor o chofer.
+        </ion-text>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+
 </ion-content>

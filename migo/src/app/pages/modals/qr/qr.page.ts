@@ -1,8 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Campana } from 'src/app/interfaces/campana';
 import { Client } from 'src/app/interfaces/client';
 import { User } from 'src/app/interfaces/user';
-import { QRCodeModule } from 'angularx-qrcode';
+import { FixMeLater, QRCodeModule } from 'angularx-qrcode';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { ModalController, Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +30,7 @@ import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
 import { Chofer } from 'src/app/interfaces/chofer';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
+import { SafeValue } from '@angular/platform-browser';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -32,6 +40,8 @@ import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
   styleUrls: ['./qr.page.scss'],
 })
 export class QrPage implements OnInit {
+  @ViewChild('parent', { read: ElementRef }) private parent!: ElementRef;
+
   @Input() user!: User;
   @Input() conductor!: any;
   @Input() campana!: Campana;
@@ -39,8 +49,8 @@ export class QrPage implements OnInit {
   @Input() marca!: string;
   @Input() modelo!: string;
 
-  nombreMarca = ''
-  nombreModelo = ''
+  nombreMarca = '';
+  nombreModelo = '';
 
   datos = '';
   logoData: any;
@@ -49,6 +59,9 @@ export class QrPage implements OnInit {
   ingresos!: IngresoConductorCampana[];
   talleres: TallerBrandeo[] = [];
   talleresCampana: TallerBrandeo[] = [];
+
+  /* ruta para peticiones a las imagenes de vehiculos del server */
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
 
   constructor(
     private plt: Platform,
@@ -62,20 +75,9 @@ export class QrPage implements OnInit {
     private router: Router,
     private tallerService: TallerBrandeoService,
     private marcaVehiculoService: MarcaVehiculoService,
-    private modeloVehiculoService: ModeloVehiculosService
+    private modeloVehiculoService: ModeloVehiculosService,
+    private renderer: Renderer2
   ) {}
-
-  crearQR() {
-    if (this.datos) return;
-
-    // enlace al documento del formulario registro campana
-    this.datos = '//Migo Ads//';
-    this.loadLocalAssetToBase64();
-    this.crearPDF();
-
-    // tengo que enviar un documento QR
-    //
-  }
 
   crearPDF() {
     let logo = { image: this.logoData, width: 50 };
@@ -164,24 +166,121 @@ export class QrPage implements OnInit {
     this.pdfObj = pdfMake.createPdf(docDefinition);
     // this.pdfObj.download();
     this.pdfObj.getBlob((result: Blob) => {
-
       let ingresoActual = this.ingresos.find(
         (ingreso) =>
           this.campana.id_campana === ingreso.id_campana &&
           this.user.id_usuario === ingreso.id_usuario &&
           this.vehiculo.id_vehiculo === ingreso.id_vehiculo
       );
-      if (ingresoActual) {
-        this.ingresarCondService
-          .subirDocumento(ingresoActual.id!, result, this.vehiculo.placa, this.conductor.cedula )
-          .subscribe((ingreso: any) => {
-            const rutaBase = 'https://migoadvs.pythonanywhere.com/documentos/'
-            const rutaDocumento = ingresoActual!.id + '_' + this.vehiculo.placa + '_' + this.conductor.cedula +'.pdf'
-            const rutaCompleta = rutaBase + rutaDocumento;
-            this.datos = rutaCompleta;
-          });
+      if (ingresoActual && this.parent) {
+        //obtener la imagen del QR
+        const blobIMG = this.saveAsImage(this.parent.nativeElement);
+
+        if (blobIMG) {
+          this.ingresarCondService
+            .subirDocumentos(
+              ingresoActual.id!,
+              result,
+              blobIMG,
+              this.vehiculo.placa,
+              this.conductor.cedula
+            )
+            .subscribe((ingreso: any) => {
+              console.log(ingreso);
+              // this.renderer.setStyle(this.parent.nativeElement, 'display', 'flex');
+            });
+        } else {
+          console.log(
+            'no hay imagen y no se puede hacer o parent',
+            ingresoActual,
+            this.parent
+          );
+        }
       }
     });
+  }
+
+  getDatos() {
+    if (this.ingresos) {
+      let ingresoActual = this.ingresos.find(
+        (ingreso) =>
+          this.campana.id_campana === ingreso.id_campana &&
+          this.user.id_usuario === ingreso.id_usuario &&
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+      );
+
+      if (ingresoActual) {
+        const rutaBase = 'https://migoadvs.pythonanywhere.com/documentos/';
+        const rutaDocumento =
+          ingresoActual!.id +
+          '_' +
+          this.vehiculo.placa +
+          '_' +
+          this.conductor.cedula +
+          '.pdf';
+        const rutaCompleta = rutaBase + rutaDocumento;
+        this.datos = rutaCompleta;
+        return rutaCompleta;
+      } else {
+        console.log('no hay ingreso actual');
+      }
+    }
+    return 'El usuario no ha ingresado el vehículo';
+  }
+
+  onChange(url: any) {
+    try {
+      //crear una imagen QR
+      let ingresoActual = this.ingresos.find(
+        (ingreso) =>
+          this.campana.id_campana === ingreso.id_campana &&
+          this.user.id_usuario === ingreso.id_usuario &&
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+      );
+
+      const valores = Object.values(ingresoActual!);
+      const docQR = valores[3];
+      const imagenQR = valores[4];
+
+      if (docQR && imagenQR) {
+        console.log('ya hay una imagen y un docQR');
+      } else {
+        this.crearPDF();
+      }
+    } catch (error) {}
+  }
+
+  saveAsImage(parent: FixMeLater) {
+    let blob;
+
+    let parentElement = null;
+    // fetches base 64 data from canvas
+    parentElement = parent.querySelector('canvas').toDataURL('image/png');
+    if (parentElement) {
+      // converts base 64 encoded image to blobData
+      let blobData = this.convertBase64ToBlob(parentElement);
+      // saves as image
+      blob = new Blob([blobData], { type: 'image/png' });
+    }
+
+    return blob;
+  }
+
+  private convertBase64ToBlob(Base64Image: string) {
+    // split into two parts
+    const parts = Base64Image.split(';base64,');
+    // hold the content type
+    const imageType = parts[0].split(':')[1];
+    // decode base64 string
+    const decodedData = window.atob(parts[1]);
+    // create unit8array of size same as row data length
+    const uInt8Array = new Uint8Array(decodedData.length);
+    // insert all character code into uint8array
+    for (let i = 0; i < decodedData.length; ++i) {
+      uInt8Array[i] = decodedData.charCodeAt(i);
+    }
+    // return blob image after conversion
+    return new Blob([uInt8Array], { type: imageType });
   }
 
   loadLocalAssetToBase64() {
@@ -206,11 +305,16 @@ export class QrPage implements OnInit {
       this.ingresos = data;
     });
 
-    this.marcaVehiculoService.getMarcabyId(Number(this.marca)).subscribe((marca)=>{
-      this.nombreMarca = marca.nombre;
-    });
-    this.modeloVehiculoService.getModelobyId(Number(this.modelo)).subscribe((modelo)=>{
-      this.nombreModelo = modelo.nombre});
+    this.marcaVehiculoService
+      .getMarcabyId(Number(this.marca))
+      .subscribe((marca) => {
+        this.nombreMarca = marca.nombre;
+      });
+    this.modeloVehiculoService
+      .getModelobyId(Number(this.modelo))
+      .subscribe((modelo) => {
+        this.nombreModelo = modelo.nombre;
+      });
 
     this.tallerService.getTalleres().subscribe((data) => {
       this.talleres = data;

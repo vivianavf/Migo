@@ -1,7 +1,11 @@
 <app-back-buttons></app-back-buttons>
 
+<app-ads></app-ads>
+
 <ion-content class="withoutBackground">
+  <!-- <ion-text class="white-text"> Mostrando campañas publicadas</ion-text> -->
     <div class="marginContent content white-background" *ngIf="eligioUbicacion()">
+      
         <ion-card *ngFor="let campana of campanasFiltradas">
             <ion-card-content>
                 <ion-label class="black-text uppercase-text bold-text"

@@ -8,9 +8,12 @@ import { VerificacionesPageRoutingModule } from './verificaciones-routing.module
 
 import { VerificacionesPage } from './verificaciones.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { QRCodeModule } from 'angularx-qrcode';
+
 
 @NgModule({
   imports: [
+    QRCodeModule,
     CommonModule,
     FormsModule,
     IonicModule,

@@ -41,7 +41,7 @@
   </div>
 
   <div class="divisor second-divisor">
-    <ion-item><ion-title>Vehículos Secundarios</ion-title></ion-item>
+    <ion-item *ngIf="!esChofer" ><ion-title>Vehículos Secundarios</ion-title></ion-item>
     <ion-card
       class="white-background"
       *ngFor="let vehiculoSecundario of vehiculosSecundarios"
@@ -82,6 +82,7 @@
     </ion-card>
     <div class="button-container">
       <ion-button
+      *ngIf="!esChofer"
         class="agregar-vehiculo uppercase-text"
         (click)="agregarVehiculo()"
         >Agregar un vehículo</ion-button

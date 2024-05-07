@@ -77,3 +77,10 @@ ion-icon#warning {
     --background: white;
     --color: red;
   }
+
+  .eliminandoDatos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

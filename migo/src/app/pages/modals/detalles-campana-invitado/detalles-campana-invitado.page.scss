@@ -1,0 +1,149 @@
+
+//card
+ion-card#card-container{
+    background-color: white;
+    border-radius: 20px;
+    // min-height: 100%;
+    // margin-top: 20px;
+    // margin-left: 20px;
+    // margin-right: 20px;
+    margin: 0;
+    color: black;
+  }
+  
+  ion-card-content.campana-content{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  
+  
+  .banner-empresa{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Alineación horizontal al centro */
+    align-items: center; /* Alineación vertical al centro */
+    height: 90px; /* Altura del contenedor, ajusta según tus necesidades */
+  }
+  
+  p.correo{
+    margin-left: 10px;
+  }
+  
+  .info-container{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  
+  .header-campana{
+    text-align: center;
+  }
+  
+  .correo-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .info-campana{
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+  }
+  
+  .titulos-info{
+    width: 60%;
+  }
+  
+  .variables-info{
+    width: 40%;
+    text-align:start;
+  }
+  
+  
+  #newMap-Detalle{
+    width: 100%;
+    height: 250px;
+    background-color: rgb(226, 226, 226);
+    border-radius: 20px;
+  }
+  
+  
+  .talleres{
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+  }
+  
+  .talleres-direccion, .vehiculo-tipo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .taller-direccion{
+    width: 100%;
+  }
+  
+  .accordion-element{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  
+  }
+  
+  .maps-icon{
+    max-width: 20px;
+    max-height: 20px;
+    margin-right: 15px;
+  }
+  
+  .maps-icon::part(image){
+    max-width: 20px;
+    max-height: 20px;
+  }
+  
+  .maps-link{
+    margin-right: 15px;
+    color: black;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  
+  .admisible-icon{
+    max-width: 35px;
+    margin-right: 10px;
+  }
+  
+  .button-container{
+    margin-top: 25px;
+    text-align: center;
+  }
+  
+  ion-button.formulario{
+    --border-radius: 20px;
+    width: 150px;
+  }
+  
+  //tipos de vehiculos
+  .vehiculosContainer{
+    display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  }
+  
+  .vehiculosContainer:nth-child(1) { grid-area: 1 / 1 / 2 / 2;}
+  .vehiculosContainer:nth-child(2) { grid-area: 1 / 2 / 2 / 3;}
+  .vehiculosContainer:nth-child(3) { grid-area: 2 / 1 / 3 / 2;}
+  .vehiculosContainer:nth-child(4) { grid-area: 2 / 2 / 3 / 3; } 
+  
+  .vehiculoType{
+    width: 50px;
+  }

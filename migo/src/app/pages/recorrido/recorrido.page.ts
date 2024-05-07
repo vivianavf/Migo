@@ -76,10 +76,11 @@ export class RecorridoPage implements OnInit {
 
     const idCiudad = this.userService.usuarioActivo().id_ciudad;
     const idPais = this.userService.usuarioActivo().id_pais;
+    const idUsuario = this.userService.usuarioActivo().id_usuario;
 
     this.recorridoService.getRecorridos().subscribe((data) => {
       data.forEach((recorrido)=>{
-        if(recorrido.id_ciudad === idCiudad && recorrido.id_pais === idPais){
+        if(recorrido.id_ciudad === idCiudad && recorrido.id_pais === idPais && recorrido.id_usuario === idUsuario){
           this.recorridos.push(recorrido);
         }
       })

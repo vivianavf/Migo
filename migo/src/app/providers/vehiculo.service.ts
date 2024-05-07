@@ -30,7 +30,6 @@ export class VehiculoService {
   crearVehiculo(vehiculo: Vehiculo) {
 
     let placa = vehiculo.placa.toString();
-
     var formData = new FormData();
 
     // formData.append('id_vehiculo', vehiculo.id_vehiculo!.toString());

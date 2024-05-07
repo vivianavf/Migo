@@ -261,6 +261,10 @@ const routes: Routes = [
     path: 'select-ubicacion',
     loadChildren: () => import('./pages/modals/select-ubicacion/select-ubicacion.module').then( m => m.SelectUbicacionPageModule)
   },
+  {
+    path: 'detalles-campana-invitado',
+    loadChildren: () => import('./pages/modals/detalles-campana-invitado/detalles-campana-invitado.module').then( m => m.DetallesCampanaInvitadoPageModule)
+  },
 
 
 

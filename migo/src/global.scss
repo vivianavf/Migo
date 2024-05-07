@@ -346,8 +346,49 @@ ion-modal.select-ubicacion{
   --background: rgb(184, 184, 184);
 }
 
+ion-modal.detalles-campana-invitado{
+  --height: 80%;
+  --width: 85%;
+  --border-radius: 40px;
+  --background: white;
+}
+
 .cat-vehiculo-info-popOver{
   --width: 90%;
+}
+
+/* PopOver de Informacion con el icono (?) */
+.popOver-infoContent{
+  --background: white;
+}
+
+.infoPopOverAlignment{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.infoPopOverButton{
+  --width: 18px;
+  --height: 18px;
+  min-height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+
+  --background: none;
+  color: var(--ion-color-primary);
+
+  margin: 0;
+  --box-shadow: none;
+}
+
+.infoPopOverButton::part(native){
+  padding: 0;
+}
+
+.helpIcon{
+  width: 18px;
+  height: 18px;
 }
 
 /* Pantallas de cargando */

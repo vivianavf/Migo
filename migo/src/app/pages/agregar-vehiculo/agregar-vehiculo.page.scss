@@ -155,37 +155,6 @@ ion-button.add-button:host(.button-solid){
     height: 100px;
 }
 
-.marca{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-#click-marca-info{
-    
-}
-
-.marca-info{
-    --width: 18px;
-    --height: 18px;
-    min-height: 18px;
-    --background: none;
-    color: var(--ion-color-primary);
-}
-
-.click-marca-infoContent{
-    --background: white;
-}
-
-.marca-info::part(native){
-    padding: 0;
-}
-
-#marca-help-icon{
-    width: 18px;
-    height: 18px;
-}
-
 .contenido-carroceria{
     display: flex;
     flex-direction: column;

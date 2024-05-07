@@ -20,7 +20,7 @@
     <div class="ver-campanaInfoContainer">
       <ion-text class="black-text bold-text">Nombre de Campaña</ion-text>
       <ion-text class="black-text">Eres conductor registrado de esta campaña</ion-text>
-      <ion-text class="black-text">Estado: Verificación requerida</ion-text>
+      <!-- <ion-text class="black-text">Estado: Verificación requerida</ion-text> -->
     </div>
   </ion-card>
 
@@ -32,8 +32,23 @@
   </div>
 
   <div class="ver-buttonContainer">
-    <ion-button class="" (click)="mostrarQR()">Generar Código QR</ion-button>
+    <ion-button id="mostrarQR" class="">Mostrar Código QR</ion-button>
     <ion-button class="" (click)="verificaBrandeo()">Verifica el Brandeo</ion-button>
     <ion-button class="" (click)="verificaRecorrido()">Verifica tu recorrido</ion-button>
   </div>
+
+
+  <ion-modal trigger="mostrarQR">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <form enctype="multipart/form-data">
+          <div class="QR">
+            <qrcode (qrCodeURL)="onChange($event)" #parent [allowEmptyString]="true" [qrdata]="getDatos()" [width]="200" [elementType]="'canvas'">
+            </qrcode></div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
 </ion-content>

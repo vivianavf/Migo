@@ -293,8 +293,6 @@ export class FormularioAplicacionPage implements OnInit {
 
   enviarFormulario() {
 
-    this.mostrarCargando();
-
     this.aceptoTerminos();
     this.entidadVacio();
     this.archivoExiste();
@@ -313,6 +311,7 @@ export class FormularioAplicacionPage implements OnInit {
     ) {
       console.log('puede registrarse');
       this.puedeRegistrarse = true;
+      this.mostrarCargando();
 
       const user = this.userService.usuarioActivo();
       const rolUser = user.rol_usuario;

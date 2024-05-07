@@ -38,6 +38,8 @@ export class CampanaComponent implements OnInit {
   ordenAscendente: boolean = true;
 
   formularios: FormularioAplicacion[] = [];
+  formularioUsuario!: FormularioAplicacion;
+  nombreCampanaRegistro = '';
 
   imagesEmpresas: EmpresaImages[] = [];
 
@@ -123,12 +125,18 @@ export class CampanaComponent implements OnInit {
     let registroCampana: boolean;
     const usuario = this.userService.usuarioActivo();
     if (this.formularios.length>0) {
-      const formularioEncontrado = this.formularios.find((form) => form.id_campana === campana.id_campana && form.id_usuario === usuario.id_usuario)
+      const formularioEncontrado = this.formularios.find((form) => form.id_usuario === usuario.id_usuario && (form.estado_solicitud === 'activa' || form.estado_solicitud==='pendiente'))
+      this.formularioUsuario = formularioEncontrado!;
+      this.nombreCampanaRegistro = formularioEncontrado?campana.nombre_campana:'';
       formularioEncontrado? registroCampana = true: registroCampana= false;
     } else {
       registroCampana = false;
     }
     return registroCampana;
+  }
+
+  revisarFormulario(){
+    return this.formularioUsuario;
   }
 
   generarDatos() {

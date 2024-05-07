@@ -260,6 +260,7 @@ export class AgregarVehiculoPage implements OnInit {
       console.log("missing fields", this.missingFields.length)
 
       // abrir alerta
+      // solo el cliente puede registrar vehiculos
 
       const userRequest = {
         email: this.formFields.Placa,

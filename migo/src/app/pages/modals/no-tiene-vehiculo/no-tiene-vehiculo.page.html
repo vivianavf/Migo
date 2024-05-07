@@ -2,6 +2,8 @@
   <div class="container">
     <ion-icon name="warning-outline"></ion-icon>
     <ion-text>Usted no tiene vehículos registrados</ion-text>
-    <ion-button (click)="agregarVehiculo()">Agregar Vehículo</ion-button>
+    <ion-text class="size-small contacto-coord" *ngIf="!puedeRegistrar">Por favor, póngase en contacto con su coordinador de vehículos para registrar un vehículo nuevo.</ion-text>
+    <ion-button *ngIf="puedeRegistrar" (click)="agregarVehiculo()">Agregar Vehículo</ion-button>
+    <ion-button *ngIf="!puedeRegistrar" (click)="goHome()">Aceptar</ion-button>
   </div>
 </ion-content>

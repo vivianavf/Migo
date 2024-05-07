@@ -12,6 +12,7 @@ import { User } from 'src/app/interfaces/user';
 import { ComunicationService } from 'src/app/providers/comunication.service';
 import { RecuperarPasswordPage } from '../recuperar-password/recuperar-password.page';
 import { EliminarCuentaPage } from '../modals/eliminar-cuenta/eliminar-cuenta.page';
+import { TabsService } from 'src/app/providers/tabs.service';
 
 interface Perfil{
   nombre: string,
@@ -52,10 +53,15 @@ export class PerfilPage implements OnInit {
     private ciudadService: CiudadService,
     private navCtrl: NavController,
     private communicationService: ComunicationService,
+    private tabService: TabsService,
   ) {}
 
   ngOnInit() {
     this.generarDatos();
+  }
+
+  ionViewDidEnter() {
+    this.tabService.showTabs();
   }
 
   generarDatos(){
@@ -88,6 +94,7 @@ export class PerfilPage implements OnInit {
   }
 
   modificarContrasena() {
+    this.tabService.hideTabs();
     this.communicationService.sendVariable([this.userService.usuarioActivo().email, 1234]);
     this.navCtrl.navigateRoot('/reestablecer-password');
   }

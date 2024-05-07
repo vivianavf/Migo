@@ -17,6 +17,7 @@ import { Pais } from 'src/app/interfaces/pais';
 import { Empresa } from 'src/app/interfaces/empresa';
 import { SectorService } from 'src/app/providers/sector.service';
 import { Sector } from 'src/app/interfaces/sector';
+import { DetallesCampanaInvitadoPage } from '../modals/detalles-campana-invitado/detalles-campana-invitado.page';
 
 
 @Component({
@@ -146,6 +147,23 @@ export class InvitadoPage implements OnInit {
   registrarse(campana: Campana){
     this.campanaService.setCampanaActual(campana);
     // this.navCtrl.navigateRoot('detalles-campana');
+
+    this.mostrarDetalles(campana);
+
+    // en un popover mostrar los detalles de la campaña
+    // al dar clic a aplicar, ahi mostrar el pop over de "debe iniciar sesion"
+  }
+
+  async mostrarDetalles(campana: Campana){
+    const modal = this.modalCtrl.create({
+      component: DetallesCampanaInvitadoPage,
+      componentProps: {
+        campana: campana,
+      },
+      cssClass: 'detalles-campana-invitado',
+    })
+
+    return (await modal).present();
   }
 
   getURL(campana: Campana){

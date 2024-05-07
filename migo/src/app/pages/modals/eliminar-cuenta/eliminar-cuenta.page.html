@@ -10,33 +10,54 @@
         Esta acción no se puede deshacer.
       </ion-text>
       <ion-text class="black-text">
-        Se eliminarán registros de vehículos, recorridos, verificaciones y transacciones bancarias.
+        Se eliminarán registros de vehículos, recorridos, verificaciones y
+        transacciones bancarias.
       </ion-text>
     </div>
 
     <div class="buttons">
       <ion-button id="boton-cancelar" (click)="cerrar()">cancelar</ion-button>
-      <ion-button
-        class="bold-text"
-        id="boton-eliminar"
-        (click)="aceptar()"
+      <ion-button class="bold-text" id="boton-eliminar" (click)="aceptar()"
         >eliminar</ion-button
       >
     </div>
   </div>
 
   <div *ngIf="eliminarFlag" class="eliminarCuentaPage redConfirmation">
-    <ion-text class="bold-text">Por favor, confirme que desea eliminar su cuenta</ion-text>
+    <ion-text class="bold-text"
+      >Por favor, confirme que desea eliminar su cuenta</ion-text
+    >
     <ion-text class="bold-text">Sus datos no podrán ser recuperados</ion-text>
-    <div class="changingBoxDeleteCuenta">
-      <ion-spinner *ngIf="!display" id="spinnerDeleteCuenta" name="bubbles" color="white"></ion-spinner>
-    <ion-text *ngIf="!botonEliminarCuenta" class="bold-text displayTimerCuenta">{{display}}</ion-text>
-    <ion-button
+    <div class="changingBoxDeleteCuenta" *ngIf="!eliminandoDatos" >
+      <ion-spinner
+        *ngIf="!display"
+        id="spinnerDeleteCuenta"
+        name="bubbles"
+        color="white"
+      ></ion-spinner>
+      <ion-text
+        *ngIf="!botonEliminarCuenta"
+        class="bold-text displayTimerCuenta"
+        >{{display}}</ion-text
+      >
+      <ion-button
         *ngIf="botonEliminarCuenta"
         class="bold-text"
         id="eliminarCuentaDef"
         (click)="eliminarCuentaDef()"
         >eliminar cuenta</ion-button
+      >
+    </div>
+
+    <div class="eliminandoDatos" *ngIf="eliminandoDatos">
+      <ion-spinner
+        id="spinnerDeleteCuenta"
+        name="bubbles"
+        color="white"
+      ></ion-spinner>
+      <ion-text
+        class="bold-text"
+        >Eliminado cuenta...</ion-text
       >
     </div>
   </div>

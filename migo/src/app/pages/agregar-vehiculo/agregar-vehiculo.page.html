@@ -117,9 +117,9 @@
       </div>
 
       <div class="av-inputContainer">
-        <div class="marca">
+        <div class="infoPopOverAlignment">
           <ion-label class="av-inputLabel">Marca</ion-label>
-          <ion-button id="click-marca-info" class="marca-info"><ion-icon id="marca-help-icon" name="help-circle-outline"></ion-icon></ion-button>
+          <ion-button id="click-marca-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button>
         </div>
         <ion-select
           (ionChange)="marcaChange($event)"
@@ -141,9 +141,9 @@
       </div>
 
       <div class="av-inputContainer">
-        <div class="marca">
+        <div class="infoPopOverAlignment">
           <ion-label class="av-inputLabel">Modelo</ion-label>
-          <ion-button id="click-modelo-info" class="marca-info"><ion-icon id="marca-help-icon" name="help-circle-outline"></ion-icon></ion-button>
+          <ion-button id="click-modelo-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button>
         </div>
         <ion-select
           part="select-modelo-vehiculo"
@@ -164,9 +164,9 @@
       </div>
 
       <div class="av-inputContainer">
-        <div class="marca">
+        <div class="infoPopOverAlignment">
           <ion-label class="av-inputLabel">Categoría</ion-label>
-          <ion-button id="click-categoria-info" class="marca-info"><ion-icon id="marca-help-icon" name="help-circle-outline"></ion-icon></ion-button>
+          <ion-button id="click-categoria-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button>
         </div>
         <ion-select
           part="select-categoria-vehiculo"
@@ -384,7 +384,7 @@
 
   <ion-popover trigger="click-marca-info" triggerAction="click">
     <ng-template>
-      <ion-content class="ion-padding click-marca-infoContent">
+      <ion-content class="ion-padding popOver-infoContent">
         <ion-text class="black-text">
           Si no existe la <b>marca</b> correspondiente a su vehículo, enviénos un mensaje en "Reclamos y Soporte".
         </ion-text>
@@ -394,7 +394,7 @@
 
   <ion-popover trigger="click-modelo-info" triggerAction="click">
     <ng-template>
-      <ion-content class="ion-padding click-marca-infoContent">
+      <ion-content class="ion-padding popOver-infoContent">
         <ion-text class="black-text">
           Si no existe el <b>modelo</b> correspondiente a su vehículo, enviénos un mensaje en "Reclamos y Soporte".
         </ion-text>
@@ -404,7 +404,7 @@
 
   <ion-popover alignment="center" trigger="click-categoria-info" triggerAction="click" class="cat-vehiculo-info-popOver">
     <ng-template>
-      <ion-content class="ion-padding click-marca-infoContent">
+      <ion-content class="ion-padding popOver-infoContent">
         <div class="contenido-carroceria">
           <div class="labels">
             <ion-text class="bold-text black-text uppercase-text">
