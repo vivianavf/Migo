@@ -38,14 +38,12 @@
   </div>
 
 
-  <ion-modal trigger="mostrarQR">
+  <ion-modal trigger="mostrarQR" class="qr-modalVerificaciones withoutBackground">
     <ng-template>
       <ion-content class="ion-padding">
-        <form enctype="multipart/form-data">
-          <div class="QR">
-            <qrcode (qrCodeURL)="onChange($event)" #parent [allowEmptyString]="true" [qrdata]="getDatos()" [width]="200" [elementType]="'canvas'">
-            </qrcode></div>
-        </form>
+        <ion-text *ngIf="generaQR" class="black-text">Debes generar el QR en el apartado de solicitudes</ion-text>
+        <ion-text *ngIf="aceptarPlaza" class="black-text">Por favor, primero acepta una plaza en alguna campaña o espera a que acepten tu solicitud.</ion-text>
+        <ion-img style="width: 300px;height: 300px;" [src]="imgSrc" alt="QR"></ion-img>
       </ion-content>
     </ng-template>
   </ion-modal>

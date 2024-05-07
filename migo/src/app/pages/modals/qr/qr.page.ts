@@ -1,36 +1,22 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Campana } from 'src/app/interfaces/campana';
-import { Client } from 'src/app/interfaces/client';
 import { User } from 'src/app/interfaces/user';
-import { FixMeLater, QRCodeModule } from 'angularx-qrcode';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { ModalController, Platform } from '@ionic/angular';
+import { FixMeLater } from 'angularx-qrcode';
+import { ModalController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { Vehiculo } from 'src/app/interfaces/vehiculo';
 import { IngresoConductorCampanaService } from 'src/app/providers/ingreso-conductor-campana.service';
-import { CampanaService } from 'src/app/providers/campana.service';
 import { IngresoConductorCampana } from 'src/app/interfaces/ingreso-conductor-campana';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { CampanaActivaPage } from '../../campana-activa/campana-activa.page';
-import { VehiculoService } from 'src/app/providers/vehiculo.service';
 import { Router } from '@angular/router';
 import { TallerBrandeoService } from 'src/app/providers/taller-brandeo.service';
 import { TallerBrandeo } from 'src/app/interfaces/taller-brandeo';
-import { Chofer } from 'src/app/interfaces/chofer';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
-import { SafeValue } from '@angular/platform-browser';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -48,6 +34,7 @@ export class QrPage implements OnInit {
   @Input() vehiculo!: Vehiculo;
   @Input() marca!: string;
   @Input() modelo!: string;
+  @Input() solicitud!: FormularioAplicacion;
 
   nombreMarca = '';
   nombreModelo = '';
@@ -63,29 +50,28 @@ export class QrPage implements OnInit {
   /* ruta para peticiones a las imagenes de vehiculos del server */
   imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
 
+  /* Propiedades del QR */
+  imageSrc = 'https://migoadvs.pythonanywhere.com/vehiculos/migoQR.png';
+  imageHeight = 50;
+  imageWidth = 150;
+
   constructor(
-    private plt: Platform,
     private http: HttpClient,
-    private fileOpener: FileOpener,
-    private vehiculoElegidoService: ElegirVehiculoService,
-    private vehiculoService: VehiculoService,
     private modalQR: ModalController,
     private ingresarCondService: IngresoConductorCampanaService,
-    private campanaService: CampanaService,
     private router: Router,
     private tallerService: TallerBrandeoService,
     private marcaVehiculoService: MarcaVehiculoService,
-    private modeloVehiculoService: ModeloVehiculosService,
-    private renderer: Renderer2
+    private modeloVehiculoService: ModeloVehiculosService
   ) {}
 
-  crearPDF() {
+  async crearPDF() {
     let logo = { image: this.logoData, width: 50 };
 
     const docDefinition = {
       watermark: {
         text: 'Migo Ads',
-        color: 'yellow',
+        color: '#12bcbe',
         opacity: 0.2,
         bold: true,
       },
@@ -94,7 +80,7 @@ export class QrPage implements OnInit {
         { text: 'Generado en: ' + new Date(), style: 'subheader' },
         // { text: '\nTaller ' + this.campana, style: 'header' },
         // { text: 'Direccion del taller', style: 'subheader' },
-        { text: '\nDatos de Cliente y Vehiculo', style: 'header' },
+        { text: '\nDatos de Cliente y Vehículo', style: 'header' },
         {
           columns: [
             {
@@ -104,9 +90,9 @@ export class QrPage implements OnInit {
                   ['Cliente', ''],
                   ['Nombre', this.conductor.nombre],
                   ['Apellido', this.conductor.apellido],
-                  ['Cedula', this.conductor.cedula],
+                  ['Cédula', this.conductor.cedula],
                   ['Fecha de Nacimiento', this.conductor.fecha_nacimiento],
-                  ['Telefono', this.conductor.telefono],
+                  ['Teléfono', this.conductor.telefono],
                 ],
               },
             },
@@ -114,20 +100,19 @@ export class QrPage implements OnInit {
               style: 'tableExample',
               table: {
                 body: [
-                  ['Vehiculo', ''],
+                  ['Vehículo', ''],
                   ['Placa', this.vehiculo.placa],
                   ['Año', this.vehiculo.anio],
                   ['Marca', this.nombreMarca],
                   ['Modelo', this.nombreModelo],
                   ['Color', this.vehiculo.color_vehiculo],
-                  ['Categoria', this.vehiculo.categoria_vehiculo],
+                  ['Categoría', this.vehiculo.categoria_vehiculo],
                 ],
               },
             },
           ],
         },
-        // { text: '\nImagenes del Vehiculo\n', style: 'header' },
-        { text: '\nInformacion del Brandeo\n', style: 'header' },
+        { text: '\nInformación del Brandeo\n', style: 'header' },
         {
           style: 'tableExample',
           table: {
@@ -137,17 +122,38 @@ export class QrPage implements OnInit {
               ['Correo del responsable', this.campana.correo_responsable],
               ['Fecha de inicio', this.campana.fecha_inicio],
               ['Fecha de Fin', this.campana.fecha_fin],
-              ['Vehiculos Admisibles', 'Sedan, SUV, Camión, Camioneta, Bus'],
+              [
+                'Vehículos Admisibles',
+                this.campana.bus_admisible
+                  ? 'Bus'
+                  : '' + this.campana.camion_admisible
+                  ? 'Camión'
+                  : '' + this.campana.camioneta_admisible
+                  ? 'Camioneta'
+                  : '' + this.campana.sedan_admisible
+                  ? 'Sedán'
+                  : '' + this.campana.suv_admisible
+                  ? 'SUV'
+                  : '',
+              ],
             ],
           },
         },
-        { text: '\nBrandeo: ' + this.campana.tipo_brandeo, style: 'header' },
+        {
+          text: '\nTipo de Brandeo: ' + this.campana.tipo_brandeo,
+          style: 'header',
+        },
+        { text: 'Partes del carro a brandear:', style: 'subheader' },
+        { text: '\nImagenes del Vehiculo\n', style: 'header' },
         {
           ul: [
-            'Capo',
-            'Puerta Conductor',
-            'Puerta Pasajero',
-            'Puerta Trasera Izquierda',
+            this.solicitud.carroceria_capo ? 'Capó' : '',
+            this.solicitud.carroceria_techo ? 'Techo' : '',
+            this.solicitud.puerta_conductor ? 'Puerta Conductor' : '',
+            this.solicitud.puerta_maletero ? 'Puerta Maletero' : '',
+            this.solicitud.puerta_pasajero ? 'Puerta Pasajero' : '',
+            this.solicitud.puerta_trasera_der ? 'Puerta Trasera Izquierda' : '',
+            this.solicitud.puerta_trasera_iz ? 'Puerta Trasera Izquierda' : '',
           ],
         },
       ],

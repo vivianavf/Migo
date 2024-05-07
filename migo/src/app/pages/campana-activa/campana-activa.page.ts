@@ -222,6 +222,7 @@ export class CampanaActivaPage implements OnInit {
         vehiculo: this.vehiculo,
         marca: this.vehiculo.id_marca,
         modelo: this.vehiculo.id_modelo,
+        solicitud: this.solicitud,
       },
       cssClass: 'qr-modal',
     });

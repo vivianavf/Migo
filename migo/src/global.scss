@@ -275,6 +275,13 @@ ion-modal.no-tiene-vehiculo{
   --background: white;
 }
 
+.qr-modalVerificaciones {
+  --height: 300px;
+  --width: 300px;
+  // --border-radius: 20px;
+  --background: white;
+}
+
 ion-modal.solicitudConfirmar{
   --height: 30%;
   --width: 90%;

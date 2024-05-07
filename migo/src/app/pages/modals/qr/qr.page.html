@@ -19,15 +19,17 @@
   <div>
     <!-- <ion-button (click)="crearQR()">Generar Código QR</ion-button> -->
     <!-- <ion-text>{{crearQR(pare() nt)}}</ion-text> -->
+    <!-- "./assets/angular-logo.png" -->
+    <ion-text class="ion-black-text black-text">Puede revisar este QR y enviar la evidencia del brandeo para comenzar a monetizar en "Verificaciones", dentro del menú de opciones.</ion-text>
     <form enctype="multipart/form-data">
       <div class="QR">
-        <qrcode (qrCodeURL)="onChange($event)" #parent [allowEmptyString]="true" [qrdata]="getDatos()" [width]="200" [imageSrc]="'../../../../assets/images/migo-logo.png'" [elementType]="'canvas'">
+        <qrcode (qrCodeURL)="onChange($event)" #parent [allowEmptyString]="true" [qrdata]="getDatos()" [width]="300" [imageSrc]="imageSrc" [imageHeight]="imageHeight"
+        [imageWidth]="imageWidth" [elementType]="'canvas'">
         </qrcode></div>
     </form>
   </div>
  
   <div class="verificarBrandeo">
-    <ion-text class="ion-black-text black-text">Puede revisar este QR y enviar la evidencia del brandeo para comenzar a monetizar en "Verificaciones", dentro del menú de opciones.</ion-text>
     <ion-button (click)="aceptar()">Aceptar</ion-button>
   </div>
 </ion-content>
