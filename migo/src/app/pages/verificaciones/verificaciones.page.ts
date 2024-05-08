@@ -25,6 +25,7 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaService } from 'src/app/providers/empresa.service';
+import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 import { IngresoConductorCampanaService } from 'src/app/providers/ingreso-conductor-campana.service';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
@@ -99,7 +100,9 @@ export class VerificacionesPage implements OnInit {
     private tallerBService: TallerBrandeoService,
     private empresaImagesService: EmpresaImagesService,
     private googleMapService: GooglemapsService,
-    private choferService: ChoferService
+    private choferService: ChoferService,
+
+    private formService: FormularioAplicacionService,
   ) {}
 
   ngOnInit() {
@@ -108,37 +111,49 @@ export class VerificacionesPage implements OnInit {
     this.generaQR = false;
 
     //QR
-    (this.user = this.userService.usuarioActivo()),
-      (this.conductor = this.userService.esChoferOCliente());
-    this.ingresarCondService.getIngresos().subscribe((data) => {
-      this.ingresos = data;
-      let ingresoActual = this.ingresos.find(
-        (ingreso) =>
-          this.user.id_usuario === ingreso.id_usuario &&
-          this.user.id_ciudad === ingreso.id_ciudad &&
-          ingreso.estado === 1
-      );
+    this.user = this.userService.usuarioActivo();
+    this.conductor = this.userService.esChoferOCliente();
 
-      if (ingresoActual) {
-        const valores = Object.values(ingresoActual);
-        const docQR = valores[3];
-        const imagenQR = valores[4];
+    this.formService.getFormularios().subscribe((formularios)=>{
+      const formulario = formularios.find((formulario)=> 
+        formulario.id_usuario === this.user.id_usuario &&
+        formulario.id_ciudad === this.user.id_ciudad &&
+        formulario.estado_solicitud === 'activa'
+    )
 
-        if (docQR && imagenQR) {
-          console.log('ya hay una imagen y un docQR');
-          console.log(docQR, imagenQR)
-          // this.imgSrc = imagenQR;
-          this.imgSrc = imagenQR.replace("media","vehiculos");
+    if(formulario){
+      this.ingresarCondService.getIngresos().subscribe((data) => {
+        this.ingresos = data;
+        let ingresoActual = this.ingresos.find(
+          (ingreso) =>
+            this.user.id_usuario === ingreso.id_usuario &&
+            this.user.id_ciudad === ingreso.id_ciudad &&
+            ingreso.estado === 1 && 
+            ingreso.id_formulario_registro === formulario.id_formulario
+        );
+  
+        if (ingresoActual) {
+          const valores = Object.values(ingresoActual);
+          const docQR = valores[3];
+          const imagenQR = valores[4];
+  
+          if (docQR && imagenQR) {
+            console.log('ya hay una imagen y un docQR');
+            console.log(docQR, imagenQR)
+            // this.imgSrc = imagenQR;
+            this.imgSrc = imagenQR.replace("media","vehiculos");
+          } else {
+            // No hay nada, el usuario debe generarlo en solicitudes
+            this.generaQR = true;
+          }
         } else {
-          // No hay nada, el usuario debe generarlo en solicitudes
-          this.generaQR = true;
+          // el usuario no ha aceptado la plaza
+          // el usuario no se ha registrado en niguna campaña
+          this.aceptarPlaza = true;
         }
-      } else {
-        // el usuario no ha aceptado la plaza
-        // el usuario no se ha registrado en niguna campaña
-        this.aceptarPlaza = true;
-      }
-    });
+      });
+    }
+    })
   }
 
 
