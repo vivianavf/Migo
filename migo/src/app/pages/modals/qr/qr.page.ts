@@ -124,17 +124,15 @@ export class QrPage implements OnInit {
               ['Fecha de Fin', this.campana.fecha_fin],
               [
                 'Vehículos Admisibles',
-                this.campana.bus_admisible
-                  ? 'Bus'
-                  : '' + this.campana.camion_admisible
-                  ? 'Camión'
-                  : '' + this.campana.camioneta_admisible
-                  ? 'Camioneta'
-                  : '' + this.campana.sedan_admisible
-                  ? 'Sedán'
-                  : '' + this.campana.suv_admisible
-                  ? 'SUV'
-                  : '',
+                {
+                  ul: [
+                    this.campana.bus_admisible?'Bus':'',
+                    this.campana.camion_admisible?'Camión':'',
+                    this.campana.camioneta_admisible? 'Camioneta':'',
+                    this.campana.sedan_admisible? 'Sedán': '',
+                    this.campana.suv_admisible?'SUV': ''
+                  ],
+                },
               ],
             ],
           },
@@ -143,8 +141,7 @@ export class QrPage implements OnInit {
           text: '\nTipo de Brandeo: ' + this.campana.tipo_brandeo,
           style: 'header',
         },
-        { text: 'Partes del carro a brandear:', style: 'subheader' },
-        { text: '\nImagenes del Vehiculo\n', style: 'header' },
+        { text: 'Partes del carro a brandear:', style: 'header' },
         {
           ul: [
             this.solicitud.carroceria_capo ? 'Capó' : '',
@@ -176,7 +173,8 @@ export class QrPage implements OnInit {
         (ingreso) =>
           this.campana.id_campana === ingreso.id_campana &&
           this.user.id_usuario === ingreso.id_usuario &&
-          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo &&
+          this.solicitud.id_formulario === ingreso.id_formulario_registro
       );
       if (ingresoActual && this.parent) {
         //obtener la imagen del QR
@@ -212,7 +210,8 @@ export class QrPage implements OnInit {
         (ingreso) =>
           this.campana.id_campana === ingreso.id_campana &&
           this.user.id_usuario === ingreso.id_usuario &&
-          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo &&
+          this.solicitud.id_formulario === ingreso.id_formulario_registro
       );
 
       if (ingresoActual) {
@@ -241,7 +240,8 @@ export class QrPage implements OnInit {
         (ingreso) =>
           this.campana.id_campana === ingreso.id_campana &&
           this.user.id_usuario === ingreso.id_usuario &&
-          this.vehiculo.id_vehiculo === ingreso.id_vehiculo
+          this.vehiculo.id_vehiculo === ingreso.id_vehiculo &&
+          this.solicitud.id_formulario === ingreso.id_formulario_registro 
       );
 
       const valores = Object.values(ingresoActual!);
@@ -307,6 +307,8 @@ export class QrPage implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.ingresarCondService.getIngresos().subscribe((data) => {
       this.ingresos = data;
     });

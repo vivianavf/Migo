@@ -232,6 +232,29 @@
             </div>
           </div>
         </div>
+
+        <div class="select-parte-brandeable" *ngIf="seleccionoVehiculo">
+          <div class="infoPopOverAlignment selectVehiculopopOverContainer">
+            <ion-label class="uppercase-text white-text">parte a brandear: </ion-label>
+          </div>
+          <div class="partes-Brandear">
+            <div class="elementos-brandear" *ngFor="let parte of partesBrandeables" >
+              <ion-checkbox [(ngModel)]="parte.brandeo"> </ion-checkbox>
+              <ion-text>{{parte.nombre}}</ion-text>
+            </div>
+          </div>
+        </div>
+
+        <div class="select-parte-brandeable" *ngIf="seleccionoVehiculo">
+          <div class="infoPopOverAlignment selectVehiculopopOverContainer">
+            <ion-label class=" white-text">Ganancia: </ion-label>
+          </div>
+          <div class="partes-Brandear" style="text-align: center;">
+            <ion-text><b>$ {{obtenerGanancia()}}</b> x km</ion-text>
+          </div>
+        </div>
+
+
   
         <div class="terms">
           <ion-checkbox [(ngModel)]="termsAccepted"> </ion-checkbox>
@@ -257,6 +280,13 @@
         >
           Debe aceptar los Términos y Condiciones<br />
         </ion-text>
+        <ion-text
+        class="datosincorrectos"
+        *ngIf="partesSeleccionada"
+        color="danger"
+      >
+        Seleccione al menos una parte de su vehículo para brandear.<br />
+      </ion-text>
       </div>
   
       <div class="button-container">

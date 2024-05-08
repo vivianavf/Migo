@@ -26,17 +26,20 @@ import { VehiculosModalPage } from '../modals/vehiculos-modal/vehiculos-modal.pa
 import { ElegirVehiculoService } from 'src/app/providers/elegir-vehiculo.service';
 import { MarcaVehiculoService } from 'src/app/providers/marca-vehiculo.service';
 import { ModeloVehiculosService } from 'src/app/providers/modelo-vehiculos.service';
-import { QrPage } from '../modals/qr/qr.page';
 import { Campana } from 'src/app/interfaces/campana';
 import { FormularioAplicacionService } from 'src/app/providers/formulario-aplicacion.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
-import { ConfirmacionPage } from '../modals/confirmacion/confirmacion.page';
 import { NavigationService } from 'src/app/providers/navigation.service';
-import { EntidadBancaria } from 'src/app/interfaces/entidad-bancaria';
 import { EntidadBancariaService } from 'src/app/providers/entidad-bancaria.service';
 import { ChoferService } from 'src/app/providers/chofer.service';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 import { EnviarFormularioAplicacionComponent } from '../modals/enviar-formulario-aplicacion/enviar-formulario-aplicacion.component';
+
+interface parteBrandeable {
+  nombre: string;
+  brandeo: boolean;
+  costo: number;
+}
 
 @Component({
   selector: 'app-formulario-aplicacion',
@@ -90,6 +93,7 @@ export class FormularioAplicacionPage implements OnInit {
   termsAccepted: any;
   seleccionoVehiculo: boolean = false;
   mostrarmsgVehiculo: boolean = false;
+  partesSeleccionada: boolean = false;
 
   entidadesBancarias: string[] = [];
 
@@ -100,11 +104,14 @@ export class FormularioAplicacionPage implements OnInit {
   entidadesFiltradas: string[] = [];
   entidadSeleccionada: string = '';
 
-  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/'
+  imgRuta = 'https://migoadvs.pythonanywhere.com/vehiculos/';
 
   //
   puedeRegistrarse: boolean = false;
   @ViewChild(IonModal) modalFormulario!: IonModal;
+
+  //partes brandeables
+  partesBrandeables: parteBrandeable[] = [];
 
   constructor(
     private modalController: ModalController,
@@ -117,12 +124,11 @@ export class FormularioAplicacionPage implements OnInit {
     private elegirVehiculoService: ElegirVehiculoService,
     private marcaVehiculoService: MarcaVehiculoService,
     private modeloVehiculoService: ModeloVehiculosService,
-    private navCtrl: NavController,
     private formService: FormularioAplicacionService,
     private toolbarService: ToolbarService,
     private navService: NavigationService,
     private bancoService: EntidadBancariaService,
-    private choferService: ChoferService,
+    private choferService: ChoferService
   ) {
     this.formularioAplicacion = this.fb.group({
       telefono_conductor: new FormControl('', Validators.required),
@@ -142,8 +148,8 @@ export class FormularioAplicacionPage implements OnInit {
 
   getImageSrc(angulo: string, vehiculo?: Vehiculo) {
     const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
-    const foto = arrayNombreURL[arrayNombreURL.length-1];
-    return this.imgRuta+foto;
+    const foto = arrayNombreURL[arrayNombreURL.length - 1];
+    return this.imgRuta + foto;
   }
 
   filtrarEntidades(event: any) {
@@ -281,24 +287,29 @@ export class FormularioAplicacionPage implements OnInit {
     this.popCtrl.dismiss();
   }
 
-  async mostrarCargando(){
+  partesSeleccionadas(){
+    const parteBrandeable = this.partesBrandeables.filter((parte) => parte.brandeo === true)
+    this.partesSeleccionada = parteBrandeable.length > 0;
+    return parteBrandeable.length>0;
+  }
+
+  async mostrarCargando() {
     const modal = await this.modalController.create({
       component: EnviarFormularioAplicacionComponent,
       cssClass: 'enviarFormApp',
-    })
+    });
 
     return modal.present();
   }
 
-
   enviarFormulario() {
-
     this.aceptoTerminos();
     this.entidadVacio();
     this.archivoExiste();
     this.tipoCuentaExiste();
     this.numeroCuentaExiste();
     this.vehiculoHaSidoSeleccionado();
+    this.partesSeleccionadas();
 
     if (
       !this.terminosNoAceptados &&
@@ -307,85 +318,78 @@ export class FormularioAplicacionPage implements OnInit {
       !this.tipodeCuentaVacio &&
       !this.numeroCuentaVacio &&
       this.seleccionoVehiculo &&
-      this.vehiculoSeleccionado
+      this.vehiculoSeleccionado && 
+      this.partesSeleccionada
     ) {
-      console.log('puede registrarse');
       this.puedeRegistrarse = true;
       this.mostrarCargando();
 
       const user = this.userService.usuarioActivo();
       const rolUser = user.rol_usuario;
 
-      const entidadElegida = this.bancoService.entidadesObtenidas.find((entidad)=> entidad.nombre === this.entidadBancaria)
+      const entidadElegida = this.bancoService.entidadesObtenidas.find(
+        (entidad) => entidad.nombre === this.entidadBancaria
+      );
       const f = new Date().toLocaleDateString().split('/');
-      const fechaEnvio = f[2]+'-'+f[1]+'-'+f[0];
+      const fechaEnvio = f[2] + '-' + f[1] + '-' + f[0];
+
+      //datos necesarios
+      let cedula;
+      let email;
       switch (rolUser) {
         case 2: //chofer
           const choferActivo = this.choferService.choferActivo();
-          var formChofer: FormularioAplicacion = {
-            telefono_conductor: 999999999,
-            licencia: this.archivoLicencia,
-            matricula: this.archivoMatricula,
-            numero_cuenta_bancaria: this.numeroCuentaInput,
-            cedula: String(choferActivo.cedula_chofer),
-            entidad_bancaria: entidadElegida!.id_entidad,
-            tipo_cuenta_bancaria: this.tipoCuenta,
-            correo_electronico: user.email,
-            fecha_envio: fechaEnvio,
-            id_usuario: this.userService.usuarioActivo().id_usuario,
-            id_ciudad: this.userService.usuarioActivo().id_ciudad,
-            id_pais: this.userService.usuarioActivo().id_pais,
-            id_campana: this.campana.id_campana!,
-            estado_solicitud: 'pendiente',
-            id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
-          };
-          this.formService.crearFormulario(formChofer).subscribe((response) => {
-            if (response) {
-              // console.log(response);
-              // this.modalFormulario.dismiss();
-              // this.navCtrl.navigateRoot('/solicitudes');
-              setTimeout(this.redireccion, 3000);
-            }
-          });
+          cedula = String(choferActivo.cedula_chofer);
+          email = user.email;
           break;
         case 5: //cliente
           const clienteActivo = this.clientService.clienteActivo();
-          var formCliente: FormularioAplicacion = {
-            telefono_conductor: parseInt(clienteActivo.telefono)!,
-            licencia: this.archivoLicencia,
-            matricula: this.archivoMatricula,
-            numero_cuenta_bancaria: this.numeroCuentaInput,
-            cedula: String(clienteActivo.cedula_cliente),
-            entidad_bancaria: entidadElegida!.id_entidad,
-            tipo_cuenta_bancaria: String(this.tipoCuenta),
-            correo_electronico: clienteActivo.email,
-            fecha_envio: fechaEnvio,
-            id_usuario: this.userService.usuarioActivo().id_usuario,
-            id_ciudad: this.userService.usuarioActivo().id_ciudad,
-            id_pais: this.userService.usuarioActivo().id_pais,
-            id_campana: this.campana.id_campana!,
-            estado_solicitud: 'pendiente',
-            id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
-          };
-
-          this.formService.crearFormulario(formCliente).subscribe((response) => {
-            if (response) {
-              // console.log(response);
-              //cerrar cargando
-              // this.modalFormulario.dismiss();
-              // this.navCtrl.navigateRoot('/solicitudes');
-              setTimeout(this.redireccion, 3000);
-            }
-          });
+          cedula = String(clienteActivo.cedula_cliente);
+          email = clienteActivo.email;
           break;
       }
+
+      if(cedula && email){
+        var form: FormularioAplicacion = {
+          telefono_conductor: 999999999,
+          licencia: this.archivoLicencia,
+          matricula: this.archivoMatricula,
+          numero_cuenta_bancaria: this.numeroCuentaInput,
+          cedula: cedula,
+          entidad_bancaria: entidadElegida!.id_entidad,
+          tipo_cuenta_bancaria: this.tipoCuenta,
+          correo_electronico: email,
+          fecha_envio: fechaEnvio,
+          id_usuario: this.userService.usuarioActivo().id_usuario,
+          id_ciudad: this.userService.usuarioActivo().id_ciudad,
+          id_pais: this.userService.usuarioActivo().id_pais,
+          id_campana: this.campana.id_campana!,
+          estado_solicitud: 'pendiente',
+          id_vehiculo: Number(this.vehiculoSeleccionado.id_vehiculo),
+          carroceria_capo: this.partesBrandeables.find((parte)=>parte.nombre === 'Capó' && parte.brandeo)?true:false,
+          carroceria_techo: this.partesBrandeables.find((parte)=>parte.nombre === 'Techo' && parte.brandeo)?true:false,
+          puerta_conductor: this.partesBrandeables.find((parte)=>parte.nombre === 'Puerta del conductor' && parte.brandeo)?true:false,
+          puerta_pasajero: this.partesBrandeables.find((parte)=>parte.nombre === 'Puerta del copiloto' && parte.brandeo)?true:false,
+          puerta_trasera_iz: this.partesBrandeables.find((parte)=>parte.nombre === 'Puerta trasera izquierda' && parte.brandeo)?true:false,
+          puerta_trasera_der: this.partesBrandeables.find((parte)=>parte.nombre === 'Puerta trasera derecha' && parte.brandeo)?true:false,
+          puerta_maletero: this.partesBrandeables.find((parte)=>parte.nombre === 'Maletero (puerta trasera)' && parte.brandeo)?true:false,
+        };
+
+        console.log(form)
+        this.formService.crearFormulario(form).subscribe((response) => {
+          if (response) {
+            setTimeout(this.redireccion, 3000);
+          }
+        });
+      }
+
+      console.log('enviando formulario...')
     } else {
-      console.log('No puede registrarse');
       this.puedeRegistrarse = false;
     }
   }
 
-  redireccion(){
+  redireccion() {
     // this.modalCtrl.dismiss();
     location.reload();
   }
@@ -399,14 +403,13 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   archivoExiste() {
-    this.archivoLicencia.name.length > 0
+    this.archivoLicencia && this.archivoLicencia.name.length > 0
       ? (this.archivoVacio = false)
       : (this.archivoVacio = true);
     return this.archivoVacio;
   }
 
   entidadVacio() {
-    console.log('Entidad Bancaria', this.entidadBancaria);
     this.entidadBancaria != 'Entidad Bancaria'
       ? (this.entidadBancariaVacio = false)
       : (this.entidadBancariaVacio = true);
@@ -421,7 +424,6 @@ export class FormularioAplicacionPage implements OnInit {
   }
 
   numeroCuentaExiste() {
-    console.log('Numero Cuenta', this.numeroCuentaInput);
     !this.numeroCuentaInput
       ? (this.numeroCuentaVacio = true)
       : (this.numeroCuentaVacio = false);
@@ -436,6 +438,20 @@ export class FormularioAplicacionPage implements OnInit {
       this.terminosNoAceptados = false;
       return true;
     }
+  }
+
+  obtenerGanancia(){
+    const tarifaBase = this.campana.tarifa_base // 1
+    let dinero = 0;
+    this.partesBrandeables.forEach((parte)=>{
+      dinero += parte.brandeo?tarifaBase*parte.costo:0;
+    })
+    return this.redondearFloat(dinero, 2);
+  }
+
+  redondearFloat(numeroFloat: number, decimales: number) {
+    const factor = 10 ** decimales;
+    return Math.round(numeroFloat * factor) / factor;
   }
 
   generarApp() {
@@ -485,20 +501,61 @@ export class FormularioAplicacionPage implements OnInit {
       this.vehiculos = data;
     });
 
-    this.formService.getFormularios().subscribe((data)=>{})
+    this.formService.getFormularios().subscribe((data) => {});
+
+    //partes brandeables
+    this.partesBrandeables = [];
+    const puertas = [
+      { nombre: 'carroceria_capo', valor: this.campana.carroceria_capo},
+      { nombre: 'carroceria_techo', valor: this.campana.carroceria_techo },
+      { nombre: 'puerta_conductor', valor: this.campana.puerta_conductor },
+      { nombre: 'puerta_pasajero', valor: this.campana.puerta_pasajero },
+      { nombre: 'puerta_trasera_iz', valor: this.campana.puerta_trasera_iz },
+      { nombre: 'puerta_trasera_der', valor: this.campana.puerta_trasera_der },
+      { nombre: 'puerta_maletero', valor: this.campana.puerta_maletero },
+    ];
+
+    puertas.forEach(puerta => {
+      const parteExiste = this.partesBrandeables.find((parte)=> parte.nombre === puerta.nombre)
+        if (puerta.valor !== 0.0 && !parteExiste) {
+          switch (puerta.nombre) {
+            case "carroceria_capo":
+              this.partesBrandeables.push({nombre: 'Capó', brandeo: false, costo: puerta.valor});
+              break;
+            case "carroceria_techo":
+              this.partesBrandeables.push({nombre: 'Techo', brandeo: false, costo: puerta.valor});
+              break;
+            case "puerta_conductor":
+              this.partesBrandeables.push({nombre: 'Puerta del conductor', brandeo: false, costo: puerta.valor});
+              break;
+            case "puerta_pasajero":
+              this.partesBrandeables.push({nombre: 'Puerta del copiloto', brandeo: false, costo: puerta.valor});
+              break;
+            case "puerta_trasera_iz":
+              this.partesBrandeables.push({nombre: 'Puerta trasera izquierda', brandeo: false, costo: puerta.valor});
+              break;
+            case "puerta_trasera_der":
+              this.partesBrandeables.push({nombre: 'Puerta trasera derecha', brandeo: false, costo: puerta.valor});
+              break;
+            case "puerta_maletero":
+              this.partesBrandeables.push({nombre: 'Maletero (puerta trasera)', brandeo: false, costo: puerta.valor});
+              break;
+        }
+        }
+    });
   }
 
-  resetDatos(){
+  resetDatos() {
     this.seleccionoVehiculo = false;
     this.entidadBancaria = 'Entidad Bancaria';
-    this.tipoCuenta = 'Tipo de Cuenta'
+    this.tipoCuenta = 'Tipo de Cuenta';
     this.numeroCuentaInput = '';
     this.formularioAplicacion.reset();
     // Object.assign(this.archivoLicencia, new File())
     // Object.assign(this.archivoMatricula, {})
   }
 
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.resetDatos();
   }
 

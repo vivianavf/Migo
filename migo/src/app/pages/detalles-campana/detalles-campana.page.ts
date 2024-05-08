@@ -27,6 +27,11 @@ import { EmpresaImagesService } from 'src/app/providers/empresa-images.service';
 import { EmpresaImages } from 'src/app/interfaces/empresa-images';
 import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 
+interface parteBrandeable{
+  nombre: string,
+  costo: number,
+}
+
 @Component({
   selector: 'app-detalles-campana',
   templateUrl: './detalles-campana.page.html',
@@ -49,6 +54,8 @@ export class DetallesCampanaPage implements OnInit {
   mapDetalleCampana?: google.maps.Map;
 
   imagesEmpresas: EmpresaImages[] = [];
+
+  partesBrandeables: parteBrandeable[] = [];
 
   constructor(
     private campanaService: CampanaService,
@@ -89,8 +96,54 @@ export class DetallesCampanaPage implements OnInit {
     this.navCtrl.navigateRoot('formulario-aplicacion');
   }
 
+  redondearFloat(numeroFloat: number, decimales: number) {
+    const factor = 10 ** decimales;
+    return Math.round(numeroFloat * factor) / factor;
+  }
+
   generarDatos() {
     this.campana = this.campanaService.getCampanaActual();
+
+    this.partesBrandeables = [];
+    const puertas = [
+      { nombre: "carroceria_capo", valor: this.campana.carroceria_capo },
+      { nombre: "carroceria_techo", valor: this.campana.carroceria_techo },
+      { nombre: "puerta_conductor", valor: this.campana.puerta_conductor },
+      { nombre: "puerta_pasajero", valor: this.campana.puerta_pasajero },
+      { nombre: "puerta_trasera_iz", valor: this.campana.puerta_trasera_iz },
+      { nombre: "puerta_trasera_der", valor: this.campana.puerta_trasera_der },
+      { nombre: "puerta_maletero", valor: this.campana.puerta_maletero }
+  ];
+  
+  puertas.forEach(puerta => {
+    const parteExiste = this.partesBrandeables.find((parte)=> parte.nombre === puerta.nombre)
+      if (puerta.valor !== 0.0 && !parteExiste) {
+        switch (puerta.nombre) {
+          case "carroceria_capo":
+            this.partesBrandeables.push({nombre: 'Capó', costo: puerta.valor});
+            break;
+          case "carroceria_techo":
+            this.partesBrandeables.push({nombre: 'Techo', costo: puerta.valor});
+            break;
+          case "puerta_conductor":
+            this.partesBrandeables.push({nombre: 'Puerta conductor', costo: puerta.valor});
+            break;
+          case "puerta_pasajero":
+            this.partesBrandeables.push({nombre: 'Puerta copiloto', costo: puerta.valor});
+            break;
+          case "puerta_trasera_iz":
+            this.partesBrandeables.push({nombre: 'Puerta trasera izq.', costo: puerta.valor});
+            break;
+          case "puerta_trasera_der":
+            this.partesBrandeables.push({nombre: 'Puerta trasera der.', costo: puerta.valor});
+            break;
+          case "puerta_maletero":
+            this.partesBrandeables.push({nombre: 'Maletero', costo: puerta.valor});
+            break;
+      }
+      }
+  });
+
     this.consultarVehiculosAdmisibles(this.campana);
     this.consultarTalleres(this.campana);
     var idEmpresa = this.campana.id_empresa;

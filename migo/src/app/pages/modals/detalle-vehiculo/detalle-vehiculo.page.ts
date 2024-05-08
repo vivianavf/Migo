@@ -27,6 +27,7 @@ export class DetalleVehiculoPage implements OnInit {
 
   nombre = '';
   apellido = '';
+  cedula = '';
 
   choferes: Chofer[] = [];
 
@@ -79,6 +80,7 @@ export class DetalleVehiculoPage implements OnInit {
     console.log(chofer.nombre, chofer.apellido)
     this.nombre = String(chofer.nombre);
     this.apellido = String(chofer.apellido);
+    this.cedula = String(chofer.cedula_chofer);
   }
 
   getCategoria(categoria: string) {

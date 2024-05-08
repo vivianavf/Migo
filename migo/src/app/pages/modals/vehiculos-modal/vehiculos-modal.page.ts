@@ -115,7 +115,8 @@ export class VehiculosModalPage implements OnInit {
               const registro = formularios?.find(
                 (form) =>
                   form.id_campana === campanaactual.id_campana &&
-                  form.id_vehiculo === vehiculo.id_vehiculo
+                  form.id_vehiculo === vehiculo.id_vehiculo &&
+                  form.estado_solicitud === 'activa'
               );
               console.log(registro);
               registro ? console.log('') : this.vehiculosMostrar.push(vehiculo);
@@ -131,7 +132,8 @@ export class VehiculosModalPage implements OnInit {
               const registro = formularios?.find(
                 (form) =>
                   form.id_campana === campanaactual.id_campana &&
-                  form.id_vehiculo === vehiculo.id_vehiculo
+                  form.id_vehiculo === vehiculo.id_vehiculo &&
+                  form.estado_solicitud === 'activa'
               );
 
               if (registro) {

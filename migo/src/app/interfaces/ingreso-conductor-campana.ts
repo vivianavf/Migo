@@ -9,4 +9,5 @@ export interface IngresoConductorCampana {
     id_pais: number,
     documentoQR?: String,
     imagenQR?: String,
+    id_formulario_registro: number,
 }

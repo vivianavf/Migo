@@ -265,6 +265,10 @@ const routes: Routes = [
     path: 'detalles-campana-invitado',
     loadChildren: () => import('./pages/modals/detalles-campana-invitado/detalles-campana-invitado.module').then( m => m.DetallesCampanaInvitadoPageModule)
   },
+  {
+    path: 'finalizando-recorrido',
+    loadChildren: () => import('./pages/modals/finalizando-recorrido/finalizando-recorrido.module').then( m => m.FinalizandoRecorridoPageModule)
+  },
 
 
 

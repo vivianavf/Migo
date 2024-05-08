@@ -58,6 +58,18 @@ p.correo{
   width: 60%;
 }
 
+.parte-brandeo{
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  // justify-content: space-around;
+}
+
+.brandeo-nombre{
+  width: 50%;
+  text-align: end;
+}
+
 .variables-info{
   width: 40%;
   text-align:start;

@@ -22,10 +22,19 @@
 }
 
 
-div.content{
+.content{
     background-color: white;
     border-radius: 20px;
-  }
+}
+
+.marca-card:first-child{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.marca-card:last-child{
+  border-bottom: 1px solid transparent;
+}
 
   .root{
     text-align: center;
@@ -41,6 +50,7 @@ div.content{
   ion-card {
     display: flex;
     flex-direction: column;
+    margin: 0;
     margin-left: 0;
     margin-right: 0;
     --color: black;
@@ -56,9 +66,9 @@ ion-text{
   // padding-bottom: 6%;
 }
 
-  .banner-empresa{
-    margin-top: 20px;
-    height: 70px; /* Altura del contenedor, ajusta según tus necesidades */
+  .banner-marca{
+    // margin-top: 20px;
+    height: 100px; /* Altura del contenedor, ajusta según tus necesidades */
   }
 
   ion-card{

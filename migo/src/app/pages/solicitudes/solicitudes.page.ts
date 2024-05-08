@@ -70,6 +70,16 @@ export class SolicitudesPage implements OnInit {
   }
 
   generarDatos() {
+
+    //posibles estados de una solicitud:
+    // aceptada, pendiente, rechazada, activa, anulada, inactiva
+    // aceptada -> el admin le acepto el registro de campaña al conductor
+    // rechazada -> el admin no aceptó al conductor en la campaña
+    // pendiente -> el admin esta pendiente de revisar la solicitud
+    // activa -> el conductor puede comenzar a monetizar
+    // anulada -> el conductor anuló el registro (se lo penaliza)
+    // inactiva -> terminó el tiempo de la campaña o el admin decidió sacar al conductor de ese registro
+
     this.formService.getFormularios().subscribe((data) => {
       data.forEach((solicitudData) => {
         if (
@@ -77,7 +87,7 @@ export class SolicitudesPage implements OnInit {
             this.userService.usuarioActivo().id_usuario &&
           solicitudData.id_ciudad === this.userService.usuarioActivo().id_ciudad
         ) {
-          solicitudData.estado_solicitud==='anulada'?console.log(''):this.solicitudes.push(solicitudData);
+          solicitudData.estado_solicitud==='anulada' || solicitudData.estado_solicitud === 'inactiva'?console.log(''):this.solicitudes.push(solicitudData);
         }
       });
       this.solicitudes.forEach((solicitud) => {

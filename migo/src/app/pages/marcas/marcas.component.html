@@ -9,8 +9,8 @@
 <div class="root" *ngIf="empresas.length > 0">
   <ion-text class="helperText">Marcas inscritas en {{ pais?.nombre }}</ion-text>
   <div class="content marginContent">
-    <ion-card *ngFor="let empresa of empresas">
-      <div class="banner-empresa ad">
+    <ion-card class="marca-card" *ngFor="let empresa of empresas">
+      <div class="banner-marca ad">
         <ion-img
           [src]="getURL(empresa)"
           alt="Banner de la empresa"

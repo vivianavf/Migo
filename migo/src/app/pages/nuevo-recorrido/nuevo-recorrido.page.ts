@@ -16,6 +16,8 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 import { concat } from 'rxjs';
 import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
+import { ModalController } from '@ionic/angular';
+import { FinalizandoRecorridoPage } from '../modals/finalizando-recorrido/finalizando-recorrido.page';
 
 interface UbicacionGuardada {
   lng: number;
@@ -83,7 +85,8 @@ export class NuevoRecorridoPage implements OnInit {
     private recorridoService: RecorridoRealizadoService,
     private userService: UsersService,
     private sectorService: SectorService,
-    private googleMapsService: GooglemapsService
+    private googleMapsService: GooglemapsService,
+    private modalCtrl: ModalController,
   ) {}
 
   ionViewDidEnter() {
@@ -405,14 +408,14 @@ export class NuevoRecorridoPage implements OnInit {
     return Math.round(numeroFloat * factor) / factor;
   }
 
-  finalizarRecorrido() {
+  async finalizarRecorrido() {
     console.log('Recorrido Finalizado....');
-    Geolocation.clearWatch({ id: this.watchId });
+    await Geolocation.clearWatch({ id: this.watchId });
+
     const KMSRecorridos = this.kms;
     const KMSRedondeados = this.redondearFloat(KMSRecorridos, 2);
     const fechaActual = new Date().toLocaleString();
     const dinero = this.dineroRecaudado;
-
     const nuevoRecorrido: RecorridoRealizado = {
       id_vehiculo: this.vehiculo.id_vehiculo!,
       id_usuario: this.usuario.id_usuario,
@@ -427,15 +430,18 @@ export class NuevoRecorridoPage implements OnInit {
       ubicaciones: this.ubicacionesGuardadas,
     };
 
-    
-    this.recorridoService
-      .crearRecorrido(nuevoRecorrido)
-      .subscribe((response) => {
-        console.log('Creando el recorrido ... ', response);
-        this.stopTimer();
-        this.tabService.hideTabs();
-        this.resetLocalStorage();
-        location.reload();
-      });
+    const modal = this.modalCtrl.create({
+      component: FinalizandoRecorridoPage,
+      cssClass: 'finalizandoRecorrido',
+      componentProps: {
+        recorrido: nuevoRecorrido,
+      },
+      backdropDismiss: false,
+    })
+
+    this.stopTimer();
+    this.resetLocalStorage();
+
+    await (await modal).present();
   }
 }

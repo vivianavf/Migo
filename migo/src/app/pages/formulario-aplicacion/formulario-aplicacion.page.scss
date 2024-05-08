@@ -332,3 +332,31 @@ ion-checkbox{
 ion-button.enviar{
   width: 150px;
 }
+
+/** select partes a brandear **/
+
+.selectVehiculopopOverContainer{
+  justify-content: center;
+}
+
+.select-parte-brandeable{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;  
+  margin: 10px;
+  // text-align: center;
+  width: 60%;
+}
+.elementos-brandear{
+  display: flex;
+  flex-direction: row;
+  // justify-content: center;
+  align-items: center;
+  // margin-left: 30%;
+}
+
+.partes-Brandear{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

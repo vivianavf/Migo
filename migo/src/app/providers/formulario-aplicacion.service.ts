@@ -62,6 +62,14 @@ export class FormularioAplicacionService {
     formData.append('id_pais', formulario.id_pais.toString());
     formData.append('id_vehiculo', formulario.id_vehiculo.toString());
 
+    formData.append("carroceria_capo", String(formulario.carroceria_capo));
+    formData.append("carroceria_techo",  String(formulario.carroceria_techo));
+    formData.append("puerta_conductor",  String(formulario.puerta_conductor));
+    formData.append("puerta_pasajero",  String(formulario.puerta_pasajero));
+    formData.append("puerta_trasera_iz",  String(formulario.puerta_trasera_iz));
+    formData.append("puerta_trasera_der",  String(formulario.puerta_trasera_der));
+    formData.append("puerta_maletero",  String(formulario.puerta_maletero));
+
     return this.http.post(this.baseURL, formData);
   }
 

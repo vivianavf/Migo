@@ -43,6 +43,7 @@ export class ConfirmacionPage implements OnInit {
       id_vehiculo: this.solicitud.id_vehiculo,
       id_ciudad: this.solicitud.id_ciudad,
       id_pais: this.solicitud.id_pais,
+      id_formulario_registro: this.solicitud.id_formulario!,
     };
 
     this.formularioService.cambiarEstadoFormulario(Number(this.solicitud.id_formulario), "activa").subscribe((response)=>{console.log(response)})

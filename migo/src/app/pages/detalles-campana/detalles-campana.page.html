@@ -29,7 +29,7 @@
             <p>Tipo de Brandeo disponible:</p>
           </div>
           <div class="variables-info">
-            <p>${{campana.tarifa_min}} - ${{campana.tarifa_max}}</p>
+            <p>${{campana.tarifa_min}} - ${{campana.tarifa_max}} <ion-button id="tarifas-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button></p>
             <p>
               {{campana.hora_monetizable_inicio}} -
               {{campana.hora_monetizable_fin}}
@@ -86,4 +86,24 @@
       </div>
     </ion-card-content>
   </ion-card>
+
+
+  <ion-popover trigger="tarifas-info" triggerAction="click">
+    <ng-template>
+      <ion-content class="ion-padding popOver-infoContent">
+        <ion-text class="black-text">
+          Las tarifas dependen de la parte del vehículo brandeada y son acumulativas.<br>
+        </ion-text>
+        <ion-text class="black-text bold-text">
+          <br>
+        </ion-text>
+        <div class="partesBrandeables">
+          <div class="parte-brandeo" *ngFor="let parte of partesBrandeables">
+            <ion-text class="brandeo-nombre black-text">{{parte.nombre}}:  </ion-text>
+            <ion-text class="black-text"> ${{redondearFloat(parte.costo*campana.tarifa_base, 2)}} x km</ion-text>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
 </ion-content>
