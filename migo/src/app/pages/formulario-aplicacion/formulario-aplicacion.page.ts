@@ -297,6 +297,7 @@ export class FormularioAplicacionPage implements OnInit {
     const modal = await this.modalController.create({
       component: EnviarFormularioAplicacionComponent,
       cssClass: 'enviarFormApp',
+      backdropDismiss: false,
     });
 
     return modal.present();

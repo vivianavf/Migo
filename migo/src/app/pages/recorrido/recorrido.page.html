@@ -9,8 +9,9 @@
         <div id="info-recorrido">
           <div id="info-text">
             <ion-text class="black-text bold-text uppercase-text">{{getNombreCampana(recorrido.id_campana)}}</ion-text>
-            <ion-text class="black-text">Kms Recorridos:<br>{{recorrido.kilometraje_recorrido}} KM</ion-text>
-            <ion-text class="black-text">Recaudación:<br>$ {{recorrido.dinero_recaudado}}</ion-text>
+            <ion-text class="black-text">Kms Recorridos:<br>{{redondearFloat(recorrido.kilometraje_recorrido, 2)}} KM</ion-text>
+            <ion-text class="black-text">Recaudación:<br>$ {{redondearFloat(recorrido.dinero_recaudado, 2)}}</ion-text>
+            <ion-text class="black-text">Fecha:<br>{{recorrido.fecha_hora_inicio}}</ion-text>
           </div>
           <div id="info-button">
             <ion-button (click)="mostrarMapaRecorrido(recorrido)" class="capitalize" id="verDetalleRecorrido">Ver detalle</ion-button>

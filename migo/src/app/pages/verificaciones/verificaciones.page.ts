@@ -110,7 +110,16 @@ export class VerificacionesPage implements OnInit {
     private formService: FormularioAplicacionService
   ) {}
 
+  ionViewDidEnter(){
+    this.generarDatos();
+  }
+
+
   ngOnInit() {
+    this.generarDatos();
+  }
+
+  generarDatos(){
     this.imgSrc = '';
 
     this.aceptarPlaza = false;
@@ -186,7 +195,9 @@ export class VerificacionesPage implements OnInit {
     });
   }
 
-  verificaBrandeo() {}
+  verificaBrandeo() {
+    this.router.navigate(['/verificar-brandeo']);
+  }
 
   verificaRecorrido() {
     this.router.navigate(['/verificar-recorrido']);

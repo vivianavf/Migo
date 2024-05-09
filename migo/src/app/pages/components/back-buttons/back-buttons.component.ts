@@ -21,7 +21,7 @@ export class BackButtonsComponent  implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('ON INIT BACK BUTTON')
+    // console.log('ON INIT BACK BUTTON')
     this.textoToolbar = this.toolbarService.getTexto();
     // this.irAtras();
     // <app-back-buttons></app-back-buttons>

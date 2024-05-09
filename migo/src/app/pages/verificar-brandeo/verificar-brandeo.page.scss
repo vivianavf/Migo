@@ -1,0 +1,64 @@
+#textBrandeo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    // margin: 40px;
+}
+
+.fotosBrandeoContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.elementoFotoBrandeo{
+    width: 150px;
+    height: 300px;
+    // max-width: 200px;
+    // max-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    border-style: dashed;
+    // margin: 10px;
+    aspect-ratio: 1/2;
+    padding: 10px;
+}
+
+ion-img.fotoVehiculoPreview{
+    max-height: 180px;
+}
+
+.addParte_button{
+    font-size: small;
+}
+
+.addParte_button::part(native){
+    border-radius: 10px;
+    // padding: 0;
+    max-height: 30px;
+    min-height: 30px;
+}
+
+.verificarBrandeoContent{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.buttonVerificarBrandeoContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

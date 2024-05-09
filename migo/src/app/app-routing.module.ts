@@ -269,6 +269,14 @@ const routes: Routes = [
     path: 'finalizando-recorrido',
     loadChildren: () => import('./pages/modals/finalizando-recorrido/finalizando-recorrido.module').then( m => m.FinalizandoRecorridoPageModule)
   },
+  {
+    path: 'verificar-brandeo',
+    loadChildren: () => import('./pages/verificar-brandeo/verificar-brandeo.module').then( m => m.VerificarBrandeoPageModule)
+  },
+  {
+    path: 'enviar-brandeo',
+    loadChildren: () => import('./pages/modals/enviar-brandeo/enviar-brandeo.module').then( m => m.EnviarBrandeoPageModule)
+  },
 
 
 

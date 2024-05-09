@@ -1,0 +1,51 @@
+<app-back-buttons></app-back-buttons>
+
+<app-ads></app-ads>
+
+<ion-content class="withoutBackground">
+  <div class="verificarBrandeoContent">
+    <div id="textBrandeo">
+      <ion-text class="bold-text capitalize larger-text">
+        Verifica el Brandeo</ion-text
+      >
+      <ion-text style="text-align: center;"
+        >Ayúdanos a verificar que tu vehículo está brandeado correctamente para comenzar a monetizar.</ion-text
+      >
+    </div>
+
+    <form enctype="multipart/form-data">
+      <div class="fotosBrandeoContainer">
+        <div class="elementoFotoBrandeo" *ngFor="let parte of partesBrandeadas">
+          <label>{{parte.nombre}}</label>
+          <ion-img
+            class="fotoVehiculoPreview"
+            *ngIf="parte.fotoTomada"
+            (click)="abrirModal(parte.srcFoto)"
+            [src]="parte.srcFoto"
+          ></ion-img>
+
+          <ion-button
+            *ngIf="!parte.fotoTomada"
+            expand="full"
+            class="addParte_button"
+            (click)="takePhoto(parte)"
+          >
+            Tomar foto
+          </ion-button>
+          <ion-button
+            *ngIf="parte.fotoTomada"
+            expand="full"
+            class="addParte_button"
+            (click)="takePhoto(parte)"
+          >
+            Cambiar foto
+          </ion-button>
+        </div>
+      </div>
+    </form>
+
+    <div class="buttonVerificarBrandeoContainer">
+      <ion-button (click)="enviarBrandeo()" >Enviar</ion-button>
+    </div>
+  </div> 
+</ion-content>

@@ -53,6 +53,10 @@ export class RecorridoPage implements OnInit {
     return '0';
   }
 
+  obtenerFecha(recorrido: RecorridoRealizado){
+    return recorrido.fecha_hora_inicio;
+  }
+
   async mostrarMapaRecorrido(recorrido: RecorridoRealizado) {
     const mapaRecorrido = await this.modalController.create({
       component: MapaRecorridoPage,
@@ -63,6 +67,10 @@ export class RecorridoPage implements OnInit {
     });
 
     return await mapaRecorrido.present();
+  }
+  redondearFloat(numeroFloat: number, decimales: number) {
+    const factor = 10 ** decimales;
+    return Math.round(numeroFloat * factor) / factor;
   }
 
   getURL(recorrido: RecorridoRealizado){

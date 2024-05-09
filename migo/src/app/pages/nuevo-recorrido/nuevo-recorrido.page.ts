@@ -240,9 +240,11 @@ export class NuevoRecorridoPage implements OnInit {
     // Crear una ruta en Google Maps
   }
 
-  guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
-    /// marcar con diferente color si la ubicacion entra o no entra en la monetizacion
 
+  /* corregir esta funcion */
+  guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
+
+    /// marcar con diferente color si la ubicacion entra o no entra en la monetizacion
     const ubicaciones: UbicacionGuardada[] = this.obtenerUbicaciones();
     this.ubicacionesGuardadas = ubicaciones;
 
@@ -262,23 +264,23 @@ export class NuevoRecorridoPage implements OnInit {
         if (google.maps.geometry.poly.containsLocation(ubicacionAnterior, this.polygonCreado)) {
           // contiene la posicion
           //marcar con un circulo verde la posicion anterior si es correcta
-          let markerAnterior = new google.maps.Marker({
-            position: ubicacionAnterior,
-            map: this.mapaRecorrido,
-            icon: '/assets/iconos-migo/green-location.png',
-            optimized: false,
-          });
-          markerAnterior.setMap(this.mapaRecorrido);
+          // let markerAnterior = new google.maps.Marker({
+          //   position: ubicacionAnterior,
+          //   map: this.mapaRecorrido,
+          //   icon: '/assets/iconos-migo/green-location.png',
+          //   optimized: false,
+          // });
+          // markerAnterior.setMap(this.mapaRecorrido);
         } else {
           // no contiene la posicion
           //marcar con un circulo ROJO si la posicion anterior NO es correcta
-          let markerAnterior = new google.maps.Marker({
-            position: ubicacionAnterior,
-            map: this.mapaRecorrido,
-            icon: '/assets/iconos-migo/red-location.png',
-            optimized: false,
-          });
-          markerAnterior.setMap(this.mapaRecorrido);
+          // let markerAnterior = new google.maps.Marker({
+          //   position: ubicacionAnterior,
+          //   map: this.mapaRecorrido,
+          //   icon: '/assets/iconos-migo/red-location.png',
+          //   optimized: false,
+          // });
+          // markerAnterior.setMap(this.mapaRecorrido);
         }
 
         //para el contador de KMS recorridos
@@ -286,10 +288,17 @@ export class NuevoRecorridoPage implements OnInit {
         // this.kms = this.redondearFloat(this.kms, 2);
 
         //añadir un marker de carrito a la nueva posicion
+      //   const icon = {
+      //     url: '/assets/iconos-migo/GPS.png', // url
+      //     scaledSize: new google.maps.Size(40, 40), // scaled size
+      //     origin: new google.maps.Point(0,0), // origin
+      //     anchor: new google.maps.Point(0, 0) // anchor
+      // };
+
         let marker = new google.maps.Marker({
           position: nuevaPosicion,
           map: this.mapaRecorrido,
-          icon: '/assets/iconos-migo/location-car-animated.gif',
+          icon: '/assets/iconos-migo/GPS.png',
           optimized: false,
         });
         this.markersCarrito.push(marker);
@@ -416,12 +425,13 @@ export class NuevoRecorridoPage implements OnInit {
     const KMSRedondeados = this.redondearFloat(KMSRecorridos, 2);
     const fechaActual = new Date().toLocaleString();
     const dinero = this.dineroRecaudado;
+
     const nuevoRecorrido: RecorridoRealizado = {
       id_vehiculo: this.vehiculo.id_vehiculo!,
       id_usuario: this.usuario.id_usuario,
       id_campana: this.campana.id_campana,
-      fecha_hora_inicio: new Date(String(this.fechaInicio!)),
-      fecha_hora_fin: new Date(String(fechaActual)),
+      fecha_hora_inicio: String(this.fechaInicio!),
+      fecha_hora_fin: String(fechaActual),
       kilometraje_recorrido: KMSRedondeados,
       dinero_recaudado: dinero,
       id_ciudad: this.usuario.id_ciudad,
