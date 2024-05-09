@@ -80,7 +80,7 @@ export class CampanaActivaPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    let solicitud = this.campanaService.getInfoCampanaActiva()[1];
+    const solicitud = this.campanaService.getInfoCampanaActiva()[1];
     this.solicitud = solicitud;
     this.obtenerVehiculo(solicitud.id_vehiculo)
     this.brandeo = solicitud.brandeo;
@@ -98,7 +98,7 @@ export class CampanaActivaPage implements OnInit {
     this.campana = this.campanaService.getInfoCampanaActiva()[0];
     this.consultarVehiculosAdmisibles(this.campana);
     this.consultarTalleres(this.campana);
-    var idEmpresa = this.campana.id_empresa;
+    const idEmpresa = this.campana.id_empresa;
     this.empresaService.getEmpresas().subscribe((data) => {
       this.empresas = data;
       const busquedaEmpresa = this.empresas.find(
@@ -185,6 +185,8 @@ export class CampanaActivaPage implements OnInit {
       componentProps: {},
       cssClass: 'notificaciones,',
     });
+
+    return await modal.present();
   }
 
   async mostrarMenu() {
@@ -228,6 +230,11 @@ export class CampanaActivaPage implements OnInit {
     });
 
     return await modalQR.present();
+  }
+
+  redondearFloat(numeroFloat: number, decimales: number) {
+    const factor = 10 ** decimales;
+    return Math.round(numeroFloat * factor) / factor;
   }
 
   async conducirVehiculo() {

@@ -19,7 +19,7 @@ export class VerificacionService {
   ) { }
 
   getVerificaciones(): Observable<Verificacion[]> {
-    var respuesta = this.http.get<Verificacion[]>(this.baseURL + this.formato);
+    const respuesta = this.http.get<Verificacion[]>(this.baseURL + this.formato);
     respuesta.forEach((verificaciones) => {
       this.verificacionesObtenidas = verificaciones;
     });
@@ -32,7 +32,7 @@ export class VerificacionService {
 
   createVerificacion(verificacion: Verificacion) {
     console.log("verificacion - crear,",verificacion)
-    var formData = new FormData();
+    const formData = new FormData();
 
     // formData.append('id_vehiculo', vehiculo.id_vehiculo!.toString());
     formData.append('cedula_conductor', verificacion.cedula_conductor.toString());
@@ -42,8 +42,6 @@ export class VerificacionService {
       'imagen_evidencia', verificacion.imagen_evidencia, 'evidencia-'+verificacion.cedula_conductor+verificacion.fecha_registro.toString()+'.png');
     formData.append('estado', '1');
     formData.append('id_campana', verificacion.id_campana.toString())
-
-    console.log("Form Data", formData)
 
     return this.http.post(this.baseURL, formData);
   }

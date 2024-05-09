@@ -36,8 +36,11 @@
 
   }
 
-  ion-card{
+  ion-card.formAplicacionCard{
     background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   //modal
@@ -123,8 +126,21 @@ display: flex;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     height: 150px;
+  }
+
+  .iconContainer{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .iconDivider1{
+
+  }
+
+  .iconDivider2{
+    align-items: flex-start;
   }
 
   ion-button.add-vehiculo{

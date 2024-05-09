@@ -1,77 +1,70 @@
-<ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-back-button
-      default-href=""
-      text=""
-      icon="chevron-back"
-    ></ion-back-button>
-  </ion-buttons>
-  <ion-title>VERIFICAR RECORRIDO</ion-title>
-</ion-toolbar>
+<app-back-buttons></app-back-buttons>
 
 <app-ads></app-ads>
 
-<ion-content id="verificarRecorridoContent">
-  <div id="text">
-    <ion-text class="bold-text capitalize larger-text">
-      Verifica tu Recorrido</ion-text
-    >
-    <ion-text
-      >Ayúdanos a verificar que tu vehículo se encuentra circulando en buen
-      estado.</ion-text
-    >
-  </div>
-
-  <div id="tiempoDisponible">
-    <ion-text class="capitalize bold-text">Tiempo disponible</ion-text>
-    <ion-text
-      >{{currentTimeVerificacion.m}}:{{currentTimeVerificacion.s}}</ion-text
-    >
-  </div>
-
-  <div id="foto">
-    <ion-text class="larger-text">Toma una foto de tu vehículo</ion-text>
-    <div id="fotoContainer">
-      <ion-img
-        id="foto-img"
-        *ngIf="fotoTomada"
-        src="{{src}}"
-        alt="vehículo"
-      ></ion-img>
-      <ion-button
-        *ngIf="!fotoTomada"
-        expand="full"
-        class="green-button"
-        (click)="takePhoto()"
-        id="tomarFotoButton"
+<ion-content class="withoutBackground">
+  <div class="verificarRecorridoContent">
+    <div id="text">
+      <ion-text class="bold-text capitalize larger-text">
+        Verifica tu Recorrido</ion-text
       >
-        Tomar foto
-      </ion-button>
-
-      <ion-text *ngIf="mostrarMensaje" color="warning"
-        >Por favor, toma una foto de tu vehículo</ion-text
+      <ion-text style="text-align: center;"
+        >Ayúdanos a verificar que tu vehículo se encuentra circulando en buen
+        estado.</ion-text
+      >
+    </div>
+  
+    <div id="tiempoDisponible">
+      <ion-text class="bold-text capitalize larger-text">Tiempo disponible</ion-text>
+      <ion-text class="timer"
+        >{{mostrarTiempo(currentTimeVerificacion.m)}}:{{mostrarTiempo(currentTimeVerificacion.s)}}</ion-text
+      >
+    </div>
+  
+    <div id="foto">
+      <ion-text class="bold-text capitalize larger-text">Toma una foto de tu vehículo</ion-text>
+      <div id="fotoContainer">
+        <ion-img
+          id="foto-img"
+          *ngIf="fotoTomada"
+          src="{{src}}"
+          alt="vehículo"
+        ></ion-img>
+        <ion-button
+          *ngIf="!fotoTomada"
+          expand="full"
+          class="green-button"
+          (click)="takePhoto()"
+          id="tomarFotoButton"
+        >
+          Tomar foto
+        </ion-button>
+  
+        <ion-text *ngIf="mostrarMensaje" color="red"
+          >Por favor, toma una foto de tu vehículo</ion-text
+        >
+      </div>
+    </div>
+  
+    <div id="buttonContainer">
+      <ion-button id="enviarVerificacionButton" (click)="enviarVerificacion()"
+        >Enviar</ion-button
       >
     </div>
   </div>
-
-  <div id="buttonContainer">
-    <ion-button id="enviarVerificacionButton" (click)="enviarVerificacion()"
-      >Enviar</ion-button
-    >
-  </div>
+  
 
   <ion-modal
     *ngIf="fotoTomada"
     trigger="enviarVerificacionButton"
     class="enviarVerificacionModal"
-    [initialBreakpoint]="0.5"
-    [breakpoints]="[0, 0.5, 0.75]"
+    [canDismiss]="false"
   >
   <ng-template>
-    <ion-content>
+    <ion-content class="withoutBackground">
       <div class="loadingContent">
-        <ion-text>Enviando Solicitud...</ion-text>
         <ion-spinner class="loadingSpinner" name="dots" color="primary"></ion-spinner>
+        <ion-text class="black-text">Enviando Solicitud...</ion-text>
       </div>
     </ion-content>
   </ng-template>

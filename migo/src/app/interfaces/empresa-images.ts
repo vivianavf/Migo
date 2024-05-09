@@ -3,4 +3,5 @@ export interface EmpresaImages {
     logo: Blob,
     banner: Blob,
     id_empresa: number,
+    estado : number,
 }

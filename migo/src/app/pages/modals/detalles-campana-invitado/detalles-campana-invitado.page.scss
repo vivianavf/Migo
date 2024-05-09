@@ -14,16 +14,17 @@ ion-card#card-container{
   ion-card-content.campana-content{
     padding-left: 0px;
     padding-right: 0px;
+    padding-top: 0px;
   }
   
   
   .banner-empresa{
-    margin-top: 20px;
+    // margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: center; /* Alineación horizontal al centro */
     align-items: center; /* Alineación vertical al centro */
-    height: 90px; /* Altura del contenedor, ajusta según tus necesidades */
+    height: 100px; /* Altura del contenedor, ajusta según tus necesidades */
   }
   
   p.correo{

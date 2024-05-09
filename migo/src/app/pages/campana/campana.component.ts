@@ -129,6 +129,8 @@ export class CampanaComponent implements OnInit {
       this.formularioUsuario = formularioEncontrado!;
       this.nombreCampanaRegistro = formularioEncontrado?campana.nombre_campana:'';
       formularioEncontrado? registroCampana = true: registroCampana= false;
+      formularioEncontrado?localStorage.setItem('campana-registro', JSON.stringify(campana)):'';
+      formularioEncontrado?localStorage.setItem('formulario-registro', JSON.stringify(formularioEncontrado)):'';
     } else {
       registroCampana = false;
     }
@@ -140,8 +142,8 @@ export class CampanaComponent implements OnInit {
   }
 
   generarDatos() {
-    var paisUsuario = this.userService.usuarioActivo().id_pais;
-    var ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
+    const paisUsuario = this.userService.usuarioActivo().id_pais;
+    const ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
     
     this.campanas = this.campanaService.campanasObtenidas.filter(campana => campana.id_ciudad === ciudadUsuario);
 
@@ -188,7 +190,7 @@ export class CampanaComponent implements OnInit {
   }
 
   obtenerNombreSector(idSector: number) {
-    var busquedaSector = this.sectores.find(
+    const busquedaSector = this.sectores.find(
       ({ id_sector }) => id_sector === idSector
     );
     if (busquedaSector) {

@@ -20,7 +20,7 @@ export class EmpresaImagesService {
   ) { }
 
   getImages(): Observable<EmpresaImages[]> {
-    var respuesta = this.http.get<EmpresaImages[]>(this.baseURL+this.formato);
+    const respuesta = this.http.get<EmpresaImages[]>(this.baseURL+this.formato);
     respuesta.forEach((images)=>{
       this.empresaImagesObtenidas = images;
     })
@@ -32,14 +32,14 @@ export class EmpresaImagesService {
   }
 
   getLogoURLbyEmpresaId(idEmpresa: number, images: EmpresaImages[]): string{
-    const image = images.find((image)=> idEmpresa === image.id_empresa)
+    const image = images.find((image)=> idEmpresa === image.id_empresa && image.estado === 1)
     const arrayURL = String(image?.logo).split('/')
     const URL = arrayURL[arrayURL.length-1]
     return image?this.rutaLogos+URL:'';
   }
 
   getBannerURLbyEmpresaId(idEmpresa: number, images: EmpresaImages[]): string{
-    const image = images.find((image)=> idEmpresa === image.id_empresa)
+    const image = images.find((image)=> idEmpresa === image.id_empresa && image.estado === 1)
     const arrayURL = String(image?.banner).split('/')
     const URL = arrayURL[arrayURL.length-1]
     return image?this.rutaBanners+URL:'';

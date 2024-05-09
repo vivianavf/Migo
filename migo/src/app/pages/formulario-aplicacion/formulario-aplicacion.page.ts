@@ -350,7 +350,7 @@ export class FormularioAplicacionPage implements OnInit {
       }
 
       if(cedula && email){
-        var form: FormularioAplicacion = {
+        const form: FormularioAplicacion = {
           telefono_conductor: 999999999,
           licencia: this.archivoLicencia,
           matricula: this.archivoMatricula,

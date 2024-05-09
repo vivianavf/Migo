@@ -8,6 +8,7 @@ import { VerificarRecorridoPageRoutingModule } from './verificar-recorrido-routi
 
 import { VerificarRecorridoPage } from './verificar-recorrido.page';
 import { AdsComponent } from '../components/ads/ads.component';
+import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { AdsComponent } from '../components/ads/ads.component';
     IonicModule,
     VerificarRecorridoPageRoutingModule,
     AdsComponent,
+    BackButtonsComponent,
   ],
   declarations: [VerificarRecorridoPage]
 })

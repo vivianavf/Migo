@@ -1,3 +1,12 @@
+.verificarRecorridoContent{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    gap: 25px;
+}
+
 #text{
     display: flex;
     flex-direction: column;
@@ -15,6 +24,10 @@
     align-items: center;
     gap: 10px;
     // margin: 40px;
+}
+
+.timer{
+    font-size: 50px;
 }
 
 #foto{

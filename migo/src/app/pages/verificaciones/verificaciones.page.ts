@@ -75,6 +75,11 @@ export class VerificacionesPage implements OnInit {
 
   generaQR = false;
   aceptarPlaza = false;
+  registroCampana = false;
+
+  //
+  nombreCampana = '';
+  logoSrc = '';
 
   constructor(
     private plt: Platform,
@@ -102,10 +107,11 @@ export class VerificacionesPage implements OnInit {
     private googleMapService: GooglemapsService,
     private choferService: ChoferService,
 
-    private formService: FormularioAplicacionService,
+    private formService: FormularioAplicacionService
   ) {}
 
   ngOnInit() {
+    this.imgSrc = '';
 
     this.aceptarPlaza = false;
     this.generaQR = false;
@@ -114,53 +120,75 @@ export class VerificacionesPage implements OnInit {
     this.user = this.userService.usuarioActivo();
     this.conductor = this.userService.esChoferOCliente();
 
-    this.formService.getFormularios().subscribe((formularios)=>{
-      const formulario = formularios.find((formulario)=> 
-        formulario.id_usuario === this.user.id_usuario &&
-        formulario.id_ciudad === this.user.id_ciudad &&
-        formulario.estado_solicitud === 'activa'
-    )
+    this.formService.getFormularios().subscribe((formularios) => {
+      const formulario = formularios.find(
+        (formulario) =>
+          formulario.id_usuario === this.user.id_usuario &&
+          formulario.id_ciudad === this.user.id_ciudad &&
+          formulario.estado_solicitud === 'activa'
+      );
 
-    if(formulario){
-      this.ingresarCondService.getIngresos().subscribe((data) => {
-        this.ingresos = data;
-        let ingresoActual = this.ingresos.find(
-          (ingreso) =>
-            this.user.id_usuario === ingreso.id_usuario &&
-            this.user.id_ciudad === ingreso.id_ciudad &&
-            ingreso.estado === 1 && 
-            ingreso.id_formulario_registro === formulario.id_formulario
-        );
-  
-        if (ingresoActual) {
-          const valores = Object.values(ingresoActual);
-          const docQR = valores[3];
-          const imagenQR = valores[4];
-  
-          if (docQR && imagenQR) {
-            console.log('ya hay una imagen y un docQR');
-            console.log(docQR, imagenQR)
-            // this.imgSrc = imagenQR;
-            this.imgSrc = imagenQR.replace("media","vehiculos");
+      if (formulario) {
+        this.ingresarCondService.getIngresos().subscribe((data) => {
+          this.ingresos = data;
+          const ingresoActual = this.ingresos.find(
+            (ingreso) =>
+              this.user.id_usuario === ingreso.id_usuario &&
+              this.user.id_ciudad === ingreso.id_ciudad &&
+              ingreso.estado === 1 &&
+              ingreso.id_formulario_registro === formulario.id_formulario
+          );
+
+          if (ingresoActual) {
+            this.mostrarQR(ingresoActual);
+            this.mostrarCampana(ingresoActual);
           } else {
-            // No hay nada, el usuario debe generarlo en solicitudes
-            this.generaQR = true;
+            // el usuario no ha aceptado la plaza de campaña
+            this.aceptarPlaza = true;
           }
-        } else {
-          // el usuario no ha aceptado la plaza
-          // el usuario no se ha registrado en niguna campaña
-          this.aceptarPlaza = true;
-        }
-      });
-    }
-    })
+        });
+      } else {
+        this.aceptarPlaza = true;
+        // el usuario no se ha registrado en nada.
+      }
+    });
   }
 
+  mostrarQR(ingresoActual: IngresoConductorCampana) {
+    const valores = Object.values(ingresoActual);
+    const docQR = valores[3];
+    const imagenQR = valores[4];
+    if (docQR && imagenQR) {
+      console.log('ya hay una imagen y un docQR');
+      console.log(docQR, imagenQR);
+      this.imgSrc = imagenQR.replace('media', 'vehiculos');
+    } else {
+      // No hay nada, el usuario debe generarlo en solicitudes
+      this.generaQR = true;
+    }
+  }
 
-  mostrarQR() {}
+  mostrarCampana(ingresoActual: IngresoConductorCampana) {
+    const idCampana = ingresoActual.id_campana;
+    this.campanaService.getCampanabyId(idCampana).subscribe((campana) => {
+      if (campana) {
+        this.nombreCampana = campana.nombre_campana;
+        this.empresaImagesService.getImages().subscribe((images) => {
+          this.logoSrc = this.empresaImagesService.getLogoURLbyEmpresaId(
+            campana.id_empresa,
+            images
+          );
+          this.registroCampana = true;
+        });
+      } else {
+        this.registroCampana = false;
+      }
+    });
+  }
 
   verificaBrandeo() {}
 
-  verificaRecorrido() {}
-
+  verificaRecorrido() {
+    this.router.navigate(['/verificar-recorrido']);
+  }
 }

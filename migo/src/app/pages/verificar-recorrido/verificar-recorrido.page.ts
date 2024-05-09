@@ -12,6 +12,9 @@ import { Verificacion } from 'src/app/interfaces/verificacion';
 import { Router } from '@angular/router';
 import { Timer, Time, TimerOptions } from 'timer-node';
 import { IonModal } from '@ionic/angular';
+import { ToolbarService } from 'src/app/providers/toolbar.service';
+import { Campana } from 'src/app/interfaces/campana';
+import { FormularioAplicacion } from 'src/app/interfaces/formulario-aplicacion';
 
 @Component({
   selector: 'app-verificar-recorrido',
@@ -28,8 +31,8 @@ export class VerificarRecorridoPage implements OnInit {
   foto = new Blob();
   mostrarMensaje = false;
 
-  //timer
-  currentTimeVerificacion: Time = {d: 0, h: 0, m: 1, s: 0, ms: 0};
+  //timer inicializado con 30 minutos
+  currentTimeVerificacion: Time = {d: 0, h: 0, m: 0, s: 5, ms: 0};
   timerVerificacion!: Timer;
   intervalVerificacion: any;
 
@@ -38,80 +41,112 @@ export class VerificarRecorridoPage implements OnInit {
     private campanaService: CampanaService,
     private userService: UsersService,
     private router: Router,
+    private toolbarService: ToolbarService,
   ) { }
+  
 
   ngOnInit() {
-    this.startTimer();
 
+    this.toolbarService.setTexto('VERIFICAR RECORRIDO');
+    this.countdownTimer();
+    // this.verificarFormularioRegistro();
+    
   }
 
-  startTimer(){
-    this.timerVerificacion = new Timer({ startTimestamp: new Date().getTime() });
-    this.currentTimeVerificacion
-    this.timerVerificacion.start();
-    this.intervalVerificacion = setInterval(() => {
-      this.currentTimeVerificacion = this.timerVerificacion.time();
-      //si el contador llega a cero, poner algo que no alcanzó a hacer su verificación
-    }, 1000);
-  }
+  verificarFormularioRegistro(){
+    const formulario :FormularioAplicacion = JSON.parse(localStorage.getItem('formulario-registro')!);
+    const campana: Campana = JSON.parse(localStorage.getItem('campana-registro')!);
+    
+    if(campana && formulario.brandeo && formulario.estado_solicitud === 'activa'){
 
-  stopTimer() {
-    this.timerVerificacion.stop();
-
-    if (this.intervalVerificacion) {
-      clearInterval(this.intervalVerificacion);
-      this.intervalVerificacion = undefined;
+    }else{
+      // El usuario no está recorriendo para ninguna campaña
     }
+  }
+
+
+  mostrarTiempo(numero: number){
+    if(numero < 10){
+      return '0'+String(numero);
+    }
+
+    return String(numero);
+  }
+
+  countdownTimer() {
+    const timer = setInterval(() => {
+      if (this.currentTimeVerificacion.s === 0 && this.currentTimeVerificacion.m === 0) {
+          this.acaboTiempo();
+          clearInterval(timer);
+      } else {
+          if (this.currentTimeVerificacion.s === 0) {
+              if (this.currentTimeVerificacion.m > 0) {
+                  this.currentTimeVerificacion.m--;
+                  this.currentTimeVerificacion.s = 59;
+              } else {
+                  clearInterval(timer); // Contador llegó a 0, detener el temporizador
+                  this.acaboTiempo();
+              }
+          } else {
+              this.currentTimeVerificacion.s--;
+          }
+      }
+  }, 1000);
+  }
+
+  acaboTiempo(){
+    console.log('se acabo el tiempo');
+    //mostrar un modal de que se acabó el tiempo
   }
 
   enviarVerificacion(){
     if(this.fotoTomada){
       this.mostrarMensaje = false;
-      
-      console.log("campana Nombre", this.campanaService.getInfoCampanaActiva()[0].nombre_campana)
-      console.log("campana ID", this.campanaService.getInfoCampanaActiva()[0].id_campana)
-      console.log("cedula conductor", this.userService.esChoferOCliente().cedula)
-      console.log("fecha registro", new Date())
+      const f = new Date().toLocaleDateString().split('/');
+      const fechaEnvio = f[2] + '-' + f[1] + '-' + f[0];
+      const campana: Campana = JSON.parse(localStorage.getItem('campana-registro')!);
 
-      let verificacion: Verificacion = {
-        cedula_conductor: Number(this.userService.esChoferOCliente().cedula),
-        fecha_registro: new Date(),
-        tipo_verificacion: '',
-        imagen_evidencia: this.foto,
-        estado: 1,
-        id_campana: this.campanaService.getInfoCampanaActiva()[0].id_campana,
+      if(campana){
+
+        // se debe sacar la metadata de la foto para obtener la ubicacion y la hora
+        // en que la foto fue tomada
+        const verificacion: Verificacion = {
+          cedula_conductor: Number(this.userService.esChoferOCliente().cedula),
+          fecha_registro: fechaEnvio,
+          tipo_verificacion: 'foto',
+          imagen_evidencia: this.foto,
+          estado: 1,
+          id_campana: campana.id_campana,
+        }
+
+        setTimeout(()=>{
+          this.modalVerificacion.dismiss();
+          this.resetDatos();
+          // this.router.navigate(['/nuevo-recorrido']);
+        }, 3000);
+
+        //corregir esto
+
+      // this.verificacionSrvce.createVerificacion(verificacion).subscribe((data)=>{
+      //   console.log('verificacion', data);
+        
+      // })
+      }else{
+        // el usuario no se ha registrado en ninguna campaña
+        // por lo tanto, no puede verificar
+        // ningún recorrido
+        // El usuario no está recorriendo para ninguna campaña
+        console.log('no.')
       }
-
-      console.log("enviando.....")
-
-      setTimeout(()=>{
-        this.modalVerificacion.dismiss();
-        this.resetDatos();
-        this.router.navigate(['/nuevo-recorrido']);
-      }, 3000);
-
-      // try {
-      //   this.verificacionSrvce.createVerificacion(verificacion).subscribe((response)=>{
-      //     console.log("verificacion-response", response)
-      //     console.log("enviado!!! ")
-      //     this.cerrarModal();
-      //     // this.router
-      //   })
-      // } catch (error) {
-      //   console.log(error)
-      // }
-
-      
     }else{
       this.mostrarMensaje = true;
     }
-
   }
 
   resetDatos(){
-    this.stopTimer();
     this.fotoTomada = false;
     this.src = '';
+    // this.currentTimeVerificacion = {d: 0, h: 0, m: 15, s: 0, ms: 0};
   }
 
   async takePhoto(): Promise<void>{

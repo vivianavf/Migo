@@ -106,13 +106,46 @@ export class DetalleVehiculoPage implements OnInit {
   }
 
   getImageSrc(angulo: string, vehiculo?: Vehiculo) {
-    if (vehiculo) {
-      const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
-      const foto = arrayNombreURL[arrayNombreURL.length-1];
-    return this.imgRuta+foto;
-    } else {
-      return '';
+    switch (angulo) {
+      case 'frontal':
+        if (vehiculo) {
+          const arrayNombreURL = String(vehiculo!.imagen_frontal).split('/');
+          const foto = arrayNombreURL[arrayNombreURL.length-1];
+        return this.imgRuta+foto;
+        }
+      break;
+      case 'izq':
+        if (vehiculo) {
+          const arrayNombreURL = String(vehiculo!.imagen_izq).split('/');
+          const foto = arrayNombreURL[arrayNombreURL.length-1];
+        return this.imgRuta+foto;
+        }
+      break;
+      case 'derecha':
+        if (vehiculo) {
+          const arrayNombreURL = String(vehiculo!.imagen_der).split('/');
+          const foto = arrayNombreURL[arrayNombreURL.length-1];
+        return this.imgRuta+foto;
+        } 
+      break;
+      case 'techo':
+        if (vehiculo) {
+          const arrayNombreURL = String(vehiculo!.imagen_techo).split('/');
+          const foto = arrayNombreURL[arrayNombreURL.length-1];
+        return this.imgRuta+foto;
+        } 
+      break;
+      case 'trasera':
+        if (vehiculo) {
+          const arrayNombreURL = String(vehiculo!.imagen_trasera).split('/');
+          const foto = arrayNombreURL[arrayNombreURL.length-1];
+        return this.imgRuta+foto;
+        } 
+      break;
     }
+
+    return '';
+    
   }
 
   cambiarImagen(lado: string) {

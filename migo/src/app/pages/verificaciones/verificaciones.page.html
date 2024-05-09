@@ -12,14 +12,26 @@
 <app-ads></app-ads>
 
 <ion-content class="withoutBackground">
-  <ion-card class="ver-card">
+  <ion-card *ngIf="registroCampana" class="ver-card">
+    <div class="ver-imageContainer">
+      <ion-img class="ver-image" [src]="logoSrc" alt="logo">
+      </ion-img>
+    </div>
+    <div class="ver-campanaInfoContainer">
+      <ion-text class="black-text bold-text">{{nombreCampana}}</ion-text>
+      <ion-text class="black-text">Eres conductor registrado de esta campaña</ion-text>
+      <!-- <ion-text *ngIf="" class="black-text">Estado: Verificación requerida</ion-text> -->
+      <!-- <ion-text *ngIf="" class="black-text">Estado: Verificado</ion-text> -->
+    </div>
+  </ion-card>
+  <ion-card *ngIf="!registroCampana" class="ver-card">
     <div class="ver-imageContainer">
       <ion-img class="ver-image" src="../../../assets/images/migo-logo-edited.jpeg" alt="imagen">
       </ion-img>
     </div>
     <div class="ver-campanaInfoContainer">
-      <ion-text class="black-text bold-text">Nombre de Campaña</ion-text>
-      <ion-text class="black-text">Eres conductor registrado de esta campaña</ion-text>
+      <ion-text class="black-text bold-text">-</ion-text>
+      <ion-text class="black-text">No te has registrado en ninguna campaña.</ion-text>
       <!-- <ion-text class="black-text">Estado: Verificación requerida</ion-text> -->
     </div>
   </ion-card>
@@ -40,10 +52,13 @@
 
   <ion-modal trigger="mostrarQR" class="qr-modalVerificaciones withoutBackground">
     <ng-template>
-      <ion-content class="ion-padding">
+      <ion-content class="ion-padding withoutBackground">
+        <div class="QRmodelContainer">
         <ion-text *ngIf="generaQR" class="black-text">Debes generar el QR en el apartado de solicitudes</ion-text>
         <ion-text *ngIf="aceptarPlaza" class="black-text">Por favor, primero acepta una plaza en alguna campaña o espera a que acepten tu solicitud.</ion-text>
-        <ion-img style="width: 300px;height: 300px;" [src]="imgSrc" alt="QR"></ion-img>
+        <ion-img *ngIf="!generaQR && !aceptarPlaza" style="width: 300px;height: 300px;" [src]="imgSrc" alt="QR"></ion-img>
+        </div>
+        
       </ion-content>
     </ng-template>
   </ion-modal>

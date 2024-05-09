@@ -29,12 +29,12 @@
             <p>Tipo de Brandeo disponible:</p>
           </div>
           <div class="variables-info">
-            <p>${{campana.tarifa_min}} - ${{campana.tarifa_max}} <ion-button id="tarifas-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button></p>
+            <p>${{redondearFloat(campana.tarifa_min, 2)}} - ${{redondearFloat(campana.tarifa_max, 2)}} <ion-button id="tarifas-info" class="infoPopOverButton"><ion-icon class="helpIcon" name="help-circle-outline"></ion-icon></ion-button></p>
             <p>
               {{campana.hora_monetizable_inicio}} -
               {{campana.hora_monetizable_fin}}
             </p>
-            <p>${{campana.cobro_minimo}}</p>
+            <p>${{redondearFloat(campana.cobro_minimo, 2)}}</p>
             <p>{{campana.tipo_brandeo}}</p>
           </div>
         </div>
