@@ -35,8 +35,7 @@ export class VerificarBrandeoPage implements OnInit {
     this.toolbarService.setTexto('VERIFICAR BRANDEO');
     const usuarioActivo = this.userService.usuarioActivo();
     this.formService.getFormularios().subscribe((forms)=>{
-      const formActivo = forms.find((formulario)=> formulario.id_usuario === usuarioActivo.id_usuario && formulario.estado_solicitud === 'activa' && !formulario.brandeo)
-
+      const formActivo = forms.find((formulario)=> formulario.id_usuario === usuarioActivo.id_usuario && formulario.estado_solicitud === 'activa' && formulario.brandeo)
       if(formActivo){
         if(formActivo.carroceria_capo)this.partesBrandeadas.push({
           nombre: 'Capó',
@@ -82,7 +81,7 @@ export class VerificarBrandeoPage implements OnInit {
         });
       }else{
         // el usuario no se ha registrado en ninguna campaña
-        // o no ha brandeado el vehículo
+        // o ya ha brandeado el vehículo
       }
     })
   }

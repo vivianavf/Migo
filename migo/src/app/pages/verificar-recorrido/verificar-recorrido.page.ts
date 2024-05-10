@@ -32,7 +32,7 @@ export class VerificarRecorridoPage implements OnInit {
   mostrarMensaje = false;
 
   //timer inicializado con 30 minutos
-  currentTimeVerificacion: Time = {d: 0, h: 0, m: 0, s: 5, ms: 0};
+  currentTimeVerificacion: Time = {d: 0, h: 0, m: 30, s: 0, ms: 0};
   timerVerificacion!: Timer;
   intervalVerificacion: any;
 

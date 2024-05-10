@@ -1,3 +1,4 @@
+@import url('/src/theme/variables.scss');
 
 #card-RecorridoInfo{
     background: white;
@@ -6,6 +7,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#pagos-Container{
+    padding: 20px;
 }
 
 #line{
@@ -68,3 +73,43 @@
         background: green;
 }
 
+
+// CARDS
+.retiroCardsContainer{
+
+}
+
+.retiroCard{
+
+}
+
+.headerRetiro{
+    width: 100%;
+    background-color: var(--ion-color-primary);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.subContentCard{
+    padding: 0;
+}
+
+.bodyRetiro{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.textoRetiro{
+    display: flex;
+    flex-direction: column;
+    // gap: 5px;
+}
+
+.buttonRetiroContainer{
+    display: flex;
+    justify-content: flex-end;
+}

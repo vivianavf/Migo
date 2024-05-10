@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { BackButtonsComponent } from '../components/back-buttons/back-buttons.component';
+import { FotopreviewPage } from '../modals/fotopreview/fotopreview.page';
 
 @Component({
   selector: 'app-historial-pagos',
@@ -10,23 +11,34 @@ import { BackButtonsComponent } from '../components/back-buttons/back-buttons.co
 })
 export class HistorialPagosPage implements OnInit {
 
-  porCobrar = '...'
-  recorrido = '...'
+  porCobrar = '120.47'
+  recorrido = '67.28'
 
   constructor(
     private popOverCtrl: PopoverController,
     private toolbarService: ToolbarService,
-    private backButtonComponent: BackButtonsComponent,
+    private modalCtrl: ModalController,
   ) {
   }
 
   ngOnInit() {
     this.toolbarService.setTexto('HISTORIAL DE PAGOS');
-    
   }
 
   generarRetiro(){
 
+  }
+
+  async abrirModal() {
+    const modal = await this.modalCtrl.create({
+      component: FotopreviewPage,
+      cssClass: 'fotopreview',
+      componentProps: {
+        FotoURL: '../../assets/images/pago-exitoso.jpg'
+      },
+    });
+
+    modal.present();
   }
 
   actualizarOrden(orden: string) {

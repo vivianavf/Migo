@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-tips',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TipsPage implements OnInit {
 
-  constructor() { }
+  videoURL: any = 'https://www.youtube.com/embed/D0UnqGm_miA'
+
+  constructor(
+    private domSnt: DomSanitizer,
+  ) { }
 
   ngOnInit() {
+  }
+  
+  showVideo(video: any){
+    return this.domSnt.bypassSecurityTrustResourceUrl(video);
   }
 
 }

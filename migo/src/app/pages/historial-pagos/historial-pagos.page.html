@@ -2,81 +2,138 @@
 
 <app-ads></app-ads>
 
-<ion-content class="withoutBackground" id="pagos-Container">
+<ion-content class="withoutBackground">
+  <div id="pagos-Container">
+    <ion-card id="card-RecorridoInfo">
+      <div id="retiroInfoContainer">
+        <div class="hist-infotext" id="porCobrar">
+          <ion-text class="uppercase-text bold-text black-text">Por Cobrar:</ion-text>
+          <ion-text class="black-text">$ {{porCobrar}}</ion-text>
+        </div>
+        <div class="hist-infotext" id="recorridoKM">
+          <ion-text class="uppercase-text bold-text black-text">Recorrido:</ion-text>
+          <ion-text class="black-text">{{recorrido}} KM</ion-text>
+        </div>
+      </div>
+      <div id="line"></div>
+      <div id="retiroButtonContainer">
+        <!-- <ion-button (click)="generarRetiro()" id="generarRetiroButton" class="capitalize">Generar Retiro</ion-button> -->
+      </div>
+    </ion-card>
   
-  <ion-card id="card-RecorridoInfo">
-    <div id="retiroInfoContainer">
-      <div class="hist-infotext" id="porCobrar">
-        <ion-text class="uppercase-text bold-text black-text">Por Cobrar:</ion-text>
-        <ion-text class="black-text">$ {{porCobrar}}</ion-text>
+    <div id="filtroContainer">
+      <ion-text>Pagos</ion-text>
+      <div id="filtro">
+        <ion-button id="filtroButton">
+          <ion-text class="capitalize black-text filtrar-por" >Ordenar Por</ion-text>
+          <ion-icon
+              id="icon-filtrar"
+              class="end-of-line"
+              name="chevron-down-outline"
+            ></ion-icon>
+        </ion-button>
+        <ion-popover id="filtro-popover" trigger="filtroButton" alignment="center">
+          <ng-template>
+            <ion-content class="filter-options">
+              <ion-list class="list-options">
+                <ion-item class="select-option" (click)="actualizarOrden('monto-ascendente')">
+                  Monto
+                  <div class="end-of-line"><ion-icon
+                    id="tarifa-asc"
+                    class="item-icon"
+                    name="chevron-up-outline"
+                  ></ion-icon></div>
+                </ion-item>
+                <ion-item class="select-option" (click)="actualizarOrden('monto-descendente')">
+                  Monto
+                  <div class="end-of-line"><ion-icon
+                    id="tarifa-asc"
+                    class="item-icon"
+                    name="chevron-down-outline"
+                  ></ion-icon></div>
+                </ion-item>
+                <ion-item class="select-option" (click)="actualizarOrden('fecha-ascendente')">
+                  Fecha
+                  <div class="end-of-line">A-Z</div>
+                </ion-item>
+                <ion-item class="select-option" (click)="actualizarOrden('fecha-descendente')">
+                  Fecha
+                  <div class="end-of-line">Z-A</div>
+                </ion-item>
+                <ion-item class="select-option" (click)="actualizarOrden('estado-descendente')">
+                  Estado
+                  <div class="end-of-line">A-Z</div>
+                </ion-item>
+                <ion-item class="select-option" (click)="actualizarOrden('estado-descendente')">
+                  Estado
+                  <div class="end-of-line">Z-A</div>
+                </ion-item>
+              </ion-list>
+            </ion-content>
+          </ng-template>
+        </ion-popover>
       </div>
-      <div class="hist-infotext" id="recorridoKM">
-        <ion-text class="uppercase-text bold-text black-text">Recorrido:</ion-text>
-        <ion-text class="black-text">{{recorrido}} KM</ion-text>
-      </div>
+      
     </div>
-    <div id="line"></div>
-    <div id="retiroButtonContainer">
-      <ion-button (click)="generarRetiro()" id="generarRetiroButton" class="capitalize">Generar Retiro</ion-button>
+  
+    <div class="retiroCardsContainer">
+      <ion-card class="retiroCard white-card">
+        <ion-card-content class="subContentCard">
+          <div class="headerRetiro">
+            <ion-text>FECHA: 20/04/2024</ion-text>
+            <ion-text>PLACA: GXW9746</ion-text>
+          </div>
+          <div class="bodyRetiro">
+            <div class="textoRetiro">
+              <ion-text class="black-text">Transferencia#: 909738907</ion-text>
+              <ion-text class="black-text">Campaña: COMPARTE FELICIDAD</ion-text>
+              <ion-text class="black-text">Estado: Pagado</ion-text>
+              <ion-text class="black-text">Monto: $60.00</ion-text>
+            </div>
+            <div class="buttonRetiroContainer">
+              <ion-button  (click)="abrirModal()">Ver Comprobante</ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="retiroCard white-card">
+        <ion-card-content class="subContentCard">
+          <div class="headerRetiro">
+            <ion-text>FECHA: 31/04/2024</ion-text>
+            <ion-text>PLACA: GXW9746</ion-text>
+          </div>
+          <div class="bodyRetiro">
+            <div class="textoRetiro">
+              <ion-text class="black-text">Transferencia#: 909738907</ion-text>
+              <ion-text class="black-text">Campaña: COMPARTE FELICIDAD</ion-text>
+              <ion-text class="black-text">Estado: Pagado</ion-text>
+              <ion-text class="black-text">Monto: $35.67</ion-text>
+            </div>
+            <div class="buttonRetiroContainer">
+              <ion-button  (click)="abrirModal()">Ver Comprobante</ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="retiroCard white-card">
+        <ion-card-content class="subContentCard">
+          <div class="headerRetiro">
+            <ion-text>FECHA: 12/05/2024</ion-text>
+            <ion-text>PLACA: GXW9746</ion-text>
+          </div>
+          <div class="bodyRetiro">
+            <div class="textoRetiro">
+              <ion-text class="black-text">Transferencia#: 909738907</ion-text>
+              <ion-text class="black-text">Campaña: COMPARTE FELICIDAD</ion-text>
+              <ion-text class="black-text">Estado: Por pagar</ion-text>
+              <ion-text class="black-text">Monto: $45.00</ion-text>
+            </div>
+            <div class="buttonRetiroContainer">
+              <ion-button (click)="abrirModal()">Ver Comprobante</ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
     </div>
-  </ion-card>
-
-  <div id="filtroContainer">
-    <ion-text>Pagos</ion-text>
-    <div id="filtro">
-      <ion-button id="filtroButton">
-        <ion-text class="capitalize black-text filtrar-por" >Ordenar Por</ion-text>
-        <ion-icon
-            id="icon-filtrar"
-            class="end-of-line"
-            name="chevron-down-outline"
-          ></ion-icon>
-      </ion-button>
-      <ion-popover id="filtro-popover" trigger="filtroButton" alignment="center">
-        <ng-template>
-          <ion-content class="filter-options">
-            <ion-list class="list-options">
-              <ion-item class="select-option" (click)="actualizarOrden('monto-ascendente')">
-                Monto
-                <div class="end-of-line"><ion-icon
-                  id="tarifa-asc"
-                  class="item-icon"
-                  name="chevron-up-outline"
-                ></ion-icon></div>
-              </ion-item>
-              <ion-item class="select-option" (click)="actualizarOrden('monto-descendente')">
-                Monto
-                <div class="end-of-line"><ion-icon
-                  id="tarifa-asc"
-                  class="item-icon"
-                  name="chevron-down-outline"
-                ></ion-icon></div>
-              </ion-item>
-              <ion-item class="select-option" (click)="actualizarOrden('fecha-ascendente')">
-                Fecha
-                <div class="end-of-line">A-Z</div>
-              </ion-item>
-              <ion-item class="select-option" (click)="actualizarOrden('fecha-descendente')">
-                Fecha
-                <div class="end-of-line">Z-A</div>
-              </ion-item>
-              <ion-item class="select-option" (click)="actualizarOrden('estado-descendente')">
-                Estado
-                <div class="end-of-line">A-Z</div>
-              </ion-item>
-              <ion-item class="select-option" (click)="actualizarOrden('estado-descendente')">
-                Estado
-                <div class="end-of-line">Z-A</div>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-    </div>
-    
   </div>
-
-  <ion-card>
-
-  </ion-card>
 </ion-content>

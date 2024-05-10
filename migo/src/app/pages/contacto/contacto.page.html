@@ -3,7 +3,103 @@
 <app-ads></app-ads>
 
 <ion-content class="withoutBackground">
-  <div id="privacidadContent">
-
+  <div id="contactoContainer">
+    <div class="textContactContainer">
+      <ion-text>En caso que necesites contactarte con nosotros, puedes consultar los siguientes canales de comunicación:</ion-text>
+    </div>
+    <div class="redesContainer">
+      <ion-list [inset]="true" class="redesContainer white-background">
+        <ion-item-sliding>
+          <ion-item [button]="true" class="white-background">
+            <ion-icon class="contactIcon" name="mail"></ion-icon>
+            <ion-label class="black-text labelContact">migoads@gmail.com</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="warning">
+              <ion-icon slot="icon-only" name="pin" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="tertiary">
+              <ion-icon slot="icon-only" name="share" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon slot="icon-only" name="trash" class="contactIcon"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+          <ion-item [button]="true" class="white-background">
+            <ion-icon name="globe" class="contactIcon"></ion-icon>
+            <ion-label class="black-text labelContact">www.migoads.com/</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="warning">
+              <ion-icon slot="icon-only" name="pin" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="tertiary">
+              <ion-icon slot="icon-only" name="share" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon slot="icon-only" name="trash" class="contactIcon"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+          <ion-item [button]="true" class="white-background">
+            <ion-icon name="logo-facebook" class="contactIcon"></ion-icon>
+            <ion-label class="black-text labelContact">Migo Ads</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="warning">
+              <ion-icon slot="icon-only" name="pin" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="tertiary">
+              <ion-icon slot="icon-only" name="share" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon slot="icon-only" name="trash" class="contactIcon"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+          <ion-item [button]="true" class="white-background">
+            <ion-icon name="logo-instagram" class="contactIcon"></ion-icon>
+            <ion-label class="black-text labelContact">Migo Ads</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="warning">
+              <ion-icon slot="icon-only" name="pin" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="tertiary">
+              <ion-icon slot="icon-only" name="share" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon slot="icon-only" name="trash" class="contactIcon"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding>
+          <ion-item [button]="true" class="white-background">
+            <ion-icon name="logo-whatsapp" class="contactIcon"></ion-icon>
+            <ion-label class="black-text labelContact">Whatsapp</ion-label>
+          </ion-item>
+          <ion-item-options slot="end">
+            <ion-item-option color="warning">
+              <ion-icon slot="icon-only" name="pin" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="tertiary">
+              <ion-icon slot="icon-only" name="share" class="contactIcon"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" expandable="true">
+              <ion-icon slot="icon-only" name="trash" class="contactIcon"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      
+      
+    </div>
+    <div class="trabajaContainer">
+      <ion-button>Trabaja con Nosotros</ion-button>
+    </div>
   </div>
 </ion-content>

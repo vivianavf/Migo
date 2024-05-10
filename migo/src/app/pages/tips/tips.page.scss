@@ -1,0 +1,26 @@
+.tipsCardContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+
+
+.tipsBodyContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.videoContainer{
+    width: 50%;
+}
+
+.tipTitle{
+
+}
+
+.tipFecha{
+    font-size: smaller;
+    font-style: italic;
+}

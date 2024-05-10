@@ -3,7 +3,36 @@
 <app-ads></app-ads>
 
 <ion-content class="withoutBackground">
-  <div id="tipsContent">
-
+  <div id="reclamosContent">
+    <form enctype="multipart/form-data" class="formReclamo">
+      <div class="dataReclamo">
+        <ion-input label="Correo electrónico:" label-placement="floating" fill="outline" placeholder=""></ion-input>
+        <ion-input label="Ingrese su Usuario:" label-placement="floating" fill="outline" placeholder=""></ion-input>
+        <ion-input label="Motivo" label-placement="floating" fill="outline" placeholder=""></ion-input>
+    
+      </div>
+      <div class="evidenciaReclamo">
+        <ion-text>Agregar evidencia</ion-text>
+        <div class="archivoButtonContainer">
+          <input
+          type="file"
+          name="inputfile-reclamo"
+          accept=".pdf"
+          id="getFileReclamo"
+          style="display: none"          
+        />
+        <div class="fileNameReclamo">
+          <ion-button
+            onclick="document.getElementById('getFileReclamo').click()"
+            class="capitalize subir-archivoReclamo"
+            >Subir Archivo</ion-button
+          >
+        </div>
+        </div>
+      </div>
+    </form>
+    <div class="buttonEnviarReclamoContainer">
+      <ion-button class="enviarReclamo">Enviar</ion-button>
+    </div>
   </div>
 </ion-content>

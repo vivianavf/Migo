@@ -1,0 +1,40 @@
+#reclamosContent{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.dataReclamo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formReclamo{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.evidenciaReclamo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subir-archivoReclamo{
+    --background: rgb(149, 149, 149);
+    --color: white;
+}
+
+.buttonEnviarReclamoContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.enviarReclamo{
+    width: 150px;
+}

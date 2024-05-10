@@ -1,0 +1,28 @@
+#contactoContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.textContactContainer, .trabajaContainer{
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.redesContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.labelContact{
+    color: black;
+}
+
+.contactIcon{
+    margin: 10px;
+}

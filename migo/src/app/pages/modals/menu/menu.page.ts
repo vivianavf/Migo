@@ -8,6 +8,8 @@ import { ClienteService } from 'src/app/providers/cliente.service';
 import { TabsService } from 'src/app/providers/tabs.service';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { UsersService } from 'src/app/providers/users.service';
+import { TerminosCondicionesPage } from '../terminos-condiciones/terminos-condiciones.page';
+import { PrivacidadPage } from '../privacidad/privacidad.page';
 
 @Component({
   selector: 'app-menu',
@@ -80,6 +82,24 @@ export class MenuPage implements OnInit {
         this.modalController.dismiss();
         break;
     }
+  }
+
+  async mostrarTerminos() {
+    const modal = await this.modalController.create({
+      component: TerminosCondicionesPage,
+      cssClass: 'terms',
+    });
+
+    return await modal.present();
+  }
+
+  async mostrarPoliticas() {
+    const modal = await this.modalController.create({
+      component: PrivacidadPage,
+      cssClass: 'terms',
+    });
+
+    return await modal.present();
   }
 
   cerrarSesion() {
