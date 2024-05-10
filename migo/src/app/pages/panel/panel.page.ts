@@ -1,16 +1,7 @@
 import {
   Component,
-  ElementRef,
   OnInit,
-  ViewChild,
-  reflectComponentType,
 } from '@angular/core';
-// import { GoogleMap, Polygon } from '@capacitor/google-maps';
-import { Geolocation } from '@capacitor/geolocation';
-// import { CapacitorGoogleMaps } from '@capacitor/google-maps/dist/typings/implementation';
-import { MenuPage } from '../modals/menu/menu.page';
-import { NotificacionesPage } from '../modals/notificaciones/notificaciones.page';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { SectorService } from 'src/app/providers/sector.service';
 import { Sector } from 'src/app/interfaces/sector';
@@ -23,7 +14,6 @@ import { Ciudad } from 'src/app/interfaces/ciudad';
 import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
-import { forkJoin } from 'rxjs';
 import { Ubicacion } from 'src/app/interfaces/ubicacion';
 import {Location} from '@angular/common';
 
@@ -118,10 +108,10 @@ export class PanelPage implements OnInit {
     const idUsuarioActivo = this.userService.usuarioActivo().id_usuario;
     const idCiudad = this.userService.usuarioActivo().id_ciudad;
 
-    const diaHoy = new Date();
-    const dia = diaHoy.getDate().toString();
-    const mes = diaHoy.getMonth().toString(); // mes - 1
-    const anio = diaHoy.getFullYear().toString();
+    const diaHoy = new Date().toLocaleDateString();
+    const dia = diaHoy.split('/')[0];
+    const mes = diaHoy.split('/')[1];
+    const anio = diaHoy.split('/')[2];
 
     this.recorridoService.getRecorridos().subscribe((recorridos) => {
       if (recorridos) {
@@ -144,15 +134,13 @@ export class PanelPage implements OnInit {
         this.numeroCampanas = this.idCampanasUsuario.length;
 
         this.recorridosUsuario.forEach((recorrido) => {
-          const condicion =
-            new Date(recorrido.fecha_hora_inicio).getDate().toString() ===
-              dia &&
-            new Date(recorrido.fecha_hora_inicio).getMonth().toString() ===
-              mes &&
-            new Date(recorrido.fecha_hora_inicio).getFullYear().toString() ===
-              anio;
-
-          if (condicion) {
+          const fechaRecorrido = recorrido.fecha_hora_inicio.split(',')[0]
+          const diaRecorrido = fechaRecorrido.split('/')[0];
+          const mesRecorrido = fechaRecorrido.split('/')[1];
+          const yearRecorrido = fechaRecorrido.split('/')[2];
+          
+          if (diaRecorrido === dia && mesRecorrido === mes && yearRecorrido === anio) {
+            console.log(recorrido)
             this.recorridosHoy.push(recorrido);
           }
         });
