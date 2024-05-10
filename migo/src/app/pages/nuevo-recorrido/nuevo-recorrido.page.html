@@ -29,7 +29,7 @@
         <ion-text class="black-text">Kilómetros recorridos:</ion-text>
         <ion-button id="click-more-info"><ion-icon name="help-circle-outline"></ion-icon></ion-button>
       </div>
-      <ion-text class="black-text">{{kms}} KM</ion-text>
+      <ion-text class="black-text">{{this.redondearFloat(kms, 2)}} KM</ion-text>
     </div>
     <div class="NR-divider">
       <ion-text class="black-text">Recaudación actual</ion-text>

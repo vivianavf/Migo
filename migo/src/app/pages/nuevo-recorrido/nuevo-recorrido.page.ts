@@ -243,6 +243,7 @@ export class NuevoRecorridoPage implements OnInit {
 
   /* corregir esta funcion */
   guardarUbicacion(nuevaPosicion: UbicacionGuardada) {
+    console.log('nueva Posicion - ',JSON.stringify(nuevaPosicion));
 
     /// marcar con diferente color si la ubicacion entra o no entra en la monetizacion
     const ubicaciones: UbicacionGuardada[] = this.obtenerUbicaciones();
@@ -305,7 +306,13 @@ export class NuevoRecorridoPage implements OnInit {
         marker.setMap(this.mapaRecorrido);
 
         let colorRuta;
+        console.log( google.maps.geometry.poly.containsLocation(
+          nuevaPosicion,
+          this.polygonCreado
+        ))
 
+        // console.log(JSON.stringify(this.polygonCreado.getPaths()))
+        
         //verifica si la ubicacion NUEVA entra en la monetizacion
         if (
           google.maps.geometry.poly.containsLocation(
@@ -316,8 +323,10 @@ export class NuevoRecorridoPage implements OnInit {
           // contiene la posicion
           colorRuta = '#7ED57'
           this.kms += this.calcularDistanciaenKMS(ubicacionAnterior,nuevaPosicion);
-          this.kms = this.redondearFloat(this.kms, 2);
           this.dineroRecaudado = this.calcularDineroRecaudado(this.kms);
+
+          console.log('kms-', this.kms)
+          console.log('dinero-$', this.dineroRecaudado)
         } else {
           // no contiene la posicion
           colorRuta = '#E50000'
@@ -349,6 +358,8 @@ export class NuevoRecorridoPage implements OnInit {
     puntoA: UbicacionGuardada,
     puntoB: UbicacionGuardada
   ): number {
+    console.log('calcular distancia entre punto A -', JSON.stringify(puntoA))
+    console.log('calcular distancia entre punto B -', JSON.stringify(puntoB))
     var R = 3958.8; //radio de la tierra en millas
 
     var rlat1 = puntoA.lat * (Math.PI / 180);
@@ -369,7 +380,7 @@ export class NuevoRecorridoPage implements OnInit {
               Math.sin(difLong / 2)
         )
       );
-    return d * 1609;
+    return d * 1.609;
   }
 
   calcularDineroRecaudado(KMSRecorridos: number) {
@@ -382,6 +393,8 @@ export class NuevoRecorridoPage implements OnInit {
       valorPuertaTraseraDer: this.solicitud.puerta_trasera_der?this.campana.tarifa_base * this.campana.puerta_trasera_der * KMSRecorridos: 0,
       valorPuertaMaletero: this.solicitud.puerta_maletero?this.campana.tarifa_base * this.campana.puerta_maletero * KMSRecorridos: 0,
     };
+
+    console.log('monetizacion -', JSON.stringify(monetizacion))
 
     return Object.values(monetizacion).reduce((total, valor) => total + valor, 0);
   }
