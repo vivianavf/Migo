@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToolbarService } from 'src/app/providers/toolbar.service';
 import { SectorService } from 'src/app/providers/sector.service';
 import { Sector } from 'src/app/interfaces/sector';
@@ -15,7 +12,7 @@ import { GooglemapsService } from 'src/app/providers/googlemaps.service';
 import { CampanaService } from 'src/app/providers/campana.service';
 import { Campana } from 'src/app/interfaces/campana';
 import { Ubicacion } from 'src/app/interfaces/ubicacion';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-panel',
@@ -76,7 +73,7 @@ export class PanelPage implements OnInit {
     private ciudadService: CiudadService,
     private googleMapService: GooglemapsService,
     private campanaService: CampanaService,
-    private location: Location,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -134,23 +131,19 @@ export class PanelPage implements OnInit {
         this.numeroCampanas = this.idCampanasUsuario.length;
 
         this.recorridosUsuario.forEach((recorrido) => {
-          const fechaRecorrido = recorrido.fecha_hora_inicio.split(',')[0]
+          const fechaRecorrido = recorrido.fecha_hora_inicio.split(',')[0];
           const diaRecorrido = fechaRecorrido.split('/')[0];
           const mesRecorrido = fechaRecorrido.split('/')[1];
           const yearRecorrido = fechaRecorrido.split('/')[2];
-          
-          if (diaRecorrido === dia && mesRecorrido === mes && yearRecorrido === anio) {
-            console.log(recorrido)
+
+          if (
+            diaRecorrido === dia &&
+            mesRecorrido === mes &&
+            yearRecorrido === anio
+          ) {
             this.recorridosHoy.push(recorrido);
           }
         });
-
-        // this.idCampanasUsuario.forEach((idCampana)=>{
-        //   this.campanaService.getCampanabyId(idCampana).subscribe((campana)=>{
-        //     this.campanasUsuario.push(campana);
-        //     console.log(campana)
-        //   })
-        // })
 
         this.getHorarioInicioHoy();
         this.getHorarioFinHoy();
@@ -166,7 +159,7 @@ export class PanelPage implements OnInit {
           return self.indexOf(id) === i;
         });
 
-        if(idCampanasHoy.length > 0){
+        if (idCampanasHoy.length > 0) {
           idCampanasHoy.forEach((id) => {
             this.campanaService.getCampanabyId(id).subscribe((campana) => {
               this.sectorService
@@ -177,12 +170,11 @@ export class PanelPage implements OnInit {
                 });
             });
           });
-        }else{
+        } else {
           this.createMap();
         }
 
         //create Map
-        
       } else {
         this.hayRecorridos = false;
         //no hay recorridos
@@ -215,8 +207,8 @@ export class PanelPage implements OnInit {
   getHorarioInicioHoy(): void {
     const inicios = this.recorridosHoy.map(
       (recorrido) =>
-        new Date(recorrido.fecha_hora_inicio).getHours() * 100 +
-        new Date(recorrido.fecha_hora_inicio).getMinutes()
+        this.transformarDate(recorrido.fecha_hora_inicio).getHours() * 100 +
+        this.transformarDate(recorrido.fecha_hora_inicio).getMinutes()
     );
 
     if (inicios) {
@@ -226,15 +218,17 @@ export class PanelPage implements OnInit {
       hora === 'Infinity' ? (hora = '-') : hora;
       hora === '-Infinity' ? (hora = '-') : hora;
       minutos === 'NaN' ? (minutos = '-') : minutos;
-      this.horarioInicio = hora + ':' + minutos;
+      const horaFinal = Number(hora)<10?'0'+hora:hora;
+      const minutosFinal = Number(minutos)<10?'0'+minutos:minutos;
+      this.horarioInicio = horaFinal + ':' + minutosFinal;
     }
   }
 
   getHorarioFinHoy(): void {
     const fines = this.recorridosHoy.map(
       (recorrido) =>
-        new Date(recorrido.fecha_hora_fin).getHours() * 100 +
-        new Date(recorrido.fecha_hora_fin).getMinutes()
+        this.transformarDate(recorrido.fecha_hora_fin).getHours() * 100 +
+        this.transformarDate(recorrido.fecha_hora_fin).getMinutes()
     );
 
     if (fines) {
@@ -244,26 +238,40 @@ export class PanelPage implements OnInit {
       hora === 'Infinity' ? (hora = '-') : hora;
       hora === '-Infinity' ? (hora = '-') : hora;
       minutos === 'NaN' ? (minutos = '-') : minutos;
-      this.horarioFin = hora + ':' + minutos;
+      const horaFinal = Number(hora)<10?'0'+hora:hora;
+      const minutosFinal = Number(minutos)<10?'0'+minutos:minutos;
+      this.horarioFin = horaFinal + ':' + minutosFinal;
     }
   }
 
+  transformarDate(fecha: string) {
+    const [datePart, timePart] = fecha.split(', ');
+    const [day, month, year] = datePart.split('/').map(Number);
+    const [hour, minute, second] = timePart.split(':').map(Number);
+
+    const dateObject = new Date(year, month - 1, day, hour, minute, second);
+    return dateObject;
+  }
+
   getTiempoTranscurrido() {
-    const inicios = this.recorridosUsuario.map(
-      (recorrido) => new Date(recorrido.fecha_hora_inicio)
+    //corregir la logica
+    const inicios = this.recorridosUsuario.map((recorrido) =>
+      this.transformarDate(recorrido.fecha_hora_inicio)
     );
     const fines = this.recorridosUsuario.map(
-      (recorrido) => new Date(recorrido.fecha_hora_fin)
+      (recorrido) => this.transformarDate(recorrido.fecha_hora_fin)
     );
 
     if (inicios && fines) {
-      let iniciosAscendente = inicios.sort((a, b) => {
+
+      const iniciosAscendente = inicios.sort((a, b) => {
         return a.getTime() - b.getTime();
       });
 
       let finesAscendente = fines.sort((x, y) => {
         return x.getTime() - y.getTime();
       });
+
       const inicioRecorridos = iniciosAscendente[0];
       const finRecorridos = finesAscendente.pop();
 
@@ -302,7 +310,6 @@ export class PanelPage implements OnInit {
   createMap() {
     const idCiudad = this.userService.usuarioActivo().id_ciudad;
     this.ciudadService.getCiudadbyId(idCiudad).subscribe((ciudad: Ciudad) => {
-
       const centro = ciudad.ubicacion_google_maps.centro;
       const zoom = ciudad.ubicacion_google_maps.zoom;
       if (this.recorridosHoy && this.sectores) {
@@ -314,18 +321,16 @@ export class PanelPage implements OnInit {
           });
         });
 
-        const c = this.sectores.map(
-          (sector) => sector.cerco_virtual
-        );
+        const c = this.sectores.map((sector) => sector.cerco_virtual);
 
         let cercosVirtuales: Ubicacion[][] = [[]];
 
-        c.forEach((cerco)=>{
-          cerco.forEach((cercoVirtual)=>{
-            cercosVirtuales.push((cercoVirtual));
-          })
-        })
-        
+        c.forEach((cerco) => {
+          cerco.forEach((cercoVirtual) => {
+            cercosVirtuales.push(cercoVirtual);
+          });
+        });
+
         this.googleMapService.createMap(
           centro,
           zoom,
@@ -335,7 +340,7 @@ export class PanelPage implements OnInit {
           ubicacionesHoy,
           true
         );
-      }else{
+      } else {
         this.googleMapService.createMap(centro, zoom, 'map-panel', this.map);
       }
     });

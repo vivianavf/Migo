@@ -165,12 +165,11 @@ export class VerificacionesPage implements OnInit {
 
   mostrarQR(ingresoActual: IngresoConductorCampana) {
     const valores = Object.values(ingresoActual);
-    const docQR = valores[3];
-    const imagenQR = valores[4];
+    const docQR = valores[4];
+    const imagenQR = valores[5];
     if (docQR && imagenQR) {
-      console.log('ya hay una imagen y un docQR');
-      console.log(docQR, imagenQR);
       this.imgSrc = imagenQR.replace('media', 'vehiculos');
+      console.log('ruta del QR = ',this.imgSrc)
     } else {
       // No hay nada, el usuario debe generarlo en solicitudes
       this.generaQR = true;

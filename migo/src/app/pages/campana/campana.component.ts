@@ -144,9 +144,12 @@ export class CampanaComponent implements OnInit {
   generarDatos() {
     const paisUsuario = this.userService.usuarioActivo().id_pais;
     const ciudadUsuario = this.userService.usuarioActivo().id_ciudad;
-    
-    this.campanas = this.campanaService.campanasObtenidas.filter(campana => campana.id_ciudad === ciudadUsuario);
 
+    this.campanaService.getCampanas().subscribe((data)=>{
+      // this.campanas = data;
+      this.campanas = data.filter(campana => campana.id_ciudad === ciudadUsuario);
+
+    })
     this.ciudadService.getCiudadbyId(ciudadUsuario).subscribe((ciudad) => {
       this.ciudadActiva = ciudad;
     });
